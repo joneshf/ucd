@@ -27,14 +27,35 @@
 
             \begin{enumerate}
                 \item
+                    We can show this by contraposition.
+                    So we must show: \\
+                    If $x$ is not even, then $x^2$ is not even
+                    Assume $x$ is odd.
+                    \[\exists r \in \mathbb{Z} : x = 2p + 1\]
+                    \[
+                        x^2 = x \cdot x = (2p + 1) (2p + 1) = 4p^2 + 4p + 1 =
+                        2(2p^2 + 2p) + 1
+                    \]
+                    Since $\mathbb{Z}$ is closed under addition and multiplication,
+                    $2p^2 + 2p \in \mathbb{Z}$.
+                    So we can rename it $q$ for clarity.
+                    \[2(2p^2 + 2p) + 1 = 2q + 1 = x^2\]
+                    So $x^2$ is odd.
+                    This is equivalent by contraposition to the statement: \\
+                    If $x^2$ is even, then $x$ is even.
+
+                \item
                     Assume $x$ is even.
-                    \[\exists p \in \mathbb{Z} \mid x = 2p\]
-                    \[x^2 = x \cdot x = 2p \cdot 2p = 2 \cdot 2p^2\]
+                    \[\exists p \in \mathbb{Z} : x = 2r\]
+                    \[x^2 = x \cdot x = 2r \cdot 2r = 2 \cdot 2r^2\]
                     Since $\mathbb{Z}$ is closed under multiplication,
-                    $2p^2 \in \mathbb{Z}$ so we can rename it $q$ for clarity.
-                    \[2 \cdot 2p^2 = 2 \cdot q = x^2\]
+                    $2r^2 \in \mathbb{Z}$ so we can rename it $s$ for clarity.
+                    \[2 \cdot 2r^2 = 2 \cdot s = x^2\]
                     So $x^2$ is even.
             \end{enumerate}
+
+            By $i$ and $ii$, we have shown both cases and thus
+            $x^2$ is even if and only if $x$ is even. \\
 
         \item Prove that $x^2$ is odd if and only if $x$ is odd.
 
