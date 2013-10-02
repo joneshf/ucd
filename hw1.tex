@@ -57,7 +57,48 @@
             By $i$ and $ii$, we have shown both cases and thus
             $x^2$ is even if and only if $x$ is even. \\
 
-        \item Prove that $x^2$ is odd if and only if $x$ is odd.
+        \item Prove that $x^2$ is odd if and only if $x$ is odd. \\
+
+            We can take a nearly identical approach to this as we did the previous.
+            We must show two statements are true
+            \begin{enumerate}
+                \item If $x^2$ is odd, then $x$ is odd.
+                \item If $x$ is odd, then $x^2$ is odd.
+            \end{enumerate}
+
+            Proof
+
+            \begin{enumerate}
+                \item
+                    We can show this by contraposition.
+                    So we must show: \\
+                    If $x$ is not odd, then $x^2$ is not odd
+                    Assume $x$ is even.
+                    \[\exists r \in \mathbb{Z} : x = 2p + 1\]
+                    \[
+                        x^2 = x \cdot x = (2p + 1) (2p + 1) = 4p^2 + 4p + 1 =
+                        2(2p^2 + 2p) + 1
+                    \]
+                    Since $\mathbb{Z}$ is closed under addition and multiplication,
+                    $2p^2 + 2p \in \mathbb{Z}$.
+                    So we can rename it $q$ for clarity.
+                    \[2(2p^2 + 2p) + 1 = 2q + 1 = x^2\]
+                    So $x^2$ is even.
+                    This is equivalent by contraposition to the statement: \\
+                    If $x^2$ is odd, then $x$ is odd.
+
+                \item
+                    Assume $x$ is odd.
+                    \[\exists p \in \mathbb{Z} : x = 2r\]
+                    \[x^2 = x \cdot x = 2r \cdot 2r = 2 \cdot 2r^2\]
+                    Since $\mathbb{Z}$ is closed under multiplication,
+                    $2r^2 \in \mathbb{Z}$ so we can rename it $s$ for clarity.
+                    \[2 \cdot 2r^2 = 2 \cdot s = x^2\]
+                    So $x^2$ is odd.
+            \end{enumerate}
+
+            By $i$ and $ii$, we have shown both cases and thus
+            $x^2$ is even if and only if $x$ is even. \\
 
         \item Prove that $x^2$ is divisible by $3$ if and only if
               $x$ is divisible by $3$.
