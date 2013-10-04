@@ -36,6 +36,48 @@
 
       Prove that if $ad - bc \neq 0$, then $x_1 = x_2 = 0$ is the only solution.
 
+      \begin{proof}
+        Assume $ad - bc \neq 0$
+        \begin{alignat*}{3}
+          ax_1 & {} + {} & bx_2 & {} = {} & 0 \\
+          cx_1 & {} + {} & dx_2 & {} = {} & 0 \tag{1}
+        \end{alignat*}
+
+        Let's multiply the first equation by $d$ and the second equation by $b$.
+        \begin{alignat*}{3}
+          adx_1 & {} + {} & bdx_2 & {} = {} & 0 \\
+          bcx_1 & {} + {} & bdx_2 & {} = {} & 0
+        \end{alignat*}
+
+        Now let's subtract the second equation from the first.
+        \[adx_1 - bcx_1 = (ad - bc)x_1 = 0\]
+
+        We assumed that $ad-bc \neq 0$ so we can divide through by $ad - bc$.
+        \[x_1 = 0\]
+
+        Now we need $x_2$.  Let's go back to the system in $(1)$.
+        \begin{alignat*}{3}
+          ax_1 & {} + {} & bx_2 & {} = {} & 0 \\
+          cx_1 & {} + {} & dx_2 & {} = {} & 0 \tag{1}
+        \end{alignat*}
+
+        Now let's multiply the first equation by $c$ and the second by $a$.
+        \begin{alignat*}{3}
+          acx_1 & {} + {} & bcx_2 & {} = {} & 0 \\
+          acx_1 & {} + {} & adx_2 & {} = {} & 0
+        \end{alignat*}
+
+        Now let's subtract the first equation from the second.
+        \[adx_2 - bcx_2 = (ad - bc)x_2 = 0\]
+
+        Again, we assumed that $ad - bc \neq 0$ so we divide by $ad - bc$.
+        \[x_2 = 0\]
+
+        So $x_1 = x_2 = 0$.
+        Thus if $ad - bc \neq 0$, then $x_1 = x_2 = 0$.
+
+      \end{proof}
+
     \item
       Let $z, w \in \mathbb{C}$.
 
