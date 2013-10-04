@@ -2,6 +2,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage{cancel}
 \usepackage[margin=1in]{geometry}
 \usepackage{titling}
 
@@ -79,10 +80,31 @@
       \end{proof}
 
     \item
-      Let $z, w \in \mathbb{C}$.
+      Let $z, \omega \in \mathbb{C}$.
 
       Prove:
-      \[|z - w|^2 + |z + w|^2 = 2(|z|^2 + |w|^2)\]
+      \[|z - \omega|^2 + |z + \omega|^2 = 2(|z|^2 + |\omega|^2)\]
+
+      \begin{proof}
+        Given $z, \omega \in \mathbb{C}$,
+
+        $\exists a, b, c, d \in \mathbb{R} : a + ib = z, c + id = \omega$
+        \begin{align*}
+          |z - \omega|^2 + |z + \omega|^2 &=
+            |(a + ib) - (c + id)|^2 + |(a + ib) + (c + id)|^2 \\
+          &= |(a - c) + i(b - d)|^2 + |(a + c) + i(b + d)|^2 \\
+          &= \sqrt{(a - c)^2 + (b - d)^2}^2 + \sqrt{(a + c)^2 + (b + d)^2}^2 \\
+          &= (a - c)^2 + (b - d)^2 + (a + c)^2 + (b + d)^2 \\
+          &= (a^2 - 2ac + c^2) + (b^2 - 2bd + d^2) + (a^2 + 2ac + c^2) + (b^2 + 2bd + d^2) \\
+          &= a^2 + a^2 + b^2 + b^2 + c^2 + c^2 + d^2 + d^2 + \cancel{2ac - 2ac} + \cancel{2bd - 2bd} \\
+          &= 2a^2 + 2b^2 + 2c^2 + 2d^2 \\
+          &= 2(a^2 + b^2 + c^2 + d^2) \\
+          &= 2(\sqrt{a^2 + b^2}^2 + \sqrt{c^2 + d^2}^2) \\
+          &= 2(|a + ib|^2 + |c + id|^2) \\
+          &= 2(|z|^2 + |\omega|^2)
+        \end{align*}
+        So $|z - \omega|^2 + |z + \omega|^2 = 2(|z|^2 + |\omega|^2)$.
+      \end{proof}
   \end{enumerate}
 
 \end{document}
