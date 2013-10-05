@@ -95,5 +95,23 @@
         (X + \overline{Z})(W + Y)(W + Y + \overline{X}) \tag{Commutativity} \\
         (X + \overline{Z})(W + Y) \tag{Covering} \\
       \end{align*}
+
+    \item
+      Minimize the circuit.
+
+      \begin{circuitikz} \draw
+        (3,4) node[and port] (and1) {}
+        (0,3) node[not port] (not1) {}
+        (0,1) node[not port] (not2) {}
+        (5,2) node[or port] (or1) {}
+        (-0.6,4.28) node[anchor=east] {W}
+          -| (and1.in 1)
+        (not1.in) node[anchor=east] {X}
+        (not2.in) node[anchor=east] {Z}
+        (not1.out) -| (and1.in 2)
+        (and1.out) -| (or1.in 1)
+        (not2.out) -| (or1.in 2)
+      ;
+      \end{circuitikz}
   \end{enumerate}
 \end{document}
