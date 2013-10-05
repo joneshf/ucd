@@ -60,5 +60,21 @@
           \]
           Equivalent.
       \end{enumerate}
+    \item
+      Use algebraic manipulation to find the minimum sum of products expression.
+      \begin{align*}
+        \overline{(\overline{X}+Y)(W+Y+Z+\overline{W})}+\overline{X}Z+(W+\overline{Y}Z)(\overline{Y}Z+\overline{W}) \\
+        \overline{(\overline{X}+Y)(W+Y+Z+\overline{W})}+\overline{X}Z+(\overline{Y}Z+W)(\overline{Y}Z+\overline{W}) \tag{Commutativity} \\
+        \overline{(\overline{X}+Y)(W+Y+Z+\overline{W})}+\overline{X}Z+\overline{Y}Z \tag{Combining} \\
+        \overline{(\overline{X}+Y)(W+Y+Z+\overline{W})}+\overline{X}Z+\overline{Y}Z \tag{Distributivity} \\
+        \overline{(\overline{X}+Y)}+\overline{(W+Y+Z+\overline{W})}+\overline{X}Z+\overline{Y}Z \tag{De Morgan's} \\
+        (\overline{\overline{X}}+\overline{Y})\;\overline{(W+Y+Z+\overline{W})}+\overline{X}Z+\overline{Y}Z \tag{De Morgan's} \\
+        X\overline{Y}+\overline{(W+Y+Z+\overline{W})}+\overline{X}Z+\overline{Y}Z \tag{Involution} \\
+        X\overline{Y}+(\overline{W}\;\overline{Y}\;\overline{Z}\;\overline{\overline{W}})+\overline{X}Z+\overline{Y}Z \tag{De Morgan's} \\
+        X\overline{Y}+(\overline{W}\;\overline{Y}\;\overline{Z}\;W)+\overline{X}Z+\overline{Y}Z \tag{Involution} \\
+        X\overline{Y}+(\overline{Y}\;\overline{Z}W\overline{W})+\overline{X}Z+\overline{Y}Z \tag{Commutativity} \\
+        X\overline{Y}+(\overline{Y}\;\overline{Z}\;0)+\overline{X}Z+\overline{Y}Z \tag{Complementation} \\
+        X\overline{Y}+\overline{X}Z+\overline{Y}Z \tag{Nilpotent} \\
+      \end{align*}
   \end{enumerate}
 \end{document}
