@@ -1,0 +1,64 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{circuitikz}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 154A Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Nitta\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Determine if the following are equivalent or not.
+      \begin{enumerate}
+        \item
+          \[
+            WX\overline{Y} + WZ + \overline{W}Y + \overline{W} \overline{X} =
+            (W + \overline{X} + Y)(\overline{W} + X + Z)(\overline{W} + \overline{Y} + Z)
+          \]
+          Equivalent
+        \item
+          \[
+            \overline{X} + X\overline{Y}Z =
+            (\overline{X} + Z)(W + \overline{X} + \overline{Y})(\overline{W} + \overline{X} + \overline{Y})
+          \]
+          Equivalent
+        \item
+          \[
+            \overline{W}XYZ + W\overline{X}YZ + WX\overline{Y}Z + WXY\overline{Z} =
+            (W + Y)(\overline{W} + \overline{Y})(\overline{X} + Z)
+          \]
+          Not equivalent.
+          Take the case when $W = 1$ and $X = Y = Z = 0$.
+          The LHS is obviously $0$, but the RHS is $1$.
+        \item
+          \[
+            Z(X + \overline{W}) = Z\overline{W} + XYZ
+          \]
+          Not equivalent.
+          Take the case when $Y = 1$ and $W = X = Z = 0$.
+          The LHS is $1$, but the RHS is $0$.
+        \item
+          \[
+            W + \overline{W}Z + Y + \overline{X}\overline{Y} = W + \overline{X} + Y + Z
+          \]
+          Equivalent.
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
