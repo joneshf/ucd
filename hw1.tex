@@ -74,7 +74,26 @@
         X\overline{Y}+(\overline{W}\;\overline{Y}\;\overline{Z}\;W)+\overline{X}Z+\overline{Y}Z \tag{Involution} \\
         X\overline{Y}+(\overline{Y}\;\overline{Z}W\overline{W})+\overline{X}Z+\overline{Y}Z \tag{Commutativity} \\
         X\overline{Y}+(\overline{Y}\;\overline{Z}\;0)+\overline{X}Z+\overline{Y}Z \tag{Complementation} \\
-        X\overline{Y}+\overline{X}Z+\overline{Y}Z \tag{Nilpotent} \\
+        X\overline{Y}+\overline{X}Z+\overline{Y}Z \tag{Nilpotent}
+      \end{align*}
+    \item
+      Use algebraic manipulation to find the minimum product of sums expression.
+      \begin{align*}
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y}) + \overline{W}X\overline{Y}} \\
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y})} \; \overline{\overline{W}X\overline{Y}} \tag{De Morgan's}\\
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y})}\left(\overline{\overline{W}} + \overline{X} + \overline{\overline{Y}}\right) \tag{De Morgan's}\\
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y})}\left(W + \overline{X} + \overline{\overline{Y}}\right) \tag{Involution}\\
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y})}(W + \overline{X} + Y) \tag{Involution}\\
+        \left(\overline{(\overline{X}Z + \overline{W})} + \overline{(\overline{X}Z + \overline{Y})}\right)(W + \overline{X} + Y) \tag{De Morgan's}\\
+        \left(\overline{\overline{X}Z}\;\overline{\overline{W}} + \overline{(\overline{X}Z + \overline{Y})}\right)(W + \overline{X} + Y) \tag{De Morgan's}\\
+        \left(\overline{\overline{X}Z}\;W + \overline{(\overline{X}Z + \overline{Y})}\right)(W + \overline{X} + Y) \tag{Involution}\\
+        \left(\overline{\overline{X}Z}\;W + \overline{\overline{X}Z}\;\overline{\overline{Y}}\right)(W + \overline{X} + Y) \tag{De Morgan's}\\
+        \left(\overline{\overline{X}Z}\;W + \overline{\overline{X}Z}\;Y\right)(W + \overline{X} + Y) \tag{Involution}\\
+        \left(\overline{\overline{X}Z}(W + Y)\right)(W + \overline{X} + Y) \tag{Distributivity}\\
+        (\overline{\overline{X}} + \overline{Z})(W + Y)(W + \overline{X} + Y) \tag{De Morgan's}\\
+        (X + \overline{Z})(W + Y)(W + \overline{X} + Y) \tag{Involution}\\
+        (X + \overline{Z})(W + Y)(W + Y + \overline{X}) \tag{Commutativity}\\
+        (X + \overline{Z})(W + Y) \tag{Covering}\\
       \end{align*}
   \end{enumerate}
 \end{document}
