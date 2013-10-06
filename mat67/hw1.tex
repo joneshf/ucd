@@ -1,0 +1,124 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 67 Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bandyopadhyay\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Let $a$, $b$, $c$ and $d$ be fixed real numbers and
+      consider the following system of linear equations in two real variables
+      $x_1$ and $x_2$
+      \begin{align*}
+        ax_1 + bx_2 &= 0 \\
+        cx_1 + dx_2 &= 0
+      \end{align*}
+      Note that $x_1 = x_2 = 0$ is a solution of the above equations for any
+      choice of $a$, $b$, $c$, and $d$.
+
+      Prove that if $ad - bc \neq 0$, then $x_1 = x_2 = 0$ is the only solution.
+
+      \begin{proof}
+        Assume $ad - bc \neq 0$
+        \begin{alignat*}{3}
+          ax_1 & {} + {} & bx_2 & {} = {} & 0 \\
+          cx_1 & {} + {} & dx_2 & {} = {} & 0 \tag{1}
+        \end{alignat*}
+
+        Let's multiply the first equation by $d$ and the second equation by $b$.
+        \begin{alignat*}{3}
+          adx_1 & {} + {} & bdx_2 & {} = {} & 0 \\
+          bcx_1 & {} + {} & bdx_2 & {} = {} & 0
+        \end{alignat*}
+
+        Now let's subtract the second equation from the first.
+        \begin{align*}
+          (adx_1 + bdx_2) - (bcx_1 + bdx_2) &= 0 - 0 \\
+          adx_1 - bcx_1 + bdx_2 - bdx_2 &= 0 \\
+          adx_1 - bcx_1 &= 0 \\
+          (ad - bc)x_1 &= 0
+        \end{align*}
+
+        We assumed that $ad-bc \neq 0$ so we can divide through by $ad - bc$.
+        \[x_1 = 0\]
+
+        Now we need $x_2$.  Let's go back to the system in $(1)$.
+        \begin{alignat*}{3}
+          ax_1 & {} + {} & bx_2 & {} = {} & 0 \\
+          cx_1 & {} + {} & dx_2 & {} = {} & 0 \tag{1}
+        \end{alignat*}
+
+        Now let's multiply the first equation by $c$ and the second by $a$.
+        \begin{alignat*}{3}
+          acx_1 & {} + {} & bcx_2 & {} = {} & 0 \\
+          acx_1 & {} + {} & adx_2 & {} = {} & 0
+        \end{alignat*}
+
+        Now let's subtract the first equation from the second.
+        \begin{align*}
+          (acx_1 + adx_2) - (acx_1 + bcx_2) &= 0 - 0 \\
+          acx_1 - acx_1 + adx_2 - bcx_2 &= 0 \\
+          adx_2 - bcx_2 &= 0 \\
+          (ad - bc)x_2 &= 0
+        \end{align*}
+
+        Again, we assumed that $ad - bc \neq 0$ so we divide by $ad - bc$.
+        \[x_2 = 0\]
+
+        So $x_1 = x_2 = 0$.
+        Thus if $ad - bc \neq 0$, then $x_1 = x_2 = 0$.
+
+      \end{proof}
+
+    \item
+      Let $z, \omega \in \mathbb{C}$.
+
+      Prove:
+      \[|z - \omega|^2 + |z + \omega|^2 = 2(|z|^2 + |\omega|^2)\]
+
+      \begin{proof}
+        Given $z, \omega \in \mathbb{C}$,
+
+        $\exists a, b, c, d \in \mathbb{R} : a + ib = z, c + id = \omega$
+        \begin{align*}
+          |z - \omega|^2 + |z + \omega|^2 &=
+            |(a + ib) - (c + id)|^2 + |(a + ib) + (c + id)|^2 \\
+          &= |(a - c) + i(b - d)|^2 + |(a + c) + i(b + d)|^2 \\
+          &= \left(\sqrt{(a - c)^2 + (b - d)^2}\right)^2 +
+            \left(\sqrt{(a + c)^2 + (b + d)^2}\right)^2 \\
+          &= (a - c)^2 + (b - d)^2 + (a + c)^2 + (b + d)^2 \\
+          &= (a^2 - 2ac + c^2) + (b^2 - 2bd + d^2) +
+            (a^2 + 2ac + c^2) + (b^2 + 2bd + d^2) \\
+          &= a^2 + a^2 + b^2 + b^2 + c^2 + c^2 + d^2 + d^2 +
+            \cancel{2ac - 2ac} + \cancel{2bd - 2bd} \\
+          &= 2a^2 + 2b^2 + 2c^2 + 2d^2 \\
+          &= 2(a^2 + b^2 + c^2 + d^2) \\
+          &= 2\left[\left(\sqrt{a^2 + b^2}\right)^2 + \left(\sqrt{c^2 + d^2}\right)^2\right] \\
+          &= 2(|a + ib|^2 + |c + id|^2) \\
+          &= 2(|z|^2 + |\omega|^2)
+        \end{align*}
+
+        So $|z - \omega|^2 + |z + \omega|^2 = 2(|z|^2 + |\omega|^2)$.
+      \end{proof}
+  \end{enumerate}
+
+\end{document}
