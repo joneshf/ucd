@@ -1,0 +1,117 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{circuitikz}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 154A Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Nitta\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Determine if the following are equivalent or not.
+      \begin{enumerate}
+        \item
+          \[
+            WX\overline{Y} + WZ + \overline{W}Y + \overline{W} \overline{X} =
+            (W + \overline{X} + Y)(\overline{W} + X + Z)(\overline{W} + \overline{Y} + Z)
+          \]
+          Equivalent
+        \item
+          \[
+            \overline{X} + X\overline{Y}Z =
+            (\overline{X} + Z)(W + \overline{X} + \overline{Y})(\overline{W} + \overline{X} + \overline{Y})
+          \]
+          Equivalent
+        \item
+          \[
+            \overline{W}XYZ + W\overline{X}YZ + WX\overline{Y}Z + WXY\overline{Z} =
+            (W + Y)(\overline{W} + \overline{Y})(\overline{X} + Z)
+          \]
+          Not equivalent.
+          Take the case when $W = 1$ and $X = Y = Z = 0$.
+          The LHS is obviously $0$, but the RHS is $1$.
+        \item
+          \[
+            Z(X + \overline{W}) = Z\overline{W} + XYZ
+          \]
+          Not equivalent.
+          Take the case when $Y = 1$ and $W = X = Z = 0$.
+          The LHS is $1$, but the RHS is $0$.
+        \item
+          \[
+            W + \overline{W}Z + Y + \overline{X}\overline{Y} = W + \overline{X} + Y + Z
+          \]
+          Equivalent.
+      \end{enumerate}
+    \item
+      Use algebraic manipulation to find the minimum sum of products expression.
+      \begin{align*}
+        \overline{(\overline{X}+Y)(W+Y+Z+\overline{W})}+\overline{X}Z+(W+\overline{Y}Z)(\overline{Y}Z+\overline{W}) \\
+        \overline{(\overline{X}+Y)(W+Y+Z+\overline{W})}+\overline{X}Z+(\overline{Y}Z+W)(\overline{Y}Z+\overline{W}) \tag{Commutativity} \\
+        \overline{(\overline{X}+Y)(W+Y+Z+\overline{W})}+\overline{X}Z+\overline{Y}Z \tag{Combining} \\
+        \overline{(\overline{X}+Y)}+\overline{(W+Y+Z+\overline{W})}+\overline{X}Z+\overline{Y}Z \tag{De Morgan's} \\
+        \overline{\overline{X}}\;\overline{Y}+\overline{(W+Y+Z+\overline{W})}+\overline{X}Z+\overline{Y}Z \tag{De Morgan's} \\
+        X\overline{Y}+\overline{(W+Y+Z+\overline{W})}+\overline{X}Z+\overline{Y}Z \tag{Involution} \\
+        X\overline{Y}+(\overline{W}\;\overline{Y}\;\overline{Z}\;\overline{\overline{W}})+\overline{X}Z+\overline{Y}Z \tag{De Morgan's} \\
+        X\overline{Y}+(\overline{W}\;\overline{Y}\;\overline{Z}\;W)+\overline{X}Z+\overline{Y}Z \tag{Involution} \\
+        X\overline{Y}+(\overline{Y}\;\overline{Z}W\overline{W})+\overline{X}Z+\overline{Y}Z \tag{Commutativity} \\
+        X\overline{Y}+(\overline{Y}\;\overline{Z}\;0)+\overline{X}Z+\overline{Y}Z \tag{Complementation} \\
+        X\overline{Y}+0+\overline{X}Z+\overline{Y}Z \tag{Nilpotent} \\
+        X\overline{Y}+\overline{X}Z+\overline{Y}Z \tag{Identity}
+      \end{align*}
+    \item
+      Use algebraic manipulation to find the minimum product of sums expression.
+      \begin{align*}
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y}) + \overline{W}X\overline{Y}} \\
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y})} \; \overline{\overline{W}X\overline{Y}} \tag{De Morgan's} \\
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y})}\left(\overline{\overline{W}} + \overline{X} + \overline{\overline{Y}}\right) \tag{De Morgan's} \\
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y})}\left(W + \overline{X} + \overline{\overline{Y}}\right) \tag{Involution} \\
+        \overline{(\overline{X}Z + \overline{W})(\overline{X}Z + \overline{Y})}(W + \overline{X} + Y) \tag{Involution} \\
+        \left(\overline{(\overline{X}Z + \overline{W})} + \overline{(\overline{X}Z + \overline{Y})}\right)(W + \overline{X} + Y) \tag{De Morgan's} \\
+        \left(\overline{\overline{X}Z}\;\overline{\overline{W}} + \overline{(\overline{X}Z + \overline{Y})}\right)(W + \overline{X} + Y) \tag{De Morgan's} \\
+        \left(\overline{\overline{X}Z}\;W + \overline{(\overline{X}Z + \overline{Y})}\right)(W + \overline{X} + Y) \tag{Involution} \\
+        \left(\overline{\overline{X}Z}\;W + \overline{\overline{X}Z}\;\overline{\overline{Y}}\right)(W + \overline{X} + Y) \tag{De Morgan's} \\
+        \left(\overline{\overline{X}Z}\;W + \overline{\overline{X}Z}\;Y\right)(W + \overline{X} + Y) \tag{Involution} \\
+        \left(\overline{\overline{X}Z}(W + Y)\right)(W + \overline{X} + Y) \tag{Distributivity} \\
+        (\overline{\overline{X}} + \overline{Z})(W + Y)(W + \overline{X} + Y) \tag{De Morgan's} \\
+        (X + \overline{Z})(W + Y)(W + \overline{X} + Y) \tag{Involution} \\
+        (X + \overline{Z})(W + Y)(W + Y + \overline{X}) \tag{Commutativity} \\
+        (X + \overline{Z})(W + Y) \tag{Covering} \\
+      \end{align*}
+
+    \item
+      Minimize the circuit.
+
+      \begin{circuitikz} \draw
+        (3,4) node[and port] (and1) {}
+        (0,3) node[not port] (not1) {}
+        (0,1) node[not port] (not2) {}
+        (5,2) node[or port] (or1) {}
+        (-0.6,4.28) node[anchor=east] {W}
+          -| (and1.in 1)
+        (not1.in) node[anchor=east] {X}
+        (not2.in) node[anchor=east] {Z}
+        (not1.out) -| (and1.in 2)
+        (and1.out) -| (or1.in 1)
+        (not2.out) -| (or1.in 2)
+      ;
+      \end{circuitikz}
+  \end{enumerate}
+\end{document}
