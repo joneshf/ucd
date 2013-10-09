@@ -32,6 +32,27 @@
         $(A \cup B)^c \subseteq A^c \cap B^c$
         and
         $A^c \cap B^c \subseteq (A \cup B)^c$
+
+        \begin{enumerate}
+          \item
+          By definition of the compliment,
+          \[(A \cup B)^c = \{x : x \notin (A \cup B)\}\]
+          This means that  given some $x$, $x \notin A$ and $x \notin B$.
+
+          Or using the definition of complement:
+          $x \in A^c$ and $x \in B^c$.
+
+          From the definition of intersection we get:
+          $x \in A^c \cap B^c$
+
+          Since $x$ was an arbitrary choice,
+          this result holds for all $x$ in the set.
+
+          Or more succinctly, $\forall x \in (A \cup B)^c, x \in A^c \cap B^c$.
+
+          By the definition of inclusion, we can say:
+          \[(A \cup B)^c \subseteq A^c \cap B^c\]
+        \end{enumerate}
       \end{proof}
   \end{enumerate}
 
