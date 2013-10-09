@@ -35,24 +35,52 @@
 
         \begin{enumerate}
           \item
-          By definition of the compliment,
-          \[(A \cup B)^c = \{x : x \notin (A \cup B)\}\]
-          This means that  given some $x$, $x \notin A$ and $x \notin B$.
+            By definition of the compliment,
+            \[(A \cup B)^c = \{x : x \notin (A \cup B)\}\]
+            This means, given some $x$ in the set:
+            $x \notin A$ and $x \notin B$.
 
-          Or using the definition of complement:
-          $x \in A^c$ and $x \in B^c$.
+            Or using the definition of complement:
+            $x \in A^c$ and $x \in B^c$.
 
-          From the definition of intersection we get:
-          $x \in A^c \cap B^c$
+            From the definition of intersection we get:
+            $x \in A^c \cap B^c$
 
-          Since $x$ was an arbitrary choice,
-          this result holds for all $x$ in the set.
+            Since $x$ was an arbitrary choice,
+            this result holds for all $x$ in the set.
 
-          Or more succinctly, $\forall x \in (A \cup B)^c, x \in A^c \cap B^c$.
+            Or more succinctly,
+            $\forall x \in (A \cup B)^c, x \in A^c \cap B^c$.
 
-          By the definition of inclusion, we can say:
-          \[(A \cup B)^c \subseteq A^c \cap B^c\]
+            By the definition of inclusion, we can say:
+            \[(A \cup B)^c \subseteq A^c \cap B^c\]
+
+          \item
+            \[A^c \cap B^c = \{x : x \in A^c \text{and} x \in B^c\}\]
+
+            This means, given some $x$ in the set, we can say:
+            $x \notin A$ and $x \notin B$.
+
+            If $x$ is not in either $A$ or $B$,
+            then it cannot be in the union of those two sets.
+            That is: $x \notin A \cup B$
+
+            Using the definition of complement we can say:
+            $x \in (A \cup B)^c$.
+
+            Again, since $x$ was arbitrary,
+            the result holds for all elements of the set.
+
+            Or more succinctly,
+            $\forall x \in A^c \cap B^c, x \in (A \cup B)^c$.
+
+            By the definition of inclusion, we can say:
+            \[A^c \cap B^c \subseteq (A \cup B)^c\]
         \end{enumerate}
+
+        From a and b we have both sides of inclusion,
+        so by the definition of set equality:
+        \[(A \cup B)^c = A^c \cap B^c\]
       \end{proof}
   \end{enumerate}
 
