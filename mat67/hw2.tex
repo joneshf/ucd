@@ -45,5 +45,66 @@
         
         Thus we have $a = 0$ or $\vec{v} = \vec{0}$.
       \end{proof}
+      
+    \item Show that the set $V = \{(x_1, x_2. x_3) \in \mathbb{F} : x_1 + 2x_2 + 2x_3 = 0\}$
+    is a vector space. \\
+    
+       We need to show that the 10 axioms hold. \\
+       
+       Given $\vec{u}, \vec{v}, \vec{w} \in V; a, b \in \mathbb{F}$
+       where $\vec{u} = (u_1, u_2, u_3). \vec{v} = (v_1, v_2, v_3). \vec{w} = (w_1, w_2, w_3)$
+       
+       and the operators: \\
+       \[\oplus: V \times V \to V\]
+       \[\vec{u} \oplus \vec{v} = (u_1, u_2, u_3) \oplus (v_1, v_2, v_3) = (u_1 + v_1, u_2 + v_2, u_3 + v_3)\]
+       \[*: \mathbb{F} \times V \to V\]
+       \[a*\vec{u} = a*(u_1, u_2, u_3) = (a \cdot u_1, a \cdot u_2, a \cdot u_3)\]
+       
+       \begin{enumerate}
+         \item Closure over vector addition.
+           \begin{align*}
+             \vec{u} \oplus \vec{v} &= (u_1, u_2, u_3) \oplus (v_1, v_2, v_3) \\
+             &= (u_1 + v_1, u_2 + v_2, u_3 + v_3)
+           \end{align*}
+           
+           Now we need to show that our equation is still valid.
+           
+           \begin{align*}
+             (u_1 + v_1, u_2 + v_2, u_3 + v_3) &= (u_1 + v_1) + (u_2 + v_2) + (u_3 + v_3) \\
+             &= (u_1 + u_2 + u_3) + (v_1 + v_2 + v_3) \\
+             &= 0 + 0 \\
+             &= 0
+           \end{align*}
+           
+           So we have closure over vector addition.
+           
+         \item Associativity over vector addition.
+           \begin{align*}
+             \vec{u} \oplus (\vec{v} \oplus \vec{w}) &= (u_1, u_2, u_3) \oplus ((v_1, v_2, v_3) \oplus (w_1, w_2, w_3)) \\
+             &= (u_1, u_2, u_3) \oplus (v_1 + w_1, v_2 + w_2, v_3 + w_3) \\
+             &= (u_1 + (v_1 + w_1), u_2 + (v_2 + w_2), u_3 + (v_3 + w_3)) \\
+             &= ((u_1 + v_1) + w_1, (u_2 + v_2) + w_2, (u_3 + v_3) + w_3) \\
+             &= (u_1 + v_1, u_2 + v_2, u_3 + v_3) \oplus (w_1, w_2, w_3) \\
+             &= ((u_1, u_2, u_3) \oplus (v_1, v_2, v_3)) \oplus (w_1, w_2, w_3) \\
+             &= (\vec{u} \oplus \vec{v}) \oplus \vec{w}
+           \end{align*}
+           
+           Thus, association holds over vector addition.
+           
+         \item Commutativity over vector addition.
+           \begin{align*}
+             \vec{u} \oplus \vec{v} &= (u_1, u_2, u_3) \oplus (v_1, v_2, v_3) \\
+             &= (u_1 + v_1, u_2 + v_2, u_3 + v_3) \\
+             &= (v_1 + u_1, v_2 + u_2, v_3 + u_3) \\
+             &= (v_1, v_2, v_3) \oplus (u_1, u_2, u_3) \\
+             &= \vec{v} \oplus \vec{u}
+           \end{align*}
+           
+           Thus, commutation holds over vector addition.
+           
+         \item Existence of identity vector.
+           
+       \end{enumerate}
+       
   \end{enumerate}
 \end{document}
