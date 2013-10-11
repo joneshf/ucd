@@ -1,0 +1,49 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 67 Homework 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bandyopadhyay\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+
+  \maketitle
+
+  \begin{enumerate}
+    \item Let $V$ be a vector space over the field $\mathbb{F}$ \\
+    
+      Given $a \in \mathbb{F}, \vec{v} \in V, a\vec{v} = \vec{0}$.
+      Prove either $a = 0$ or $\vec{v} = \vec{0}$.
+      
+      \begin{proof}
+        Assume $a \neq 0$.
+        Then $a^{-1} \in \mathbb{F}$, and $a^{-1}a = 1$ by definition.
+        
+        \[\vec{v} = 1\vec{v} = (a^{-1}a)\vec{v} = a^{-1}(a\vec{v})\]
+        
+        But we are given $a\vec{v} = \vec{0}$, so
+        
+        \[a^{-1}(a\vec{v}) = a^{-1}\vec{0} = \vec{0}\]
+        
+        Thus, $\vec{v} = \vec{0}$. \\
+        
+        By contraposition, we have: if $\vec{v} \neq \vec{0}$, then $a = 0$. \\
+        
+        Thus we have $a = 0$ or $\vec{v} = \vec{0}$.
+      \end{proof}
+  \end{enumerate}
+\end{document}
