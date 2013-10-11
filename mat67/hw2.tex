@@ -70,13 +70,15 @@
            Now we need to show that our equation is still valid.
            
            \begin{align*}
-             (u_1 + v_1, u_2 + v_2, u_3 + v_3) &= (u_1 + v_1) + (u_2 + v_2) + (u_3 + v_3) \\
-             &= (u_1 + u_2 + u_3) + (v_1 + v_2 + v_3) \\
+             (u_1 + v_1, u_2 + v_2, u_3 + v_3) &= (u_1 + v_1) + 2(u_2 + v_2) + 2(u_3 + v_3) \\
+             &= u_1 + v_1 + 2u_2 + 2v_2 + 2u_3 + 2v_3) \\
+             &= (u_1 + 2u_2 + 2u_3) + (v_1 + 2v_2 + 2v_3) \\
              &= 0 + 0 \\
              &= 0
            \end{align*}
            
-           So we have closure over vector addition.
+           So, $\vec{u} \oplus \vec{v} \in V$.
+           Thus, $V$ is closed over vector addition.
            
          \item Associativity over vector addition.
            \begin{align*}
@@ -103,8 +105,94 @@
            Thus, commutation holds over vector addition.
            
          \item Existence of identity vector.
+           Let $\vec{0} = (0, 0, 0) \in V$
+           \begin{align*}
+             \vec{u} \oplus \vec{0} &= (u_1, u_2, u_3) \oplus (0, 0, 0) \\
+             &= (u_1 + 0, u_2 + 0, u_3 + 0) \\
+             &= (u_1, u_2, u_3) \\
+             &= \vec{u}
+           \end{align*}
            
+           Thus, $\vec{0} = (0, 0, 0)$ exists as the identity vector.
+           
+         \item Existence of vector inverse.
+           \begin{align*}
+             \vec{u} \oplus (-\vec{u}) &= (u_1, u_2, u_3) \oplus (-u_1, -u_2, -u_3) \\
+             &= (u_1 + (-u_1), u_2 + (-u_2), u_3 + (-u_3)) \\
+             &= (u_1 - u_1, u_2 - u_2, u_3 - u_3) \\
+             &= (0, 0, 0) \\
+             &= \vec{0}
+           \end{align*}
+           
+           Thus, there exists an inverse for all vectors.
+           
+         \item Closure over scalar multiplication.
+           \begin{align*}
+             a * \vec{u} &= a * (u_1, u_2, u_3) \\
+             &= (a \cdot u_1, a \cdot u_2, a \cdot u_3)
+           \end{align*}
+           
+           Now we need to ensure that our equation holds.
+           
+           \begin{align*}
+             (a \cdot u_1, a \cdot u_2, a \cdot u_3) &= a \cdot u_1 + 2(a \cdot u_2) + 2(a \cdot u_3) \\
+             &= a (u_1 + 2u_2 + 2u_3) \\
+             &= a \cdot 0 \\
+             &= 0
+           \end{align*}
+           
+           So, $a * \vec{u} \in V$.
+           Thus, $V$ is closed over scalar multiplication.
+           
+         \item Existence of scalar multiplication identity.  
+           \begin{align*}
+             1 * \vec{u} &= 1 * (u_1, u_2, u_3) \\
+             &= (1 \cdot u_1, 1 \cdot u_2, 1 \cdot u_3) \\
+             &= (u_1, u_2, u_3) \\
+             &= \vec{u}
+           \end{align*}
+           
+           Thus, $1$ exists as the scalar multiplication identity.
+           
+         \item Associativity over scalar multiplication.  
+           \begin{align*}
+             a * (b * \vec{u}) &= a * (b * (u_1, u_2, u_3)) \\
+             &= a * (b \cdot u_1, b \cdot u_2, b \cdot u_3) \\
+             &= (a (b \cdot u_1), a (b \cdot u_2), a (b \cdot u_3)) \\
+             &= ((a b) \cdot u_1, (a b) \cdot u_2, (a b) \cdot u_3) \\
+             &= (a b) * (u_1, u_2, u_3) \\
+             &= (a b) * \vec{u}
+           \end{align*}
+           
+           Thus, associativity holds over scalar multiplication.
+           
+         \item Distributivity of scalar multiplication over vector addition.
+           \begin{align*}
+             a * (\vec{u} \oplus \vec{v}) &= a * ((u_1, u_2, u_3) \oplus (v_1, v_2, v_3)) \\
+             &= a * (u_1 + v_1, u_2 + v_2, u_3 + v_3) \\
+             &= (a (u_1 + v_1), a (u_2 + v_2), a (u_3 + v_3)) \\
+             &= (a \cdot u_1 + a \cdot v_1, a \cdot u_2 + a \cdot v_2, a \cdot u_3 + a \cdot v_3) \\
+             &= (a \cdot u_1, a \cdot u_2, a \cdot u_3) \oplus (a \cdot v_1, a \cdot v_2, a \cdot v_3) \\
+             &= a * (u_1, u_2, u_3) \oplus a * (v_1, v_2, v_3) \\
+             &= a * \vec{u} \oplus a * \vec{v}
+           \end{align*}  
+           
+           Thus, distributivity of scalar multiplication over vector addition holds.
+           
+         \item Distributivity of scalar addition over scalar multiplication.
+           \begin{align*}
+             (a + b) * \vec{u} &= (a + b) * (u_1, u_2, u_3) \\
+             &= ((a + b) u_1, (a + b) u_2, (a + b) u_3) \\
+             &= (a \cdot u_1 + b \cdot u_1, a \cdot u_2 + b \cdot u_2, a \cdot u_3 + b \cdot u_3) \\
+             &= (a \cdot u_1, a \cdot u_2, a \cdot u_3) \oplus (b \cdot u_1, b \cdot u_2, b \cdot u_3) \\
+             &= a * (u_1, u_2, u_3) \oplus b * (u_1, u_2, u_3) \\
+             &= a * \vec{u} \oplus b * \vec{u}
+           \end{align*}
+           
+           Thus, distributivity of scalar addition over scalar multiplication holds.
        \end{enumerate}
+       
+       So we conclude, since all 10 of the axioms hold, that $V$ is a vector space.
        
   \end{enumerate}
 \end{document}
