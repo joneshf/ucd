@@ -227,32 +227,33 @@
         \draw (0,8) node [left] {$x_0$} -- (1,8);
         \draw (0,7) node [left] {$1$} -- (1,7);
         % selectors
-        \draw (1.25,5.75) -- (1.25,6.25);
-        \draw (1.75,5.75) -- (1.75,6.75);
+        \draw (1.25,5.75) node [below] {$x_2$} -- (1.25,6.25);
+        \draw (1.75,5.75) node [below] {$x_1$} -- (1.75,6.75);
 
         \draw (1,6) -- (1,11) -- (2,10) -- (2,7) -- (1,6);
 
         % Second 4-1 Mux
         % input
-        \draw (0,4) -- (1,4);
-        \draw (0,3) -- (1,3);
-        \draw (0,2) -- (1,2);
-        \draw (0,1) -- (1,1);
+        \draw (0,4) node [left] {$x_0$} -- (1,4);
+        \draw (0,3) node [left] {$1$} -- (1,3);
+        \draw (0,2) node [left] {$x_0$} -- (1,2);
+        \draw (0,1) node [left] {$0$} -- (1,1);
         % selectors
-        \draw (1.25,-0.25) -- (1.25,0.25);
-        \draw (1.75,-0.25) -- (1.75,0.75);
+        \draw (1.25,-0.25) node [below] {$x_2$} -- (1.25,0.25);
+        \draw (1.75,-0.25) node [below] {$x_1$} -- (1.75,0.75);
 
         \draw (1,0) -- (1,5) -- (2,4) -- (2,1) -- (1,0);
 
         % 2-1 Mux
         \draw (4,4) -- (4,7) -- (5,6) -- (5,5) -- (4,4);
+        \draw (4.5,3.75) node [below] {$x_3$} -- (4.5,4.5);
 
         % Connect Mux's
         \draw (2,8.5) -| (3,6) -- (4,6);
         \draw (2,2.5) -| (3,5) -- (4,5);
 
         % Function output
-        \draw (5,5.5) -- (5.5,5.5);
+        \draw (5,5.5) -- (5.5,5.5) node [right] {$f$};
       \end{tikzpicture}
   \end{enumerate}
 \end{document}
