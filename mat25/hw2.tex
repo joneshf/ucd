@@ -82,6 +82,45 @@
         so by the definition of set equality:
         \[(A \cup B)^c = A^c \cap B^c\]
       \end{proof}
+
+    \item 1.2.7 \\
+      Given $f : D \to \mathbb{R}$ and a subset $B \subseteq \mathbb{R}$
+      let $f^{-1}(B) = \{x \in D : f(x) \in B\}$
+      \begin{enumerate}
+        \item Let $f(x) = x^2$.
+        if $A = [0,4]$ and $B = [-1,1]$,
+        find $f^{-1}(A)$ and $f^{-1}(B)$.
+
+        Does $f^{-1}(A \cap B) = f^{-1}(A) \cap f^{-1}(B)$?
+
+        Does $f^{-1}(A \cup B) = f^{-1}(A) \cup f^{-1}(B)$?
+
+        $f^{-1}(A) = \{x \in [-2,2]\}$
+        $f^{-1}(B) = \{x \in [-1,1]\}$
+
+        \begin{align*}
+          f^{-1}(A \cap B) &= f^{-1}([0,4] \cap [-1,1]) \\
+          &= f^{-1}([0,4] \cap [-1,1]) \\
+          &= f^{-1}([0,1]) \\
+          &= \{x \in [-1,1]\} \\
+          &= \{x \in [-2,2] \} \cap \{x \in [-1,1]\} \\
+          &= f^{-1}(A) \cap f^{-1}(B)
+        \end{align*}
+
+        So this part is true.
+
+        \begin{align*}
+          f^{-1}(A \cup B) &= f^{-1}([0,4] \cup [-1,1]) \\
+          &= f^{-1}([0,4] \cup [-1,1]) \\
+          &= f^{-1}([-1,4]) \\
+          &= \{x \in [-2,2]\} \\
+          &= \{x \in [-2,2] \} \cup \{x \in [-1,1]\} \\
+          &= f^{-1}(A) \cup f^{-1}(B)
+        \end{align*}
+
+        So this part is true.
+
+      \end{enumerate}
   \end{enumerate}
 
 \end{document}
