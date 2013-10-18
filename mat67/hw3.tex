@@ -58,6 +58,8 @@
         Thus $V$ is not a vector space.
       \end{proof}
 
+    \pagebreak
+
     \item
       Let $W_1$ and $W_2$ be subspaces of a vector space $V$ such that their union $W_1 \cup W_2$ is also a subspace of $V$.
 
@@ -66,15 +68,13 @@
       \begin{proof}
         Without loss of generality, we arbitrarily choose to examine $W_1$ against $W_2$.
 
-        $\forall w_1 \in W_1$ we assume $w_1 \notin W_2$ and so $W_1 \not\subseteq W2$.
-
-        Since $W_1$ is a subspace, $-w_1 \in W_1$.
+        Since $W_1$ is a subspace, $\forall w_1 \in W_1, -w_1 \in W_1$.
+        And since $W_2$ is a subspace, $\forall w_2 \in W_2, -w_2 \in W_2$.
 
         Now since $W_1 \cup W_2$ is also a subspace, we should be able to take arbitrary vectors from this union and perform vector addition with them.
         Meaning, we can take one vector from $W_1$ and add it to another vector from $W_2$, for instance.
 
-        So, $\forall w_2 \in W_2$ we have $w_1 + w_2 \in W_1 \cup W_2$.
-        And since $W_2$ is a subspace, $-w_2 \in W_2$
+        So, we have $w_1 + w_2 \in W_1 \cup W_2$.
 
         By the definition of union we must have one of the two:
         \begin{enumerate}
@@ -82,12 +82,26 @@
           \item $w_1 + w_2 \in W_2$
         \end{enumerate}
 
-        Let's look at (b).
+        \begin{enumerate}
+          \item
+            If $w_1 + w_2 \in W_1$, then $(w_1 + w_2) + (-w_1) \in W_1$.
+            Which means that $w_2 \in W_1$.
+            Now since we chose all $w_2$,
+            we are saying that $\forall w_2 \in W_2, w_2 \in W_1$.
 
-        If $w_1 + w_2 \in W_2$, then we have $(w_1 + w_2) + (-w_2) \in W_2$.
-        Which means $w_1 \in W_2$; but we assumed that $w_1 \notin W_2$.
-        This contradicts our assumption.
-        So $\forall w_1 \in W_1, w_1 \in W_2$ and thus $W_1 \subseteq W_2$.
+            So, it follows that $W_2 \subseteq W_1$.
+
+          \item
+            If $w_1 + w_2 \in W_2$, then we have $(w_1 + w_2) + (-w_2) \in W_2$.
+            Which means $w_1 \in W_2$.
+
+            So $\forall w_1 \in W_1, w_1 \in W_2$ and thus $W_1 \subseteq W_2$.
+        \end{enumerate}
+
+        Thus either $W_1 \subseteq W_2$ or $W_2 \subseteq W_1$.
+
+        Now, a similar argument can be used to show that
+        if we choose to examine $W_2$ against $W_1$ we arrive at the same conclusion.
       \end{proof}
   \end{enumerate}
 \end{document}
