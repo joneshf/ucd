@@ -28,13 +28,36 @@
       Let $V$ be the set of all pairs $(x,y)$ of real numbers and suppose vector addition and scalar multiplication are defined in the following way:
 
       \begin{align*}
-        (x_1,y_1) + (x_2,y_2) &= (x_1 + x_2, y_1 + y_1) \\
+        (x_1,y_1) + (x_2,y_2) &= (x_1 + x_2, y_1 + y_2) \\
         a(x,y) &= (ax,y)
       \end{align*}
 
       for any scalar $a$ in the field of real numbers.
 
       Is the set $V$ a vector space over the field $\mathbb{R}$?
+
+      The set $V$ is not a vector space over the field $\mathbb{R}$ for it fails to hold for distributivity of scalar addition over scalar multiplication.
+
+      \begin{proof}
+
+        Let $\vec{u} \in V$ and $ c, k \in \mathbb{R}$.  Let's check distributivity of scalar addition over scalar multiplication.  We should have $(c + k)\vec{u} = c\vec{u} + k\vec{u}$.
+
+        \begin{align*}
+          (c + k)\vec{u} &= ((c + k)u_1, u_2) \\
+          &= (cu_1 + ku_1, u_2) \\
+        \end{align*}
+
+        \begin{align*}
+          c\vec{u} + k\vec{u} &= (cu_1, u_2) + (ku_1, u_2) \\
+          &= (cu_1 + ku_1, u_2 + u_2) \\
+          &= (cu_1 + ku_1, 2u_2)
+        \end{align*}
+
+        But $(cu_1 + ku_1, u_2) \neq (cu_1 + ku_1, 2u_2)$,
+        so $V$ does not hold for distributivity of scalar addition over scalar multiplication.
+
+        Thus $V$ is not a vector space.
+      \end{proof}
 
     \item
       Let $W_1$ and $W_2$ be subspaces of a vector space $V$ such that their union $W_1 \cup W_2$ is also a subspace of $V$.
