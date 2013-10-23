@@ -258,6 +258,62 @@
             So $\mathbb{Q}$ is countable.
           \end{proof}
       \end{enumerate}
+
+    \item Let $\mathcal{S}$ be the set consisting of all sequences of 0's and 1's;
+      \[\mathcal{S} = \left\{(a_1, a_2, a_3, \cdots) : a_n \in \{0, 1\}\right\}.\]
+      Show that $\mathcal{S}$ is uncountable.
+
+      \begin{proof}
+        Construct sequences at random:
+        \begin{align*}
+          s_1 &= (0, 1, 1, 0, 0, 0, 0, 0, 1, \dots) \\
+          s_2 &= (1, 1, 0, 0, 0, 0, 0, 0, 0, \dots) \\
+          s_3 &= (0, 0, 1, 0, 0, 0, 0, 0, 1, \dots) \\
+          s_4 &= (0, 0, 1, 1, 0, 0, 0, 1, 1, \dots) \\
+          s_5 &= (0, 1, 1, 0, 1, 1, 0, 1, 0, \dots) \\
+          s_6 &= (1, 1, 0, 0, 0, 0, 0, 0, 0, \dots) \\
+          s_7 &= (1, 1, 1, 1, 1, 0, 1, 0, 1, \dots) \\
+          s_8 &= (0, 1, 0, 0, 0, 0, 0, 0, 0, \dots) \\
+          s_9 &= (0, 1, 1, 0, 0, 1, 0, 1, 0, \dots)
+        \end{align*}
+
+        Now we can map each one of these sequences to a number in $\mathbb{N}$.
+        Thus we have exhausted all of the numbers in $\mathbb{N}$ with this mapping.
+
+        However, we can still create more sequences.
+        One way to construct a new sequence would be to take an element from each previous sequence and alternate the number.
+        If it was 0 make the new element 1, if it was 1, make the new element 0.
+        So from $s_1$ we take element 1, from $s_2$ we take element 2, and so on.
+
+        Visually:
+        \begin{align*}
+          s_1 &= (\mathbf{0}, 1, 1, 0, 0, 0, 0, 0, 1, \dots) \\
+          s_2 &= (1, \mathbf{1}, 0, 0, 0, 0, 0, 0, 0, \dots) \\
+          s_3 &= (0, 0, \mathbf{1}, 0, 0, 0, 0, 0, 1, \dots) \\
+          s_4 &= (0, 0, 1, \mathbf{1}, 0, 0, 0, 1, 1, \dots) \\
+          s_5 &= (0, 1, 1, 0, \mathbf{1}, 1, 0, 1, 0, \dots) \\
+          s_6 &= (1, 1, 0, 0, 0, \mathbf{0}, 0, 0, 0, \dots) \\
+          s_7 &= (1, 1, 1, 1, 1, 0, \mathbf{1}, 0, 1, \dots) \\
+          s_8 &= (0, 1, 0, 0, 0, 0, 0, \mathbf{0}, 0, \dots) \\
+          s_9 &= (0, 1, 1, 0, 0, 1, 0, 1, \mathbf{0}, \dots)
+        \end{align*}
+        \[\Downarrow\]
+        \begin{align*}
+          s_1 &= (\mathbf{1}, 1, 1, 0, 0, 0, 0, 0, 1, \dots) \\
+          s_2 &= (1, \mathbf{0}, 0, 0, 0, 0, 0, 0, 0, \dots) \\
+          s_3 &= (0, 0, \mathbf{0}, 0, 0, 0, 0, 0, 1, \dots) \\
+          s_4 &= (0, 0, 1, \mathbf{0}, 0, 0, 0, 1, 1, \dots) \\
+          s_5 &= (0, 1, 1, 0, \mathbf{0}, 1, 0, 1, 0, \dots) \\
+          s_6 &= (1, 1, 0, 0, 0, \mathbf{1}, 0, 0, 0, \dots) \\
+          s_7 &= (1, 1, 1, 1, 1, 0, \mathbf{0}, 0, 1, \dots) \\
+          s_8 &= (0, 1, 0, 0, 0, 0, 0, \mathbf{1}, 0, \dots) \\
+          s_9 &= (0, 1, 1, 0, 0, 1, 0, 1, \mathbf{1}, \dots)
+        \end{align*}
+
+        This new sequence, call it $s_0 = (1, 0, 0, 0, 0, 1, 0, 1, 1, \dots)$ consists of all different elements from any previous sequence,
+        thus it is not in our original set $\mathcal{S}$.
+        So our set has larger cardinality than $\mathbb{N}$, and thus is uncountable.
+      \end{proof}
   \end{enumerate}
 
 \end{document}
