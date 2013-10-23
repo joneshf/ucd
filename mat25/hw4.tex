@@ -1,0 +1,47 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 25 Homework 4\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bae\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+
+  \maketitle
+
+  \begin{enumerate}
+  	\item 1.4.10
+      Show that the set of all finite subsets of $\mathbb{N}$ is a countable set.
+      \begin{proof}
+        In order to prove this, we simply need to construct an isomorphism from $\mathbb{N}$ to the set of all finite subsets of $\mathbb{N}$, hereafter referred to as $S$.
+
+        Let's take a look at some elements of $S$. We have:
+        \[S = \left\{\{\}, \{1\}, \{2\}, \{1,2\}, \{3\}, \{1,3\}, \{2,3\}, \{1,2,3\}, ...\right\}\]
+
+        What we see is that we can arbitrarily number these sets:
+
+        \begin{matrix}
+          \mathbb{N}: & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & ... \\
+          & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow & \updownarrow & ... \\
+          S: & \{\} & \{1\} & \{2\} & \{1,2\} & \{3\} & \{1,3\} & \{2,3\} & \{1,2,3\} & ...
+        \end{matrix}
+
+        And thus we have a mapping that is 1-1 and onto between $\mathbb{N}$ and $S$.
+        So $S$ has the same cardinality of $\mathbb{N}$ from which it follows that $S$ is countable.
+      \end{proof}
+  \end{enumerate}
+
+\end{document}
