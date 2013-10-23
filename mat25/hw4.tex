@@ -314,6 +314,49 @@
         thus it is not in our original set $\mathcal{S}$.
         So our set has larger cardinality than $\mathbb{N}$, and thus is uncountable.
       \end{proof}
+
+    \item Show that for any $n \in \mathbb{N}, \sqrt{n - 1} + \sqrt{n + 1}$ is irrational.
+
+      \begin{proof}
+        Let's assume that is not the case.
+
+        That is, $\exists n \in \mathbb{N} : \exists p, q \in \mathbb{N} : \sqrt{n - 1} + \sqrt{n + 1} = \frac{p}{q}$, where $p$ and $q$ are coprime.
+        \begin{align*}
+          \sqrt{n - 1} + \sqrt{n + 1} &= \frac{p}{q} \\
+          \left(\sqrt{n - 1} + \sqrt{n + 1}\right)^2 &= \left(\frac{p}{q}\right)^2 \\
+          n - 1 + n + 1 + 2\sqrt{n^2 - 1} &= \frac{p^2}{q^2} \\
+          2n + 2\sqrt{n^2 - 1} &= \frac{p^2}{q^2} \\
+          2\left(n + \sqrt{n^2 - 1}\right) &= \frac{p^2}{q^2} \\
+          2q^2 \cdot \left(n + \sqrt{n^2 - 1}\right) &= p^2
+        \end{align*}
+
+        This implies that one of $\left\{2, q^2, \left(n + \sqrt{n^2 - 1}\right)\right\} | \ p^2$.
+
+        Since we assumed that $p$ and $q$ were coprime, $q^2 \not| \ p^2$.
+        Since $p \in \mathbb{N}, p^2 \in \mathbb{N}$ and as such
+        $\left(n + \sqrt{n^2 - 1}\right) \not| \ p^2$.
+        So $2 | \ p^2$.
+
+        In similar fashion to the proof of irrationality of $\sqrt{2}$,
+        this implies that $2 | \ p$.
+
+        Following the steps taken in that proof, we create some new integer:
+        let $p = 2r$, and sub it into our equation.
+        \begin{align*}
+          2q^2 \cdot \left(n + \sqrt{n^2 - 1}\right) &= p^2 \\
+          2q^2 \cdot \left(n + \sqrt{n^2 - 1}\right) &= (2r)^2 \\
+          2q^2 \cdot \left(n + \sqrt{n^2 - 1}\right) &= 4r^2 \\
+          q^2 \cdot \left(n + \sqrt{n^2 - 1}\right) &= 2r^2 \\
+          q^2 &= 2\left(\frac{r^2}{n + \sqrt{n^2 - 1}}\right)
+        \end{align*}
+
+        This of course means $2 | \ q^2 \implies 2 | \ q$.
+        But as with the other proof, this is a contradiction, since we assumed $p$ and $q$ coprime.
+        So our original assumption was incorrect, and thus:
+
+        \[\forall n \in \mathbb{N}, \sqrt{n - 1} + \sqrt{n + 1} \text{ is irrational.}\]
+
+      \end{proof}
   \end{enumerate}
 
 \end{document}
