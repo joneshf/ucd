@@ -143,6 +143,60 @@
             we must have that $\mathcal{T}$ is uncountable.
           \end{proof}
       \end{enumerate}
+
+    \item Let $f : \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}$
+      be a function defined as
+      \[f(m, n) = (2m - 1) \cdot 2^{n - 1}\]
+
+      \begin{enumerate}
+        \item Show that $f$ is 1-1.
+
+          \begin{proof}
+            We want to show
+            \[\forall a, b, c, d \in \mathbb{N}, f(a,b) = f(c,d) \implies a = c \text{ and } b = d\]
+
+            \begin{align*}
+              f(a,b) &= f(c,d) \\
+              (2a - 1) \cdot 2^{b - 1} &= (2c - 1) \cdot 2^{d - 1} \\
+              (2a - 1) \cdot 2^b \cdot \frac{1}{2} &= (2c - 1) \cdot 2^d \cdot \frac{1}{2} \\
+              (2a - 1) \cdot 2^b &= (2c - 1) \cdot 2^d \\
+              2a - 1 &= (2c - 1) \cdot 2^{d-b}
+            \end{align*}
+
+            Now, the LHS is an odd number.
+            Looking at the RHS, $2c - 1$ is an odd number,
+            and based on The Trichotomy Law we have three cases to consider:
+
+            \begin{enumerate}
+              \item $b < d$
+                In this case, $2^{d-b}$ is an even number,
+                so the RHS would have to be an even number.
+                But the LHS (an odd number) cannot be an even number also.
+                So, this case is impossible.
+              \item $b > d$
+                In this case, $2^{d-b}$ is a fraction,
+                so the RHS would also be a fraction.
+                But LHS is a positive integer.
+                So, this case is also impossible.
+              \item $b = d$
+                This must be the case, and we needn't show anything to prove it.
+                What this means however is that $2^{d-b}$ is $1$.
+            \end{enumerate}
+
+            \begin{align*}
+              2a - 1 &= 2c - 1 \\
+              2a &= 2c \\
+              a &= c
+            \end{align*}
+
+            Now, we have $a = c$ and $b = d$.
+
+            So we have shown that \[\forall a, b, c, d \in \mathbb{N}, f(a,b) = f(c,d) \implies a = c \text{ and } b = d\]
+            Thus $f$ is 1-1.
+          \end{proof}
+
+        \item Using (a), show that $\mathbb{Q}^+ = \left\{q \in \mathbb{Q} : q > 0 \right\}$
+      \end{enumerate}
   \end{enumerate}
 
 \end{document}
