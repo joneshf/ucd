@@ -196,6 +196,67 @@
           \end{proof}
 
         \item Using (a), show that $\mathbb{Q}^+ = \left\{q \in \mathbb{Q} : q > 0 \right\}$
+
+          \begin{proof}
+            We can use $f$ to construct a map:
+            \[f : \mathbb{Q}^+ \rightarrow \mathbb{N}\]
+            If we take the components of each rational:
+            \[\mathbb{Q}^+ = \left\{r, s \in \mathbb{N}, q \in \mathbb{Q} : \frac{r}{s} = q > 0 \right\}\]
+
+            Now we use $f$ to map $\mathbb{Q}^+$ to $\mathbb{N}$.
+            Since $f$ is 1-1, this implies that $\mathbb{Q}^+ \sim \mathbb{N}$,
+            or that $\mathbb{Q}^+$ is countable.
+          \end{proof}
+
+        \item Show that $\mathbb{Q}$ is countable.
+
+          \begin{proof}
+            We can use the result of (b) to help us here.
+
+            We simply need another function that is 1-1 with $f$.
+
+            Let's try the function $g : \mathbb{Q} \rightarrow \mathbb{Q}^+$,
+
+            \[
+              g(q) = \left\{
+                \begin{array}{l l}
+                  q & \quad \text{if } q > 0\\
+                  \frac{-q + 1}{2} & \quad \text{if } q <= 0
+                \end{array} \right.
+            \]
+
+            It should be easy to see that this is injective.
+
+            That is:
+
+            \[\forall r, s \in \mathbb{Q}, g(r) = g(s) \implies r = s\]
+
+            Let's show it quickly, we need to handle two cases:
+
+            \begin{enumerate}
+              \item $r > 0, s > 0$
+                \begin{align*}
+                  g(r) &= g(s) \\
+                  r &= s
+                \end{align*}
+
+              \item $r < 0, s < 0$
+                \begin{align*}
+                  g(r) &= g(s) \\
+                  \frac{-r + 1}{2} &= \frac{-s + 1}{2} \\
+                  -r + 1 &= -s + 1 \\
+                  -r &= -s \\
+                  r &= s
+                \end{align*}
+
+            \end{enumerate}
+
+            So $g$ is 1-1.
+            And since $g$ is 1-1, we can construct a mapping
+            $f \circ g : \mathbb{Q} \rightarrow \mathbb{Q}^+ \rightarrow \mathbb{N}$.
+
+            So $\mathbb{Q}$ is countable.
+          \end{proof}
       \end{enumerate}
   \end{enumerate}
 
