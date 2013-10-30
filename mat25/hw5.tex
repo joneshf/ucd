@@ -45,6 +45,44 @@
           So, $n \ge N > \sqrt{\frac{1 - \epsilon}{6\epsilon}} \implies \frac{1}{6n^2 + 1} < \epsilon$
 
           Thus $|a_n - 0| < \epsilon$.
+
+        \item
+          $\lim \frac{3n + 1}{2n + 5} = \frac{3}{2}$
+
+          We need to show
+          \begin{align*}
+            \frac{3n + 1}{2n + 5} &< \epsilon \\
+            3n + 1 &< 2n\epsilon + 5\epsilon \\
+            1 - 5\epsilon &< (2\epsilon - 3)n \\
+            \frac{1 - 5\epsilon}{2\epsilon - 3} &< n \\
+          \end{align*}
+
+          Let $\epsilon > 0$.
+          Choose $N in \mathbb{N} | N > \frac{1 - 5\epsilon}{2\epsilon - 3}$.
+
+          Let $n \ge N$.
+          So, $n \ge N > \frac{1 - 5\epsilon}{2\epsilon - 3} \implies \frac{3n + 1}{2n + 5} < \epsilon$.
+
+          Thus $|a_n - \frac{3}{2}| < \epsilon$.
+
+        \item
+          $\lim \frac{2}{\sqrt{n + 3}} = 0$
+
+          We need to show
+          \begin{align*}
+            \frac{2}{\sqrt{n + 3}} &< \epsilon \\
+            \frac{2}{\epsilon} &< \sqrt{n + 3} \\
+            \frac{4}{\epsilon^2} &< n + 3 \\
+            \frac{4}{\epsilon^2} - 3 &< n
+          \end{align*}
+
+          Let $\epsilon > 0$.
+          Choose $N in \mathbb{N} | N > \frac{4}{\epsilon^2} - 3$.
+
+          Let $n \ge N$.
+          So, $n \ge N > \frac{4}{\epsilon^2} - 3 \implies \frac{2}{\sqrt{n + 3}} < \epsilon$.
+
+          Thus $|a_n - 0| < \epsilon$.
       \end{enumerate}
   \end{enumerate}
 
