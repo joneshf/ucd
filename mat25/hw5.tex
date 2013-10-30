@@ -192,6 +192,59 @@
           The only thing we can conclude when $\lim b_n = b$
           is that ($a_n b_n$) is bounded by $b$ times the bounds of ($a_n$).
       \end{enumerate}
+
+    \item 2.3.11
+      Since ($x_n$) converges to some number $X$ we know
+      $
+        \forall \epsilon > 0, \exists N \in \mathbb{N} \text{ such that }
+        n \ge N \implies |x_n| < \epsilon
+      $
+
+      \begin{align*}
+        \left|y_n - X\right| &= \left|\frac{a_1 + a_2 + \dots + a_n}{n} - X\right| \\
+        &= \left|\frac{a_1 + a_2 + \dots + a_n}{n} - \frac{nX}{n}\right| \\
+        &= \left|\frac{a_1 + a_2 + \dots + a_n - nX}{n}\right| \\
+        &= \left|\frac{(a_1 - X) + (a_2 - X) + \dots + (a_n - X)}{n}\right| \\
+        &= \left|\frac{a_1 - X}{n} + \frac{a_2 - X}{n} + \dots + \frac{a_n - X}{n}\right| \\
+        &= \left|\frac{a_1 - X}{n}\right| + \left|\frac{a_2 - X}{n}\right| + \dots + \left|\frac{a_n - X}{n}\right| \\
+        &= \frac{\left|a_1 - X\right|}{n} + \frac{\left|a_2 - X\right|}{n} + \dots + \frac{\left|a_n - X\right|}{n} \\
+        &< \frac{\epsilon}{n} + \frac{\epsilon}{n} + \dots + \frac{\epsilon}{n} \\
+        &< \epsilon \\
+      \end{align*}
+
+      So, $\lim y_n = X$.
+
+
+      An example of a sequence ($x_n$) that doesn't converge, but ($y_n$) does is
+      $x_n = (-1)^n$
+
+      We can see this by looking at some terms
+
+      \begin{align*}
+        x_1 &= -1 \\
+        x_2 &= 1 \\
+        x_3 &= -1 \\
+        x_4 &= 1 \\
+        x_5 &= -1 \\
+        x_6 &= 1 \\
+        x_7 &= -1 \\
+        &\vdots
+      \end{align*}
+
+      Which clearly doesn't converge
+
+      \begin{alignat*}{4}
+        y_1 &= \frac{-1}{1} &&= -&1 \\
+        y_2 &= \frac{-1 + 1}{2} &&= & 0 \\
+        y_3 &= \frac{-1 + 1 - 1}{3} &&= -&\frac{1}{3} \\
+        y_4 &= \frac{-1 + 1 - 1 + 1}{4} &&= & 0 \\
+        y_5 &= \frac{-1 + 1 - 1 + 1 - 1}{5} &&= -&\frac{1}{5} \\
+        y_6 &= \frac{-1 + 1 - 1 + 1 - 1 + 1}{6} &&= & 0 \\
+        y_7 &= \frac{-1 + 1 - 1 + 1 - 1 + 1 - 1}{7} &&= -&\frac{1}{7} \\
+        &\vdots
+      \end{alignat*}
+
+      It's easy to see that this sequence converges to $0$.
   \end{enumerate}
 
 \end{document}
