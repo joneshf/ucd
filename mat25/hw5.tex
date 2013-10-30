@@ -58,7 +58,7 @@
           \end{align*}
 
           Let $\epsilon > 0$.
-          Choose $N in \mathbb{N} | N > \frac{1 - 5\epsilon}{2\epsilon - 3}$.
+          Choose $N \in \mathbb{N} | N > \frac{1 - 5\epsilon}{2\epsilon - 3}$.
 
           Let $n \ge N$.
           So, $n \ge N > \frac{1 - 5\epsilon}{2\epsilon - 3} \implies \frac{3n + 1}{2n + 5} < \epsilon$.
@@ -77,12 +77,50 @@
           \end{align*}
 
           Let $\epsilon > 0$.
-          Choose $N in \mathbb{N} | N > \frac{4}{\epsilon^2} - 3$.
+          Choose $N \in \mathbb{N} | N > \frac{4}{\epsilon^2} - 3$.
 
           Let $n \ge N$.
           So, $n \ge N > \frac{4}{\epsilon^2} - 3 \implies \frac{2}{\sqrt{n + 3}} < \epsilon$.
 
           Thus $|a_n - 0| < \epsilon$.
+      \end{enumerate}
+
+    \item 2.2.5
+      \begin{enumerate}
+        \item
+          $a_n = \left\lfloor\frac{1}{n}\right\rfloor$
+
+          It is easy to see that after the first element in the sequence,
+          all values are $0$.
+
+          $\lim a_n = 0$
+
+          \begin{proof}
+            Let $\epsilon > 0$.
+            Choose $N > 1$.
+
+            Let $n \ge N$.
+            So, $n \ge N > 1 \implies \left\lfloor\frac{1}{n}\right\rfloor = 0 < \epsilon$.
+
+            Thus, $|a_n - 0| < \epsilon$.
+          \end{proof}
+
+        \item
+          $a_n = \left \lfloor \frac{10 + n}{2n} \right \rfloor$
+
+          Again we see that after some elements all values are $0$.
+
+          $\lim a_n = 0$
+
+          \begin{proof}
+            Let $\epsilon > 0$.
+            Choose $N > 10$.
+
+            Let $n \ge N$.
+            So, $n \ge N > 10 \implies \left \lfloor \frac{10 + n}{2n} \right \rfloor = 0 < \epsilon$.
+
+            Thus, $|a_n - 0| < \epsilon$.
+          \end{proof}
       \end{enumerate}
   \end{enumerate}
 
