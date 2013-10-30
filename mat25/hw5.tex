@@ -122,6 +122,33 @@
             Thus, $|a_n - 0| < \epsilon$.
           \end{proof}
       \end{enumerate}
+
+    \item 2.2.7
+      \begin{enumerate}
+        \item A sequence ($a_n$) diverges to $\infty$ if,
+          for every positive number $\epsilon$,
+          there exists an $N \in \mathbb{N}$ such that
+          whenever $n \ge N$ it follows that $|a_n| > \epsilon$
+
+          $\lim \sqrt{n} = \infty$
+
+          \begin{proof}
+            Let $\epsilon > 0$.
+
+            We want to show
+            \begin{align*}
+              \sqrt{n} &> \epsilon \\
+              n &> \epsilon^2
+            \end{align*}
+
+            Choose $N > \epsilon^2$.
+
+            Let $n \ge N$.
+            So, $n \ge N > \epsilon^2 \implies \sqrt{n} > \epsilon$.
+
+            Thus, $|a_n| > \epsilon$.
+          \end{proof}
+      \end{enumerate}
   \end{enumerate}
 
 \end{document}
