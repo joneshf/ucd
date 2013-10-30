@@ -166,6 +166,32 @@
         l_1 - l_2 &= 0 \\
         l_1 = l_2 \\
       \end{align*}
+
+    \item 2.3.7
+      \begin{enumerate}
+        \item
+          Since ($a_n$) is bounded,
+          $\exists M > 0 \text{ such that } |a_n| \le M, \forall n \in \mathbb{N}$.
+
+          Also, since $\lim b_n = 0$ we can choose a special epsilon,
+          $
+            \forall \epsilon > 0, \exists N \in \mathbb{N} \text{ such that }
+            n \ge N \implies |b_n| < \frac{\epsilon}{M}
+          $
+
+          So, $|a_n||b_n| < M\frac{\epsilon}{M} \implies |a_n||b_n| < \epsilon$.
+
+          Which is equivalent to $|a_n b_n - 0| < \epsilon$.
+
+          By Definition 2.2.3, this sequence ($a_n b_n$) goes to $0$.
+
+          We were not allowed to use the Algebraic Limit Theorem
+          because ($a_n$) is not necessarily convergent.
+
+        \item
+          The only thing we can conclude when $\lim b_n = b$
+          is that ($a_n b_n$) is bounded by $b$ times the bounds of ($a_n$).
+      \end{enumerate}
   \end{enumerate}
 
 \end{document}
