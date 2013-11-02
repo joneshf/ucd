@@ -196,5 +196,61 @@
 
       $T = Z$
 
+    \item
+      Implement the state diagram using D flipflops.
+      Show the state transition table, state encoding, k-maps, and equations.
+
+      \begin{enumerate}
+        \item
+          State transitions
+
+          \begin{tabular}{c | c c | c}
+            Current & $X_1$ & $X_0$ & Next \\
+            \hline
+            A & d & 0 & B \\
+            A & d & 1 & A \\
+            B & 0 & 0 & B \\
+            B & 0 & 1 & D \\
+            B & 1 & 0 & D \\
+            B & 1 & 1 & B \\
+            C & 0 & 0 & C \\
+            C & d & 1 & D \\
+            C & 1 & 0 & A \\
+            D & 0 & D & C \\
+            D & 1 & D & D \\
+          \end{tabular}
+
+          Output
+
+          \begin{tabular}{c | c c}
+            State & $Z_1$ & $Z_0$ \\
+            \hline
+            A & 0 & 0 \\
+            B & 0 & 1 \\
+            C & 1 & 0 \\
+            D & 0 & 0 \\
+          \end{tabular}
+
+        \item
+          State encoding
+
+          \begin{tabular}{c c | c c | c c}
+            \multicolumn{2}{c}{Current} & \multicolumn{2}{|c|}{Input} & \multicolumn{2}{c}{Next}\\
+            $S_1$ & $S_0$ & $X_1$ & $X_0$ & $S_1'$ & $S_0'$ \\
+            \hline
+            0 & 0 & d & 0 & 0 & 1 \\
+            0 & 0 & d & 1 & 0 & 0 \\
+            0 & 1 & 0 & 0 & 0 & 1 \\
+            0 & 1 & 0 & 1 & 1 & 1 \\
+            0 & 1 & 1 & 0 & 1 & 1 \\
+            0 & 1 & 1 & 1 & 0 & 1 \\
+            1 & 0 & 0 & 0 & 1 & 0 \\
+            1 & 0 & d & 1 & 1 & 1 \\
+            1 & 0 & 1 & 0 & 0 & 0 \\
+            1 & 1 & 0 & d & 1 & 0 \\
+            1 & 1 & 1 & d & 1 & 1 \\
+          \end{tabular}
+      \end{enumerate}
+
   \end{enumerate}
 \end{document}
