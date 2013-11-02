@@ -36,64 +36,105 @@
 
       D
 
-    \begin{tikzpicture}
-      \matrix (karnaugh1) [matrix of math nodes] {
-        1 & 0 & 0 & 1 \\
-        1 & 1 & 1 & 0 \\
-        1 & 1 & 1 & 1 \\
-        0 & 1 & 0 & 0 \\
-      } ;
+      \begin{tikzpicture}
+        \matrix (karnaugh1) [matrix of math nodes] {
+          1 & 0 & 0 & 1 \\
+          1 & 1 & 1 & 0 \\
+          1 & 1 & 1 & 1 \\
+          0 & 1 & 0 & 0 \\
+        } ;
 
-      \foreach \i/\bits in {1/00,2/01,3/11,4/10} {
-        \node [left  = 2mm of karnaugh1-\i-1] {$\bits$} ;
-        \node [above = 2mm of karnaugh1-1-\i] {$\bits$} ;
-      }
+        \foreach \i/\bits in {1/00,2/01,3/11,4/10} {
+          \node [left  = 2mm of karnaugh1-\i-1] {$\bits$} ;
+          \node [above = 2mm of karnaugh1-1-\i] {$\bits$} ;
+        }
 
-      \node [left  = .6cm of karnaugh1.west]  (YZ) {$YZ$} ;
-      \node [above = .5cm of karnaugh1.north] (QX) {$QX$} ;
+        \node [left  = .6cm of karnaugh1.west]  (YZ) {$YZ$} ;
+        \node [above = .5cm of karnaugh1.north] (QX) {$QX$} ;
 
-      \draw    ($(QX.north       -| karnaugh1.west)  + (-.75mm,0)$)
-            -- ($(karnaugh1.south -| karnaugh1.west)  + (-.75mm,0)$)
-               ($(YZ.west        |- karnaugh1.north) + (0,+.40mm)$)
-            -- ($(karnaugh1.east  |- karnaugh1.north) + (0,+.40mm)$) ;
+        \draw    ($(QX.north       -| karnaugh1.west)  + (-.75mm,0)$)
+              -- ($(karnaugh1.south -| karnaugh1.west)  + (-.75mm,0)$)
+                 ($(YZ.west        |- karnaugh1.north) + (0,+.40mm)$)
+              -- ($(karnaugh1.east  |- karnaugh1.north) + (0,+.40mm)$) ;
 
-    \end{tikzpicture}
+      \end{tikzpicture}
 
       J
 
-    \begin{tikzpicture}
-      \matrix (karnaugh1) [matrix of math nodes] {
-        1 & 0 & d & d \\
-        1 & 1 & d & d \\
-        1 & 1 & d & d \\
-        0 & 1 & d & d \\
-      } ;
+      \begin{tikzpicture}
+        \matrix (karnaugh1) [matrix of math nodes] {
+          1 & 0 & d & d \\
+          1 & 1 & d & d \\
+          1 & 1 & d & d \\
+          0 & 1 & d & d \\
+        } ;
 
-      \foreach \i/\bits in {1/00,2/01,3/11,4/10} {
-        \node [left  = 2mm of karnaugh1-\i-1] {$\bits$} ;
-        \node [above = 2mm of karnaugh1-1-\i] {$\bits$} ;
-      }
+        \foreach \i/\bits in {1/00,2/01,3/11,4/10} {
+          \node [left  = 2mm of karnaugh1-\i-1] {$\bits$} ;
+          \node [above = 2mm of karnaugh1-1-\i] {$\bits$} ;
+        }
 
-      \node [left  = .6cm of karnaugh1.west]  (YZ) {$YZ$} ;
-      \node [above = .5cm of karnaugh1.north] (QX) {$QX$} ;
+        \node [left  = .6cm of karnaugh1.west]  (YZ) {$YZ$} ;
+        \node [above = .5cm of karnaugh1.north] (QX) {$QX$} ;
 
-      \draw    ($(QX.north       -| karnaugh1.west)  + (-.75mm,0)$)
-            -- ($(karnaugh1.south -| karnaugh1.west)  + (-.75mm,0)$)
-               ($(YZ.west        |- karnaugh1.north) + (0,+.40mm)$)
-            -- ($(karnaugh1.east  |- karnaugh1.north) + (0,+.40mm)$) ;
+        \draw    ($(QX.north       -| karnaugh1.west)  + (-.75mm,0)$)
+              -- ($(karnaugh1.south -| karnaugh1.west)  + (-.75mm,0)$)
+                 ($(YZ.west        |- karnaugh1.north) + (0,+.40mm)$)
+              -- ($(karnaugh1.east  |- karnaugh1.north) + (0,+.40mm)$) ;
 
-      \begin{pgfonlayer}{background}
-        \begin{scope}[opacity=.5]
-          \fill [red]
-                (karnaugh1-1-1.north west) rectangle (karnaugh1-2-1.south east)
-                (karnaugh1-1-4.north west) rectangle (karnaugh1-2-4.south east) ;
-          \fill [blue]
-                (karnaugh1-2-1.north west) rectangle (karnaugh1-3-4.south east) ;
-          \fill [green]
-                (karnaugh1-3-2.north west) rectangle (karnaugh1-4-3.south east) ;
-        \end{scope}
-      \end{pgfonlayer}
-    \end{tikzpicture}
+        \begin{pgfonlayer}{background}
+          \begin{scope}[opacity=.5]
+            \fill [red]
+                  (karnaugh1-1-1.north west) rectangle (karnaugh1-2-1.south east)
+                  (karnaugh1-1-4.north west) rectangle (karnaugh1-2-4.south east) ;
+            \fill [blue]
+                  (karnaugh1-2-1.north west) rectangle (karnaugh1-3-4.south east) ;
+            \fill [green]
+                  (karnaugh1-3-2.north west) rectangle (karnaugh1-4-3.south east) ;
+          \end{scope}
+        \end{pgfonlayer}
+      \end{tikzpicture}
+
+      $J = Z + \overline{X} \ \overline{Y} + XY$
+
+      K
+
+      \begin{tikzpicture}
+        \matrix (karnaugh1) [matrix of math nodes] {
+          d & d & 1 & 0 \\
+          d & d & 0 & 1 \\
+          d & d & 0 & 0 \\
+          d & d & 1 & 1 \\
+        } ;
+
+        \foreach \i/\bits in {1/00,2/01,3/11,4/10} {
+          \node [left  = 2mm of karnaugh1-\i-1] {$\bits$} ;
+          \node [above = 2mm of karnaugh1-1-\i] {$\bits$} ;
+        }
+
+        \node [left  = .6cm of karnaugh1.west]  (YZ) {$YZ$} ;
+        \node [above = .5cm of karnaugh1.north] (QX) {$QX$} ;
+
+        \draw    ($(QX.north       -| karnaugh1.west)  + (-.75mm,0)$)
+              -- ($(karnaugh1.south -| karnaugh1.west)  + (-.75mm,0)$)
+                 ($(YZ.west        |- karnaugh1.north) + (0,+.40mm)$)
+              -- ($(karnaugh1.east  |- karnaugh1.north) + (0,+.40mm)$) ;
+
+        \begin{pgfonlayer}{background}
+          \begin{scope}[opacity=.5]
+            \fill [red]
+                  (karnaugh1-1-2.north west) rectangle (karnaugh1-1-3.south east)
+                  (karnaugh1-4-2.north west) rectangle (karnaugh1-4-3.south east) ;
+            \fill [blue]
+                  (karnaugh1-4-1.north west) rectangle (karnaugh1-4-4.south east) ;
+            \fill [green]
+                  (karnaugh1-2-1.north west) rectangle (karnaugh1-2-1.south east)
+                  (karnaugh1-2-4.north west) rectangle (karnaugh1-2-4.south east) ;
+          \end{scope}
+        \end{pgfonlayer}
+      \end{tikzpicture}
+
+      $K = X\overline{Z} + Y\overline{Z} + \overline{X} \ \overline{Y} Z$
 
   \end{enumerate}
 \end{document}
