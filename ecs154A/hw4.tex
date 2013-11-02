@@ -1,0 +1,74 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{circuitikz}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 154A Homework 4\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Nitta\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item Implement the following D flipflop as a JK flipflop.
+
+      D
+
+    \begin{tikzpicture}
+      \matrix (karnaugh1) [matrix of math nodes] {
+        1 & 0 & 0 & 1 \\
+        1 & 1 & 1 & 0 \\
+        1 & 1 & 1 & 1 \\
+        0 & 1 & 0 & 0 \\
+      } ;
+
+      \foreach \i/\bits in {1/00,2/01,3/11,4/10} {
+        \node [left  = 2mm of karnaugh1-\i-1] {$\bits$} ;
+        \node [above = 2mm of karnaugh1-1-\i] {$\bits$} ;
+      }
+
+      \node [left  = .6cm of karnaugh1.west]  (YZ) {$YZ$} ;
+      \node [above = .5cm of karnaugh1.north] (QX) {$QX$} ;
+
+      \draw    ($(QX.north       -| karnaugh1.west)  + (-.75mm,0)$)
+            -- ($(karnaugh1.south -| karnaugh1.west)  + (-.75mm,0)$)
+               ($(YZ.west        |- karnaugh1.north) + (0,+.40mm)$)
+            -- ($(karnaugh1.east  |- karnaugh1.north) + (0,+.40mm)$) ;
+
+      % \begin{pgfonlayer}{background}
+      %   \begin{scope}[opacity=.5]
+      %     \fill [red]
+      %           (karnaugh1-1-1.north west) rectangle (karnaugh1-2-1.south east)
+      %           (karnaugh1-1-4.north west) rectangle (karnaugh1-2-4.south east) ;
+      %     \fill [blue]
+      %           (karnaugh1-1-2.north west) rectangle (karnaugh1-4-3.south east) ;
+      %     \fill [green]
+      %           (karnaugh1-3-1.north west) rectangle (karnaugh1-4-4.south east) ;
+      %   \end{scope}
+      % \end{pgfonlayer}
+    \end{tikzpicture}
+
+  \end{enumerate}
+\end{document}
