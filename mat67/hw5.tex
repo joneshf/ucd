@@ -132,5 +132,26 @@
 
       \end{proof}
 
+    \item
+      Let $\mathbb{F}_m[z]$ denote the vector space of all polynomials with degree
+      $\le m \in \mathbb{Z}^+$ and having coefficient over $\mathbb{F}$,
+      and suppose that $p_0, p_1, ..., p_m \in \mathbb{F}_m[z]$ satisfy
+      $p_j(2) = 0$.
+      
+      Prove that $(p_0, p_1, ..., p_m)$
+      is a linearly dependent list of vectors in $\mathbb{F}_m[z]$.
+
+      \begin{proof}
+        It suffices to show $a_0p_0 + a_1p_1 + ... + a_mp_m = 0$ has at least one non-trivial solution.
+
+        Choose $a_0 = 1$, $a_1 = ... = a_m = 0$.
+        Then we have:
+        \[p_0 + 0p_1 + ... + 0p_m = p_0\]
+
+        Evaluating this at $z = 2$ we get:
+        \[p_0(2) = 0\]
+
+        So this list of vectors is linearly dependent.
+      \end{proof}
   \end{enumerate}
 \end{document}
