@@ -1,0 +1,53 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 67 Homework 5\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bandyopadhyay\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Let $V$ be a vector space over $\mathbb{F}$,
+      and suppose that the list $(v_1, v_2, ..., v_n)$ of vectors spans $V$,
+      where each $v_i \in V$.
+      Prove that the list 
+      \[(v_1 - v_2, v_2 - v_3, v_3 - v_4, ..., v_{n-2} - v_{n-1}, v_{n-1} - v_n, v_n)\]
+      also spans $V$.
+
+      \begin{proof}
+        Each $v_j \in (v_1, v_2, ..., v_n)$ can be constructed from our new list.
+
+        \begin{align*}
+          v_1 &= (v_1 - v_2) + (v_2 - v_3) + (v_3 - v_4) + ... + (v_{n-2} - v_{n-1}) + (v_{n-1} - v_n) + v_n \\
+          &= (v_1 - \cancel{v_2}) + (\cancel{v_2} - \cancel{v_3}) + (\cancel{v_3} - \cancel{v_4}) + ... + (\cancel{v_{n-2}} - \cancel{v_{n-1}}) + (\cancel{v_{n-1}} - \cancel{v_n}) + \cancel{v_n} \\
+          &= v_! \\
+          v_2 &= 0(v_1 - v_2) + (v_2 - v_3) + (v_3 - v_4) + ... + (v_{n-2} - v_{n-1}) + (v_{n-1} - v_n) + v_n \\
+          &= (v_2 - \cancel{v_3}) + (\cancel{v_3} - \cancel{v_4}) + ... + (\cancel{v_{n-2}} - \cancel{v_{n-1}}) + (\cancel{v_{n-1}} - \cancel{v_n}) + \cancel{v_n} \\
+          &= v_2 \\
+          &\vdots \\
+          v_n &= 0(v_1 - v_2) + 0(v_2 - v_3) + 0(v_3 - v_4) + ... + 0(v_{n-2} - v_{n-1}) + 0(v_{n-1} - v_n) + v_n \\
+          &= v_n
+        \end{align*}
+
+        Since we see that we can generate each one of these...
+      \end{proof}
+  \end{enumerate}
+\end{document}
