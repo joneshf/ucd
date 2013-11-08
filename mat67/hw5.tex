@@ -52,11 +52,27 @@
         So, $span(v_1 - v_2, v_2 - v_3, ..., v_{n-1}- v_n, v_n) = V$
       \end{proof}
 
+    \pagebreak
+
     \item
-      Let $V$ be a ﬁnite-dimensional vector space over $\mathbb{F}$
+      Let $V$ be a finite-dimensional vector space over $\mathbb{F}$
       with $dim(V) = n$ for some $n \in \mathbb{Z}^+$.
       Prove that there are $n$ one-dimensional subspaces $U_1, U_2, ..., U_n$ of $V$ such that
-      \[V = U_1 \oplus U_2 \oplus · · · \oplus U_n\].
+      \[V = U_1 \oplus U_2 \oplus \cdots \oplus U_n\].
+
+      \begin{proof}
+        Since $V$ is a finite-dimensional vector space of dimension $n$,
+        it has some basis $(V_1, v_2, ..., v_n)$.
+        
+        Let each $U_i$ be a one-dimensional subspace of $V$, where $i \in \mathbb{N}, 1 \le i \le n$, such that
+
+        \begin{align*}
+          U_1 &= \{v_1\} \\
+          U_2 &= \{v_2\} \\
+          &\vdots \\
+          U_n &= \{v_n\}
+        \end{align*}
+      \end{proof}
 
   \end{enumerate}
 \end{document}
