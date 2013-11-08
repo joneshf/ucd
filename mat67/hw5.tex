@@ -58,7 +58,7 @@
       Let $V$ be a finite-dimensional vector space over $\mathbb{F}$
       with $dim(V) = n$ for some $n \in \mathbb{Z}^+$.
       Prove that there are $n$ one-dimensional subspaces $U_1, U_2, ..., U_n$ of $V$ such that
-      \[V = U_1 \oplus U_2 \oplus \cdots \oplus U_n\].
+      \[V = U_1 \oplus U_2 \oplus \cdots \oplus U_n\]
 
       \begin{proof}
         Since $V$ is a finite-dimensional vector space of dimension $n$,
@@ -72,15 +72,6 @@
           &\vdots \\
           U_n &= \{v_n\}
         \end{align*}
-
-        It is easy to see that each of these subspaces are also vector spaces.
-
-        Since,
-          \begin{enumerate}
-            \item The zero vector exists in all of them: $0(v_i) = 0 \in U_i$
-            \item They are closed under vector addition: $v_i + v_i = 2v_i \in U_i$
-            \item They are closed under scalar multiplication: $cv_i \in U_i $
-          \end{enumerate}
 
         Now, we can create any $v \in V$ by taking unique linear combinations of $v_1 + v_2 + ... + v_n$ with $v_1 \in U_1, v_2 \in U_2, ..., v_n \in U_n,$.
 
@@ -132,6 +123,8 @@
 
       \end{proof}
 
+    \pagebreak
+
     \item
       Let $\mathbb{F}_m[z]$ denote the vector space of all polynomials with degree
       $\le m \in \mathbb{Z}^+$ and having coefficient over $\mathbb{F}$,
@@ -141,17 +134,52 @@
       Prove that $(p_0, p_1, ..., p_m)$
       is a linearly dependent list of vectors in $\mathbb{F}_m[z]$.
 
+      We need a bit more information first.
+
+      By theorem 5.4.4.3,
+
+      Given a vector space $V$ of dimension $n$,
+
+      if $(v_1, v_2, ..., v_n)$ is linearly independent, 
+      then $(v_1, v_2, ..., v_n)$ is a basis for $V$.
+
+      this implies that $span(v_1, v_2, ..., v_n) = V$.
+
+      So we just need to show that $(v_1, v_2, ..., v_n)$ does not span $V$.
+
       \begin{proof}
-        It suffices to show $a_0p_0 + a_1p_1 + ... + a_mp_m = 0$ has at least one non-trivial solution.
 
-        Choose $a_0 = 1$, $a_1 = ... = a_m = 0$.
-        Then we have:
-        \[p_0 + 0p_1 + ... + 0p_m = p_0\]
+        We know that $dim(\mathbb{F}_m[z]) = m + 1$
 
-        Evaluating this at $z = 2$ we get:
-        \[p_0(2) = 0\]
+        and that there are $m + 1$ vectors in $(p_0, p_1, ..., p_m)$
 
-        So this list of vectors is linearly dependent.
+        So we need to show that $(p_0, p_1, ..., p_m)$ does not span $\mathbb{F}_m[z]$
+
+        Since we're assuming that $(p_0, p_1, ..., p_m)$ does not span $\mathbb{F}_m[z]$,
+        there must be at least one vector in $\mathbb{F}_m[z]$
+        that cannot be represented as a linear combination of $(p_0, p_1, ..., p_m)$.
+
+        Let's choose a constant polynomial $f(z) = c, c \in \mathbb{F}, c \neq 0$.
+
+        What we see is that this polynomial cannot exist in $span(p_0, p_1, ..., p_m)$
+        because if we choose $z = 2$
+        and try to represent $f(2)$ as a linear combination of $(p_0, p_1, ..., p_m)$,
+        we end up with the equation:
+
+        \begin{align*}
+          f(2) &= a_0p_0(2) + a_1p_1(2) + ... + a_mp_m(2) \\
+          c &= a_0(0) + a_1(0) + ... + a_m(0) \\
+          c &= 0 \\
+        \end{align*}
+
+        However, from our choice of this constant polynomial, we said that $c \neq 0$.
+        This contradiction shows that there is at least one vector in $\mathbb{F}_m[z]$ which cannot be written as a linear combination of $(p_0, p_1, ..., p_m)$.
+        
+        So, $(p_0, p_1, ..., p_m)$ does not span $\mathbb{F}_m[z]$.
+
+        So, $(p_0, p_1, ..., p_m)$ is not a basis for $\mathbb{F}_m[z]$.
+
+        Thus, $(p_0, p_1, ..., p_m)$ is linearly dependent.
       \end{proof}
   \end{enumerate}
 \end{document}
