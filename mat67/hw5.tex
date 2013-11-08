@@ -62,8 +62,8 @@
 
       \begin{proof}
         Since $V$ is a finite-dimensional vector space of dimension $n$,
-        it has some basis $(V_1, v_2, ..., v_n)$.
-        
+        it has some basis $(v_1, v_2, ..., v_n)$.
+
         Let each $U_i$ be a one-dimensional subspace of $V$, where $i \in \mathbb{N}, 1 \le i \le n$, such that
 
         \begin{align*}
@@ -72,6 +72,64 @@
           &\vdots \\
           U_n &= \{v_n\}
         \end{align*}
+
+        It is easy to see that each of these subspaces are also vector spaces.
+
+        Since,
+          \begin{enumerate}
+            \item The zero vector exists in all of them: $0(v_i) = 0 \in U_i$
+            \item They are closed under vector addition: $v_i + v_i = 2v_i \in U_i$
+            \item They are closed under scalar multiplication: $cv_i \in U_i $
+          \end{enumerate}
+
+        Now, we can create any $v \in V$ by taking unique linear combinations of $v_1 + v_2 + ... + v_n$ with $v_1 \in U_1, v_2 \in U_2, ..., v_n \in U_n,$.
+
+        First, we show that $v_i$ exists.
+
+        \begin{align*}
+          v_1 &= v_1 + 0v_2 + 0v_3 + ... + 0v_n = v_1 \\
+          v_2 &= 0v_1 + v_2 + 0v_3 + ... + 0v_n = v_2 \\
+          v_3 &= 0v_1 + 0v_2 + v_3 + ... + 0v_n = v_3 \\
+          & \vdots \\
+          v_n &= 0v_1 + 0v_2 + 0v_3 + ... + v_n = v_n \\
+        \end{align*}
+
+        Now, we show that $v_i$ is unique.
+
+        Without loss of generality we examine $v_1$
+
+        \[v_1 = a_1v_1 + a_2v_2 + ... + a_nv_n = b_1v_1 + b_2v_2 + ... + b_nv_n\]
+        \[\forall a_j, b_j \in \mathbb{F}, j \in \mathbb{N}, i \le j \le n\]
+        
+        Since $v_1$ comes from the basis of $V$, it is part of a linearly independent set of vectors.
+        This means that $v_1$ does not have any components of the other vectors.
+
+        Symbolically,
+        \begin{align*}
+          a_1v_1 + 0v_2 + 0v_3 + ... + 0v_n &= b_1v_1 + 0v_2 + 0v_3 + ... + 0v_n \\
+          a_1v_1 &= b_1v_1 \\
+          a_1v_1 - b_1v_1 &= 0 \\
+          (a_1 - b_1)v_1 &= 0
+        \end{align*}
+
+        Now, since we know that $v_1$ is a basis for $U_1$ and part of the basis for $V$,
+        we know that $v_1 \neq 0$, so we must have:
+
+        \begin{align*}
+          (a_1 - b_1)v_1 &= 0 \\
+          a_1 - b_1 &= 0 \\
+          a_1 &= b_1 \\
+        \end{align*}
+
+        And so, there is only one unique way to create $v_1$.
+
+        Through similar reasoning, we can show that each $v_i$ is unique.
+
+        Thus, since each $v_i \in V$ can be uniquely represented as $v_1 + v_2 + ... + v_n$,
+        where $v_1 \in U_i, v_2 \in U_2, ..., v_n \in U_n$,
+
+        \[V = U_1 \oplus U_2 \oplus \cdots \oplus U_n\]
+
       \end{proof}
 
   \end{enumerate}
