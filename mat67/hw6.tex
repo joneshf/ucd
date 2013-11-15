@@ -75,7 +75,23 @@
         of $(\alpha_1, \alpha_2, \alpha_3)$.
         Thus, span$(\alpha_1, \alpha_2, \alpha_3)$ = $\mathbb{R}^2$
 
+        Now, we start our recursive reduction.
+
+        $\alpha_1 \neq 0$, so we leave it alone, and our list is still $(\alpha_1, \alpha_2, \alpha_3)$
+        $\alpha_2 \neq a_1\alpha_1$, so leave it in our list, which is still $(\alpha_1, \alpha_2, \alpha_3)$
+        $\alpha_3 = -\alpha_1 - \alpha_2$, so remove it and now our list is $(\alpha_1, \alpha_2)$
+
+        So, we're done, we now have a linearly independent list of vectors which span $\mathbb{R}^2$.
+        Thus, we have our basis for $\mathbb{R}^2$, namely $(\alpha_1, \alpha_2)$
+
+      \item
+        It is trivial to show that $(\beta_1, \beta_2, \beta_3)$ is a list of vectors in $\mathbb{R}^2$
+
     \end{enumerate}
+
+    From both of these, we can finally use theorem 6.1.3 to show that there exists some
+    \[T: \mathbb{R}^2 \rightarrow \mathbb{R}^2\]
+    such that $T\alpha_1 = \beta_1$, $T\alpha_2 = \beta_2$, and $T\alpha_3 = \beta_3$.
   \end{proof}
 
 \end{document}
