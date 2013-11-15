@@ -58,15 +58,15 @@
         This is equivalent to solving this system of equations.
 
         \begin{align*}
-          a_1 & + & 2a_2 & - & 3a_3 & = x \\
-          -a_1 & - & a_2 & + & 2a_3 & = y
+          a_1 + 2a_2 - 3a_3 & = x \\
+          -a_1 - a_2 + 2a_3 & = y
         \end{align*}
 
         This reduces to:
 
         \begin{align*}
-          a_1 & + & 0a_2 & - & a_3 = x \\
-          0a_1 & + & a_2 & - & a_3 = y
+          a_1 + 0a_2 - a_3 &= x \\
+          0a_1 + a_2 - a_3 &= y
         \end{align*}
 
         So, $v = (a_1\alpha_1 - a_3\alpha_3, a_2\alpha_2 - a_3\alpha_3)$
@@ -78,10 +78,13 @@
         Now, we start our recursive reduction.
 
         $\alpha_1 \neq 0$, so we leave it alone, and our list is still $(\alpha_1, \alpha_2, \alpha_3)$
+
         $\alpha_2 \neq a_1\alpha_1$, so leave it in our list, which is still $(\alpha_1, \alpha_2, \alpha_3)$
+
         $\alpha_3 = -\alpha_1 - \alpha_2$, so remove it and now our list is $(\alpha_1, \alpha_2)$
 
         So, we're done, we now have a linearly independent list of vectors which span $\mathbb{R}^2$.
+
         Thus, we have our basis for $\mathbb{R}^2$, namely $(\alpha_1, \alpha_2)$
 
       \item
