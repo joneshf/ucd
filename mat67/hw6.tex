@@ -1,0 +1,81 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 67 Homework 5\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bandyopadhyay\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+
+  \maketitle
+
+  We are asked to determine if there is a
+  \[T: \mathbb{R}^2 \rightarrow \mathbb{R}^2\]
+  such that $T\alpha_1 = \beta_1$, $T\alpha_2 = \beta_2$, and $T\alpha_3 = \beta_3$.
+
+  \begin{proof}
+    We can use theorem 6.1.3 to help in our proof.
+    So we need to show two things:
+
+    \begin{enumerate}
+      \item $(\alpha_1, \alpha_2, \alpha_3)$ form a basis for $\mathbb{R}^2$
+      \item $(\beta_1, \beta_2, \beta_3)$ is a list of vectors in $\mathbb{R}^2$
+    \end{enumerate}
+
+    \begin{enumerate}
+      \item
+        In order to show that $(\alpha_1, \alpha_2, \alpha_3)$ is a basis for $\mathbb{R}^2$,
+        we need to show that $(\alpha_1, \alpha_2, \alpha_3)$ is linearly independent
+        and $\mathbb{R}^2$ = span$(\alpha_1, \alpha_2, \alpha_3)$.
+
+        By inspection, we can see that $(\alpha_1, \alpha_2, \alpha_3)$ is linearly dependent,
+        since $\alpha_1 = -\alpha_2 - \alpha_3$, so we're better off using the basis reduction theorem.
+
+        Let's start by showing that span$(\alpha_1, \alpha_2, \alpha_3)$ = $\mathbb{R}^2$.
+
+        We simply need to show that
+        \[\forall v \in \mathbb{R}^2; x, y, a_1, a_2, a_3 \in \mathbb{R}; v = (x, y) = a_1\alpha_1 + a_2\alpha_2 + a_3\alpha_3\]
+
+        \begin{align*}
+          v = (x, y) &= a_1(1, -1) + a_2(2, -1) + a_3(-3, 2) \\
+          &= (a_1 + 2a_2 -3a_3, -a_1 - a_2 + 2a_3)
+        \end{align*}
+
+        This is equivalent to solving this system of equations.
+
+        \begin{align*}
+          a_1 & + & 2a_2 & - & 3a_3 & = x \\
+          -a_1 & - & a_2 & + & 2a_3 & = y
+        \end{align*}
+
+        This reduces to:
+
+        \begin{align*}
+          a_1 & + & 0a_2 & - & a_3 = x \\
+          0a_1 & + & a_2 & - & a_3 = y
+        \end{align*}
+
+        So, $v = (a_1\alpha_1 - a_3\alpha_3, a_2\alpha_2 - a_3\alpha_3)$
+
+        So we can represent any vector in $\mathbb{R^2}$ as a linear combination
+        of $(\alpha_1, \alpha_2, \alpha_3)$.
+        Thus, span$(\alpha_1, \alpha_2, \alpha_3)$ = $\mathbb{R}^2$
+
+    \end{enumerate}
+  \end{proof}
+
+\end{document}
