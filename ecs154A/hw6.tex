@@ -1,0 +1,57 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{circuitikz}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 154A Homework 6\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Nitta\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      \[c = \num{3.00e8}\frac{m}{s}, \ d = 0.12m, \ d = rt \implies t = \frac{d}{r}\]
+      \[r = \frac{c}{3} = \frac{\num{3.00e8}\frac{m}{s}}{3} = \num{1.00e8}\frac{m}{s}\]
+      \[t = \frac{0.12m}{\num{1.00e8}\frac{m}{s}} = \num{1.20e-9}s\]
+      \[\text{bandwidth } = \frac{\text{bits}}{t} = \frac{64b}{\num{1.20e-9}s} = \num{5.33e10}\frac{b}{s}\]
+
+      The maximum theoretical bandwidth is $\num{5.33e10}\frac{b}{s}$.
+
+    \item
+      This would increase the bandwidth by a factor of $8B$.
+      So, the new bandwith would be \[8B \cdot \num{5.33e10}\frac{b}{s}\]
+
+    \item
+      A Programmable Interrupt Controller (PIC) takes in multiple interrupt lines and combines them with priority to the cpu.
+      One of the most popular ones is the 8259A.
+
+    \item
+      The difference between an interrupt and an exception is that
+      an interrupt is user invoked, like a keypress or closing the laptop lid,
+      while an exception is invoked by the execution of a program, like a division by zero.
+  \end{enumerate}
+\end{document}
