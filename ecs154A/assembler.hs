@@ -1,6 +1,9 @@
+module Assembler where
+
 import qualified Data.Map as M
-import Data.Maybe
 import Text.ParserCombinators.Parsec
+
+-- Parser stuff.
 
 asmFile :: GenParser Char st [[String]]
 asmFile = do
@@ -36,6 +39,7 @@ parseAsm :: String -> Either ParseError [[String]]
 parseAsm = parse asmFile "wat?"
 
 -- Conversion into instructions
+registers :: M.Map String String
 registers = M.fromList
     [ ("R0", "000")
     , ("R1", "001")
@@ -47,6 +51,17 @@ registers = M.fromList
     , ("R7", "111")
     ]
 
+flags :: M.Map String String
+flags = M.fromList
+    [ ("Z", "000")
+    , ("O", "001")
+    , ("N", "010")
+    , ("C", "011")
+    , ("I", "100")
+    , ("A", "101")
+    ]
+
+instructions :: M.Map String String
 instructions = M.fromList
     [ ("ADD",  "00000")
     , ("SUB",  "00001")
@@ -73,8 +88,14 @@ instructions = M.fromList
     , ("NOP",  "11111")
     ]
 
-lookupReg = flip M.lookup registers
-lookupInstr = flip M.lookup instructions
+findReg :: String -> String
+findReg = flip (M.findWithDefault $ replicate 3 '0') registers
+
+findInstr :: String -> String
+findInstr = flip (M.findWithDefault $ replicate 5 '0') instructions
+
+findFlag :: String -> String
+findFlag = flip (M.findWithDefault $ replicate 3 '0') flags
 
 intStrToBinStr :: String -> [Int]
 intStrToBinStr = reverse . convert . read
@@ -89,16 +110,22 @@ intListToStr = foldr (\n acc -> show n ++ acc) ""
 decToBin :: String -> String
 decToBin = intListToStr . intStrToBinStr
 
+padRight :: Int -> String -> String
+padRight n s = take n $ s ++ repeat '0'
+
+padLeft :: Int -> String -> String
+padLeft n s = reverse $ take n $ reverse s ++ repeat '0'
+
 buildInstructions :: [[String]] -> [String]
-buildInstructions = map buildInstruction
+buildInstructions = map (padRight 16 . buildInstruction)
 
 buildInstruction :: [String] -> String
-buildInstruction ["ST", reg, other] = "Fix ST"
-buildInstruction ["LD", reg, other] = "Fix LD"
-buildInstruction ["BR", reg, other] = "Fix BR"
-buildInstruction ["NOP"]            = fromJust (lookupInstr "NOP")
-buildInstruction [inst, reg, 'R':rest] = fromJust (lookupInstr inst) ++ fromJust (lookupReg reg) ++ fromJust (lookupReg ('R':rest))
-buildInstruction [inst, reg, 'R':r1, 'R':r2] = fromJust (lookupInstr inst) ++ fromJust (lookupReg reg) ++ fromJust (lookupReg ('R':r1)) ++ fromJust (lookupReg ('R':r2))
-buildInstruction [inst, reg, num] = fromJust (lookupInstr inst) ++ fromJust (lookupReg reg) ++ decToBin num
-buildInstruction [inst, reg, r1, num] = fromJust (lookupInstr inst) ++ fromJust (lookupReg reg) ++ fromJust (lookupReg r1) ++ decToBin num
-buildInstruction [inst, reg] = fromJust (lookupInstr inst) ++ fromJust (lookupReg reg)
+buildInstruction ["ST", reg, other]          = "Fix ST"
+buildInstruction ["LD", reg, other]          = "Fix LD"
+buildInstruction ["BR", flag, num]           = findInstr "BR" ++ findFlag flag ++ padLeft 8 (decToBin num)
+buildInstruction ["NOP"]                     = findInstr "NOP"
+buildInstruction [inst, reg, 'R':rest]       = findInstr inst ++ findReg reg ++ findReg ('R':rest)
+buildInstruction [inst, reg, 'R':r1, 'R':r2] = findInstr inst ++ findReg reg ++ findReg ('R':r1) ++ findReg ('R':r2)
+buildInstruction [inst, reg, num]            = findInstr inst ++ findReg reg ++ padLeft 8 (decToBin num)
+buildInstruction [inst, reg, r1, num]        = findInstr inst ++ findReg reg ++ findReg r1 ++ padLeft 5 (decToBin num)
+buildInstruction [inst, reg]                 = findInstr inst ++ findReg reg
