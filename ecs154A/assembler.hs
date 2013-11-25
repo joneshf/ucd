@@ -1,5 +1,6 @@
 module Assembler where
 
+import qualified Control.Applicative as A
 import qualified Data.Map as M
 import Text.ParserCombinators.Parsec
 
@@ -30,10 +31,11 @@ mnemonic :: GenParser Char st String
 mnemonic = many (noneOf " \n")
 
 operators :: GenParser Char st [String]
-operators = operator `sepBy` char ','
+operators = operator `sepBy` oneOf "+,"
 
 operator :: GenParser Char st String
-operator = char ' ' >> many (noneOf ",\n")
+operator =
+    many (char ' ') >> many (char '(') >> many (noneOf "+,)\n") A.<* many (char ')')
 
 parseAsm :: String -> Either ParseError [[String]]
 parseAsm = parse asmFile "wat?"
@@ -120,8 +122,6 @@ buildInstructions :: [[String]] -> [String]
 buildInstructions = map (padRight 16 . buildInstruction)
 
 buildInstruction :: [String] -> String
-buildInstruction ["ST", reg, other]          = "Fix ST"
-buildInstruction ["LD", reg, other]          = "Fix LD"
 buildInstruction ["BR", flag, num]           = findInstr "BR" ++ findFlag flag ++ padLeft 8 (decToBin num)
 buildInstruction ["NOP"]                     = findInstr "NOP"
 buildInstruction [inst, reg, 'R':rest]       = findInstr inst ++ findReg reg ++ findReg ('R':rest)
