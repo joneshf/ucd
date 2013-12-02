@@ -23,4 +23,35 @@
 
   \maketitle
 
+  \begin{enumerate}
+    \item
+      Let $V$ and $W$ be vector spaces over $\mathbb{F}$
+      and suppose that $T \in \mathcal{L}(V,W)$ is injective.
+
+      Given a linearly independent list $(v_1, \dots, v_n)$ of vectors in $V$,
+      prove that the list $(T(v_1), \dots, T(v_n))$ is linearly independent in $W$.
+
+      \begin{proof}
+        Suppose $a_1, a_2, \dots, a_n \in \mathbb{F}$ and
+        $a_1T(v_1) + a_2T(v_2) + \dots + a_nT(v_n) = 0$.
+
+        Now since $T$ is a linear map,
+        \begin{align*}
+          0 &= a_1T(v_1) + a_2T(v_2) + \dots + a_nT(v_n)
+          &= T(a_1v_1 + a_2v_2 + \dots + a_nv_n)
+        \end{align*}
+
+        And since $T$ is injective we have that there is one vector, namely $0$, in its kernel by proposition 6.2.6.
+
+        That is:
+        \[a_1v_1 + a_2v_2 + \dots + a_nv_n = 0\]
+
+        Now since $(v_1, \dots, v_n)$ is linearly independent,
+        $a_1 = a_2 = \dots = a_n = 0$.
+
+        From this, we see that $a_1T(v_1) + a_2T(v_2) + \dots + a_nT(v_n) = 0$
+        must be linearly independent.
+      \end{proof}
+  \end{enumerate}
+
 \end{document}
