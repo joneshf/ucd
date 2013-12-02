@@ -52,6 +52,35 @@
         From this, we see that $a_1T(v_1) + a_2T(v_2) + \dots + a_nT(v_n) = 0$
         must be linearly independent.
       \end{proof}
+
+    \item
+      Let $V$ and $W$ be vector spaces over $\mathbb{F}$
+      and suppose that $T \in \mathcal{L}(V,W)$ is surjective.
+
+      Given a spanning list $(v_1, \dots, v_n)$ for $V$,
+      prove that span$(T(v_1), \dots, T(v_n)) = W$.
+
+      \begin{proof}
+        Suppose $\exists w \in W$, then since $T$ is surjective,
+        we have a $v \in V$ such that $T(v) = w$.
+
+        Since $(v_1, \dots, v_n)$ spans $V$, we can make a linear combination for v
+        \[a_1v_1 + a_2v_2 + \dots + a_nv_n = v, \text{ where } a_1, a_2, \dots, a_n \in \mathbb{F}\]
+
+        Now, since $T$ is a linear map,
+        \begin{align*}
+          w &= T(v) \\
+          &= T(a_1v_1 + a_2v_2 + \dots + a_nv_n) \\
+          &= T(a_1v_1) + T(a_2v_2) + \dots + T(a_nv_n) \\
+          &= a_1T(v_1) + a_2T(v_2) + \dots + a_nT(v_n)
+        \end{align*}
+
+        Since our choice for $w$ was arbitrary, we can find all $w \in W$ this way.
+
+        So we have that $\forall w \in W, w \in \text{ span }(T(V))$.
+
+        Or put another way, span$(T(v_1), \dots, T(v_n)) = W$
+      \end{proof}
   \end{enumerate}
 
 \end{document}
