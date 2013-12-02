@@ -81,6 +81,53 @@
 
         Or put another way, span$(T(v_1), \dots, T(v_n)) = W$
       \end{proof}
+
+    \item
+      Let $V$ be a finite-dimensional vector space over $\mathbb{F}$
+      with $S, T \in \mathcal{L}(V, V)$.
+
+      Prove that $T \circ S$ is invertible if and only if both $S$ and $T$ are invertible.
+
+      \begin{proof}
+        We need to show both ways.
+
+        \begin{enumerate}
+          \item
+            Suppose $T \circ S$ is invertible.
+
+            We only need to check that $null(T) = \{0\}$ and $null(S) = \{0\}$
+
+            In order for $T \circ S$ to be invertible we must have that $T(0) = 0$.
+            So there must exist some $v \in V$ such that $S(v) = 0$.
+
+            If $v \neq 0$, then $(T \circ S)(v) = T(S(v)) = T(0) = 0$
+            but that would imply that $null(T \circ S) \neq \{0\}$, which contradicts the fact that $T \circ S$ is invertible.
+
+            So $v = 0$ and $S(0) = 0 \implies T(0) = 0$.
+
+            These two imply that $null(S) = \{0\}$ and $null(T) = \{0\}$.
+
+            Thus $S$ and $T$ are invertible.
+          \item
+            Suppose $T, S$ are invertible.
+            It suffices to check that null$(T \circ S) = \{0\}$
+
+            For some $v \in V$,
+
+            If $v \in null(T \circ S)$, then
+            $S(v) \in null(T)$.
+
+            So, $S(v) = 0$.
+
+            This means that $v \in null(S)$ and so $v = 0$.
+
+            So, $null(T \circ S) = \{0\}$.
+
+            Thus $T \circ S$ is invertible.
+        \end{enumerate}
+
+        Thus, from (a) and (b) we have that $T \circ S$ is invertible if and only if both $S$ and $T$ are invertible.
+      \end{proof}
   \end{enumerate}
 
 \end{document}
