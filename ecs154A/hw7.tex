@@ -1,0 +1,89 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{circuitikz}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{tikz}
+\usepackage{siunitx}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usetikzlibrary{matrix}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 154A Homework 7\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Nitta\vspace{-2ex}}
+\date{Fall 2013}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      The advantage of write back cache is that main memory does not have to be written to immediately.
+      The main memory can be lazily written to when there are free cycles.
+
+      Two disadvantages are that it is more complex.
+      If there is a cache miss and the location to store the new data is ready to be written, it will be written at that time.
+      Then memory will be read into the cache.
+      This makes for two memory access instead of just one.
+
+    \item
+      L1 cache should use virtual addresses.
+      Since the cache is so close to the processor, speed is the main concern.
+      A translation from virtual addresses to physical addresses would slow down L1 access.
+      So, it's best to keep L1 addressed virtually.
+
+    \item
+      If we take average access time to be:
+      \[Average Access Time = Hit Rate \cdot Upper Access Time + Miss Rate \cdot Lower Access Time\]
+      We should be able to compute this relatively easily.
+      We need some numbers first.
+      \begin{align*}
+        L1 \ Access Time &= 1 \ cycle \\
+        L1 \ Hit Rate &= 0.90 \\
+        L1 \ Miss Rate &= 0.10 \\
+        L2 \ Access Time &= 10 \ cycle \\
+        L2 \ Hit Rate &= 0.95 \\
+        L2 \ Miss Rate &= 0.05 \\
+        Memory Access Time &= 1000 \ cycle \\
+      \end{align*}
+
+      So we want to compute:
+      \begin{align*}
+        Average Access Time &= L1 \ Hit Rate \cdot L1 \ Access Time \\
+        &+ L1 \ Miss Rate (L2 \ Hit Rate \cdot L2 \ Access Time \\
+        &+ L2 \ Miss Rate (Memory Access Time))
+      \end{align*}
+
+      Now we just plug and chug the numbers.
+
+      \begin{align*}
+        Average Access Time &= 0.90 \cdot 1 \ cycle + 0.10 (0.95 \cdot 10 \ cycle + 0.05 (1000 \ cycle)) \\
+        &= 0.90 \cdot 1 \ cycle + 0.10 (0.95 \cdot 10 \ cycle + 50 \ cycle) \\
+        &= 0.90 \cdot 1 \ cycle + 0.10 (9.5 \ cycle + 50 \ cycle) \\
+        &= 0.90 \cdot 1 \ cycle + 0.10 (59.5 \ cycle) \\
+        &= 0.90 \cdot 1 \ cycle + 5.95 \ cycle \\
+        &= 0.90 \ cycle + 5.95 \ cycle \\
+        &= 6.85 \ cycle
+      \end{align*}
+
+      So the average access time is 6.85 cycles.
+    \item
+      ...
+  \end{enumerate}
+\end{document}
