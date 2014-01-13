@@ -65,6 +65,9 @@
         \item BFS is a special case of UCS when the cost function is constant.
         \item UCS is a special case of A* when the heuristic function is constant.
       \end{enumerate}
+
+    \pagebreak
+
     \item
       Sudoku is a popular game in which the player tries to fill in all blank cells
       so that the resulting board contains 1 to 9 on each
@@ -120,5 +123,56 @@
           We end up with a greater probability of chosing the correct number to insert into a cell.
       \end{enumerate}
 
+    \pagebreak
+
+    \item
+      Consider the classic farmer, fox, goose, and grain problem.
+      It turns out that you can pose this as a graph search problem.
+      \begin{enumerate}
+        \item
+          Describe a representation of the state space for this problem.
+          What would the goal state look like in this representation.
+
+          The state space would be each of the farmer, fox, goose, and grain
+          in one of two locations: the west bank, and the east bank.
+
+          The goal state would have each of the farmer, fox, goose, and grain
+          on the east bank.
+        \item
+          What are the possible actions at a particular state?
+
+          There are 8 possible actions:
+          \begin{enumerate}
+            \item Move just the farmer to the east bank.
+            \item Move just the farmer to the west bank.
+            \item Move the fox to the east bank.
+            \item Move the fox to the west bank.
+            \item Move the goose to the east bank.
+            \item Move the goose to the west bank.
+            \item Move the grain to the east bank.
+            \item Move the grain to the west bank.
+          \end{enumerate}
+
+          Of course, each possible action involving moving something other than the farmer
+          assumes that said item is on the appropriate bank.
+        \item
+          Our goal is to get everything to the other side in one piece,
+          so what are the constraints on the state space that we need for the actions in part b?
+
+          We have two constraints:
+          \begin{enumerate}
+            \item
+              The fox and goose cannot be on one bank without the farmer also on that bank.
+            \item
+              The goose and grain cannot be on one bank without the farmer also on that bank.
+          \end{enumerate}
+        \item
+          Suppose we want to use A* here.
+          Describe a non-trivial admissible heuristic that we could use.
+
+          One heuristic would be the number of items on the east bank.
+          If a move would put another item on the east bank,
+          it should be preferable to one that would remove an item from the east bank.
+      \end{enumerate}
   \end{enumerate}
 \end{document}
