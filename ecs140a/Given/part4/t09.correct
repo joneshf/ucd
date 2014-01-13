@@ -1,0 +1,17 @@
+running e2c t09
+i
+  declared on line 2 at nesting depth 0
+  assigned to on: 3 19
+  used on: 4 5 6 8 9 16 19 21
+k
+  declared on line 2 at nesting depth 0
+  assigned to on: 6 7 9 11 16 17
+  used on: 7(3) 11(3) 17(3)
+long
+  declared on line 2 at nesting depth 0
+  assigned to on: 11
+  used on: 11 14
+n
+  declared on line 2 at nesting depth 0
+  assigned to on: 10 12
+  used on: 12(2)

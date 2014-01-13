@@ -1,0 +1,11 @@
+running e2c t31
+Token(VAR var 1)
+Token(ID a 2)
+Token(ID b 3)
+Token(ID c 4)
+Token(ID d 5)
+Token(RAV rav 6)
+Token(VAR var 9)
+Token(ID x 10)
+Token(RAV rav 11)
+Token(EOF *EOF* 12)

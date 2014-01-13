@@ -1,0 +1,32 @@
+#!/bin/csh -f
+# use this after runall to see the diffs in a more easily viewed format
+#
+# used without an argument, it will show diffs for all test files
+#
+# used with one or more arguments, it will show diffs
+# for just those test files, e.g.,
+#
+#   showdiffs t29
+#
+
+# you can set this variable to another diff tool if you prefer
+# e.g., "diff --side-by-side" or "sdiff" or even just plain "diff"
+# (to quit tkdiff, type q or click on File and then Exit.)
+set nicediff = "tkdiff"
+
+if( $#argv == 0 ) then
+	set files = "t*.e"
+else
+	set files = ""
+	foreach i ($argv)
+		set files = "$files $i.e"
+	end
+endif
+
+## echo $files
+
+foreach i ( $files )
+	set b = `basename $i .e`
+	echo ==== $b ====
+	cmp -s $b.correct $b.output || $nicediff $b.correct $b.output
+end

@@ -1,0 +1,17 @@
+running e2c t51
+k
+  declared on line 3 at nesting depth 0
+  assigned to on: 6
+  never used
+g
+  declared on line 3 at nesting depth 0
+  assigned to on: 4 11
+  used on: 10
+h
+  declared on line 3 at nesting depth 0
+  assigned to on: 5 10
+  used on: 8 9 10
+newg
+  declared on line 7 at nesting depth 1
+  assigned to on: 9
+  used on: 11

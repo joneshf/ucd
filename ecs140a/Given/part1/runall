@@ -1,0 +1,12 @@
+#!/bin/csh -f
+# a simple way to test everything
+
+foreach i ( t*.e )
+	set b = `basename $i .e`
+	echo ==== $b ====
+	./run1 $b
+	# clean things up
+	# you may want to comment out following line to leave .c file
+	# for debugging purposes
+	/bin/rm -f $b.o $b.c
+end
