@@ -31,7 +31,39 @@
       \begin{enumerate}
         \item BFS uses a FIFO structure for the fringe.
         \item DFS uses a LIFO structure for the fringe.
-        \item Uniform-cost search uses a priority FIFO for the fringe.
+        \item Uniform-cost search uses a priority FIFO structure for the fringe.
+      \end{enumerate}
+    \item
+      Assuming there aren't any programming bugs,
+      what is the most likely reason uniform cost search will sometimes return a greater cost path than depth first search?
+
+      If the branching factor is large, most of the path costs are small, but a
+      then UCS will explore many small-cost branches before exploring a any large-cost branches.
+      If the small-cost branches find a path to the goal,
+      UCS will choose this path as a solution,
+      even though the overall cost would be greater than any large-cost branches
+    \item
+      Given this information (and assuming there aren't any programming bugs)
+      what is the most likely reason A* would return a greater cost path
+      than Dijkstra's Algorithm?
+
+      A* can have a greater cost path than UCS
+      if we choose a heuristic function which overestimates the cost to reach the goal.
+      It's possible that there is some path on the optimal solution
+      that would have an overestimation for the heuristic.
+      A* would not expand this path,
+      and instead attempt to find some other path.
+      UCS on the other hand would just expand the path like any other.
+
+    \item
+      Consider the two statements
+      (a) BFS is a special case of uniform cost search, and
+      (b) uniform cost search is a special case of A*.
+      Under what conditions are they true?
+
+      \begin{enumerate}
+        \item BFS is a special case of UCS when the cost function is constant.
+        \item UCS is a special case of A* when the heuristic function is constant.
       \end{enumerate}
   \end{enumerate}
 \end{document}
