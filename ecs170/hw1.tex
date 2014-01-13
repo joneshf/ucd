@@ -65,5 +65,60 @@
         \item BFS is a special case of UCS when the cost function is constant.
         \item UCS is a special case of A* when the heuristic function is constant.
       \end{enumerate}
+    \item
+      Sudoku is a popular game in which the player tries to fill in all blank cells
+      so that the resulting board contains 1 to 9 on each
+      row, each column, and each 3 x 3 block.
+
+      \begin{enumerate}
+        \item
+          Formulate it as a graph search problem.
+          What are the state space, goal state, successor function, and the path costs?
+          \begin{enumerate}
+            \item
+              The state space is any arrangement of the numbers 1-9 in each cell
+              without repetition in the column, row, or 9x9 cell.
+            \item
+              The goal state is all 81 cells are filled in with
+              the numbers 1-9 with no repetition in each column, row or 9x9 cell.
+            \item
+              The successor function chooses a cell and inputs a number from 1-9
+              where the number chosen is not also in the same row, column, or 9x9 cell.
+            \item
+              The path cost is 1.
+          \end{enumerate}
+        \item
+          Assume we use uninformed search.
+          Which method would you prefer? Why?
+
+          With uninformed search, it is preferable to use DFS.
+
+          The branching factor can be huge.
+          In the worst case, the branching factor $b$ is 9.
+          The depth of the shallowest goal node depends on the initial state.
+          With an entirely empty board the maximum depth $d$ is 81.
+          This is the same as the the maximum length of any path in the state space,
+          $m$ = 81
+
+          In BFS this means we need to store around a maximum of $b^{d+1} = 9^82 = 1.77 x 10^78$ nodes in memory.
+          In DFS this means we would only store around a maximum of $bm = 9 \cdot 81 = 729$ nodes in memory.
+
+          The two algorithms have similar time complexity, so there is not much difference there.
+
+          Finally, the main issue with using DFS is that it is possible for the search to never end.
+          However, since we have a finite $d$ and $m$, we are guaranteed to find a solution.
+
+          One is prohibitively expensive, while the other is an actual usable solution.
+          For these reasons, DFS is recommended.
+        \item
+          Is a good heuristic possible in this case?
+          If so, provide one. If not, why not?
+
+          There are quite a few heuristics available for this problem.
+          One such is choosing the cell with the least number of valid numbers,
+          and inserting a number there.
+          We end up with a greater probability of chosing the correct number to insert into a cell.
+      \end{enumerate}
+
   \end{enumerate}
 \end{document}
