@@ -7,6 +7,7 @@
 \usepackage{titling}
 \usepackage{syntax}
 \usepackage{rail}
+\usepackage{qtree}
 
 \setlength{\droptitle}{-10ex}
 
@@ -111,6 +112,48 @@
         <armbench> ::=  armchair
                    \alt bench
       \end{grammar}
+
+    \item
+      The original grammar does not give a unique parse tree for every input string.
+      Give a string where the grammar is ambiguous and
+      give two different parse trees for that string.
+      What problems would ambiguity cause in a real programming language?
+
+      A simple example is: \texttt{oak bench bench}.
+
+      It can be parsed in the following ways.
+
+      \Tree
+        [.$room$
+          [.$table$
+            [.$set$ [
+              [.$table$ \texttt{oak} ]
+              [.$chairs$
+                [.$chairs$
+                  [.$chair$ [\texttt{bench} ] ] ]
+                [.$chair$ [\texttt{bench} ] ] ] ] ] ] ]
+      \Tree
+        [.$room$
+          [.$table$
+            [.$set$
+              [.$table$
+                [.$set$
+                  [.$table$ \texttt{oak} ]
+                  [.$chairs$
+                    [.$chair$ \texttt{bench} ] ] ] ]
+              [.$chairs$
+                [.$chair$ \texttt{bench} ] ] ] ] ]
+
+      Ambiguity in a real programming language can lead to incorrect results.
+      The simple case is arithmetic expressions.
+      If the grammar is ambiguous with respect to arithmetic expressions,
+      $1 + 2 \cdot 3$ could create the following incorrect parse tree resulting in $9$.
+
+      \Tree
+        [.$\cdot$
+          [.+
+            [1 2 ] ]
+          [3 ] ]
   \end{enumerate}
 
 \end{document}
