@@ -1,1 +1,1 @@
-\rail@i{1}{ room : ( chairs * ) table | table (couch | stuff); table : oak | teak | dinette | table chairs; chairs : ( chair + ); chair : armchair | bench | stool; stuff : rug | plant; }
+\rail@i{1}{ room : ( chairs * ) table | table ( 'couch' | stuff); table : 'oak' | 'teak' | 'dinette' | table chairs; chairs : ( chair + ); chair : 'armchair' | 'bench' | 'stool'; stuff : 'rug' | 'plant'; }

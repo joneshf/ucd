@@ -70,12 +70,32 @@
 
     \item Rewrite the above grammar using syntax graphs (aka syntax diagrams).
       \begin{rail}
-        room : ( chairs * ) table | table (couch | stuff);
-        table : oak | teak | dinette | table chairs;
+        room : ( chairs * ) table | table ( 'couch' | stuff);
+        table : 'oak' | 'teak' | 'dinette' | table chairs;
         chairs : ( chair + );
-        chair : armchair | bench | stool;
-        stuff : rug | plant;
+        chair : 'armchair' | 'bench' | 'stool';
+        stuff : 'rug' | 'plant';
       \end{rail}
+
+    \item
+      Consider all strings that can be derived from $<$table$>$.
+      Can each of those also be derived from $<$room$>$?
+      Explain.
+
+      Yes, every string that can be derived from $<$table$>$
+      can be derived from $<$room$>$.
+      Since a $<$room$>$ can be just a $<$table$>$,
+      we can make a straight derivation to $<$table$>$.
+
+    \item
+      Suppose the production $<$table$>$ $<$chairs$>$ were added as an alternative in the rule for $<$room$>$.
+      Would this change allow any additional strings to be considered a $<$room$>$?
+      If yes, give one such new string.
+      If no, explain.
+
+      No, this would not allow additional strings in the language.
+      Since $<$room$>$ can be a $<$table$>$, and a $<$table$>$ can be a $<$set$>$, and a set can be a $<$table$>$ $<$chairs$>$,
+      we would not have gained anything by adding this alternative.
   \end{enumerate}
 
 \end{document}
