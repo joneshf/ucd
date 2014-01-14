@@ -22,28 +22,38 @@
 \begin{document}
   \maketitle
 
-  \begin{tabular}{| l || c | c | c | c |}
-    \hline
-    \multicolumn{1}{| c ||}{string} & $<$chairs$>$ & $<$set$>$ & $<$table$>$ & $<$room$>$ \\
-    \hline
-    oak & no & no & yes & yes \\
-    armchair bench oak & no & no & no & yes \\
-    dinette plant & no & no & no & yes \\
-    bench stool & yes & no & no & no \\
-    % oak rug &
-    % oak teak dinette &
-    % teak teak &
-    % teak bench oak oak stool &
-    % dinette plant &
-    % rug plant &
-    % couch &
-    % armchair bench &
-    % teak lamp &
-    % bench stool teak bench stool &
-    % bench stool teak bench teak stool &
-    % teak bench plant &
-    \hline
+  \begin{enumerate}
+    \item Indicate if the string belongs to the class of object at the head of the column by placing ``yes'' or ``no'' in the approriate box.
 
-  \end{tabular}
+      \begin{tabular}{| l || c | c | c | c |}
+        \hline
+        \multicolumn{1}{| c ||}{string} & $<$chairs$>$ & $<$set$>$ & $<$table$>$ & $<$room$>$ \\
+        \hline
+        oak                                 & no  & no  & yes & yes \\ \hline
+        armchair bench oak                  & no  & no  & no  & yes \\ \hline
+        dinette plant                       & no  & no  & no  & yes \\ \hline
+        bench stool                         & yes & no  & no  & no  \\ \hline
+        oak rug                             & no  & no  & no  & yes \\ \hline
+        oak teak dinette                    & no  & no  & no  & no  \\ \hline
+        teak teak                           & no  & no  & no  & no  \\ \hline
+        teak bench oak oak stool            & no  & no  & no  & no  \\ \hline
+        dinette plant                       & no  & no  & no  & yes \\ \hline
+        rug plant                           & no  & no  & no  & no  \\ \hline
+        couch                               & no  & no  & no  & no  \\ \hline
+        armchair bench                      & yes & no  & no  & no  \\ \hline
+        teak lamp                           & no  & no  & no  & no  \\ \hline
+        bench stool teak bench stool        & no  & no  & no  & yes \\ \hline
+        bench stool teak bench teak stool   & no  & no  & no  & no  \\ \hline
+        teak bench plant                    & no  & no  & no  & yes \\ \hline
+      \end{tabular}
+    \item Rewrite the original grammar in EBNF notation (as given in the textbook).
+      \begin{align*}
+        < \! room \! > &::= \ \left[ < \! chairs \! > \right] < \! table \! > | < \! table \! > (couch \ | < \! stuff \! >) \\
+        < \! table \! > &::= \ oak \ | \ teak \ | \ dinette \ | < \! table \! > < \! chairs \! > \\
+        < \! chairs \! > &::= \ < \! chair \! > \{ < \! chair \! > \} \\
+        < \! chair \! > &::= \ armchair \ | \ bench \ | \ stool \\
+        < \! stuff \! > &::= \ rug \ | \ plant
+      \end{align*}
+  \end{enumerate}
 
 \end{document}
