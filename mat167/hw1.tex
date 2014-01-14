@@ -103,8 +103,122 @@
           \]
       \end{enumerate}
     \subsection*{12}
+      \[
+        A = \left(
+        \begin{array}{ccc}
+          1 & 0 & 0 \\
+          1 & 1 & 0 \\
+          1 & 0 & 0
+        \end{array}
+        \right)
+        ,
+        B = \left(
+        \begin{array}{ccc}
+          1 & 0 & 0 \\
+          1 & 1 & 0 \\
+          0 & 0 & 1
+        \end{array}
+        \right)
+        ,
+        AB = \left(
+        \begin{array}{ccc}
+          1 & 0 & 0 \\
+          2 & 1 & 0 \\
+          1 & 0 & 0
+        \end{array}
+        \right)
+      \]
+
+      This is the case because each entry in $AB$ is the dot product of a row from $A$ and a column from $B$.
+      Given two n x n matricies $A$ and $B$, each $A_{ij}$ where $i+j > 2i$ is $0$.
+      Similarly, each $B_{ij}$ where $i+j > 2i$ is $0$.
+
+      When we multiply these two matricies together, we are always multiplying the zero-upper-entries of $A$ by the nonzero-entries of $B$.
+      This always gives back a lower triangular matrix.
     \subsection*{17}
+      \[
+        (A+B)^2 = (A+B)(B+A) = A(A+B) + B(A+B) = A^2 + 2AB + B^2
+      \]
     \subsection*{42}
+      True of False?
+      \begin{enumerate}
+        \item
+          If $A^2$ is defined then $A$ is necessarily square.
+
+          True
+        \item
+          If $AB$ and $BA$ are deﬁned then $A$ and $B$ are square.
+
+          False,
+
+          \[
+            A = \left(
+            \begin{array}{cc}
+            1 & 1 \\
+            2 & 2 \\
+            3 & 3
+            \end{array}
+            \right)
+            ,
+            B = \left(
+            \begin{array}{ccc}
+              0 & 0 & 0 \\
+              1 & 1 & 1
+            \end{array}
+            \right)
+            ,
+            AB = \left(
+            \begin{array}{ccc}
+              1 & 1 & 1 \\
+              2 & 2 & 2 \\
+              3 & 3 & 3
+            \end{array}
+            \right)
+            ,
+            BA = \left(
+            \begin{array}{cc}
+              0 & 0 \\
+              6 & 6
+            \end{array}
+            \right)
+          \]
+        \item
+          If $AB$ and $BA$ are deﬁned then $AB$ and $BA$ are square.
+
+          True.
+        \item
+          If $AB$ = $B$ then $A$ = I.
+
+          False,
+
+          \[
+            A = \left(
+            \begin{array}{ccc}
+              0 & 0 & 0 \\
+              0 & 0 & 0 \\
+              0 & 0 & 0
+            \end{array}
+            \right)
+            ,
+            B = \left(
+            \begin{array}{ccc}
+              0 & 0 & 0 \\
+              0 & 0 & 0 \\
+              0 & 0 & 0
+            \end{array}
+            \right)
+            ,
+            AB = \left(
+            \begin{array}{ccc}
+              0 & 0 & 0 \\
+              0 & 0 & 0 \\
+              0 & 0 & 0
+            \end{array}
+            \right) = B
+            , A \ne I
+          \]
+
+      \end{enumerate}
     \subsection*{52}
 
   \section*{1.5}
