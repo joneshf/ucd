@@ -5,6 +5,8 @@
 \usepackage{cancel}
 \usepackage[margin=1in]{geometry}
 \usepackage{titling}
+\usepackage{syntax}
+\usepackage{rail}
 
 \setlength{\droptitle}{-10ex}
 
@@ -47,13 +49,33 @@
         teak bench plant                    & no  & no  & no  & yes \\ \hline
       \end{tabular}
     \item Rewrite the original grammar in EBNF notation (as given in the textbook).
-      \begin{align*}
-        < \! room \! > &::= \ \left[ < \! chairs \! > \right] < \! table \! > | < \! table \! > (couch \ | < \! stuff \! >) \\
-        < \! table \! > &::= \ oak \ | \ teak \ | \ dinette \ | < \! table \! > < \! chairs \! > \\
-        < \! chairs \! > &::= \ < \! chair \! > \{ < \! chair \! > \} \\
-        < \! chair \! > &::= \ armchair \ | \ bench \ | \ stool \\
-        < \! stuff \! > &::= \ rug \ | \ plant
-      \end{align*}
+      \begin{grammar}
+        <room> ::= [<chairs>] <table>
+                \alt <table> (couch | <stuff>)
+
+        <table> ::= oak
+                \alt teak
+                \alt dinette
+                \alt <table> <chairs>
+
+        <chairs> ::= <chair> \{ <chair> \}
+
+        <chair> ::= armchair
+                \alt bench
+                \alt stool
+
+        <stuff> ::= rug
+                \alt plant
+      \end{grammar}
+
+    \item Rewrite the above grammar using syntax graphs (aka syntax diagrams).
+      \begin{rail}
+        room : ( chairs * ) table | table (couch | stuff);
+        table : oak | teak | dinette | table chairs;
+        chairs : ( chair + );
+        chair : armchair | bench | stool;
+        stuff : rug | plant;
+      \end{rail}
   \end{enumerate}
 
 \end{document}
