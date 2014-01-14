@@ -8,6 +8,9 @@
 \usepackage{syntax}
 \usepackage{rail}
 \usepackage{qtree}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\rhead{Jones, Hardy}
 
 \setlength{\droptitle}{-10ex}
 
@@ -17,7 +20,7 @@
 \postdate{\par\end{flushright}}
 
 \title{ECS 140A Homework 1\vspace{-2ex}}
-\author{Hardy Jones\\
+\author{Jones, Hardy\\
         999397426\\
         Professor Olsson\vspace{-2ex}}
 \date{Winter 2014}
@@ -105,7 +108,7 @@
       not the entire grammar.
 
       \begin{grammar}
-        <chairs> ::=  (<stoolie> | <armbench>) \{ <armbench> \}
+        <chairs> ::=  ( <stoolie> | <armbench> ) \{ <armbench> \}
 
         <stoolie> ::= stool \{ <stoolie> \}
 
