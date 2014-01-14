@@ -96,6 +96,21 @@
       No, this would not allow additional strings in the language.
       Since $<$room$>$ can be a $<$table$>$, and a $<$table$>$ can be a $<$set$>$, and a set can be a $<$table$>$ $<$chairs$>$,
       we would not have gained anything by adding this alternative.
+
+    \item
+      Modify the original grammar so that in strings produced by $<$chairs$>$,
+      any stools precede any armchairs or benches.
+      Show only the changed rule(s) and any new rule(s),
+      not the entire grammar.
+
+      \begin{grammar}
+        <chairs> ::=  (<stoolie> | <armbench>) \{ <armbench> \}
+
+        <stoolie> ::= stool \{ <stoolie> \}
+
+        <armbench> ::=  armchair
+                   \alt bench
+      \end{grammar}
   \end{enumerate}
 
 \end{document}
