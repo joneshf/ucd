@@ -5,6 +5,9 @@
 \usepackage{cancel}
 \usepackage[margin=1in]{geometry}
 \usepackage{titling}
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
 
 \setlength{\droptitle}{-10ex}
 
@@ -23,7 +26,18 @@
   \maketitle
 
   \begin{enumerate}
-      \item Specify the atomic formulas of PL.
+    \item
+      Specify the atomic formulas of PL.
 
+      Every expression of PL that is either a sentence letter of PL, or
+      an $n$-place predicate of PL followed by $n$ individual terms of PL is an atomic formula of PL.
+
+    \item
+      Give the recursive definition of `formula of PL'.
+
+      \begin{enumerate}
+        \item Every atomic formula \textbf{P} is a formula of PL.
+        \item If \textbf{P} is a formula of PL, then so is \textasciitilde \textbf{P}.
+      \end{enumerate}
   \end{enumerate}
 \end{document}
