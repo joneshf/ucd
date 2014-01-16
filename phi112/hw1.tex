@@ -6,8 +6,6 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{titling}
 \usepackage{textcomp}
-\usepackage{lmodern}
-\usepackage[T1]{fontenc}
 
 \setlength{\droptitle}{-10ex}
 
@@ -37,7 +35,43 @@
 
       \begin{enumerate}
         \item Every atomic formula \textbf{P} is a formula of PL.
-        \item If \textbf{P} is a formula of PL, then so is \textasciitilde \textbf{P}.
+        \item If \textbf{P} is a formula of PL, then so is $\neg$\textbf{P}.
+        \item If \textbf{P} and \textbf{Q} are formulae of PL,
+          then so are \textbf{P}$\land$\textbf{Q}, \textbf{P}$\lor$\textbf{Q},
+          \textbf{P}$\supset$\textbf{Q}, and \textbf{P}$\equiv$\textbf{Q}.
+        \item If \textbf{P} is a formula of PL that contains at least one occurrence of \textbf{x} and no \textbf{x}-quantifier,
+          then $\forall$\textbf{xP} and $\exists$\textbf{xP} are formulae of PL.
+        \item Nothing else is a formula of PL unless it can be made from the previous rules.
+      \end{enumerate}
+
+    \item
+      Indicate which of the following are formulas of PL, and which of those are sentences of PL.
+
+      \begin{enumerate}
+        \item
+          Quantified Formula of PL.
+
+          Not a Sentence of PL since the subformula has a quantified x.
+
+          \underline{($\forall$x)}[Fxa $\supset$ ($\forall$x)Gax]
+        \item
+          Truth-functionally compound Formula of PL and Sentence of PL.
+
+          ($\forall$z)Fza \underline{$\supset$} $\neg$($\exists$z)Gaz
+        \item
+          Truth-functionally compound Formula of PL and Sentence of PL.
+
+          \underline{$\neg$}($\forall$y)Gyy
+        \item
+          Truth-functionally compound Formula of PL.
+
+          Not a sentence of PL for the subformula has at least one free variable.
+
+          Faz \underline{$\supset$} ($\forall$x)Fxa
+        \item
+          Not a formula of PL for there is no x in Fab.
+
+          $\neg$($\exists$x)Fab
       \end{enumerate}
   \end{enumerate}
 \end{document}
