@@ -201,7 +201,48 @@
 
   \section*{2.1}
     \subsection*{4}
+      What is the smallest subspace of 3 by 3 matrices that contains all symmetric matrices and all lower triangular matrices?
+      What is the largest subspace that is contained in both of those subspaces?
+
+      The smallest subspace containing both symmetric matrices and lower triangular matrices is the set of all 3 by 3 matrices.
+      It must be the entire subspace since we have to be able to add symmetric matrices to lower triangular matrices. This combination would end up with matrices that have entries above and below the diagonal, though not necessarily symmetric or lower triangular.
+
+      The largest subspace in both the subspace of all symmetric matrices, let's call it $\mathcal{S}$, and the subspace of all lower triangular matrices, let's call it $\mathcal{L}$, would be the set of all diagonal matrices, since every diagonal matrix would be symmetric and would also be lower triangular.
     \subsection*{5}
+      \begin{enumerate}
+        \item
+          Suppose addition in $\mathbf{R}^2$
+          adds an extra $1$ to each component,
+          so that $(3, 1)$ + $(5, 0)$ equals $(9, 2)$ instead of $(8, 1)$.
+          With scalar multiplication unchanged,
+          which rules are broken?
+
+          Rules 3, 7, and 8 are broken.
+
+        \item
+          Show that the set of all positive real numbers,
+          with $x+y$ and $cx$ redeﬁned to equal the usual $xy$ and $x^c$,
+          is a vector space.
+          What is the ``zero vector''?
+
+          \begin{enumerate}
+            \item Since multiplication is commutative, $x + y = y + x$.
+            \item Since multiplication is associative, $x + (y + z) = (x + y) + z$.
+            \item The zero vector is $1$, since $1x = x$, $\forall x$.
+            \item Every vector has its inverse as $\frac{1}{x}$, such that $x \cdot \frac{1}{x} = 1$
+            \item $x^1 = x$.
+            \item $x^{(c_1c_2)} = (x^{c_1})^{c_2}$.
+            \item $(xy)^c = x^cy^c$
+            \item $x^{(c_1+c_2)} = x^{c_1}x^{c_2}$
+          \end{enumerate}
+
+        \item
+          Suppose $(x1, x2) + (y1, y2)$ is defined to be $(x1 + y2, x2 + y1)$.
+          With the usual $cx = (cx1, cx2)$,
+          which of the eight conditions are not satisﬁed?
+
+          Rules 1, 2, 4 and 8 are broken.
+      \end{enumerate}
     \subsection*{10}
     \subsection*{24}
     \subsection*{28}
