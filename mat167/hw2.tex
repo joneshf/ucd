@@ -1,0 +1,147 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 167 Homework 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Cheer\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+  \section*{1.7}
+    \subsection*{4}
+      Write down the 3 by 3 finite-difference matrix equation ($h = \frac{1}{4}$) for
+      \[-\frac{d^2u}{dx^2} + u = x, \qquad u(0) = u(1) = 0\].
+
+      Following from the text
+
+      \[\frac{d^2u}{dx^2} \approx \frac{\Delta^2u}{\Delta x^2} = \frac{u(x+h) - 2u(x) + u(x-h)}{h^2}\]
+
+      So we have
+
+      \[-\frac{u(x+h) - 2u(x) + u(x-h)}{h^2} + u = x\]
+
+      Letting $x = jh$, and realizing that $u$ must be a function of $x$
+
+      \begin{align*}
+        -\frac{u(jh+h) - 2u(jh) + u(jh-h)}{h^2} + u(jh) &= jh \\
+        -\frac{u((j+1)h) - 2u(jh) + u((j-1)h)}{h^2} + u(jh) &= jh \\
+        -u((j+1)h) + 2u(jh) - u((j-1)h) + u(jh)h^2 &= jh^3
+      \end{align*}
+
+      We take another cue from the text and use the notation $u(jh) = u_j$
+      \begin{align*}
+        -u_{j+1} + 2u_j - u_{j-1} + u_jh^2 &= jh^3 \\
+        -u_{j+1} + u_jh^2 + 2u_j - u_{j-1} &= jh^3 \\
+        -u_{j+1} + (h^2 + 2)u_j - u_{j-1} &= jh^3
+      \end{align*}
+
+      Since we have $h = \frac{1}{4}$
+
+      \begin{align*}
+        -u_{j+1} + ((\tfrac{1}{4})^2 + 2)u_j - u_{j-1} &= j(\tfrac{1}{4})^3 \\
+        -u_{j+1} + (\tfrac{1}{16} + 2)u_j - u_{j-1} &= \tfrac{j}{64}
+        -u_{j+1} + \tfrac{33}{16}u_j - u_{j-1} &= \tfrac{j}{64}
+      \end{align*}
+
+      Now we check each of $j = 1,2,3$, remembering $u(0) = u_0 = u(1) = u_4 = 0$
+
+      $j = 1$
+      \begin{align*}
+        -u_{1+1} + \tfrac{33}{16}u_1 - u_{1-1} &= \tfrac{1}{64} \\
+        -u_2 + \tfrac{33}{16}u_1 - u_0 &= \tfrac{1}{64} \\
+        -u_2 + \tfrac{33}{16}u_1 &= \tfrac{1}{64}
+      \end{align*}
+
+      $j = 2$
+      \begin{align*}
+        -u_{2+1} + \tfrac{33}{16}u_2 - u_{2-1} &= \tfrac{2}{64} \\
+        -u_{3} + \tfrac{33}{16}u_2 - u_{1} &= \tfrac{2}{64}
+      \end{align*}
+
+      $j = 3$
+      \begin{align*}
+        -u_{3+1} + \tfrac{33}{16}u_3 - u_{3-1} &= \tfrac{3}{64} \\
+        -u_{4} + \tfrac{33}{16}u_3 - u_{2} &= \tfrac{3}{64} \\
+        \tfrac{33}{16}u_3 - u_{2} &= \tfrac{3}{64}
+      \end{align*}
+
+      So we have
+      \begin{align*}
+        -u_2 + \tfrac{33}{16}u_1 &= \tfrac{1}{64} \\
+        -u_{3} + \tfrac{33}{16}u_2 - u_{1} &= \tfrac{2}{64} \\
+        \tfrac{33}{16}u_3 - u_{2} &= \tfrac{3}{64}
+      \end{align*}
+
+      Rearranging
+      \begin{align*}
+        \tfrac{33}{16}u_1 - u_2 &= \tfrac{1}{64} \\
+        -u_{1} + \tfrac{33}{16}u_2 - u_{3}&= \tfrac{2}{64} \\
+        -u_{2} + \tfrac{33}{16}u_3 &= \tfrac{3}{64}
+      \end{align*}
+
+      \[
+        \left[
+        \begin{array}{ccc}
+        \tfrac{33}{16} & -1             & 0              \\
+        -1             & \tfrac{33}{16} & -1             \\
+        0              & -1             & \tfrac{33}{16}
+        \end{array}
+        \right]
+        \left[
+        \begin{array}{c}
+        u_1 \\
+        u_2 \\
+        u_3
+        \end{array}
+        \right]
+        =
+        \frac{1}{64}
+        \left[
+        \begin{array}{c}
+        1 \\
+        2 \\
+        3
+        \end{array}
+        \right]
+      \]
+    \subsection*{8}
+    \subsection*{10}
+
+  \section*{2.1}
+    \subsection*{4}
+    \subsection*{5}
+    \subsection*{10}
+    \subsection*{24}
+    \subsection*{28}
+
+  \section*{2.2}
+    \subsection*{6}
+    \subsection*{13}
+    \subsection*{25}
+    \subsection*{30}
+    \subsection*{39}
+    \subsection*{53}
+
+  \section*{2.3}
+    \subsection*{8}
+    \subsection*{16}
+    \subsection*{20}
+    \subsection*{26}
+    \subsection*{30}
+    \subsection*{42}
+\end{document}
