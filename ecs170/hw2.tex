@@ -55,5 +55,28 @@
             Therefore, $h_{max}$ dominates all other $h_i$.
           \end{proof}
       \end{enumerate}
+
+    \item
+      Recall the ``number of misplaced tiles'' heuristic for the 8-puzzle problem.
+      Show that this heuristic is admissible.
+
+      \begin{proof}
+        The rule for the 8-puzzle problem is:
+        \begin{itemize}
+          \item A tile can move from one position to another if the two positions are horizontally or vertically adjacent and the new position is blank.
+        \end{itemize}
+
+        If we decide to `relax' the rule for this problem we can get rid of the two restrictions that ``the two positions must be adjacent'' and ``the new position must be blank''.
+        By removing these two restrictions, we get our ``number of misplaced tiles'' heuristic.
+
+        We can show this is admissible by induction.
+
+        In the base case, no tiles are out of place, so the heuristic gives the optimal cost of 0 (which is not an overestimation).
+
+        For the inductive case, if $n$ tiles are out of place, then at least $n$ moves must be performed in order to reach the goal state.
+        Again, this is not an overestimation.
+
+        Thus, this heuristic is admissible.
+      \end{proof}
   \end{enumerate}
 \end{document}
