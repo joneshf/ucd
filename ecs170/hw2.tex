@@ -1,0 +1,59 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 170 Homework 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Davidson\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Given a set of admissible heuristics $\mathcal{H} = \{h_1, h_2, ..., h_n\}$ one can define a new heuristic $h_{max}$ such that for any node $n$:
+      \[
+        h_{max}(n) = \underset{i}{\text{max}} \ h_i(n)
+      \]
+      \begin{enumerate}
+        \item Show that $h_{max}$ is an admissible heuristic.
+
+          \begin{proof}
+            Assume $h_{max}$ is not an admissible heuristic.
+
+            We know $h_{max}$ is some heuristic from the set $h_1, h_2, ..., h_n$.
+            This means some heuristic in $\mathcal{H}$ is not admissible.
+
+            This is a contradiction since $\mathcal{H}$ contains only admissible heuristics,
+            thus our assumption was incorrect.
+
+            Therefore, $h_{max}$ is an admissible heuristic.
+          \end{proof}
+        \item Show that $h_{max}$ dominates all other $h_i$
+
+          \begin{proof}
+            Assume $h_{max}$ does not dominate all other $h_i$.
+
+            Then there must be some heuristic $h_j$ in $\mathcal{H}$ such that $h_{max}(n) < h_j(n)$.
+            But we know that $\forall i, 1 \le i \le n, h_{max}(n) \ge h_i(n)$.
+
+            This is a contradiction, thus our assumption was incorrect.
+
+            Therefore, $h_{max}$ dominates all other $h_i$.
+          \end{proof}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
