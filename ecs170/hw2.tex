@@ -78,5 +78,23 @@
 
         Thus, this heuristic is admissible.
       \end{proof}
+
+    \item What are the practical benefits of knowing that a heuristic $h_1$ dominates another heuristic $h_2$ (assume we know both are admissible)?
+
+      A dominating heuristic $h_1$ will be more efficient than $h_2$ for an algorithm like A*
+      because $h_1$ will expand less nodes than $h_2$.
+
+    \item
+      If we consider the minimax with $\alpha$-$\beta$ pruning algoritm returns/calculates the Nash equilibrium.
+      When the node $n$ is first expanded with values of $\alpha$ and $\beta$, what does this mean?
+
+      The $\alpha$ value is the path that $MIN$ should take,
+      and the $\beta$ value is the path that $MAX$ should take.
+
+    \item
+      What is the worst and best case time analysis of the minimax algorithm (without $\alpha$-$\beta$) in the big O notation, where $b$ is the branching factor, $m$ is the maximum depth of the tree, and $d$ is the depth of the least cost solution?
+
+      Without any pruning, the best and worst case time is the same since minimax must enumerate the entire tree.
+      Since it enumerates the tree in a depth first search, the time complexity is $O(b^m)$.
   \end{enumerate}
 \end{document}
