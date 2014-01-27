@@ -33,7 +33,7 @@
     block : ( declarations ) statementList;
     declarations : 'var' ( id * ) 'rav';
     statementList : ( statement * );
-    statement : assignment | print | 'if' | 'do' | 'fa';
+    statement : assignment | print | if | do | fa;
     assignment : id ':=' expression;
     print : 'print' expression;
     if : 'if' guardedCommands 'fi';
@@ -51,4 +51,17 @@
     multop : '*' | '/';
   \end{rail}
 
+
+  First sets:
+
+  \begin{align*}
+    First(program) &= First(block) \\
+    &= First(declarations) \cup First(statementList) \\
+    &= \{ var \} \cup First(statementList) \\
+    &= \{ var \} \cup First(statement) \\
+    &= \{ var \} \cup First(assignment) \cup First(print) \cup First(if) \cup First(do) \cup First(fa)\\
+    &= \{ var \} \cup First(id) \cup \{ print \} \cup \{ if \} \cup \{ do \} \cup \{ fa \}\\
+    &= \{ var \} \cup \{ id \} \cup \{ print \} \cup \{ if \} \cup \{ do \} \cup \{ fa \}\\
+    &= \{ var, \{ id \}, print, if, do, fa \}\\
+  \end{align*}
 \end{document}
