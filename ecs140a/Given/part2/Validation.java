@@ -2,42 +2,14 @@
  * Provides a disjoint union of two types.
  * A Validation is either <code>Invalid</code> or it is <code>Valid</code>.
  */
-public class Validation<Invalid, Valid> {
+public abstract class Validation<I, V> {
 
-    private Invalid invalid = null;
-    private Valid valid = null;
-
-    // We use a private constructor to ensure that our invariant
-    // of only having one type holds true.
-    private Validation(Invalid invalid, Valid valid) {
-        this.invalid = invalid;
-        this.valid = valid;
+    public static <I, V> Validation<I, V> valid(final V valid) {
+        return new Valid<I, V>(valid);
     }
 
-    /**
-     * Public <code>Invalid</code> constructor.
-     *
-     * @param i The <code>invalid</code> value.
-     */
-    public static <Invalid, Valid> Validation<Invalid, Valid> invalid(Invalid i) {
-        return new Validation<Invalid, Valid>(i, null);
-    }
-
-    /**
-     * Public <code>Valid</code> constructor.
-     *
-     * @param v The <code>valid</code> value.
-     */
-    public static <Invalid, Valid> Validation<Invalid, Valid> valid(Valid v) {
-        return new Validation<Invalid, Valid>(null, v);
-    }
-
-    public Invalid invalid() {
-        return this.invalid;
-    }
-
-    public Valid valid() {
-        return this.valid;
+    public static <I, V> Validation<I, V> invalid(final I invalid) {
+        return new Invalid<I, V>(invalid);
     }
 
     /**
@@ -46,9 +18,7 @@ public class Validation<Invalid, Valid> {
      * @return <code>true</code> if this is invalid and
      *         <code>false</code> otherwise.
      */
-    public boolean isInvalid() {
-        return this.valid == null;
-    }
+    abstract public boolean isInvalid();
 
     /**
      * Tests whether a <code>Validation</code> is valid.
@@ -56,7 +26,47 @@ public class Validation<Invalid, Valid> {
      * @return <code>true</code> if this is valid and
      *         <code>false</code> otherwise.
      */
-    public boolean isValid() {
-        return this.invalid == null;
+    abstract public boolean isValid();
+
+    public static final class Invalid<I, V> extends Validation<I, V> {
+
+        public final I invalid;
+
+        Invalid (final I invalid) {
+            this.invalid = invalid;
+        }
+
+        public I value() {
+            return this.invalid;
+        }
+
+        public boolean isInvalid() {
+            return true;
+        }
+
+        public boolean isValid() {
+            return false;
+        }
+    }
+
+    public static final class Valid<I, V> extends Validation<I, V> {
+
+        public final V valid;
+
+        Valid (V valid) {
+            this.valid = valid;
+        }
+
+        public V value() {
+            return this.valid;
+        }
+
+        public boolean isInvalid() {
+            return false;
+        }
+
+        public boolean isValid() {
+            return true;
+        }
     }
 }
