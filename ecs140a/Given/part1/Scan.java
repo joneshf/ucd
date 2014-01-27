@@ -90,12 +90,17 @@ public class Scan {
                         return ccase1('(',TK.LPAREN);
                     case ')':
                         return ccase1(')',TK.RPAREN);
+                    case '+':
+                        return ccase1('+',TK.PLUS);
                     case '*':
                         return ccase1('*',TK.TIMES);
                     case '=':
                         return ccase1('=',TK.EQ);
 
 // QUESTION 3:  What does the following case and the code in it do?
+
+// This case decides if the input is the division operator or
+// the not-equal operator.
 
                     case '/':
                         return ccase1or2('/','=',TK.DIVIDE,TK.NE);
@@ -258,7 +263,7 @@ public class Scan {
         if (str.equals("af"))        return TK.AF;
         if (str.equals("to"))        return TK.TO;
         if (str.equals("st"))        return TK.ST;
- 
+
         // no keyword matched, so ...
         return TK.ID;
     }

@@ -4,3 +4,4 @@
 *.fls
 *.log
 *.gz
+octave_core
