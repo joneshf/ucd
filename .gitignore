@@ -5,3 +5,4 @@
 *.log
 *.gz
 octave_core
+*.class
