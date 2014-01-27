@@ -30,7 +30,7 @@
 
   \begin{rail}
     program : block;
-    block : ( declarations ) statementList;
+    block : declarations ? statementList;
     declarations : 'var' ( id * ) 'rav';
     statementList : ( statement * );
     statement : assignment | print | if | do | fa;
@@ -38,11 +38,11 @@
     print : 'print' expression;
     if : 'if' guardedCommands 'fi';
     do : 'do' guardedCommands 'od';
-    fa : 'fa' id ':=' expression 'to' expression ( 'st' expression ) commands 'af';
+    fa : 'fa' id ':=' expression 'to' expression ( 'st' expression ) ? commands 'af';
     guardedCommands : guardedCommand ( '[]' guardedCommand * ) ( 'else' commands );
     guardedCommand : expression commands;
     commands : '->' block;
-    expression : simple ( relop simple );
+    expression : simple ( relop simple ) ?;
     simple : term ( addop term * );
     term : factor ( multop factor * );
     factor : '(' expression ')' | id | number;
@@ -63,5 +63,15 @@
     &= \{ var \} \cup First(id) \cup \{ print \} \cup \{ if \} \cup \{ do \} \cup \{ fa \}\\
     &= \{ var \} \cup \{ id \} \cup \{ print \} \cup \{ if \} \cup \{ do \} \cup \{ fa \}\\
     &= \{ var, \{ id \}, print, if, do, fa \}\\
+  \end{align*}
+
+  Expressions:
+
+  \begin{align*}
+    First(expression) &= First(simple) \\
+    &= First(term) \\
+    &= First(factor) \\
+    &= \{ ( \} \cup \{ id \} \cup \{ number \}
+    &= \{ (, \{ id \}, \{ number \} \}
   \end{align*}
 \end{document}
