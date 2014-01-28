@@ -1,10 +1,7 @@
 public class Parser {
     public Parser(Scan scanner) {
         Validation<String, Token> parsed = parse(scanner);
-        if (parsed.isValid()) {
-            // System.out.println("It's valid!");
-            // System.out.println(parsed.value());
-        } else {
+        if (parsed.isInvalid()) {
             System.err.println(parsed.value());
             System.exit(1);
         }
@@ -47,8 +44,6 @@ public class Parser {
                 case EOF:
                     return Validation.valid(t);
                 default:
-                    System.out.println("WTF " + t);
-                    System.out.println("WTF " + scanner.scan());
                     return Validation.invalid("can't parse: line "+t.lineNumber+
                                               " junk after logical end of"+
                                               " program");
@@ -193,9 +188,7 @@ public class Parser {
      */
     private Validation<String, Token> parseExpression(Scan scanner) {
         // We need the first thing to be a simple.
-        System.out.println("parsing expression");
         Validation<String, Token> parsed = parseSimple(scanner);
-        System.out.println("parseExpression parsed: "+parsed.value());
         if (parsed.isInvalid()) {
             return parsed;
         } else if (((Token) parsed.value()).kind == TK.EOF) {
@@ -371,10 +364,7 @@ public class Parser {
      */
     private Validation<String, Token> parseSimple(Scan scanner) {
         // We need the first thing to be a term.
-        System.out.println("parsing simple");
         Validation<String, Token> parsed = parseTerm(scanner);
-        System.out.println("parsing simple");
-        System.out.println("parseSimple parsed: "+parsed.value());
         if (parsed.isInvalid()) {
             return parsed;
         } else if (((Token) parsed.value()).kind == TK.EOF) {
@@ -397,9 +387,7 @@ public class Parser {
      */
     private Validation<String, Token> parseTerm(Scan scanner) {
         // // We need the first thing to be a factor.
-        System.out.println("parsing term");
         Validation<String, Token> parsed = parseFactor(scanner);
-        System.out.println("parseTerm parsed: "+parsed.value());
         if (parsed.isInvalid()) {
             return parsed;
         } else if (((Token) parsed.value()).kind == TK.EOF) {
@@ -466,7 +454,6 @@ public class Parser {
     private Validation<String, Token> manyAddTerm(Scan scanner) {
         // We can have zero or more `addop term`'s
         Token next = scanner.scan();
-        System.out.println("manyAddTerm next: "+next);
         switch (next.kind) {
             case PLUS:
             case MINUS:
@@ -484,7 +471,6 @@ public class Parser {
     private Validation<String, Token> manyMultFact(Scan scanner) {
         // We can have zero or more `multop factor`'s
         Token next = scanner.scan();
-        System.out.println("manyMultFact next: "+next);
         switch (next.kind) {
             case TIMES:
             case DIVIDE:
