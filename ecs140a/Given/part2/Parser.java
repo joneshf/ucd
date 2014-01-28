@@ -24,6 +24,8 @@ public class Parser {
             switch (t.kind) {
                 case PRINT:
                     return parseExpression(scanner);
+                case VAR:
+                    return parseDeclaration(scanner);
                 case EOF:
                     return Validation.valid(t);
                 default:
@@ -178,6 +180,28 @@ public class Parser {
                 return Validation.valid(t);
             default:
                 return Validation.invalid(t.toString());
+        }
+    }
+
+    /**
+     * Parses declarations.
+     * Declarations are `var {id} rav`
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseDeclaration(Scan scanner) {
+        // Snag the next token.
+        Token next = scanner.scan();
+        // We can have zero or more `id`'s
+        while (next.kind == TK.ID) {
+            next = scanner.scan();
+        }
+
+        // The token wasn't an id, it better be a `rav`.
+        if (next.kind == TK.RAV) {
+            return Validation.valid(next);
+        } else {
+            return Validation.invalid("Expected rav");
         }
     }
 }
