@@ -75,8 +75,6 @@ public class Scan {
 // putback has the value true.
 // c has the value 42.
 
-            System.out.println("putback "+putback);
-            System.out.println("c "+c);
             if( putback) {
                 putback = false;
             }

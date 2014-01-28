@@ -30,7 +30,7 @@ public abstract class Validation<I, V> {
 
     abstract public Object value();
 
-    private static final class Invalid<I, V> extends Validation<I, V> {
+    public static final class Invalid<I, V> extends Validation<I, V> {
 
         private final I invalid;
 
@@ -51,7 +51,7 @@ public abstract class Validation<I, V> {
         }
     }
 
-    private static final class Valid<I, V> extends Validation<I, V> {
+    public static final class Valid<I, V> extends Validation<I, V> {
 
         private final V valid;
 

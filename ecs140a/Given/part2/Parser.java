@@ -1,13 +1,37 @@
 public class Parser {
     public Parser(Scan scanner) {
-        Validation<String, String> parsed = parse(scanner);
+        Validation<String, Token> parsed = parse(scanner);
         if (parsed.isValid()) {
             // System.out.println("It's valid!");
             // System.out.println(parsed.value());
         } else {
-            System.out.println("No bueno");
-            System.out.println(parsed.value());
+            System.err.println(parsed.value());
+            System.exit(1);
         }
+    }
+
+    /**
+     * Parses the first set of the grammar.
+     * The only valid choices are `var`, `print`, `if`, `do`, `fa`, and `id`
+     *
+     * Overloaded to account for tokens already being read.
+     *
+     * @param scanner The scanner we're reading tokens from.
+     * @param t       The token we already tried to read.
+     */
+    public Validation<String, Token> parse(Scan scanner, Token t) {
+        do {
+            switch (t.kind) {
+                case PRINT:
+                    return parseExpression(scanner);
+                case EOF:
+                    return Validation.valid(t);
+                default:
+                    return Validation.invalid("can't parse: line "+t.lineNumber+
+                                              " junk after logical end of"+
+                                              " program");
+            }
+        } while (true);
     }
 
     /**
@@ -16,34 +40,9 @@ public class Parser {
      *
      * @param scanner The scanner we're reading tokens from.
      */
-    public Validation<String, String> parse(Scan scanner) {
+    public Validation<String, Token> parse(Scan scanner) {
         Token t = scanner.scan();
-        do {
-            switch (t.kind) {
-                // case VAR:
-                //     System.out.println("Got a var");
-                //     break;
-                case PRINT:
-                    return parseExpression(scanner);
-                // case IF:
-                //     System.out.println("Got a if");
-                //     break;
-                // case DO:
-                //     System.out.println("Got a do");
-                //     break;
-                // case FA:
-                //     System.out.println("Got a fa");
-                //     break;
-                // case ID:
-                //     System.out.println("Got a fa");
-                //     break;
-                case EOF:
-                    return Validation.valid(t.toString());
-                default:
-                    System.out.println("Got something else");
-                    return Validation.invalid(t.toString());
-            }
-        } while (t.kind != TK.EOF);
+        return parse(scanner, t);
     }
 
     /**
@@ -52,14 +51,35 @@ public class Parser {
      *
      * @param scanner The scanner we're reading tokens from.
      */
-    private Validation<String, String> parseExpression(Scan scanner) {
-        // // We need the first thing to be a simple.
-        // Validation<String, String> parsed = parseSimple(scanner);
-        // if (parsed.isValid()) {
-        //     return parsed;
-        // }
-        return parseSimple(scanner);
+    private Validation<String, Token> parseExpression(Scan scanner) {
+        // We need the first thing to be a simple.
+        Validation<String, Token> parsed = parseSimple(scanner);
+        if (parsed.isInvalid()) {
+            return parsed;
+        } else if (((Token) parsed.value()).kind == TK.EOF) {
+            return parsed;
+        } else {
+            return manyExpression(scanner);
+        }
+    }
+
+    /**
+     * Parses zero or more `expression`'s
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> manyExpression(Scan scanner) {
         // We can have zero or more `relop simple`'s
+        Token next = scanner.scan();
+        System.out.println("Parsing manyExpression.");
+        System.out.println(next.toString());
+        switch (next.kind) {
+            case PLUS:
+            case MINUS:
+                return parseExpression(scanner);
+            default:
+                return parse(scanner, next);
+        }
     }
 
     /**
@@ -68,13 +88,37 @@ public class Parser {
      *
      * @param scanner The scanner we're reading tokens from.
      */
-    private Validation<String, String> parseSimple(Scan scanner) {
-        // // We need the first thing to be a term.
-        // Validation<String, String> parsed = parseTerm(scanner);
-        // if (parsed.isValid()) {
-        //     return parsed;
-        // }
-        return parseTerm(scanner);
+    private Validation<String, Token> parseSimple(Scan scanner) {
+        // We need the first thing to be a term.
+        Validation<String, Token> parsed = parseTerm(scanner);
+        if (parsed.isInvalid()) {
+            return parsed;
+        } else if (((Token) parsed.value()).kind == TK.EOF) {
+            return parsed;
+        } else {
+            return manySimple(scanner);
+        }
+    }
+
+    /**
+     * Parses zero or more `simple`'s
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> manySimple(Scan scanner) {
+        // We can have zero or more `addop term`'s
+        Token next = scanner.scan();
+        switch (next.kind) {
+            case EQ:
+            case NE:
+            case LT:
+            case GT:
+            case LE:
+            case GE:
+                return parseSimple(scanner);
+            default:
+                return parse(scanner, next);
+        }
     }
 
     /**
@@ -83,13 +127,33 @@ public class Parser {
      *
      * @param scanner The scanner we're reading tokens from.
      */
-    private Validation<String, String> parseTerm(Scan scanner) {
+    private Validation<String, Token> parseTerm(Scan scanner) {
         // // We need the first thing to be a factor.
-        // Validation<String, String> parsed = parseFactor(scanner);
-        // if (parsed.isValid()) {
-        //     return parsed;
-        // }
-        return parseFactor(scanner);
+        Validation<String, Token> parsed = parseFactor(scanner);
+        if (parsed.isInvalid()) {
+            return parsed;
+        } else if (((Token) parsed.value()).kind == TK.EOF) {
+            return parsed;
+        } else {
+            return manyTerm(scanner);
+        }
+    }
+
+    /**
+     * Parses zero or more `term`'s
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> manyTerm(Scan scanner) {
+        // We can have zero or more `multop factor`'s
+        Token next = scanner.scan();
+        switch (next.kind) {
+            case TIMES:
+            case DIVIDE:
+                return parseTerm(scanner);
+            default:
+                return parse(scanner, next);
+        }
     }
 
     /**
@@ -98,20 +162,20 @@ public class Parser {
      *
      * @param scanner The scanner we're reading tokens from.
      */
-    private Validation<String, String> parseFactor(Scan scanner) {
+    private Validation<String, Token> parseFactor(Scan scanner) {
         // Find out what the first token is.
         Token t = scanner.scan();
         switch (t.kind) {
             case LPAREN:
                 // Grab the expression.
-                Validation<String, String> parsed = parseExpression(scanner);
+                Validation<String, Token> parsed = parseExpression(scanner);
                 if (parsed.isInvalid()) return parsed;
                 // And the right paren.
                 if (scanner.scan().kind == TK.LPAREN) return parsed;
                 else return Validation.invalid("Missing right paren");
             case ID:
             case NUM:
-                return Validation.valid(t.toString());
+                return Validation.valid(t);
             default:
                 return Validation.invalid(t.toString());
         }
