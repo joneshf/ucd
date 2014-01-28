@@ -20,25 +20,43 @@ public class Parser {
      * @param t       The token we already tried to read.
      */
     public Validation<String, Token> parse(Scan scanner, Token t) {
+        Validation<String, Token> parsed;
         do {
             switch (t.kind) {
+                case ASSIGN:
+                    parsed = parseExpression(scanner);
+                    break;
                 case DO:
-                    return parseDo(scanner);
+                    parsed = parseDo(scanner);
+                    break;
+                case FA:
+                    parsed = parseFa(scanner);
+                    break;
                 case ID:
-                    // We just ignore id's for now.
+                    parsed = Validation.valid(t);
                     break;
                 case IF:
-                    return parseIf(scanner);
+                    parsed = parseIf(scanner);
+                    break;
                 case PRINT:
-                    return parseExpression(scanner);
+                    parsed = parseExpression(scanner);
+                    break;
                 case VAR:
-                    return parseDeclaration(scanner);
+                    parsed = parseDeclaration(scanner);
+                    break;
                 case EOF:
                     return Validation.valid(t);
                 default:
+                    System.out.println("WTF " + t);
+                    System.out.println("WTF " + scanner.scan());
                     return Validation.invalid("can't parse: line "+t.lineNumber+
                                               " junk after logical end of"+
                                               " program");
+            }
+            if (parsed.isInvalid()) {
+                return parsed;
+            } else if (((Token) parsed.value()).kind == TK.EOF) {
+                return parsed;
             }
             t = scanner.scan();
         } while (true);
@@ -53,6 +71,28 @@ public class Parser {
     public Validation<String, Token> parse(Scan scanner) {
         Token t = scanner.scan();
         return parse(scanner, t);
+    }
+
+    /**
+     * Parses assignment.
+     * Assignment is `id ':=' expression`
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseAssignment(Scan scanner) {
+        // Snag the next token.
+        Token next = scanner.scan();
+        // It's gotta be an id.
+        if (next.kind == TK.ID) {
+            next = scanner.scan();
+            if (next.kind == TK.ASSIGN) {
+                return parseExpression(scanner);
+            } else {
+                return Validation.invalid("Expected assign.");
+            }
+        } else {
+            return Validation.invalid("Expected id.");
+        }
     }
 
     /**
@@ -160,6 +200,59 @@ public class Parser {
             return parsed;
         } else {
             return manyExpression(scanner);
+        }
+    }
+
+    /**
+     * Parses fa
+     * Fa is `fa assignment to expression [st expression] commands af`
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseFa(Scan scanner) {
+        // We need the assignment to be valid.
+        Validation<String, Token> parsed = parseAssignment(scanner);
+        if (parsed.isInvalid()) {
+            return parsed;
+        } else if (((Token) parsed.value()).kind == TK.EOF) {
+            return parsed;
+        } else if (scanner.scan().kind == TK.TO) {
+            // We need to have `to`.
+            // We need an expression.
+            parsed = parseExpression(scanner);
+            if (parsed.isInvalid()) {
+                return parsed;
+            } else if (((Token) parsed.value()).kind == TK.EOF) {
+                return parsed;
+            } else {
+                Token next = scanner.scan();
+                // We might have `st` followed by another expression.
+                if (next.kind == TK.ST) {
+                    parsed = parseExpression(scanner);
+                    if (parsed.isInvalid()) {
+                        return parsed;
+                    } else if (((Token) parsed.value()).kind == TK.EOF) {
+                        return parsed;
+                    }
+                }
+
+                // We need commands followed by `fa`.
+                parsed = parseCommands(scanner);
+                if (parsed.isInvalid()) {
+                    return parsed;
+                } else if (((Token) parsed.value()).kind == TK.EOF) {
+                    return parsed;
+                } else if (scanner.scan().kind == TK.AF) {
+                    // We made it!
+                    return parse(scanner);
+                } else {
+                    // We didn't have `af`.
+                    return Validation.invalid("Expected af");
+                }
+            }
+        } else {
+            // We didn't have `to`.
+            return Validation.invalid("Expected to");
         }
     }
 
@@ -332,8 +425,12 @@ public class Parser {
         // We can have zero or more `relop simple`'s
         Token next = scanner.scan();
         switch (next.kind) {
-            case PLUS:
-            case MINUS:
+            case EQ:
+            case NE:
+            case LT:
+            case GT:
+            case LE:
+            case GE:
                 return parseExpression(scanner);
             default:
                 return parse(scanner, next);
@@ -349,12 +446,8 @@ public class Parser {
         // We can have zero or more `addop term`'s
         Token next = scanner.scan();
         switch (next.kind) {
-            case EQ:
-            case NE:
-            case LT:
-            case GT:
-            case LE:
-            case GE:
+            case PLUS:
+            case MINUS:
                 return parseSimple(scanner);
             default:
                 return parse(scanner, next);
