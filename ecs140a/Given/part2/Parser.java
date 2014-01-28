@@ -2,8 +2,8 @@ public class Parser {
     public Parser(Scan scanner) {
         Validation<String, String> parsed = parse(scanner);
         if (parsed.isValid()) {
-            System.out.println("It's valid!");
-            System.out.println(parsed.valid);
+            // System.out.println("It's valid!");
+            // System.out.println(parsed.value());
         } else {
             System.out.println("No bueno");
             System.out.println(parsed.value());
@@ -18,29 +18,32 @@ public class Parser {
      */
     public Validation<String, String> parse(Scan scanner) {
         Token t = scanner.scan();
-        switch (t.kind) {
-            // case VAR:
-            //     System.out.println("Got a var");
-            //     break;
-            case PRINT:
-                System.out.println("Got a print");
-                return parseExpression(scanner);
-            // case IF:
-            //     System.out.println("Got a if");
-            //     break;
-            // case DO:
-            //     System.out.println("Got a do");
-            //     break;
-            // case FA:
-            //     System.out.println("Got a fa");
-            //     break;
-            // case ID:
-            //     System.out.println("Got a fa");
-            //     break;
-            default:
-                System.out.println("Got something else");
-                return Validation.invalid(t.toString());
-        }
+        do {
+            switch (t.kind) {
+                // case VAR:
+                //     System.out.println("Got a var");
+                //     break;
+                case PRINT:
+                    return parseExpression(scanner);
+                // case IF:
+                //     System.out.println("Got a if");
+                //     break;
+                // case DO:
+                //     System.out.println("Got a do");
+                //     break;
+                // case FA:
+                //     System.out.println("Got a fa");
+                //     break;
+                // case ID:
+                //     System.out.println("Got a fa");
+                //     break;
+                case EOF:
+                    return Validation.valid(t.toString());
+                default:
+                    System.out.println("Got something else");
+                    return Validation.invalid(t.toString());
+            }
+        } while (t.kind != TK.EOF);
     }
 
     /**
@@ -100,6 +103,12 @@ public class Parser {
         Token t = scanner.scan();
         switch (t.kind) {
             case LPAREN:
+                // Grab the expression.
+                Validation<String, String> parsed = parseExpression(scanner);
+                if (parsed.isInvalid()) return parsed;
+                // And the right paren.
+                if (scanner.scan().kind == TK.LPAREN) return parsed;
+                else return Validation.invalid("Missing right paren");
             case ID:
             case NUM:
                 return Validation.valid(t.toString());

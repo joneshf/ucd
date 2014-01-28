@@ -66,9 +66,17 @@ public class Scan {
         while(true) {
 // QUESTION 1: What is purpose of putback?
 
+// putback decides whether to consume the current input character
+// as part of the current token or not.
+
 // QUESTION 2: What are the values of putback and c just before the identifier
 //             'hello' is returned from the input 'hello*45'?
 
+// putback has the value true.
+// c has the value 42.
+
+            System.out.println("putback "+putback);
+            System.out.println("c "+c);
             if( putback) {
                 putback = false;
             }

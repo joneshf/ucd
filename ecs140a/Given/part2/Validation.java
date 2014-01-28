@@ -28,9 +28,11 @@ public abstract class Validation<I, V> {
      */
     abstract public boolean isValid();
 
-    public static final class Invalid<I, V> extends Validation<I, V> {
+    abstract public Object value();
 
-        public final I invalid;
+    private static final class Invalid<I, V> extends Validation<I, V> {
+
+        private final I invalid;
 
         Invalid (final I invalid) {
             this.invalid = invalid;
@@ -49,9 +51,9 @@ public abstract class Validation<I, V> {
         }
     }
 
-    public static final class Valid<I, V> extends Validation<I, V> {
+    private static final class Valid<I, V> extends Validation<I, V> {
 
-        public final V valid;
+        private final V valid;
 
         Valid (V valid) {
             this.valid = valid;
