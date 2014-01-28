@@ -84,10 +84,12 @@ public class Scan {
             if ( myisalpha((char) c) ) {
                 /* identifier. */
                 String id = buildID();
+                // System.out.println("token is: "+new Token(keywordLookup(id), id, linenumber));
                 return new Token(keywordLookup(id), id, linenumber);
             }
             else if ( myisdigit((char) c) ) {
                 /* number. */
+                // System.out.println("token is: "+new Token(TK.NUM, buildNUM(), linenumber));
                 return new Token(TK.NUM, buildNUM(), linenumber);
             }
             else {

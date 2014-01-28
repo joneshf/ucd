@@ -193,13 +193,20 @@ public class Parser {
      */
     private Validation<String, Token> parseExpression(Scan scanner) {
         // We need the first thing to be a simple.
+        System.out.println("parsing expression");
         Validation<String, Token> parsed = parseSimple(scanner);
+        System.out.println("parseExpression parsed: "+parsed.value());
         if (parsed.isInvalid()) {
             return parsed;
         } else if (((Token) parsed.value()).kind == TK.EOF) {
             return parsed;
         } else {
-            return manyExpression(scanner);
+            parsed = optRelSimple(scanner);
+            if (parsed.isValid()) {
+                return parse(scanner, (Token) parsed.value());
+            } else {
+                return parsed;
+            }
         }
     }
 
@@ -364,13 +371,21 @@ public class Parser {
      */
     private Validation<String, Token> parseSimple(Scan scanner) {
         // We need the first thing to be a term.
+        System.out.println("parsing simple");
         Validation<String, Token> parsed = parseTerm(scanner);
+        System.out.println("parsing simple");
+        System.out.println("parseSimple parsed: "+parsed.value());
         if (parsed.isInvalid()) {
             return parsed;
         } else if (((Token) parsed.value()).kind == TK.EOF) {
             return parsed;
         } else {
-            return manySimple(scanner);
+            parsed = manyAddTerm(scanner);
+            if (parsed.isValid()) {
+                return parse(scanner, (Token) parsed.value());
+            } else {
+                return parsed;
+            }
         }
     }
 
@@ -382,13 +397,40 @@ public class Parser {
      */
     private Validation<String, Token> parseTerm(Scan scanner) {
         // // We need the first thing to be a factor.
+        System.out.println("parsing term");
         Validation<String, Token> parsed = parseFactor(scanner);
+        System.out.println("parseTerm parsed: "+parsed.value());
         if (parsed.isInvalid()) {
             return parsed;
         } else if (((Token) parsed.value()).kind == TK.EOF) {
             return parsed;
         } else {
-            return manyTerm(scanner);
+            parsed = manyMultFact(scanner);
+            if (parsed.isValid()) {
+                return parse(scanner, (Token) parsed.value());
+            } else {
+                return parsed;
+            }
+        }
+    }
+
+    /**
+     * Parses and optional `expression`'s
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> optRelSimple(Scan scanner) {
+        Token next = scanner.scan();
+        switch (next.kind) {
+            case EQ:
+            case NE:
+            case LT:
+            case GT:
+            case LE:
+            case GE:
+                return parseSimple(scanner);
+            default:
+                return Validation.valid(next);
         }
     }
 
@@ -417,40 +459,20 @@ public class Parser {
     }
 
     /**
-     * Parses zero or more `expression`'s
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> manyExpression(Scan scanner) {
-        // We can have zero or more `relop simple`'s
-        Token next = scanner.scan();
-        switch (next.kind) {
-            case EQ:
-            case NE:
-            case LT:
-            case GT:
-            case LE:
-            case GE:
-                return parseExpression(scanner);
-            default:
-                return parse(scanner, next);
-        }
-    }
-
-    /**
      * Parses zero or more `simple`'s
      *
      * @param scanner The scanner we're reading tokens from.
      */
-    private Validation<String, Token> manySimple(Scan scanner) {
+    private Validation<String, Token> manyAddTerm(Scan scanner) {
         // We can have zero or more `addop term`'s
         Token next = scanner.scan();
+        System.out.println("manyAddTerm next: "+next);
         switch (next.kind) {
             case PLUS:
             case MINUS:
                 return parseSimple(scanner);
             default:
-                return parse(scanner, next);
+                return Validation.valid(next);
         }
     }
 
@@ -459,15 +481,16 @@ public class Parser {
      *
      * @param scanner The scanner we're reading tokens from.
      */
-    private Validation<String, Token> manyTerm(Scan scanner) {
+    private Validation<String, Token> manyMultFact(Scan scanner) {
         // We can have zero or more `multop factor`'s
         Token next = scanner.scan();
+        System.out.println("manyMultFact next: "+next);
         switch (next.kind) {
             case TIMES:
             case DIVIDE:
                 return parseTerm(scanner);
             default:
-                return parse(scanner, next);
+                return Validation.valid(next);
         }
     }
 }
