@@ -22,6 +22,11 @@ public class Parser {
     public Validation<String, Token> parse(Scan scanner, Token t) {
         do {
             switch (t.kind) {
+                case ID:
+                    // We just ignore id's for now.
+                    break;
+                case IF:
+                    return parseIf(scanner);
                 case PRINT:
                     return parseExpression(scanner);
                 case VAR:
@@ -33,6 +38,7 @@ public class Parser {
                                               " junk after logical end of"+
                                               " program");
             }
+            t = scanner.scan();
         } while (true);
     }
 
@@ -45,6 +51,35 @@ public class Parser {
     public Validation<String, Token> parse(Scan scanner) {
         Token t = scanner.scan();
         return parse(scanner, t);
+    }
+
+    /**
+     * Parses boxed guarded commands.
+     * boxedGuards are zero or more `'[]' guardedCommand`
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseBoxedGuards(Scan scanner) {
+        // We basically want many of these things.
+        return manyBoxedGuards(scanner);
+    }
+
+    /**
+     * Parses commands.
+     * Commands are `'->' block`
+     * A block is the start of parsing.
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseCommands(Scan scanner) {
+        // Snag the next token.
+        Token next = scanner.scan();
+        // It's gotta be an arrow.
+        if (next.kind == TK.ARROW) {
+            return parse(scanner);
+        } else {
+            return Validation.invalid("Expected arrow.");
+        }
     }
 
     /**
@@ -66,6 +101,23 @@ public class Parser {
             return Validation.valid(next);
         } else {
             return Validation.invalid("Expected rav");
+        }
+    }
+
+    /**
+     * Parses else.
+     * Elses are optional `else commands`.
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseElse(Scan scanner, Validation<String, Token> token) {
+        Token next = (Token) token.value();
+        // We either need to have an else followed by commands,
+        if (next.kind == TK.ELSE) {
+            return parseCommands(scanner);
+        } else {
+            // or nothing matching.
+            return parse(scanner, next);
         }
     }
 
@@ -113,6 +165,81 @@ public class Parser {
     }
 
     /**
+     * Parses guardedCommand
+     * GuardedCommand is: `expression commands`
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseGuardedCommand(Scan scanner) {
+        // The first thing needs to be an expression.
+        Validation<String, Token> parsed = parseExpression(scanner);
+        if (parsed.isInvalid()) {
+            return parsed;
+        } else if (((Token) parsed.value()).kind == TK.EOF) {
+            return parsed;
+        } else {
+            // And we need commands.
+            parsed = parseCommands(scanner);
+            if (parsed.isInvalid()) {
+                return parsed;
+            } else if (((Token) parsed.value()).kind == TK.EOF) {
+                return parsed;
+            } else {
+                return parse(scanner);
+            }
+        }
+    }
+    /**
+     * Parses guardedCommands
+     * GuardedCommands are:
+     *      `guardedCommand {'[]' guardedCommand} [else commands]`
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseGuardedCommands(Scan scanner) {
+        // The first thing needs to be a guardedCommand.
+        Validation<String, Token> parsed = parseGuardedCommand(scanner);
+        if (parsed.isInvalid()) {
+            return parsed;
+        } else if (((Token) parsed.value()).kind == TK.EOF) {
+            return parsed;
+        } else {
+            // We can have many boxedGuardedCommands
+            parsed = parseBoxedGuards(scanner);
+            if (parsed.isInvalid()) {
+                return parsed;
+            } else if (((Token) parsed.value()).kind == TK.EOF) {
+                return parsed;
+            } else {
+                // Followed by an optional else.
+                return parseElse(scanner, parsed);
+            }
+        }
+    }
+
+    /**
+     * Parses if
+     * If is `if guardedCommands fi`
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseIf(Scan scanner) {
+        // We need the guardedCommands to be valid.
+        Validation<String, Token> parsed = parseGuardedCommands(scanner);
+        if (parsed.isInvalid()) {
+            return parsed;
+        } else if (((Token) parsed.value()).kind == TK.EOF) {
+            return parsed;
+        } else if (scanner.scan().kind == TK.FI) {
+            // We need to have `fi`.
+            return parse(scanner);
+        } else {
+            // We didn't have `fi`.
+            return Validation.invalid("Expected fi");
+        }
+    }
+
+    /**
      * Parses simples.
      * Simples are `term`'s followed by zero or more `addop term`'s
      *
@@ -149,6 +276,30 @@ public class Parser {
     }
 
     /**
+     * Parses zero or more `boxedGuards`'s
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> manyBoxedGuards(Scan scanner) {
+        // We can have zero or more `'[]' guardedCommand`'s
+        Token next = scanner.scan();
+        if (next.kind == TK.BOX) {
+            Validation<String, Token> parsed = parseGuardedCommand(scanner);
+            if (parsed.isInvalid()) {
+                return parsed;
+            } else if (((Token) parsed.value()).kind == TK.EOF) {
+                return parsed;
+            } else {
+                return manyBoxedGuards(scanner);
+            }
+        } else {
+            // We didn't have a box,
+            // let's just throw back the token to use for more parsing.
+            return Validation.valid(next);
+        }
+    }
+
+    /**
      * Parses zero or more `expression`'s
      *
      * @param scanner The scanner we're reading tokens from.
@@ -156,8 +307,6 @@ public class Parser {
     private Validation<String, Token> manyExpression(Scan scanner) {
         // We can have zero or more `relop simple`'s
         Token next = scanner.scan();
-        System.out.println("Parsing manyExpression.");
-        System.out.println(next.toString());
         switch (next.kind) {
             case PLUS:
             case MINUS:

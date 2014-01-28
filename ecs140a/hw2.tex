@@ -39,7 +39,7 @@
     if : 'if' guardedCommands 'fi';
     do : 'do' guardedCommands 'od';
     fa : 'fa' id ':=' expression 'to' expression ( 'st' expression ) ? commands 'af';
-    guardedCommands : guardedCommand ( '[]' guardedCommand * ) ( 'else' commands );
+    guardedCommands : guardedCommand ( '[]' guardedCommand * ) ( 'else' commands ? );
     guardedCommand : expression commands;
     commands : '->' block;
     expression : simple ( relop simple ) ?;
