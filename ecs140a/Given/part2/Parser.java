@@ -22,6 +22,8 @@ public class Parser {
     public Validation<String, Token> parse(Scan scanner, Token t) {
         do {
             switch (t.kind) {
+                case DO:
+                    return parseDo(scanner);
                 case ID:
                     // We just ignore id's for now.
                     break;
@@ -101,6 +103,28 @@ public class Parser {
             return Validation.valid(next);
         } else {
             return Validation.invalid("Expected rav");
+        }
+    }
+
+    /**
+     * Parses do
+     * Do is `do guardedCommands od`
+     *
+     * @param scanner The scanner we're reading tokens from.
+     */
+    private Validation<String, Token> parseDo(Scan scanner) {
+        // We need the guardedCommands to be valid.
+        Validation<String, Token> parsed = parseGuardedCommands(scanner);
+        if (parsed.isInvalid()) {
+            return parsed;
+        } else if (((Token) parsed.value()).kind == TK.EOF) {
+            return parsed;
+        } else if (scanner.scan().kind == TK.OD) {
+            // We need to have `od`.
+            return parse(scanner);
+        } else {
+            // We didn't have `od`.
+            return Validation.invalid("Expected od");
         }
     }
 
