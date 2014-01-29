@@ -34,6 +34,16 @@ public class Symbol extends Parser {
         mustbe(TK.RAV);
     }
 
+    private boolean isUndeclared() {
+        for (ArrayDeque<Token> block : symbolTable) {
+            if (varInBlock(block)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private boolean varInBlock(ArrayDeque<Token> block) {
         for (Token t : block) {
             if (t.string.equals(tok.string)) {
@@ -47,5 +57,23 @@ public class Symbol extends Parser {
     private String redeclared() {
         return "variable " + tok.string +
                " is redeclared on line " + tok.lineNumber;
+    }
+
+    private String undeclared() {
+        return "undeclared variable " + tok.string +
+               " on line " + tok.lineNumber;
+    }
+
+    // Let's override mustbe to validate id's.
+    protected void mustbe(TK tk) {
+        if (!is(tk)) {
+            System.err.println("mustbe: want " + tk + ", got " + tok);
+            parseError("missing token (mustbe)");
+        }
+        if (tk == TK.ID && isUndeclared()) {
+            System.err.println(undeclared());
+            System.exit(1);
+        }
+        scan();
     }
 }
