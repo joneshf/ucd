@@ -45,8 +45,12 @@ public class Symbol extends Parser {
     }
 
     protected boolean varInBlock(ArrayDeque<Token> block) {
+        return varInBlock(block, tok);
+    }
+
+    protected boolean varInBlock(ArrayDeque<Token> block, Token token) {
         for (Token t : block) {
-            if (t.string.equals(tok.string)) {
+            if (t.string.equals(token.string)) {
                 return true;
             }
         }

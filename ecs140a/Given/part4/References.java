@@ -5,10 +5,10 @@ public class References extends Symbol {
 
     protected class Reference {
 
-        private Token token;
-        private int depth;
-        private ArrayList<Integer> assigned = new ArrayList<Integer>();
-        private ArrayList<Integer> used = new ArrayList<Integer>();
+        public Token token;
+        public int depth;
+        public ArrayList<Integer> assigned = new ArrayList<Integer>();
+        public ArrayList<Integer> used = new ArrayList<Integer>();
 
         Reference (Token token, int depth) {
             this.token = token;
@@ -62,6 +62,56 @@ public class References extends Symbol {
         super(scanner);
     }
 
+    protected void addAssign(Token t) {
+        // Find the depth of the most recent var declaration.
+        int depth = findDepth(t);
+        // Find the reference at the correct depth.
+        Reference ref = findReference(t, depth);
+        // Assign it.
+        ref.assignedOn(t.lineNumber);
+    }
+
+    protected void addUsed(Token t) {
+        // Find the depth of the most recent var declaration.
+        int depth = findDepth(t);
+        // Find the reference at the correct depth.
+        Reference ref = findReference(t, depth);
+        // Used it.
+        ref.usedOn(t.lineNumber);
+    }
+
+    protected int findDepth(Token t) {
+        int depth = 0;
+        for (ArrayDeque<Token> block : symbolTable) {
+            if (varInBlock(block, t)) {
+                break;
+            } else {
+                ++depth;
+            }
+        }
+
+        return depth;
+    }
+
+    protected Reference findReference(Token t, int depth) {
+        Reference r = new Reference(t, depth);
+        for (Reference ref : refs) {
+            if (ref.token.string.equals(t.string) && ref.depth == depth) {
+                r = ref;
+            }
+        }
+
+        return r;
+    }
+
+    protected void parseAssignment() {
+        Token t = new Token(tok.kind, tok.string, tok.lineNumber);
+        mustbe(TK.ID);
+        addAssign(t);
+        mustbe(TK.ASSIGN);
+        parseExpression();
+    }
+
     protected void parseDeclarations() {
         if (refs == null) {
             refs = new ArrayDeque<Reference>();
@@ -69,15 +119,15 @@ public class References extends Symbol {
 
         mustbe(TK.VAR);
         while (is(TK.ID)) {
-            // We only need to check the first block for redeclarations.
-            if (varInBlock(symbolTable.getFirst())) {
+            // We only need to check the Last block for redeclarations.
+            if (varInBlock(symbolTable.getLast())) {
                 // If it was declared, print an error.
                 System.err.println(redeclared());
             } else {
                 // New variable.
-                symbolTable.getFirst().addFirst(tok);
+                symbolTable.getLast().addLast(tok);
             }
-            refs.addFirst(new Reference(tok, symbolTable.size() - 1));
+            refs.addLast(new Reference(tok, symbolTable.size() - 1));
             scan();
         }
         mustbe(TK.RAV);
