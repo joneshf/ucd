@@ -1,20 +1,20 @@
 import java.util.ArrayDeque;
-import java.util.Deque;
 
 public class Symbol extends Parser {
-    private ArrayDeque<ArrayDeque<Token>> symbolTable;
+    protected ArrayDeque<ArrayDeque<Token>> symbolTable;
 
     public Symbol(Scan scanner) {
         super(scanner);
     }
 
-    // We just need to add a block when we start.
     protected void parseBlock() {
         if (symbolTable == null) {
             symbolTable = new ArrayDeque<ArrayDeque<Token>>();
         }
+        // We just need to add a block when we start.
         symbolTable.addFirst(new ArrayDeque<Token>());
         super.parseBlock();
+        // We  need to remove a block when we end.
         symbolTable.removeFirst();
     }
 
@@ -34,7 +34,7 @@ public class Symbol extends Parser {
         mustbe(TK.RAV);
     }
 
-    private boolean isUndeclared() {
+    protected boolean isUndeclared() {
         for (ArrayDeque<Token> block : symbolTable) {
             if (varInBlock(block)) {
                 return false;
@@ -44,7 +44,7 @@ public class Symbol extends Parser {
         return true;
     }
 
-    private boolean varInBlock(ArrayDeque<Token> block) {
+    protected boolean varInBlock(ArrayDeque<Token> block) {
         for (Token t : block) {
             if (t.string.equals(tok.string)) {
                 return true;
@@ -54,12 +54,12 @@ public class Symbol extends Parser {
         return false;
     }
 
-    private String redeclared() {
+    protected String redeclared() {
         return "variable " + tok.string +
                " is redeclared on line " + tok.lineNumber;
     }
 
-    private String undeclared() {
+    protected String undeclared() {
         return "undeclared variable " + tok.string +
                " on line " + tok.lineNumber;
     }
