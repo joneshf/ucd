@@ -315,7 +315,117 @@
 
   \section*{2.5}
     \subsection*{1}
+      For the 3-node triangular graph in the figure following, write the 3 by 3 incidence matrix A.
+
+      \[
+        A =
+        \begin{bmatrix}
+          1 & -1 & 0 \\
+          0 & 1 & -1 \\
+          1 & 0 & -1
+        \end{bmatrix}
+      \]
+
+      Find a solution to $Ax = 0$ and describe all other vectors in the nullspace of A.
+
+      First we reduce to row echelon form.
+
+      \[
+        A =
+        \begin{bmatrix}
+          1 & 0 & -1 \\
+          0 & 1 & -1 \\
+          0 & 0 & 0
+        \end{bmatrix}
+      \]
+
+      So one solution to this is: $x = \begin{bmatrix}1 \\ 1 \\ 1\end{bmatrix}$
+
+      And all vectors in the nullspace of $A$ are of the form:
+      $\begin{bmatrix}c \\ c \\ c\end{bmatrix}$ for some constant $c$.
+
+      Find a soluion to $A^Ty = 0$ and describe all other vectors in the left nullspace of A.
+
+      First reduce the transpose to row echelon form.
+
+      \[
+        A^T =
+        \begin{bmatrix}
+          1 & 0 & 1 \\
+          0 & 1 & 1 \\
+          0 & 0 & 0
+        \end{bmatrix}
+      \]
+
+      So one solution is: $y = \begin{bmatrix}1 \\ 1 \\ -1\end{bmatrix}$
+
+      And all vectors in the left nullspace of $A$ are of the form:
+      $\begin{bmatrix}c \\ c \\ -c\end{bmatrix}$ for some constant $c$.
     \subsection*{2}
+      For the same 3 by 3 matrix, show directly from the columns that every vector $b$ in the column space will satisfy $b_1 + b_2 - b_3 = 0$.
+
+      \[
+        b_1 + b_2 - b_3 =
+        \begin{bmatrix}
+          1 \\
+          0 \\
+          1
+        \end{bmatrix}
+        +
+        \begin{bmatrix}
+          -1 \\
+          1 \\
+          0
+        \end{bmatrix}
+        -
+        \begin{bmatrix}
+          0 \\
+          -1 \\
+          -1
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          0 \\
+          0 \\
+          0
+        \end{bmatrix}
+      \]
+
+      Derive the same thing from the three rows---the equations in the system $Ax = b$.
+
+      We can go look at the nullspace. for the derivation of this.
+      \[
+        b_1 + b_2 - b_3
+        =
+        \begin{bmatrix}
+          1 \\
+          -1 \\
+          0
+        \end{bmatrix}^T
+        +
+        \begin{bmatrix}
+          0 \\
+          1 \\
+          -1
+        \end{bmatrix}^T
+        -
+        \begin{bmatrix}
+          1 \\
+          0 \\
+          -1
+        \end{bmatrix}^T
+        =
+        \begin{bmatrix}
+          0 \\
+          0 \\
+          0
+        \end{bmatrix}^T
+      \]
+
+      What does that mean about potential differences around a loop?
+
+      This means the sum of potenial differences around the loop must be zero.
+
     \subsection*{3}
     \subsection*{4}
     \subsection*{5}
