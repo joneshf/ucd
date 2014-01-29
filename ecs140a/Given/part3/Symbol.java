@@ -21,15 +21,8 @@ public class Symbol extends Parser {
     protected void parseDeclarations() {
         mustbe(TK.VAR);
         while (is(TK.ID)) {
-            boolean declared = false;
-            for (ArrayDeque<Token> block : symbolTable) {
-                if (varInBlock(block)) {
-                    // Already in here.
-                    declared = true;
-                    break;
-                }
-            }
-            if (declared) {
+            // We only need to check the first block for redeclarations.
+            if (varInBlock(symbolTable.getFirst())) {
                 // If it was declared, print an error.
                 System.err.println(redeclared());
             } else {
