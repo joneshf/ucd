@@ -271,7 +271,8 @@ public class Parser {
                 Validation<String, Token> parsed = parseExpression(scanner);
                 if (parsed.isInvalid()) return parsed;
                 // And the right paren.
-                if (scanner.scan().kind == TK.LPAREN) return parsed;
+                t = scanner.scan();
+                if (t.kind == TK.RPAREN) return parsed;
                 else return Validation.invalid("Missing right paren");
             case ID:
             case NUM:
@@ -395,7 +396,12 @@ public class Parser {
         } else {
             parsed = manyMultFact(scanner);
             if (parsed.isValid()) {
-                return parse(scanner, (Token) parsed.value());
+                Token next = (Token) parsed.value();
+                if (next.kind == TK.PLUS || next.kind == TK.MINUS) {
+                    return parsed;
+                } else {
+                    return parseSimple(scanner);
+                }
             } else {
                 return parsed;
             }
