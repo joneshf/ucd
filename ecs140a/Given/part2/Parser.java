@@ -1,488 +1,369 @@
+/* *** This file is given as part of the programming assignment. *** */
+
 public class Parser {
-    public Parser(Scan scanner) {
-        Validation<String, Token> parsed = parse(scanner);
-        if (parsed.isInvalid()) {
-            System.err.println(parsed.value());
-            System.exit(1);
-        }
+
+
+    // tok is global to all these parsing methods;
+    // scan just calls the scanner's scan method and saves the result in tok.
+    private Token tok; // the current token
+    private void scan() {
+        tok = scanner.scan();
     }
 
-    /**
-     * Parses the first set of the grammar.
-     * The only valid choices are `var`, `print`, `if`, `do`, `fa`, and `id`
-     *
-     * Overloaded to account for tokens already being read.
-     *
-     * @param scanner The scanner we're reading tokens from.
-     * @param t       The token we already tried to read.
-     */
-    public Validation<String, Token> parse(Scan scanner, Token t) {
-        Validation<String, Token> parsed;
-        do {
-            switch (t.kind) {
-                case ASSIGN:
-                    parsed = parseExpression(scanner);
-                    break;
-                case DO:
-                    parsed = parseDo(scanner);
-                    break;
-                case FA:
-                    parsed = parseFa(scanner);
-                    break;
-                case ID:
-                    parsed = Validation.valid(t);
-                    break;
-                case IF:
-                    parsed = parseIf(scanner);
-                    break;
-                case PRINT:
-                    parsed = parseExpression(scanner);
-                    break;
-                case VAR:
-                    parsed = parseDeclaration(scanner);
-                    break;
-                case EOF:
-                    return Validation.valid(t);
-                default:
-                    return Validation.invalid("can't parse: line "+t.lineNumber+
-                                              " junk after logical end of"+
-                                              " program");
-            }
-            if (parsed.isInvalid()) {
-                return parsed;
-            } else if (((Token) parsed.value()).kind == TK.EOF) {
-                return parsed;
-            }
-            t = scanner.scan();
-        } while (true);
+    private Scan scanner;
+    Parser(Scan scanner) {
+        this.scanner = scanner;
+        scan();
+        parseProgram();
+        if (tok.kind != TK.EOF)
+            parseError("junk after logical end of program");
     }
 
-    /**
-     * Parses the first set of the grammar.
-     * The only valid choices are `var`, `print`, `if`, `do`, `fa`, and `id`
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    public Validation<String, Token> parse(Scan scanner) {
-        Token t = scanner.scan();
-        return parse(scanner, t);
+    private void parseProgram() {
+        parseBlock();
     }
 
-    /**
-     * Parses assignment.
-     * Assignment is `id ':=' expression`
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseAssignment(Scan scanner) {
-        // Snag the next token.
-        Token next = scanner.scan();
-        // It's gotta be an id.
-        if (next.kind == TK.ID) {
-            next = scanner.scan();
-            if (next.kind == TK.ASSIGN) {
-                return parseExpression(scanner);
-            } else {
-                return Validation.invalid("Expected assign.");
-            }
-        } else {
-            return Validation.invalid("Expected id.");
-        }
-    }
-
-    /**
-     * Parses boxed guarded commands.
-     * boxedGuards are zero or more `'[]' guardedCommand`
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseBoxedGuards(Scan scanner) {
-        // We basically want many of these things.
-        return manyBoxedGuards(scanner);
-    }
-
-    /**
-     * Parses commands.
-     * Commands are `'->' block`
-     * A block is the start of parsing.
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseCommands(Scan scanner) {
-        // Snag the next token.
-        Token next = scanner.scan();
-        // It's gotta be an arrow.
-        if (next.kind == TK.ARROW) {
-            return parse(scanner);
-        } else {
-            return Validation.invalid("Expected arrow.");
-        }
-    }
-
-    /**
-     * Parses declarations.
-     * Declarations are `var {id} rav`
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseDeclaration(Scan scanner) {
-        // Snag the next token.
-        Token next = scanner.scan();
-        // We can have zero or more `id`'s
-        while (next.kind == TK.ID) {
-            next = scanner.scan();
-        }
-
-        // The token wasn't an id, it better be a `rav`.
-        if (next.kind == TK.RAV) {
-            return Validation.valid(next);
-        } else {
-            return Validation.invalid("Expected rav");
-        }
-    }
-
-    /**
-     * Parses do
-     * Do is `do guardedCommands od`
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseDo(Scan scanner) {
-        // We need the guardedCommands to be valid.
-        Validation<String, Token> parsed = parseGuardedCommands(scanner);
-        if (parsed.isInvalid()) {
-            return parsed;
-        } else if (((Token) parsed.value()).kind == TK.EOF) {
-            return parsed;
-        } else if (scanner.scan().kind == TK.OD) {
-            // We need to have `od`.
-            return parse(scanner);
-        } else {
-            // We didn't have `od`.
-            return Validation.invalid("Expected od");
-        }
-    }
-
-    /**
-     * Parses else.
-     * Elses are optional `else commands`.
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseElse(Scan scanner, Validation<String, Token> token) {
-        Token next = (Token) token.value();
-        // We either need to have an else followed by commands,
-        if (next.kind == TK.ELSE) {
-            return parseCommands(scanner);
-        } else {
-            // or nothing matching.
-            return parse(scanner, next);
-        }
-    }
-
-    /**
-     * Parses expressions.
-     * Expressions are `simple` followed by zero or more `relop simple`.
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseExpression(Scan scanner) {
-        // We need the first thing to be a simple.
-        Validation<String, Token> parsed = parseSimple(scanner);
-        if (parsed.isInvalid()) {
-            return parsed;
-        } else if (((Token) parsed.value()).kind == TK.EOF) {
-            return parsed;
-        } else {
-            parsed = optRelSimple(scanner);
-            if (parsed.isValid()) {
-                return parse(scanner, (Token) parsed.value());
-            } else {
-                return parsed;
-            }
-        }
-    }
-
-    /**
-     * Parses fa
-     * Fa is `fa assignment to expression [st expression] commands af`
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseFa(Scan scanner) {
-        // We need the assignment to be valid.
-        Validation<String, Token> parsed = parseAssignment(scanner);
-        if (parsed.isInvalid()) {
-            return parsed;
-        } else if (((Token) parsed.value()).kind == TK.EOF) {
-            return parsed;
-        } else if (scanner.scan().kind == TK.TO) {
-            // We need to have `to`.
-            // We need an expression.
-            parsed = parseExpression(scanner);
-            if (parsed.isInvalid()) {
-                return parsed;
-            } else if (((Token) parsed.value()).kind == TK.EOF) {
-                return parsed;
-            } else {
-                Token next = scanner.scan();
-                // We might have `st` followed by another expression.
-                if (next.kind == TK.ST) {
-                    parsed = parseExpression(scanner);
-                    if (parsed.isInvalid()) {
-                        return parsed;
-                    } else if (((Token) parsed.value()).kind == TK.EOF) {
-                        return parsed;
-                    }
-                }
-
-                // We need commands followed by `fa`.
-                parsed = parseCommands(scanner);
-                if (parsed.isInvalid()) {
-                    return parsed;
-                } else if (((Token) parsed.value()).kind == TK.EOF) {
-                    return parsed;
-                } else if (scanner.scan().kind == TK.AF) {
-                    // We made it!
-                    return parse(scanner);
-                } else {
-                    // We didn't have `af`.
-                    return Validation.invalid("Expected af");
-                }
-            }
-        } else {
-            // We didn't have `to`.
-            return Validation.invalid("Expected to");
-        }
-    }
-
-    /**
-     * Parses factors.
-     * Factors are parenthesized expressions, id's or numbers.
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseFactor(Scan scanner) {
-        // Find out what the first token is.
-        Token t = scanner.scan();
-        switch (t.kind) {
-            case LPAREN:
-                // Grab the expression.
-                Validation<String, Token> parsed = parseExpression(scanner);
-                if (parsed.isInvalid()) return parsed;
-                // And the right paren.
-                t = scanner.scan();
-                if (t.kind == TK.RPAREN) return parsed;
-                else return Validation.invalid("Missing right paren");
-            case ID:
-            case NUM:
-                return Validation.valid(t);
-            default:
-                return Validation.invalid(t.toString());
-        }
-    }
-
-    /**
-     * Parses guardedCommand
-     * GuardedCommand is: `expression commands`
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseGuardedCommand(Scan scanner) {
-        // The first thing needs to be an expression.
-        Validation<String, Token> parsed = parseExpression(scanner);
-        if (parsed.isInvalid()) {
-            return parsed;
-        } else if (((Token) parsed.value()).kind == TK.EOF) {
-            return parsed;
-        } else {
-            // And we need commands.
-            parsed = parseCommands(scanner);
-            if (parsed.isInvalid()) {
-                return parsed;
-            } else if (((Token) parsed.value()).kind == TK.EOF) {
-                return parsed;
-            } else {
-                return parse(scanner);
-            }
-        }
-    }
-    /**
-     * Parses guardedCommands
-     * GuardedCommands are:
-     *      `guardedCommand {'[]' guardedCommand} [else commands]`
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseGuardedCommands(Scan scanner) {
-        // The first thing needs to be a guardedCommand.
-        Validation<String, Token> parsed = parseGuardedCommand(scanner);
-        if (parsed.isInvalid()) {
-            return parsed;
-        } else if (((Token) parsed.value()).kind == TK.EOF) {
-            return parsed;
-        } else {
-            // We can have many boxedGuardedCommands
-            parsed = parseBoxedGuards(scanner);
-            if (parsed.isInvalid()) {
-                return parsed;
-            } else if (((Token) parsed.value()).kind == TK.EOF) {
-                return parsed;
-            } else {
-                // Followed by an optional else.
-                return parseElse(scanner, parsed);
-            }
-        }
-    }
-
-    /**
-     * Parses if
-     * If is `if guardedCommands fi`
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseIf(Scan scanner) {
-        // We need the guardedCommands to be valid.
-        Validation<String, Token> parsed = parseGuardedCommands(scanner);
-        if (parsed.isInvalid()) {
-            return parsed;
-        } else if (((Token) parsed.value()).kind == TK.EOF) {
-            return parsed;
-        } else if (scanner.scan().kind == TK.FI) {
-            // We need to have `fi`.
-            return parse(scanner);
-        } else {
-            // We didn't have `fi`.
-            return Validation.invalid("Expected fi");
-        }
-    }
-
-    /**
-     * Parses simples.
-     * Simples are `term`'s followed by zero or more `addop term`'s
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseSimple(Scan scanner) {
-        // We need the first thing to be a term.
-        Validation<String, Token> parsed = parseTerm(scanner);
-        if (parsed.isInvalid()) {
-            return parsed;
-        } else if (((Token) parsed.value()).kind == TK.EOF) {
-            return parsed;
-        } else {
-            parsed = manyAddTerm(scanner);
-            if (parsed.isValid()) {
-                return parse(scanner, (Token) parsed.value());
-            } else {
-                return parsed;
-            }
-        }
-    }
-
-    /**
-     * Parses terms.
-     * Terms are `factor`'s followed by zero or more `multop factor`'s
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> parseTerm(Scan scanner) {
-        // // We need the first thing to be a factor.
-        Validation<String, Token> parsed = parseFactor(scanner);
-        if (parsed.isInvalid()) {
-            return parsed;
-        } else if (((Token) parsed.value()).kind == TK.EOF) {
-            return parsed;
-        } else {
-            parsed = manyMultFact(scanner);
-            if (parsed.isValid()) {
-                Token next = (Token) parsed.value();
-                if (next.kind == TK.PLUS || next.kind == TK.MINUS) {
-                    return parsed;
-                } else {
-                    return parseSimple(scanner);
-                }
-            } else {
-                return parsed;
-            }
-        }
-    }
-
-    /**
-     * Parses and optional `expression`'s
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> optRelSimple(Scan scanner) {
-        Token next = scanner.scan();
-        switch (next.kind) {
-            case EQ:
-            case NE:
-            case LT:
-            case GT:
-            case LE:
-            case GE:
-                return parseSimple(scanner);
-            default:
-                return Validation.valid(next);
-        }
-    }
-
-    /**
-     * Parses zero or more `boxedGuards`'s
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> manyBoxedGuards(Scan scanner) {
-        // We can have zero or more `'[]' guardedCommand`'s
-        Token next = scanner.scan();
-        if (next.kind == TK.BOX) {
-            Validation<String, Token> parsed = parseGuardedCommand(scanner);
-            if (parsed.isInvalid()) {
-                return parsed;
-            } else if (((Token) parsed.value()).kind == TK.EOF) {
-                return parsed;
-            } else {
-                return manyBoxedGuards(scanner);
-            }
-        } else {
-            // We didn't have a box,
-            // let's just throw back the token to use for more parsing.
-            return Validation.valid(next);
-        }
-    }
-
-    /**
-     * Parses zero or more `simple`'s
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> manyAddTerm(Scan scanner) {
-        // We can have zero or more `addop term`'s
-        Token next = scanner.scan();
-        switch (next.kind) {
+    private void parseAddOp() {
+        switch (tok.kind) {
             case PLUS:
+                parsePlus();
+                break;
             case MINUS:
-                return parseSimple(scanner);
+                parseMinus();
+                break;
             default:
-                return Validation.valid(next);
+                parseError("addop");
+                break;
         }
     }
 
-    /**
-     * Parses zero or more `term`'s
-     *
-     * @param scanner The scanner we're reading tokens from.
-     */
-    private Validation<String, Token> manyMultFact(Scan scanner) {
-        // We can have zero or more `multop factor`'s
-        Token next = scanner.scan();
-        switch (next.kind) {
-            case TIMES:
-            case DIVIDE:
-                return parseTerm(scanner);
-            default:
-                return Validation.valid(next);
+    private void parseAssignment() {
+        mustbe(TK.ID);
+        mustbe(TK.ASSIGN);
+        parseExpression();
+    }
+
+    private void parseBlock() {
+        // Optional declarations.
+        if (isDeclaration()) {
+            parseDeclarations();
         }
+        parseStatementList();
+    }
+
+    private void parseBox() {
+        mustbe(TK.BOX);
+    }
+
+    private void parseCommands() {
+        mustbe(TK.ARROW);
+        parseBlock();
+    }
+
+    private void parseDeclarations() {
+        mustbe(TK.VAR);
+        while (is(TK.ID)) {
+            scan();
+        }
+        mustbe(TK.RAV);
+    }
+
+    private void parseDivide() {
+        mustbe(TK.DIVIDE);
+    }
+
+    private void parseDo() {
+        mustbe(TK.DO);
+        parseGuardedCommands();
+        mustbe(TK.OD);
+    }
+
+    private void parseElse() {
+        mustbe(TK.ELSE);
+    }
+
+    private void parseEq() {
+        mustbe(TK.EQ);
+    }
+
+    private void parseExpression() {
+        parseSimple();
+        if (isRelOp()) {
+            parseRelOp();
+            parseSimple();
+        }
+    }
+
+    private void parseFa() {
+        mustbe(TK.FA);
+        mustbe(TK.ID);
+        mustbe(TK.ASSIGN);
+        parseExpression();
+        mustbe(TK.TO);
+        parseExpression();
+        if (isSt()) {
+            parseSt();
+            parseExpression();
+        }
+        parseCommands();
+        mustbe(TK.AF);
+    }
+
+    private void parseFactor() {
+        if (isParenthesized()) {
+            parseParenthesized();
+        } else if (isId()) {
+            parseId();
+        } else if (isNumber()) {
+            parseNumber();
+        } else {
+            parseError("factor");
+        }
+    }
+
+    private void parseGe() {
+        mustbe(TK.GE);
+    }
+
+    private void parseGt() {
+        mustbe(TK.GT);
+    }
+
+    private void parseGuardedCommand() {
+        parseExpression();
+        parseCommands();
+    }
+
+    private void parseGuardedCommands() {
+        parseGuardedCommand();
+        while (isBox()) {
+            parseBox();
+            parseGuardedCommand();
+        }
+        if (isElse()) {
+            parseElse();
+            parseCommands();
+        }
+    }
+
+    private void parseIf() {
+        mustbe(TK.IF);
+        parseGuardedCommands();
+        mustbe(TK.FI);
+    }
+
+    private void parseId() {
+        mustbe(TK.ID);
+    }
+
+    private void parseLe() {
+        mustbe(TK.LE);
+    }
+
+    private void parseLt() {
+        mustbe(TK.LT);
+    }
+
+    private void parseMinus() {
+        mustbe(TK.MINUS);
+    }
+
+    private void parseMultOp() {
+        switch (tok.kind) {
+            case TIMES:
+                parseTimes();
+                break;
+            case DIVIDE:
+                parseDivide();
+                break;
+            default:
+                parseError("multop");
+                break;
+        }
+    }
+
+    private void parseNe() {
+        mustbe(TK.NE);
+    }
+
+    private void parseNumber() {
+        mustbe(TK.NUM);
+    }
+
+    private void parseParenthesized() {
+        mustbe(TK.LPAREN);
+        parseExpression();
+        mustbe(TK.RPAREN);
+    }
+
+    private void parsePlus() {
+        mustbe(TK.PLUS);
+    }
+
+    private void parsePrint() {
+        mustbe(TK.PRINT);
+        parseExpression();
+    }
+
+    private void parseRelOp() {
+        switch (tok.kind) {
+            case EQ:
+                parseEq();
+                break;
+            case NE:
+                parseNe();
+                break;
+            case LT:
+                parseLt();
+                break;
+            case GT:
+                parseGt();
+                break;
+            case LE:
+                parseLe();
+                break;
+            case GE:
+                parseGe();
+                break;
+            default:
+                parseError("relop");
+                break;
+        }
+    }
+
+    private void parseSimple() {
+        parseTerm();
+        while (isAddOp()) {
+            parseAddOp();
+            parseTerm();
+        }
+    }
+
+    private void parseSt() {
+        mustbe(TK.ST);
+    }
+
+    private void parseStatement() {
+        if (isAssignment()) {
+            parseAssignment();
+        } else if (isPrint()) {
+            parsePrint();
+        } else if (isIf()) {
+            parseIf();
+        } else if (isDo()) {
+            parseDo();
+        } else if (isFa()) {
+            parseFa();
+        } else {
+            parseError("statement");
+        }
+    }
+
+    private void parseStatementList() {
+        while (isStatement()) {
+            parseStatement();
+        }
+    }
+
+    private void parseTerm() {
+        parseFactor();
+        while (isMultOp()) {
+            parseMultOp();
+            parseFactor();
+        }
+    }
+
+    private void parseTimes() {
+        mustbe(TK.TIMES);
+    }
+
+    private boolean isAddOp() {
+        return is(TK.PLUS) || is(TK.MINUS);
+    }
+
+    private boolean isAssignment() {
+        return is(TK.ID);
+    }
+
+    private boolean isBox() {
+        return is(TK.BOX);
+    }
+
+    private boolean isDeclaration() {
+        return is(TK.VAR);
+    }
+
+    private boolean isDo() {
+        return is(TK.DO);
+    }
+
+    private boolean isElse() {
+        return is(TK.ELSE);
+    }
+
+    private boolean isFa() {
+        return is(TK.FA);
+    }
+
+    private boolean isId() {
+        return is(TK.ID);
+    }
+
+    private boolean isIf() {
+        return is(TK.IF);
+    }
+
+    private boolean isMultOp() {
+        return is(TK.TIMES) || is(TK.DIVIDE);
+    }
+
+    private boolean isNumber() {
+        return is(TK.NUM);
+    }
+
+    private boolean isParenthesized() {
+        return is(TK.LPAREN);
+    }
+
+    private boolean isPrint() {
+        return is(TK.PRINT);
+    }
+
+    private boolean isRelOp() {
+        return is(TK.EQ) ||
+               is(TK.NE) ||
+               is(TK.LT) ||
+               is(TK.GT) ||
+               is(TK.LE) ||
+               is(TK.GE);
+    }
+
+    private boolean isSt() {
+        return is(TK.ST);
+    }
+
+    private boolean isStatement() {
+        return isAssignment() || isPrint() || isIf() || isDo() || isFa();
+    }
+
+    // you'll need to add a bunch of methods here
+
+    // is current token what we want?
+    private boolean is(TK tk) {
+        return tk == tok.kind;
+    }
+
+    // ensure current token is tk and skip over it.
+    private void mustbe(TK tk) {
+        if (!is(tk)) {
+            System.err.println("mustbe: want " + tk + ", got " + tok);
+            parseError("missing token (mustbe)");
+        }
+        scan();
+    }
+
+    private void parseError(String msg) {
+        System.err.println("can't parse: line " + tok.lineNumber + " " + msg);
+        System.exit(1);
     }
 }
