@@ -427,6 +427,34 @@
       This means the sum of potenial differences around the loop must be zero.
 
     \subsection*{3}
+      Show directly from the rows that every vector $f$ in the row space will satisfy $f_1 + f_2 + f_3 = 0$.
+
+      We can show this by adding the elements in each row.
+      \[
+        \begin{bmatrix}
+          1 - 1 + 0 \\
+          0 + 1 - 1 \\
+          1 + 0 - 1
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          0 \\
+          0 \\
+          0
+        \end{bmatrix}
+      \]
+
+      Derive the same thing from the three equations $A^Ty = f$.
+
+      We can say for $y = \begin{bsmallmatrix}y_1 \\ y_2 \\ y_3\end{bsmallmatrix}$.
+
+      So, $f_1 = y_1 + y_3$, $f_2 = -y_1 + y_2$, $f_3 = -y_2 - y_3$.
+
+      Thus $f_1 + f_2 + f_3 = y_1 + y_3 - y_1 + y_2 - y_2 - y_3 = 0$.
+
+      What does that mean when the $f$'s are current into the nodes?
+
+      This means, there is no current flow into the loop from outside the loop.
     \subsection*{4}
     \subsection*{5}
     \subsection*{10}
