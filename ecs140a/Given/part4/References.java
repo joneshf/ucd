@@ -38,9 +38,10 @@ public class References extends Symbol {
                 if (i + 1 < al.size() && al.get(i+1) == al.get(i)) {
                     ++consecutive;
                 } else if (consecutive > 0) {
-                    str.append(al.get(i) + "(" + consecutive + ")");
+                    str.append(al.get(i) + "(" + consecutive + ")" + " ");
+                    consecutive = 0;
                 } else {
-                    str.append(al.get(i));
+                    str.append(al.get(i) + " ");
                 }
             }
 
@@ -131,6 +132,20 @@ public class References extends Symbol {
             scan();
         }
         mustbe(TK.RAV);
+    }
+
+    protected void parseFactor() {
+        if (isParenthesized()) {
+            parseParenthesized();
+        } else if (isId()) {
+            Token t = new Token(tok.kind, tok.string, tok.lineNumber);
+            mustbe(TK.ID);
+            addUsed(t);
+        } else if (isNumber()) {
+            parseNumber();
+        } else {
+            parseError("factor");
+        }
     }
 
     protected void parseProgram() {
