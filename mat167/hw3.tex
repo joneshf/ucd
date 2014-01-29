@@ -456,15 +456,89 @@
 
       This means, there is no current flow into the loop from outside the loop.
     \subsection*{4}
-    \subsection*{5}
-    \subsection*{10}
+      Compute the 3 by 3 matrix $A^TA$, and show that it is symmetric but singular---what vectors are in its nullspace?
 
-  \section*{2.6}
-    \subsection*{6}
-    \subsection*{14}
-    \subsection*{19}
-    \subsection*{21}
-    \subsection*{28}
-    \subsection*{34}
-    \subsection*{48}
+      \[
+        A^TA =
+        \begin{bmatrix}
+          1 & 0 & 1 \\
+          -1 & 1 & 0 \\
+          0 & -1 & -1
+        \end{bmatrix}
+        \begin{bmatrix}
+          1 & -1 & 0 \\
+          0 & 1 & -1 \\
+          1 & 0 & -1
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          2 & -1 & -1 \\
+          -1 & 2 & -1 \\
+          -1 & -1 & 2
+        \end{bmatrix}
+      \]
+
+      We can see by inspection that $A^TA$ is symmetric.
+
+      We can see it is singular by taking the determinate
+
+      $det(A^TA) = 2(4-1)+1(-2-1)-1(1+2) = 6 - 3 - 3 = 0$
+
+      Since the determinate is 0, the $A^TA$ is singular.
+
+      Removing the last column of $A$ (and the last row of $A^T$) leaves the 2 by 2 matrix in the upper left corner; show that it is \textit{not} singular.
+
+      \[
+        \begin{bmatrix}
+          1 & -1 \\
+          0 & 1
+        \end{bmatrix}
+      \]
+
+      We can take the determinate of this and see it is not singular.
+
+      $det(\begin{bsmallmatrix}1 & -1 \\ 0 & 1\end{bsmallmatrix}) = 1 \ne 0$
+    \subsection*{5}
+      Put the diagonal matrix C with entries $c_1$, $c_2$, $c_3$ in the middle and compute $A^TCA$.
+
+      \[
+        A^TCA
+        =
+        \begin{bmatrix}
+          1 & 0 & 1 \\
+          -1 & 1 & 0 \\
+          0 & -1 & -1
+        \end{bmatrix}
+        \begin{bmatrix}
+          c_1 & 0 & 0 \\
+          0 & c_2 & 0 \\
+          0 & 0 & c_3
+        \end{bmatrix}
+        \begin{bmatrix}
+          1 & -1 & 0 \\
+          0 & 1 & -1 \\
+          1 & 0 & -1
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          2c_1 & -1c_1 & -1c_1 \\
+          -1c_2 & 2c_2 & -1c_2 \\
+          -1c_3 & -1c_3 & 2c_3
+        \end{bmatrix}
+      \]
+
+      Show again that the 2 by 2 matrix in the upper left corner is invertible.
+
+      \[
+        \begin{vmatrix}
+          2c_1 & -1c_1 \\
+          -1c_2 & 2c_2
+        \end{vmatrix}
+        =
+        4c_1c_2 + c_1c_2
+        =
+        5c_1c_2
+      \]
+
+      So this matrix is invertible so long as $c_1 \ne 0$ and $c_2 \ne 0$.
 \end{document}
