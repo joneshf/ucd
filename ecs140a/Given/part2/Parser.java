@@ -2,15 +2,14 @@
 
 public class Parser {
 
-
     // tok is global to all these parsing methods;
     // scan just calls the scanner's scan method and saves the result in tok.
-    private Token tok; // the current token
-    private void scan() {
+    protected Token tok; // the current token
+    protected void scan() {
         tok = scanner.scan();
     }
 
-    private Scan scanner;
+    protected Scan scanner;
     Parser(Scan scanner) {
         this.scanner = scanner;
         scan();
@@ -19,11 +18,11 @@ public class Parser {
             parseError("junk after logical end of program");
     }
 
-    private void parseProgram() {
+    protected void parseProgram() {
         parseBlock();
     }
 
-    private void parseAddOp() {
+    protected void parseAddOp() {
         switch (tok.kind) {
             case PLUS:
                 parsePlus();
@@ -37,13 +36,13 @@ public class Parser {
         }
     }
 
-    private void parseAssignment() {
+    protected void parseAssignment() {
         mustbe(TK.ID);
         mustbe(TK.ASSIGN);
         parseExpression();
     }
 
-    private void parseBlock() {
+    protected void parseBlock() {
         // Optional declarations.
         if (isDeclaration()) {
             parseDeclarations();
@@ -51,16 +50,16 @@ public class Parser {
         parseStatementList();
     }
 
-    private void parseBox() {
+    protected void parseBox() {
         mustbe(TK.BOX);
     }
 
-    private void parseCommands() {
+    protected void parseCommands() {
         mustbe(TK.ARROW);
         parseBlock();
     }
 
-    private void parseDeclarations() {
+    protected void parseDeclarations() {
         mustbe(TK.VAR);
         while (is(TK.ID)) {
             scan();
@@ -68,25 +67,25 @@ public class Parser {
         mustbe(TK.RAV);
     }
 
-    private void parseDivide() {
+    protected void parseDivide() {
         mustbe(TK.DIVIDE);
     }
 
-    private void parseDo() {
+    protected void parseDo() {
         mustbe(TK.DO);
         parseGuardedCommands();
         mustbe(TK.OD);
     }
 
-    private void parseElse() {
+    protected void parseElse() {
         mustbe(TK.ELSE);
     }
 
-    private void parseEq() {
+    protected void parseEq() {
         mustbe(TK.EQ);
     }
 
-    private void parseExpression() {
+    protected void parseExpression() {
         parseSimple();
         if (isRelOp()) {
             parseRelOp();
@@ -94,7 +93,7 @@ public class Parser {
         }
     }
 
-    private void parseFa() {
+    protected void parseFa() {
         mustbe(TK.FA);
         mustbe(TK.ID);
         mustbe(TK.ASSIGN);
@@ -109,7 +108,7 @@ public class Parser {
         mustbe(TK.AF);
     }
 
-    private void parseFactor() {
+    protected void parseFactor() {
         if (isParenthesized()) {
             parseParenthesized();
         } else if (isId()) {
@@ -121,20 +120,20 @@ public class Parser {
         }
     }
 
-    private void parseGe() {
+    protected void parseGe() {
         mustbe(TK.GE);
     }
 
-    private void parseGt() {
+    protected void parseGt() {
         mustbe(TK.GT);
     }
 
-    private void parseGuardedCommand() {
+    protected void parseGuardedCommand() {
         parseExpression();
         parseCommands();
     }
 
-    private void parseGuardedCommands() {
+    protected void parseGuardedCommands() {
         parseGuardedCommand();
         while (isBox()) {
             parseBox();
@@ -146,29 +145,29 @@ public class Parser {
         }
     }
 
-    private void parseIf() {
+    protected void parseIf() {
         mustbe(TK.IF);
         parseGuardedCommands();
         mustbe(TK.FI);
     }
 
-    private void parseId() {
+    protected void parseId() {
         mustbe(TK.ID);
     }
 
-    private void parseLe() {
+    protected void parseLe() {
         mustbe(TK.LE);
     }
 
-    private void parseLt() {
+    protected void parseLt() {
         mustbe(TK.LT);
     }
 
-    private void parseMinus() {
+    protected void parseMinus() {
         mustbe(TK.MINUS);
     }
 
-    private void parseMultOp() {
+    protected void parseMultOp() {
         switch (tok.kind) {
             case TIMES:
                 parseTimes();
@@ -182,30 +181,30 @@ public class Parser {
         }
     }
 
-    private void parseNe() {
+    protected void parseNe() {
         mustbe(TK.NE);
     }
 
-    private void parseNumber() {
+    protected void parseNumber() {
         mustbe(TK.NUM);
     }
 
-    private void parseParenthesized() {
+    protected void parseParenthesized() {
         mustbe(TK.LPAREN);
         parseExpression();
         mustbe(TK.RPAREN);
     }
 
-    private void parsePlus() {
+    protected void parsePlus() {
         mustbe(TK.PLUS);
     }
 
-    private void parsePrint() {
+    protected void parsePrint() {
         mustbe(TK.PRINT);
         parseExpression();
     }
 
-    private void parseRelOp() {
+    protected void parseRelOp() {
         switch (tok.kind) {
             case EQ:
                 parseEq();
@@ -231,7 +230,7 @@ public class Parser {
         }
     }
 
-    private void parseSimple() {
+    protected void parseSimple() {
         parseTerm();
         while (isAddOp()) {
             parseAddOp();
@@ -239,11 +238,11 @@ public class Parser {
         }
     }
 
-    private void parseSt() {
+    protected void parseSt() {
         mustbe(TK.ST);
     }
 
-    private void parseStatement() {
+    protected void parseStatement() {
         if (isAssignment()) {
             parseAssignment();
         } else if (isPrint()) {
@@ -259,13 +258,13 @@ public class Parser {
         }
     }
 
-    private void parseStatementList() {
+    protected void parseStatementList() {
         while (isStatement()) {
             parseStatement();
         }
     }
 
-    private void parseTerm() {
+    protected void parseTerm() {
         parseFactor();
         while (isMultOp()) {
             parseMultOp();
@@ -273,63 +272,63 @@ public class Parser {
         }
     }
 
-    private void parseTimes() {
+    protected void parseTimes() {
         mustbe(TK.TIMES);
     }
 
-    private boolean isAddOp() {
+    protected boolean isAddOp() {
         return is(TK.PLUS) || is(TK.MINUS);
     }
 
-    private boolean isAssignment() {
+    protected boolean isAssignment() {
         return is(TK.ID);
     }
 
-    private boolean isBox() {
+    protected boolean isBox() {
         return is(TK.BOX);
     }
 
-    private boolean isDeclaration() {
+    protected boolean isDeclaration() {
         return is(TK.VAR);
     }
 
-    private boolean isDo() {
+    protected boolean isDo() {
         return is(TK.DO);
     }
 
-    private boolean isElse() {
+    protected boolean isElse() {
         return is(TK.ELSE);
     }
 
-    private boolean isFa() {
+    protected boolean isFa() {
         return is(TK.FA);
     }
 
-    private boolean isId() {
+    protected boolean isId() {
         return is(TK.ID);
     }
 
-    private boolean isIf() {
+    protected boolean isIf() {
         return is(TK.IF);
     }
 
-    private boolean isMultOp() {
+    protected boolean isMultOp() {
         return is(TK.TIMES) || is(TK.DIVIDE);
     }
 
-    private boolean isNumber() {
+    protected boolean isNumber() {
         return is(TK.NUM);
     }
 
-    private boolean isParenthesized() {
+    protected boolean isParenthesized() {
         return is(TK.LPAREN);
     }
 
-    private boolean isPrint() {
+    protected boolean isPrint() {
         return is(TK.PRINT);
     }
 
-    private boolean isRelOp() {
+    protected boolean isRelOp() {
         return is(TK.EQ) ||
                is(TK.NE) ||
                is(TK.LT) ||
@@ -338,23 +337,23 @@ public class Parser {
                is(TK.GE);
     }
 
-    private boolean isSt() {
+    protected boolean isSt() {
         return is(TK.ST);
     }
 
-    private boolean isStatement() {
+    protected boolean isStatement() {
         return isAssignment() || isPrint() || isIf() || isDo() || isFa();
     }
 
     // you'll need to add a bunch of methods here
 
     // is current token what we want?
-    private boolean is(TK tk) {
+    protected boolean is(TK tk) {
         return tk == tok.kind;
     }
 
     // ensure current token is tk and skip over it.
-    private void mustbe(TK tk) {
+    protected void mustbe(TK tk) {
         if (!is(tk)) {
             System.err.println("mustbe: want " + tk + ", got " + tok);
             parseError("missing token (mustbe)");
@@ -362,7 +361,7 @@ public class Parser {
         scan();
     }
 
-    private void parseError(String msg) {
+    protected void parseError(String msg) {
         System.err.println("can't parse: line " + tok.lineNumber + " " + msg);
         System.exit(1);
     }
