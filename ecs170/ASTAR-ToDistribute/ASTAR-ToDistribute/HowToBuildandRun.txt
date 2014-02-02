@@ -1,0 +1,15 @@
+Compiles source
+  987  javac  Src/*.java
+
+Runs randomly generated map
+  977  java Main StupidAI
+
+Runs with map generated from DEM2XYZ 
+  985  java -Xmx1024M Main -load MTAFT.XYZ DijkstraAI
+  991  time java -Xmx1024M Main -load MTAFT.XYZ DijkstraAI
+
+Runs multiple modules
+  992  time java -Xmx1024M Main -load MTAFT.XYZ DijkstraAI DirectAI
+
+Runs with a specifiic seed
+   java Main StupidAI -seed 1   ***note no equal sign***
