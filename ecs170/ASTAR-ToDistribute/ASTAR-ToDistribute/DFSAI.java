@@ -5,7 +5,6 @@ public class DFSAI implements AIModule {
 
     protected HashSet<Point> discovered = new HashSet<Point>();
     protected HashMap<Point, Point> parentMap = new HashMap<Point, Point>();
-    protected ArrayDeque<Point> path = new ArrayDeque<Point>();
 
     protected void dfs(final TerrainMap map, Point start, Point end) {
         ArrayDeque<Point> stack = new ArrayDeque<Point>();
@@ -37,19 +36,19 @@ public class DFSAI implements AIModule {
 
         dfs(map, start, end);
 
-        ArrayList<Point> validPath = new ArrayList<Point>();
+        ArrayList<Point> path = new ArrayList<Point>();
 
         Point child = end;
         Point parent;
         do {
             parent = parentMap.get(child);
-            validPath.add(child);
+            path.add(child);
             child = parent;
         } while (!parent.equals(start));
-        validPath.add(parent);
+        path.add(parent);
 
-        Collections.reverse(validPath);
+        Collections.reverse(path);
 
-        return validPath;
+        return path;
     }
 }
