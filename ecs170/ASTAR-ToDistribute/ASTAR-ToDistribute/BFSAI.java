@@ -1,10 +1,10 @@
 import java.awt.Point;
 import java.util.*;
 
-public class DFSAI extends UninformedAI {
+public class BFSAI extends UninformedAI {
 
     protected void append(Collection<Point> deque, Point a) {
-        ((ArrayDeque<Point>) deque).addFirst(a);
+        ((ArrayDeque<Point>) deque).addLast(a);
     }
 
     protected Point detach(Collection<Point> deque) {
