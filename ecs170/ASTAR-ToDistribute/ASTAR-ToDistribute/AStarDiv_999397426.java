@@ -110,42 +110,44 @@ public class AStarDiv_999397426 implements AIModule {
     // }
 
     protected List<Point> aStar() {
-        HashSet<Point> closedSet = new HashSet<Point>();
-        HashSet<Point> openSet = new HashSet<Point>();
         HashMap<Point, Point> cameFrom = new HashMap<Point, Point>();
-
         HashMap<Point, Double> gScore = new HashMap<Point, Double>();
         HashMap<Point, Double> fScore = new HashMap<Point, Double>();
+
+        PriorityQueue<Node> openPQ = new PriorityQueue<Node>(100, new NodeComparator());
+        HashSet<Point> closedSet = new HashSet<Point>();
+        HashSet<Point> openSet = new HashSet<Point>();
 
         Point start = this.startPoint;
         Point goal = this.endPoint;
 
-        openSet.add(start);
+        openPQ.add(new Node(start, 0.0));
         gScore.put(start, 0.0);
 
         fScore.put(start, gScore.get(start) + getHeuristic(map, start, goal));
 
-        while (!openSet.isEmpty()) {
-            Point current = getNext(openSet, fScore);
-            if (current.equals(goal)) {
+        while (!openPQ.isEmpty()) {
+            Node curNode = openPQ.poll();
+            Point curPoint = curNode.point;
+            if (curPoint.equals(goal)) {
                 break;
             }
-            openSet.remove(current);
-            closedSet.add(current);
+            closedSet.add(curPoint);
 
-            for (Point neighbor : map.getNeighbors(current)) {
+            for (Point neighbor : map.getNeighbors(curPoint)) {
                 if (closedSet.contains(neighbor)) {
                     continue;
                 }
 
-                double tentativeGScore = gScore.get(current) + map.getCost(current, neighbor);
+                double tentativeGScore = gScore.get(curPoint) + map.getCost(curPoint, neighbor);
 
                 if (!openSet.contains(neighbor) || tentativeGScore < gScore.get(neighbor)) {
-                    cameFrom.put(neighbor, current);
+                    cameFrom.put(neighbor, curPoint);
                     gScore.put(neighbor, tentativeGScore);
                     fScore.put(neighbor, gScore.get(neighbor) + getHeuristic(map, neighbor, goal));
 
                     if (!openSet.contains(neighbor)) {
+                        openPQ.add(new Node(neighbor, fScore.get(neighbor)));
                         openSet.add(neighbor);
                     }
                 }
