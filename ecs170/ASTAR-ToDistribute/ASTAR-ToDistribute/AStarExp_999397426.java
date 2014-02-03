@@ -1,7 +1,7 @@
 import java.awt.Point;
 import java.util.*;
 
-public class AStarDiv_999397426 implements AIModule {
+public class AStarExp_999397426 implements AIModule {
 
     protected TerrainMap map;
     protected Point startPoint;
@@ -45,9 +45,9 @@ public class AStarDiv_999397426 implements AIModule {
      * @param p The point to determine distance from.
      * @return A constant distance to the end state.
      */
-    // private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
-    //     return 0;
-    // }
+    private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
+        return 0;
+    }
 
     /**
      * The Manhattan Distance.
@@ -115,9 +115,9 @@ public class AStarDiv_999397426 implements AIModule {
      * @param p The point to determine distance from.
      * @return The Weighted Chebyshev distance to the end state.
      */
-    private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
-        return 0.913 * Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
-    }
+    // private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
+    //     return 0.913 * Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
+    // }
 
     protected List<Point> aStar() {
         HashMap<Point, Point> cameFrom = new HashMap<Point, Point>();
