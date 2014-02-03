@@ -206,7 +206,7 @@ public final class TerrainMap
      */
     public double getTile(final Point pt)
     {
-        return getTile(pt.x, pt.y);
+        return (double) getTile(pt.x, pt.y);
     }
 
     /// Determines if points are adjacent.
@@ -281,20 +281,9 @@ public final class TerrainMap
      */
     public double getCost(final Point p1, final Point p2)
     {
-        return getTile(p2) /  (getTile(p1)+1.0);
-        // return Math.exp(getTile(p2) - getTile(p1));
+        // return getTile(p2) /  (getTile(p1)+1.0);
+        return Math.exp(getTile(p2) - getTile(p1));
     }
-
-    // // New height divided by old height
-    // public double getCost(final Point p1, final Point p2)
-    // {
-    //     return getTile(p2) / (getTile(p1) + 1);
-    // }
-    // Old height divided by new height
-    // public double getCost(final Point p1, final Point p2)
-    // {
-    //      return getTile(p1) / (getTile(p2) + 1);
-    // }
 
     /// Returns the width of the map.
     public int getWidth()
@@ -350,10 +339,6 @@ public final class TerrainMap
         // Make sure that we start and end at the correct points.
         if(!path.get(0).equals(StartPoint) || !path.get(path.size() - 1).equals(EndPoint))
         {
-            System.err.println("Start Should be"+StartPoint);
-            System.err.println("But got"+path.get(0));
-            System.err.println("End should be"+EndPoint);
-            System.err.println("But got"+path.get(path.size() - 1));
             throw new RuntimeException("Invalid Path");
         }
 

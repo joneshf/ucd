@@ -1,7 +1,9 @@
 import java.awt.Point;
 
 public class UCSChessAI extends UCSAI {
-    protected double distance(Point p1, Point p2) {
-        return Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
+
+    protected double distance(Point p) {
+        return Math.max(Math.abs(this.startPoint.x - p.x),
+                        Math.abs(this.startPoint.y - p.y));
     }
 }

@@ -2,7 +2,8 @@ import java.awt.Point;
 
 public class UCSManhattanAI extends UCSAI {
 
-    protected double distance(Point p1, Point p2) {
-        return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
+    protected double distance(Point p) {
+        return Math.abs(this.startPoint.x - p.x) +
+               Math.abs(this.startPoint.y - p.y);
     }
 }
