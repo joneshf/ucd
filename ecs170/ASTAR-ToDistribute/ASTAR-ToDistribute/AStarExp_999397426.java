@@ -14,9 +14,9 @@ public class AStarExp_999397426 implements AIModule {
         public int compare(Node x, Node y) {
             double xCost = x.pathCost;
             double yCost = y.pathCost;
-            if (xCost < yCost) {
+            if (xCost - yCost < 0) {
                 return -1;
-            } else if (xCost > yCost) {
+            } else if (xCost - yCost > 0) {
                 return 1;
             } else {
                 return 0;
@@ -45,9 +45,9 @@ public class AStarExp_999397426 implements AIModule {
      * @param p The point to determine distance from.
      * @return A constant distance to the end state.
      */
-    private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
-        return 0;
-    }
+    // private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
+    //     return 0;
+    // }
 
     /**
      * The Manhattan Distance.
@@ -119,6 +119,98 @@ public class AStarExp_999397426 implements AIModule {
     //     return 0.913 * Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
     // }
 
+    /**
+     * The minimum of the neighbors of the next point.
+     * @param p The point to determine distance from.
+     * @return The minimum of the neighbors of the next point.
+     */
+    // private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
+    //     double min = Math.exp(255);
+    //     for (Point neighbor : map.getNeighbors(p1)) {
+    //         if (map.getCost(p1, neighbor) < min) {
+    //             min = map.getCost(p1, neighbor);
+    //         }
+    //     }
+    //     return min;
+    // }
+
+    // private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
+    //     if (map.getTile(p1) < map.getTile(p2)) {
+    //         // return p1.distance(p2);
+    //         return Math.max(Math.abs(p1.x - p2.x),
+    //                         Math.abs(p1.y - p2.y));
+    //     } else {
+    //         return 0;
+    //     }
+    // }
+
+    private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
+        double chebyshev = Math.max(Math.abs(p1.x - p2.x),Math.abs(p1.y - p2.y));
+        double p1H = (double)map.getTile(p1);
+        double p2H = (double)map.getTile(p2);
+        double heightDifference = p1H - p2H;
+        double currentHeight;
+        double absoluteHeightDifference = Math.abs(heightDifference);
+        double stepWidth;
+        double estCost;
+
+        if(heightDifference == 0)
+        {
+            return chebyshev;
+        }
+        else if(heightDifference > 0)//e^(-1) is max p1 above p2
+        {
+            double averageMovement = (absoluteHeightDifference/chebyshev);
+            currentHeight = p1H - averageMovement;
+            estCost = Math.exp(-averageMovement);
+            if(averageMovement < 1)
+            {
+                estCost = 0;
+                for(int i = 0; i <= absoluteHeightDifference; i++)
+                {
+                    estCost += Math.exp((double)-1.0);
+                }
+                estCost += (chebyshev - absoluteHeightDifference);
+                return Math.floor(estCost);
+            }
+
+            while(currentHeight > p2H)
+            {
+                averageMovement = Math.ceil(averageMovement);
+                estCost += Math.exp(-averageMovement);
+                currentHeight = currentHeight - averageMovement;
+            }
+
+            return Math.floor(estCost);
+        }
+        else//(heightDifference < 0)//e^255 is max p1 below p2
+        {
+            double averageMovement = (absoluteHeightDifference/chebyshev);
+            currentHeight = p1H - averageMovement;
+            estCost = Math.exp(averageMovement);
+
+            if(averageMovement <= 1)
+            {
+                estCost = 0;
+                for(int i = 0; i < absoluteHeightDifference; i++)
+                {
+                    estCost += Math.exp((double)1.0);
+                }
+                estCost += (chebyshev - absoluteHeightDifference);
+                return Math.floor(estCost);
+            }
+
+            while(currentHeight < p2H)
+            {
+                averageMovement = Math.floor(averageMovement);
+                estCost += Math.exp(averageMovement);
+                currentHeight = currentHeight + averageMovement;
+            }
+
+            return Math.floor(estCost);
+        }
+    }
+
     protected List<Point> aStar() {
         HashMap<Point, Point> cameFrom = new HashMap<Point, Point>();
         HashMap<Point, Double> gScore = new HashMap<Point, Double>();
@@ -132,16 +224,20 @@ public class AStarExp_999397426 implements AIModule {
         Point goal = this.endPoint;
 
         openPQ.add(new Node(start, 0.0));
+        openSet.add(start);
         gScore.put(start, 0.0);
 
         fScore.put(start, gScore.get(start) + getHeuristic(map, start, goal));
 
-        while (!openPQ.isEmpty()) {
+        while (!openSet.isEmpty()) {
+        // while (!openPQ.isEmpty()) {
             Node curNode = openPQ.poll();
-            Point curPoint = curNode.point;
+            // Point curPoint = curNode.point;
+            Point curPoint = getNext(openSet, fScore);
             if (curPoint.equals(goal)) {
                 break;
             }
+            openSet.remove(curPoint);
             closedSet.add(curPoint);
 
             for (Point neighbor : map.getNeighbors(curPoint)) {
@@ -157,7 +253,7 @@ public class AStarExp_999397426 implements AIModule {
                     fScore.put(neighbor, gScore.get(neighbor) + getHeuristic(map, neighbor, goal));
 
                     if (!openSet.contains(neighbor)) {
-                        openPQ.add(new Node(neighbor, fScore.get(neighbor)));
+                        openPQ.add(new Node(neighbor, gScore.get(neighbor)));
                         openSet.add(neighbor);
                     }
                 }

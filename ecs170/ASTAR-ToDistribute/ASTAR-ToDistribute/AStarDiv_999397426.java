@@ -132,16 +132,20 @@ public class AStarDiv_999397426 implements AIModule {
         Point goal = this.endPoint;
 
         openPQ.add(new Node(start, 0.0));
+        openSet.add(start);
         gScore.put(start, 0.0);
 
         fScore.put(start, gScore.get(start) + getHeuristic(map, start, goal));
 
-        while (!openPQ.isEmpty()) {
+        while (!openSet.isEmpty()) {
+        // while (!openPQ.isEmpty()) {
             Node curNode = openPQ.poll();
-            Point curPoint = curNode.point;
+            // Point curPoint = curNode.point;
+            Point curPoint = getNext(openSet, fScore);
             if (curPoint.equals(goal)) {
                 break;
             }
+            openSet.remove(curPoint);
             closedSet.add(curPoint);
 
             for (Point neighbor : map.getNeighbors(curPoint)) {
