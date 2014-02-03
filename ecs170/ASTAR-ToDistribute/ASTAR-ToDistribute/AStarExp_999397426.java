@@ -134,81 +134,23 @@ public class AStarExp_999397426 implements AIModule {
     //     return min;
     // }
 
-    // private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
-    //     if (map.getTile(p1) < map.getTile(p2)) {
-    //         // return p1.distance(p2);
-    //         return Math.max(Math.abs(p1.x - p2.x),
-    //                         Math.abs(p1.y - p2.y));
-    //     } else {
-    //         return 0;
-    //     }
-    // }
-
     private double getHeuristic(final TerrainMap map, final Point p1, final Point p2) {
-        double chebyshev = Math.max(Math.abs(p1.x - p2.x),Math.abs(p1.y - p2.y));
-        double p1H = (double)map.getTile(p1);
-        double p2H = (double)map.getTile(p2);
-        double heightDifference = p1H - p2H;
-        double currentHeight;
-        double absoluteHeightDifference = Math.abs(heightDifference);
-        double stepWidth;
-        double estCost;
-
-        if(heightDifference == 0)
-        {
-            return chebyshev;
+        double p1Height = map.getTile(p1);
+        double p2Height = map.getTile(p2);
+        if (p1Height > p2Height) {
+            return map.getCost(p1, p2) + chebyshev(p1, p2);
+        } else if (p1Height < p2Height) {
+            int cheby = chebyshev(p1, p2);
+            double dh = p2Height - p1Height;
+            double slope = dh / cheby;
+            return Math.exp(slope) * cheby;
+        } else {
+            return chebyshev(p1, p2);
         }
-        else if(heightDifference > 0)//e^(-1) is max p1 above p2
-        {
-            double averageMovement = (absoluteHeightDifference/chebyshev);
-            currentHeight = p1H - averageMovement;
-            estCost = Math.exp(-averageMovement);
-            if(averageMovement < 1)
-            {
-                estCost = 0;
-                for(int i = 0; i <= absoluteHeightDifference; i++)
-                {
-                    estCost += Math.exp((double)-1.0);
-                }
-                estCost += (chebyshev - absoluteHeightDifference);
-                return Math.floor(estCost);
-            }
+    }
 
-            while(currentHeight > p2H)
-            {
-                averageMovement = Math.ceil(averageMovement);
-                estCost += Math.exp(-averageMovement);
-                currentHeight = currentHeight - averageMovement;
-            }
-
-            return Math.floor(estCost);
-        }
-        else//(heightDifference < 0)//e^255 is max p1 below p2
-        {
-            double averageMovement = (absoluteHeightDifference/chebyshev);
-            currentHeight = p1H - averageMovement;
-            estCost = Math.exp(averageMovement);
-
-            if(averageMovement <= 1)
-            {
-                estCost = 0;
-                for(int i = 0; i < absoluteHeightDifference; i++)
-                {
-                    estCost += Math.exp((double)1.0);
-                }
-                estCost += (chebyshev - absoluteHeightDifference);
-                return Math.floor(estCost);
-            }
-
-            while(currentHeight < p2H)
-            {
-                averageMovement = Math.floor(averageMovement);
-                estCost += Math.exp(averageMovement);
-                currentHeight = currentHeight + averageMovement;
-            }
-
-            return Math.floor(estCost);
-        }
+    protected int chebyshev(final Point p1, final Point p2) {
+        return Math.max(Math.abs(p1.x - p2.x), Math.abs(p1.y - p2.y));
     }
 
     protected List<Point> aStar() {
@@ -230,9 +172,7 @@ public class AStarExp_999397426 implements AIModule {
         fScore.put(start, gScore.get(start) + getHeuristic(map, start, goal));
 
         while (!openSet.isEmpty()) {
-        // while (!openPQ.isEmpty()) {
             Node curNode = openPQ.poll();
-            // Point curPoint = curNode.point;
             Point curPoint = getNext(openSet, fScore);
             if (curPoint.equals(goal)) {
                 break;

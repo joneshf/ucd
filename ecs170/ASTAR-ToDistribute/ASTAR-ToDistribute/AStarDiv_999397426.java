@@ -138,9 +138,7 @@ public class AStarDiv_999397426 implements AIModule {
         fScore.put(start, gScore.get(start) + getHeuristic(map, start, goal));
 
         while (!openSet.isEmpty()) {
-        // while (!openPQ.isEmpty()) {
             Node curNode = openPQ.poll();
-            // Point curPoint = curNode.point;
             Point curPoint = getNext(openSet, fScore);
             if (curPoint.equals(goal)) {
                 break;
