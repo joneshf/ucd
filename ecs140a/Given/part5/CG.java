@@ -20,12 +20,19 @@ public class CG extends References {
         return str.toString();
     }
 
+    protected void cIncludes() {
+        cLine("#include <stdio.h>");
+    }
+
     protected void cLine() {
         cLine("");
     }
 
     protected void cLine(String cString) {
         cStrIndent(cString+"\n");
+    }
+
+    protected void cPrelude() {
     }
 
     protected void cStrIndent(String cString) {
@@ -40,8 +47,9 @@ public class CG extends References {
         doLabelCounter = 0;
         indent = 0;
         indentation = "    ";
-        cLine("#include <stdio.h>");
+        cIncludes();
         cLine();
+        cPrelude();
         cLine("int main (void) {");
         ++indent;
         super.parseProgram();
@@ -188,7 +196,6 @@ public class CG extends References {
         cStr(");\n");
     }
 
-    // Let's override mustbe to validate id's.
     protected void mustbe(TK tk) {
         if (!is(tk)) {
             System.err.println("mustbe: want " + tk + ", got " + tok);

@@ -24,6 +24,8 @@ public enum TK {
     MINUS,    // -
     TIMES,    // *
     DIVIDE,   // /
+    SQUARE,   // ^
+    SQRT,     // @
 
     EQ,       // =
     NE,       // /=

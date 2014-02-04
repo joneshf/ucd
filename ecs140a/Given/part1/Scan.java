@@ -102,6 +102,10 @@ public class Scan {
                         return ccase1('+',TK.PLUS);
                     case '*':
                         return ccase1('*',TK.TIMES);
+                    case '^':
+                        return ccase1('^',TK.SQUARE);
+                    case '@':
+                        return ccase1('@',TK.SQRT);
                     case '=':
                         return ccase1('=',TK.EQ);
 
