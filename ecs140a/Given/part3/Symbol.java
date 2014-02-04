@@ -12,10 +12,10 @@ public class Symbol extends Parser {
             symbolTable = new ArrayDeque<ArrayDeque<Token>>();
         }
         // We just need to add a block when we start.
-        symbolTable.addFirst(new ArrayDeque<Token>());
+        symbolTable.push(new ArrayDeque<Token>());
         super.parseBlock();
         // We  need to remove a block when we end.
-        symbolTable.removeFirst();
+        symbolTable.pop();
     }
 
     protected void parseDeclarations() {
@@ -27,7 +27,7 @@ public class Symbol extends Parser {
                 System.err.println(redeclared());
             } else {
                 // New variable.
-                symbolTable.getFirst().addFirst(tok);
+                symbolTable.getFirst().push(tok);
             }
             scan();
         }

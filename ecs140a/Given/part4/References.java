@@ -1,5 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
+import java.util.*;
 
 public class References extends Symbol {
 
@@ -24,11 +23,19 @@ public class References extends Symbol {
         }
 
         private String formatAssigned() {
-            return formatWith(assigned);
+            if (assigned.size() == 0) {
+                return "never assigned";
+            } else {
+                return "assigned to on:" + formatWith(assigned);
+            }
         }
 
         private String formatUsed() {
-            return formatWith(used);
+            if (used.size() == 0) {
+                return "never used";
+            } else {
+                return "used on:" + formatWith(used);
+            }
         }
 
         private String formatWith(ArrayList<Integer> al) {
@@ -38,10 +45,10 @@ public class References extends Symbol {
                 if (i + 1 < al.size() && al.get(i+1) == al.get(i)) {
                     ++consecutive;
                 } else if (consecutive > 0) {
-                    str.append(al.get(i) + "(" + consecutive + ")" + " ");
+                    str.append(" " + al.get(i) + "(" + ++consecutive + ")");
                     consecutive = 0;
                 } else {
-                    str.append(al.get(i) + " ");
+                    str.append(" " + al.get(i));
                 }
             }
 
@@ -52,8 +59,8 @@ public class References extends Symbol {
             return token.string +
                    "\n  declared on line " + token.lineNumber +
                    " at nesting depth " + this.depth +
-                   "\n  assigned to on: " + formatAssigned() +
-                   "\n  used on: " + formatUsed();
+                   "\n  " + formatAssigned() +
+                   "\n  " + formatUsed();
         }
     }
 
@@ -82,12 +89,13 @@ public class References extends Symbol {
     }
 
     protected int findDepth(Token t) {
-        int depth = 0;
+        int depth = symbolTable.size() - 1;
+
         for (ArrayDeque<Token> block : symbolTable) {
             if (varInBlock(block, t)) {
                 break;
             } else {
-                ++depth;
+                --depth;
             }
         }
 
@@ -96,9 +104,11 @@ public class References extends Symbol {
 
     protected Reference findReference(Token t, int depth) {
         Reference r = new Reference(t, depth);
+
         for (Reference ref : refs) {
-            if (ref.token.string.equals(t.string) && ref.depth == depth) {
+            if (ref.token.string.equals(t.string) && ref.depth <= depth) {
                 r = ref;
+                break;
             }
         }
 
@@ -121,17 +131,34 @@ public class References extends Symbol {
         mustbe(TK.VAR);
         while (is(TK.ID)) {
             // We only need to check the Last block for redeclarations.
-            if (varInBlock(symbolTable.getLast())) {
+            if (varInBlock(symbolTable.getFirst())) {
                 // If it was declared, print an error.
                 System.err.println(redeclared());
             } else {
                 // New variable.
-                symbolTable.getLast().addLast(tok);
+                symbolTable.getFirst().push(tok);
+                refs.push(new Reference(tok, symbolTable.size() - 1));
             }
-            refs.addLast(new Reference(tok, symbolTable.size() - 1));
             scan();
         }
         mustbe(TK.RAV);
+    }
+
+    protected void parseFa() {
+        mustbe(TK.FA);
+        Token t = new Token(tok.kind, tok.string, tok.lineNumber);
+        mustbe(TK.ID);
+        addAssign(t);
+        mustbe(TK.ASSIGN);
+        parseExpression();
+        mustbe(TK.TO);
+        parseExpression();
+        if (isSt()) {
+            parseSt();
+            parseExpression();
+        }
+        parseCommands();
+        mustbe(TK.AF);
     }
 
     protected void parseFactor() {
@@ -150,9 +177,14 @@ public class References extends Symbol {
 
     protected void parseProgram() {
         super.parseProgram();
-        System.out.println(symbolTable);
-        for (Reference ref : refs) {
-            System.out.println(ref);
+        if (tok.kind != TK.EOF) {
+            parseError("junk after logical end of program");
+            System.exit(1);
+        } else if (refs != null) {
+            while (!refs.isEmpty()) {
+                Reference ref = refs.removeLast();
+                System.out.println(ref);
+            }
         }
     }
 }
