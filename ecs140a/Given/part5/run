@@ -11,4 +11,4 @@ endif
 
    (echo running e2c $1; java e2c < $1.e >! $1.c ) \
 && (echo compiling the C generated code; cc $1.c) \
-&& (echo executing the a.out; a.out)
+&& (echo executing the a.out; ./a.out)

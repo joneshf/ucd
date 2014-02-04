@@ -183,7 +183,7 @@ public class References extends Symbol {
         } else if (refs != null) {
             while (!refs.isEmpty()) {
                 Reference ref = refs.removeLast();
-                System.out.println(ref);
+                System.err.println(ref);
             }
         }
     }
