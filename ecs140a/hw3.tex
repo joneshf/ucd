@@ -168,5 +168,51 @@
 
           \texttt{1 1 1}
       \end{enumerate}
+
+      \item
+        Consider the following Ada-like program.
+
+        Suppose OOPS is raised at A for each invocation of Q.
+
+        \begin{enumerate}
+          \item
+            Assume the code in handler H1 and H2 do not execute a raise statement.
+            For the invocation of Q at I1, which handler (H1, H2, or H3) will be executed? Explain.
+
+            H1 will be executed as it is the closest exception handler to the point of exception.
+
+          \item
+            Assume the code in handler H1 and H2 do not execute a raise statement.
+            For the invocation of Q through the invocation of R at I2,
+            which handler (H1, H2, or H3) will be executed? Explain.
+
+            H1 will be executed as it is the closest exception handler to the point of exception.
+
+          \item
+            Assume now that H1 executes a raise OOPS statement (but H2 doesn't).
+            Explain what happens for each of the invocations of I1 and I2.
+
+            For I1, when Q raises OOPS, H1 attempts to handle the exception.
+            H1 then raises OOPS, so exception control goes up the call stack to H3.
+            Assuming H3 doesn't raise OOPS as well, it handles the exception.
+
+            For I2, when Q raises OOPS, H1 attempts to handle the exception.
+            H1 then raises OOPS, so exception control goes up the call stack to H2.
+            H2 doesn't raise OOPS, so it handles the exception.
+
+          \item
+            Assume now that H1 and H2 each executes a raise OOPS statement.
+            Explain what happens for each of the invocations of I1 and I2.
+
+            For I1, when Q raises OOPS, H1 attempts to handle the exception.
+            H1 then raises OOPS, so exception control goes up the call stack to H3.
+            Assuming H3 doesn't raise OOPS as well, it handles the exception.
+
+            For I2, when Q raises OOPS, H1 attempts to handle the exception.
+            H1 then raises OOPS, so exception control goes up the call stack to H2.
+            H2 attempts to handle the exception.
+            H2 then raises OOPS, so exception control goes up the call stack to H3.
+            Assuming H3 doesn't raise OOPS as well, it handles the exception.
+        \end{enumerate}
   \end{enumerate}
 \end{document}
