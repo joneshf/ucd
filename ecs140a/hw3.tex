@@ -80,7 +80,6 @@
             -P/D:  & A              & \\
             +E:    & A E            & E$\rightarrow$A \\
             +R/F:  & A E R          & E$\rightarrow$A R$\rightarrow$A \\
-            +R/F:  & A E R          & E$\rightarrow$A R$\rightarrow$A \\
             +U:    & A E R U        & E$\rightarrow$A R$\rightarrow$A U$\rightarrow$R \\
             -U:    & A E R          & E$\rightarrow$A R$\rightarrow$A \\
             -R/F:  & A E            & E$\rightarrow$A \\
@@ -88,6 +87,32 @@
             -A:    & (empty)        & \\
           \end{tabular}
         \item Show the runtime stack and the display each time a block or procedure is entered or exited.
+
+          \begin{tabular}{l l l}
+            action & stack & display (@ = pointer to or address of) \\
+            \hline
+            start: & (empty)        & (empty) \\
+            +A:    & A              & @A \\
+            +P/D:  & A P            & @A @P \\
+            +S:    & A P S          & @A @P @S \\
+            +Q/C:  & A P S Q        & @A @P @Q \\
+            +T:    & A P S Q T      & @A @P @Q @T\\
+            +R/B:  & A P S Q T R    & @A @R \\
+            +U:    & A P S Q T R U  & @A @R @U \\
+            -U:    & A P S Q T R    & @A @R \\
+            -R/B:  & A P S Q T      & @A @P @Q @T \\
+            -T:    & A P S Q        & @A @P @Q \\
+            -Q/C:  & A P S          & @A @P @S \\
+            -S:    & A P            & @A @P \\
+            -P/D:  & A              & @A \\
+            +E:    & A E            & @A @E \\
+            +R/F:  & A E R          & @A @R \\
+            +U:    & A E R U        & @A @R @U \\
+            -U:    & A E R          & @A @R \\
+            -R/F:  & A E            & @A @E \\
+            -E:    & A              & @A \\
+            -A:    & (empty)        & (empty) \\
+          \end{tabular}
       \end{enumerate}
   \end{enumerate}
 \end{document}
