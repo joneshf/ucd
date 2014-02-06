@@ -1,0 +1,5 @@
+test of calling ConstantIt too many times
+ci.next():55:
+ci.next():55:
+ci.next():55:
+ConstantIt called past end

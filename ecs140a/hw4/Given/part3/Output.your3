@@ -1,0 +1,4 @@
+test of calling JumbleIt too many times
+ji.next():76:
+ji.next():77:
+JumbleIt called past end
