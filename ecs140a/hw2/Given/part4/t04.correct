@@ -1,0 +1,25 @@
+running e2c t04
+a
+  declared on line 4 at nesting depth 0
+  assigned to on: 6 8 9
+  used on: 7 9(2) 10
+b
+  declared on line 4 at nesting depth 0
+  assigned to on: 6 9
+  used on: 7 10
+another
+  declared on line 4 at nesting depth 0
+  assigned to on: 9
+  used on: 10
+i
+  declared on line 4 at nesting depth 0
+  assigned to on: 14 15 17 18(2) 21 22(2) 25 26(2)
+  used on: 15(3) 18(2) 19 22(2) 23 26(2) 27
+k
+  declared on line 4 at nesting depth 0
+  assigned to on: 29 30
+  used on: 30(3) 31
+s
+  declared on line 4 at nesting depth 0
+  assigned to on: 29 30
+  used on: 30 31

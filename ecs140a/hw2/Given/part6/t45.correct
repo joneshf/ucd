@@ -1,0 +1,35 @@
+running e2c t45
+a
+  declared on line 2 at nesting depth 0
+  assigned to on: 3
+  used on: 4(2) 5 6 8 11 13 15 17 26
+a
+  declared on line 5 at nesting depth 1
+  assigned to on: 5
+  used on: 5
+a
+  declared on line 12 at nesting depth 2
+  assigned to on: 12
+  used on: 12
+a
+  declared on line 19 at nesting depth 1
+  assigned to on: 20
+  used on: 22 24
+a
+  declared on line 23 at nesting depth 2
+  assigned to on: 23
+  used on: 23
+compiling the C generated code
+executing the a.out
+1998
+8888
+999
+2222
+999
+3
+999
+999
+5
+4
+4
+999

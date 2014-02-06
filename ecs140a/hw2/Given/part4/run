@@ -1,0 +1,13 @@
+#!/bin/csh -f
+# a simple way to run e2c
+# usage: ``run X''
+#        where X is prefix of file containing E program
+# e.g.,  ``run t5'' will run on t5.e
+
+if( $#argv != 1 ) then
+	echo usage: $0 prefix
+	exit(1)
+endif
+
+echo running e2c $1
+java e2c < $1.e

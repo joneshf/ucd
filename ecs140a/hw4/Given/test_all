@@ -1,0 +1,11 @@
+#!/bin/csh -f
+
+set here = `pwd`
+
+foreach d (part*)
+  echo ======== $d ========
+  cd $d
+  make rerun
+  make clean
+  cd $here
+end

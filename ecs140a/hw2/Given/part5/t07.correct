@@ -1,0 +1,31 @@
+running e2c t07
+variable b is redeclared on line 4
+a
+  declared on line 2 at nesting depth 0
+  assigned to on: 6
+  used on: 8
+b
+  declared on line 3 at nesting depth 0
+  never assigned
+  used on: 8
+c
+  declared on line 3 at nesting depth 0
+  never assigned
+  never used
+d
+  declared on line 4 at nesting depth 0
+  never assigned
+  used on: 9
+ab
+  declared on line 4 at nesting depth 0
+  assigned to on: 7 9
+  used on: 8
+temp
+  declared on line 5 at nesting depth 0
+  never assigned
+  never used
+compiling the C generated code
+executing the a.out
+999
+1888
+-12345

@@ -1,0 +1,4 @@
+running e2c t03
+Token(PRINT print 2)
+Token(NUM 2341 2)
+Token(EOF *EOF* 3)

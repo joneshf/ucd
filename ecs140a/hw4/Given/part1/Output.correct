@@ -1,0 +1,284 @@
+c1:[ 4 : 11 ]:
+(Seq)c1 instanceof Constant:true:
+(Seq)c1 instanceof Delta:false:
+(Seq)c1 instanceof Jumble:false:
+c2:[ 4 : 0 ]:
+(Seq)c2 instanceof Constant:true:
+(Seq)c2 instanceof Delta:false:
+(Seq)c2 instanceof Jumble:false:
+c3:[ 0 : 0 ]:
+(Seq)c3 instanceof Constant:true:
+(Seq)c3 instanceof Delta:false:
+(Seq)c3 instanceof Jumble:false:
+c4:[ 0 : 0 ]:
+(Seq)c4 instanceof Constant:true:
+(Seq)c4 instanceof Delta:false:
+(Seq)c4 instanceof Jumble:false:
+c5:[ 4 : 88 ]:
+(Seq)c5 instanceof Constant:true:
+(Seq)c5 instanceof Delta:false:
+(Seq)c5 instanceof Jumble:false:
+c6:[ 3 : 55 ]:
+(Seq)c6 instanceof Constant:true:
+(Seq)c6 instanceof Delta:false:
+(Seq)c6 instanceof Jumble:false:
+c7:[ 0 : 0 ]:
+(Seq)c7 instanceof Constant:true:
+(Seq)c7 instanceof Delta:false:
+(Seq)c7 instanceof Jumble:false:
+c8:[ 10 : 22 ]:
+(Seq)c8 instanceof Constant:true:
+(Seq)c8 instanceof Delta:false:
+(Seq)c8 instanceof Jumble:false:
+d1:< 4 : 1 &1 >:
+(Seq)d1 instanceof Constant:false:
+(Seq)d1 instanceof Delta:true:
+(Seq)d1 instanceof Jumble:false:
+d2:< 4 : 1 &-1 >:
+(Seq)d2 instanceof Constant:false:
+(Seq)d2 instanceof Delta:true:
+(Seq)d2 instanceof Jumble:false:
+d3:< 0 : 0 &0 >:
+(Seq)d3 instanceof Constant:false:
+(Seq)d3 instanceof Delta:true:
+(Seq)d3 instanceof Jumble:false:
+d4:< 0 : 0 &0 >:
+(Seq)d4 instanceof Constant:false:
+(Seq)d4 instanceof Delta:true:
+(Seq)d4 instanceof Jumble:false:
+d5:< 4 : 1 &0 >:
+(Seq)d5 instanceof Constant:false:
+(Seq)d5 instanceof Delta:true:
+(Seq)d5 instanceof Jumble:false:
+d6:< 3 : 21 &1 >:
+(Seq)d6 instanceof Constant:false:
+(Seq)d6 instanceof Delta:true:
+(Seq)d6 instanceof Jumble:false:
+d6:< 3 : 21 &1 >:
+(Seq)d6 instanceof Constant:false:
+(Seq)d6 instanceof Delta:true:
+(Seq)d6 instanceof Jumble:false:
+d7:< 0 : 0 &0 >:
+(Seq)d7 instanceof Constant:false:
+(Seq)d7 instanceof Delta:true:
+(Seq)d7 instanceof Jumble:false:
+d8:< 10 : 2 &4 >:
+(Seq)d8 instanceof Constant:false:
+(Seq)d8 instanceof Delta:true:
+(Seq)d8 instanceof Jumble:false:
+j1:{ 0 : }:
+(Seq)j1 instanceof Constant:false:
+(Seq)j1 instanceof Delta:false:
+(Seq)j1 instanceof Jumble:true:
+j2:{ 1 : 88 }:
+(Seq)j2 instanceof Constant:false:
+(Seq)j2 instanceof Delta:false:
+(Seq)j2 instanceof Jumble:true:
+j3:{ 2 : 97 55 }:
+(Seq)j3 instanceof Constant:false:
+(Seq)j3 instanceof Delta:false:
+(Seq)j3 instanceof Jumble:true:
+j4:{ 8 : 199 198 197 196 195 194 193 192 }:
+(Seq)j4 instanceof Constant:false:
+(Seq)j4 instanceof Delta:false:
+(Seq)j4 instanceof Jumble:true:
+j5:{ 5 : 102 103 101 107 109 }:
+(Seq)j5 instanceof Constant:false:
+(Seq)j5 instanceof Delta:false:
+(Seq)j5 instanceof Jumble:true:
+j6:{ 4 : 41 42 43 44 }:
+(Seq)j6 instanceof Constant:false:
+(Seq)j6 instanceof Delta:false:
+(Seq)j6 instanceof Jumble:true:
+x:{ 2 : 97 55 }:
+(Seq)x instanceof Constant:false:
+(Seq)x instanceof Delta:false:
+(Seq)x instanceof Jumble:true:
+x:< 0 : 0 &0 >:
+(Seq)x instanceof Constant:false:
+(Seq)x instanceof Delta:true:
+(Seq)x instanceof Jumble:false:
+x:[ 4 : 11 ]:
+(Seq)x instanceof Constant:true:
+(Seq)x instanceof Delta:false:
+(Seq)x instanceof Jumble:false:
+c1:[ 4 : 11 ]:
+(Seq)c1 instanceof Constant:true:
+(Seq)c1 instanceof Delta:false:
+(Seq)c1 instanceof Jumble:false:
+c2:[ 4 : 0 ]:
+(Seq)c2 instanceof Constant:true:
+(Seq)c2 instanceof Delta:false:
+(Seq)c2 instanceof Jumble:false:
+c3:[ 0 : 0 ]:
+(Seq)c3 instanceof Constant:true:
+(Seq)c3 instanceof Delta:false:
+(Seq)c3 instanceof Jumble:false:
+c4:[ 0 : 0 ]:
+(Seq)c4 instanceof Constant:true:
+(Seq)c4 instanceof Delta:false:
+(Seq)c4 instanceof Jumble:false:
+c5:[ 4 : 88 ]:
+(Seq)c5 instanceof Constant:true:
+(Seq)c5 instanceof Delta:false:
+(Seq)c5 instanceof Jumble:false:
+c6:[ 3 : 55 ]:
+(Seq)c6 instanceof Constant:true:
+(Seq)c6 instanceof Delta:false:
+(Seq)c6 instanceof Jumble:false:
+c7:[ 0 : 0 ]:
+(Seq)c7 instanceof Constant:true:
+(Seq)c7 instanceof Delta:false:
+(Seq)c7 instanceof Jumble:false:
+c8:[ 10 : 22 ]:
+(Seq)c8 instanceof Constant:true:
+(Seq)c8 instanceof Delta:false:
+(Seq)c8 instanceof Jumble:false:
+d1:< 4 : 1 &1 >:
+(Seq)d1 instanceof Constant:false:
+(Seq)d1 instanceof Delta:true:
+(Seq)d1 instanceof Jumble:false:
+d2:< 4 : 1 &-1 >:
+(Seq)d2 instanceof Constant:false:
+(Seq)d2 instanceof Delta:true:
+(Seq)d2 instanceof Jumble:false:
+d3:< 0 : 0 &0 >:
+(Seq)d3 instanceof Constant:false:
+(Seq)d3 instanceof Delta:true:
+(Seq)d3 instanceof Jumble:false:
+d4:< 0 : 0 &0 >:
+(Seq)d4 instanceof Constant:false:
+(Seq)d4 instanceof Delta:true:
+(Seq)d4 instanceof Jumble:false:
+d5:< 4 : 1 &0 >:
+(Seq)d5 instanceof Constant:false:
+(Seq)d5 instanceof Delta:true:
+(Seq)d5 instanceof Jumble:false:
+d6:< 3 : 21 &1 >:
+(Seq)d6 instanceof Constant:false:
+(Seq)d6 instanceof Delta:true:
+(Seq)d6 instanceof Jumble:false:
+d6:< 3 : 21 &1 >:
+(Seq)d6 instanceof Constant:false:
+(Seq)d6 instanceof Delta:true:
+(Seq)d6 instanceof Jumble:false:
+d7:< 0 : 0 &0 >:
+(Seq)d7 instanceof Constant:false:
+(Seq)d7 instanceof Delta:true:
+(Seq)d7 instanceof Jumble:false:
+d8:< 10 : 2 &4 >:
+(Seq)d8 instanceof Constant:false:
+(Seq)d8 instanceof Delta:true:
+(Seq)d8 instanceof Jumble:false:
+j1:{ 0 : }:
+(Seq)j1 instanceof Constant:false:
+(Seq)j1 instanceof Delta:false:
+(Seq)j1 instanceof Jumble:true:
+j2:{ 1 : 88 }:
+(Seq)j2 instanceof Constant:false:
+(Seq)j2 instanceof Delta:false:
+(Seq)j2 instanceof Jumble:true:
+j3:{ 2 : 97 55 }:
+(Seq)j3 instanceof Constant:false:
+(Seq)j3 instanceof Delta:false:
+(Seq)j3 instanceof Jumble:true:
+j4:{ 8 : 199 198 197 196 195 194 193 192 }:
+(Seq)j4 instanceof Constant:false:
+(Seq)j4 instanceof Delta:false:
+(Seq)j4 instanceof Jumble:true:
+j5:{ 5 : 102 103 101 107 109 }:
+(Seq)j5 instanceof Constant:false:
+(Seq)j5 instanceof Delta:false:
+(Seq)j5 instanceof Jumble:true:
+j6:{ 4 : 41 42 43 44 }:
+(Seq)j6 instanceof Constant:false:
+(Seq)j6 instanceof Delta:false:
+(Seq)j6 instanceof Jumble:true:
+x:{ 2 : 97 55 }:
+(Seq)x instanceof Constant:false:
+(Seq)x instanceof Delta:false:
+(Seq)x instanceof Jumble:true:
+x:< 0 : 0 &0 >:
+(Seq)x instanceof Constant:false:
+(Seq)x instanceof Delta:true:
+(Seq)x instanceof Jumble:false:
+x:[ 4 : 11 ]:
+(Seq)x instanceof Constant:true:
+(Seq)x instanceof Delta:false:
+(Seq)x instanceof Jumble:false:
+b[k%8]:[ 8 : 888 ]:
+(Seq)b[k%8] instanceof Constant:true:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:false:
+b[k%8]:{ 3 : 77 78 79 }:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:true:
+b[k%8]:{ 2 : 81 82 }:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:true:
+b[k%8]:< 4 : 5 &1 >:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:true:
+(Seq)b[k%8] instanceof Jumble:false:
+b[k%8]:{ 0 : }:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:true:
+b[k%8]:{ 11 : 10 1 2 3 4 5 10 -1 -2 -3 -4 }:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:true:
+b[k%8]:< 11 : 0 &5 >:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:true:
+(Seq)b[k%8] instanceof Jumble:false:
+b[k%8]:[ 22 : 222 ]:
+(Seq)b[k%8] instanceof Constant:true:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:false:
+b[k%8]:[ 8 : 888 ]:
+(Seq)b[k%8] instanceof Constant:true:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:false:
+b[k%8]:{ 3 : 77 78 79 }:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:true:
+b[k%8]:{ 2 : 81 82 }:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:true:
+b[k%8]:< 4 : 5 &1 >:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:true:
+(Seq)b[k%8] instanceof Jumble:false:
+b[k%8]:{ 0 : }:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:true:
+b[k%8]:{ 11 : 10 1 2 3 4 5 10 -1 -2 -3 -4 }:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:true:
+b[k%8]:< 11 : 0 &5 >:
+(Seq)b[k%8] instanceof Constant:false:
+(Seq)b[k%8] instanceof Delta:true:
+(Seq)b[k%8] instanceof Jumble:false:
+b[k%8]:[ 22 : 222 ]:
+(Seq)b[k%8] instanceof Constant:true:
+(Seq)b[k%8] instanceof Delta:false:
+(Seq)b[k%8] instanceof Jumble:false:
+jj1:{ 3 : 8 4 11 }:
+(Seq)jj1 instanceof Constant:false:
+(Seq)jj1 instanceof Delta:false:
+(Seq)jj1 instanceof Jumble:true:
+jj2:{ 3 : 8 9999 11 }:
+(Seq)jj2 instanceof Constant:false:
+(Seq)jj2 instanceof Delta:false:
+(Seq)jj2 instanceof Jumble:true:
+jj1:{ 3 : 8 4 11 }:
+(Seq)jj1 instanceof Constant:false:
+(Seq)jj1 instanceof Delta:false:
+(Seq)jj1 instanceof Jumble:true:

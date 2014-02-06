@@ -1,0 +1,17 @@
+running e2c t11
+a
+  declared on line 2 at nesting depth 0
+  assigned to on: 8
+  never used
+b
+  declared on line 3 at nesting depth 0
+  assigned to on: 10
+  used on: 10
+c
+  declared on line 4 at nesting depth 0
+  never assigned
+  never used
+d
+  declared on line 5 at nesting depth 0
+  never assigned
+  never used

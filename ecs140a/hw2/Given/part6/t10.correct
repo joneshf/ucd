@@ -1,0 +1,61 @@
+running e2c t10
+i
+  declared on line 2 at nesting depth 0
+  assigned to on: 3 5 11
+  used on: 3 6 7 12 13
+j
+  declared on line 2 at nesting depth 0
+  assigned to on: 6 12 17
+  used on: 7 12 13 18
+compiling the C generated code
+executing the a.out
+1
+2
+3
+4
+202
+203
+204
+205
+303
+304
+305
+404
+405
+505
+201
+203
+204
+205
+301
+302
+304
+305
+401
+402
+403
+405
+501
+502
+503
+504
+601
+602
+603
+604
+605
+701
+702
+703
+704
+705
+801
+802
+803
+804
+805
+901
+902
+903
+904
+905

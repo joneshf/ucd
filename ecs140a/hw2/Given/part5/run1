@@ -1,0 +1,5 @@
+#!/bin/csh -f
+# test one and do diff
+
+./run $1 >&! $1.output
+diff $1.correct $1.output

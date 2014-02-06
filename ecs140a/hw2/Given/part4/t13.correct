@@ -1,0 +1,5 @@
+running e2c t13
+i
+  declared on line 1 at nesting depth 0
+  assigned to on: 2 3 4
+  used on: 3(3) 4(3)

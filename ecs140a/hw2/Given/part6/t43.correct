@@ -1,0 +1,108 @@
+running e2c t43
+a
+  declared on line 2 at nesting depth 0
+  never assigned
+  never used
+i
+  declared on line 2 at nesting depth 0
+  assigned to on: 3
+  used on: 4 5 6(2) 8(2) 10
+k
+  declared on line 2 at nesting depth 0
+  never assigned
+  never used
+a
+  declared on line 4 at nesting depth 1
+  never assigned
+  used on: 4
+b
+  declared on line 4 at nesting depth 1
+  never assigned
+  never used
+a
+  declared on line 4 at nesting depth 1
+  never assigned
+  used on: 4
+c
+  declared on line 4 at nesting depth 1
+  never assigned
+  used on: 4
+a
+  declared on line 5 at nesting depth 1
+  never assigned
+  used on: 5
+b
+  declared on line 5 at nesting depth 1
+  never assigned
+  never used
+a
+  declared on line 5 at nesting depth 1
+  never assigned
+  used on: 5
+c
+  declared on line 5 at nesting depth 1
+  never assigned
+  used on: 5
+a
+  declared on line 6 at nesting depth 1
+  never assigned
+  used on: 6
+b
+  declared on line 6 at nesting depth 1
+  never assigned
+  never used
+a
+  declared on line 6 at nesting depth 1
+  never assigned
+  used on: 6
+d
+  declared on line 6 at nesting depth 1
+  never assigned
+  used on: 6
+e
+  declared on line 6 at nesting depth 1
+  never assigned
+  used on: 6
+a
+  declared on line 6 at nesting depth 1
+  never assigned
+  used on: 6
+c
+  declared on line 6 at nesting depth 1
+  never assigned
+  used on: 6
+a
+  declared on line 8 at nesting depth 2
+  never assigned
+  used on: 8
+b
+  declared on line 8 at nesting depth 2
+  never assigned
+  never used
+a
+  declared on line 8 at nesting depth 2
+  never assigned
+  used on: 8
+d
+  declared on line 8 at nesting depth 2
+  never assigned
+  used on: 8
+e
+  declared on line 8 at nesting depth 2
+  never assigned
+  used on: 8
+a
+  declared on line 8 at nesting depth 2
+  never assigned
+  used on: 8
+c
+  declared on line 8 at nesting depth 2
+  never assigned
+  used on: 8
+compiling the C generated code
+executing the a.out
+-24690
+-12345
+-37035
+-37035
+25
