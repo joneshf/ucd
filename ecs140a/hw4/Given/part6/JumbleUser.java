@@ -8,7 +8,7 @@ public class JumbleUser {
 
         try {
             while (jIter.hasNext()) {
-                    int next = jIter.next();
+                int next = jIter.next();
                 if (longest == 0 || last <= next) {
                     ++longest;
                 } else if (longest > maxLongest) {

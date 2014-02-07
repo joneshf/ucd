@@ -1,6 +1,0 @@
-test of calling DeltaIt too many times
-di.next():5:
-di.next():14:
-di.next():23:
-di.next():32:
-DeltaIt called past end
