@@ -1,89 +1,68 @@
 public class Plus {
 
-    public static Seq plus(Seq s1, Seq s2) {
-        if (s1 instanceof Constant && s2 instanceof Constant) {
-            return plus((Constant) s1, (Constant) s2);
-        } else if (s1 instanceof Constant && s2 instanceof Delta) {
-            return plus((Constant) s1, (Delta) s2);
-        } else if (s2 instanceof Constant && s1 instanceof Delta) {
-            return plus((Constant) s2, (Delta) s1);
-        } else if (s1 instanceof Delta && s2 instanceof Delta) {
-            return plus((Delta) s1, (Delta) s2);
-        } else {
-            return plus((Jumble) s1, (Jumble) s2);
-        }
+    private enum SeqType {
+        CONSTANT,
+        DELTA,
+        JUMBLE
     }
 
-    public static Seq plus(Constant c1, Constant c2) {
-        int num = Math.min(c1.num, c2.num);
-        int value = c1.value + c2.value;
-        return new Constant(num, value);
-    }
+    private static Seq plusJumble(int num, Seq s1, Seq s2) {
+        SeqIt s1Iter = s1.createSeqIt();
+        SeqIt s2Iter = s2.createSeqIt();
+        int[] values = new int[num];
 
-    public static Seq plus(Delta d1, Delta d2) {
-        int num = Math.min(d1.num, d2.num);
-        int initial = d1.initial + d2.initial;
-        // [1,2,3,4] + [2,4,6,8] = [3,6,9,12]
-        // < n1 : i1 &d1 > + < n2 : i2 &d2 > =
-        // [i1 + i2, (i1 + i2) + (d1 + d2), (i1 + i2) + 2(d1 + d2)]
-        int delta = d1.delta + d2.delta;
-
-        return new Delta(num, initial, delta);
-    }
-
-    public static Seq plus(Jumble j1, Jumble j2) {
-        int minLength = Math.min(j1.num, j2.num);
-        int[] values = new int[minLength];
-        JumbleIt j1Iter = new JumbleIt(j1);
-        JumbleIt j2Iter = new JumbleIt(j2);
-
-        for (int i = 0; j1Iter.hasNext() && j2Iter.hasNext(); ++i) {
-            try {
-                int j1Next = j1Iter.next();
-                int j2Next = j2Iter.next();
-                values[i] = j1Next + j2Next;
-            } catch (UsingIteratorPastEndException e) {
-                break;
+        try {
+            for (int i = 0; i < num; ++i) {
+                values[i] = s1Iter.next() + s2Iter.next();
             }
+        } catch (UsingIteratorPastEndException e) {
         }
 
         return new Jumble(values);
     }
 
-    public static Seq plus (Constant c, Delta d) {
-        return plus(new Delta(c.num, c.value, 0), d);
-    }
+    public static Seq plus(Seq s1, Seq s2) {
+        // We're going to iterate the sequences,
+        // keeping track of the number of elements, their differences, and so on.
+        // If we get to the end and the difference has been 0 the whole time,
+        // It's a Constant.
+        // If the difference stays the same, but isn't 0, it's a Delta.
+        // If at any point the difference changes between two additions,
+        // it's a Jumble.
+        SeqIt s1Iter = s1.createSeqIt();
+        SeqIt s2Iter = s2.createSeqIt();
 
-    public static Seq plus (Delta d, Constant c) {
-        return plus(c, d);
-    }
+        int num = 0;
+        int initial = 0;
+        int diff = 0;
+        int last = 0;
+        SeqType type = SeqType.CONSTANT;
 
-    public static Seq plus (Constant c, Jumble j) {
-        int[] values = new int[c.num];
-
-        for (int i = 0; i < values.length; ++i) {
-            values[i] = c.value;
+        try {
+            for (; ; ++num) {
+                int s1Next = s1Iter.next();
+                int s2Next = s2Iter.next();
+                if (num == 0) {
+                    // This is the first one.
+                    initial = s1Next + s2Next;
+                } else if (num == 1) {
+                    // We can check the diff now.
+                    diff = s1Next + s2Next - initial;
+                    type = diff == 0 ? SeqType.CONSTANT : SeqType.DELTA;
+                } else if (diff != s1Next + s2Next - last) {
+                    // This thing is a jumble.
+                    type = SeqType.JUMBLE;
+                }
+                last = s1Next + s2Next;
+            }
+        } catch (UsingIteratorPastEndException e) {
         }
 
-        return plus(new Jumble(values), j);
-    }
-
-    public static Seq plus (Jumble j, Constant c) {
-        return plus(c, j);
-    }
-
-    public static Seq plus (Delta d, Jumble j) {
-        int[] values = new int[d.num];
-
-        for (int i = 0; i < values.length; ++i) {
-            values[i] = d.initial + d.delta * i;
+        switch (type) {
+            case CONSTANT: return new Constant(num, initial);
+            case DELTA: return new Delta(num, initial, diff);
+            default: return plusJumble(num, s1, s2);
         }
-
-        return plus(new Jumble(values), j);
-    }
-
-    public static Seq plus (Jumble j, Delta d) {
-        return plus(d, j);
     }
 
 }
