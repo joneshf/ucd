@@ -1,0 +1,59 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{graphicx}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 170 Homework 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Davidson\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Consider the figure
+      \begin{enumerate}
+        \item Which of the following (if any) are asserted by the network structure?
+          \begin{enumerate}
+            \item $P(B,I,M) = P(B)P(I)P(M)$
+
+              This is not asserted because $B, I, M$ are not independent.
+            \item $P(J|G) = P(J|G,I)$
+
+              This is asserted because $J$ is conditionally independent of $I$ given $G$.
+            \item $P(M|G,B,I) = P(M|G,B,I,J)$
+
+              This is asserted because $J$ is conditionally indepented of $M$ given $G$.
+          \end{enumerate}
+
+        \item Calculate the value of $P(b,i,m,\neg g,j)$.
+          \begin{align*}
+            P(b,i,m,\neg g,j) &= P(b)P(i|b,m)P(m)P(\neg g|b,i,m)P(j|\neg g)\\
+            &= (0.9)(0.9)(0.1)(0.9)(0.0)\\
+            &= 0.0\\
+          \end{align*}
+      \end{enumerate}
+    \item Consider the figure.
+      \begin{enumerate}
+        \item Give one example of conditional independence and another of unconditional independence.
+
+        \textbf{JohnCalls} is conditionally independent of \textbf{Burglary} given \textbf{Alarm}.
+
+        \textbf{Burglary} is unconditinally independent of \textbf{Earthquake}.
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
