@@ -51,9 +51,26 @@
       \begin{enumerate}
         \item Give one example of conditional independence and another of unconditional independence.
 
-        \textbf{JohnCalls} is conditionally independent of \textbf{Burglary} given \textbf{Alarm}.
+          \textbf{JohnCalls} is conditionally independent of \textbf{Burglary} given \textbf{Alarm}.
 
-        \textbf{Burglary} is unconditinally independent of \textbf{Earthquake}.
+          \textbf{Burglary} is unconditinally independent of \textbf{Earthquake}.
+
+        \item Write completely the general expression to calculate
+
+        $P(Burglary,Earthquake,Alarm,JohnCalls,MaryCalls)$
+
+        Abbreviating
+
+        \begin{tabular}{l l}
+          Burglary   & B \\
+          Earthquake & E \\
+          Alarm      & A \\
+          JohnCalls  & J \\
+          MaryCalls  & M \\
+        \end{tabular}
+        \[
+          P(B,E,A,J,M) = P(B)P(E)P(A|B,E)P(J|A)P(M|A)
+        \]
       \end{enumerate}
   \end{enumerate}
 \end{document}
