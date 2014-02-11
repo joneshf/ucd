@@ -1,0 +1,88 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{textcomp}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{PHIL 112 Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Dr. Landry\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item Define
+      \begin{enumerate}
+        \item Quantificational truth
+        \item Quantificational equivalence
+      \end{enumerate}
+    \item Symbolize the following sentences, using the symbolization key given.
+      UD: Everything
+      Ixy: x is identitcal to y
+      Mx: x is a math problem
+      Lx: x is a logic problem
+      Sxy: x is easier to solve than is y
+      \begin{enumerate}
+        \item Math problems are easier to solve than logic problems.
+        \item Some logic problems are easier to solve than are others.
+      \end{enumerate}
+    \item Determine the truth values of the following with the given interpretation.
+      UD: Set of people and planets
+      Hx: x is a human being
+      Lxy: x lives on y
+      Px: x is a planet
+      Sx: x is in the solar system
+      e: earth
+
+      \begin{enumerate}
+        \item $(\exists x)(\forall y)[Hx \land (Py \supset Lxy)]$
+        \item $(Pe \land Se) \land (\exists w)(Hw \land Lwe)$
+        \item $(\exists x)(Hx \land Lxe) \equiv Se$
+        \item $(\forall x)(\forall y)[(Hx \land Py) \supset \neg x \equiv y]$
+      \end{enumerate}
+    \item Determine the truth values for the following with the given interpretation.
+      UD: Set of people
+      Mx: x is a male
+      Sx: x is a scientist
+      Oxy: x is older than y
+      a: Albert Einstein
+
+      \begin{enumerate}
+        \item $(\forall x)(Mx \land Sx) \supset \neg Sa$
+        \item $(\forall x)[(Mx \land Sx) \supset \neg Sa]$
+        \item $(\forall x)(\forall y)(Oxy \supset \neg Oyx)$
+        \item $(\forall y)[\neg y \equiv [a \land (My \land Sy)]]$
+      \end{enumerate}
+    \item Construct an expansion of each of the following sentences for the set of constants $\{ a, s \}$
+      \begin{enumerate}
+        \item $(\forall x)(\exists y)Sxy \land D$
+        \item $(\exists x)Fx \equiv \neg (\forall y)Gsy$
+      \end{enumerate}
+    \item
+      Show that the following argument is not quantificationally valid.
+      Use both the interpretation method and the truth-functional expansion method.
+
+      \begin{tabular}{l}
+        $(\forall y)(\exists x)(Py \supset Cyx)$ \\
+        $(\exists x)Cxx$ \\
+        \hline
+        $(\exists x)\neg Cxx$
+      \end{tabular}
+    \item
+      Are the sentences $(\forall y)Fy$ and $\neg (\exists y) \neg Fy$
+      quantificationally equivalent?
+  \end{enumerate}
+\end{document}
