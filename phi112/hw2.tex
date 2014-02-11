@@ -173,8 +173,20 @@
 
       $[[(\exists x)(Pa \supset Cax) \land (\exists x)(Pb \supset Cbx)] \land (\exists x)Cxx] \supset (\exists x)\neg Cxx$ \\
       $[[[(Pa \supset Caa) \lor (Pa \supset Cab)] \land [(Pb \supset Cba) \lor (Pb \supset Cbb)]] \land (Caa \lor Cbb)] \supset \neg (Caa \lor Cbb)$ \\
+      From this we can see that we necessarily have the antecedent as true, and the consequent as false.
+      $\therefore$ This argument is quantificationally invalid by expansion.
     \item
       Are the sentences $(\forall y)Fy$ and $\neg (\exists y) \neg Fy$
       quantificationally equivalent?
+
+      Yes these two terms are quantificationally equivalent.
+      It is trivial to see once we rewrite one of the terms.
+
+      \begin{align*}
+        \neg (\exists y) \neg Fy &:: (\forall y) \neg \neg Fy \\
+        &:: (\forall y) Fy
+      \end{align*}
+
+      $\therefore$ These two sentences are quantificationally equivalent.
   \end{enumerate}
 \end{document}
