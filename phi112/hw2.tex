@@ -2,6 +2,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage{amssymb}
 \usepackage{cancel}
 \usepackage[margin=1in]{geometry}
 \usepackage{titling}
@@ -47,47 +48,94 @@
           Two sentences \textbf{P} and \textbf{Q} of PL are quantificationally equivalent if and only if
           there is no interpretation on which \textbf{P} and \textbf{Q} have different quantificational truth values.
       \end{enumerate}
+
     \item Symbolize the following sentences, using the symbolization key given.
-      UD: Everything
-      Ixy: x is identitcal to y
-      Mx: x is a math problem
-      Lx: x is a logic problem
+
+      UD: Everything \\
+      Ixy: x is identitcal to y \\
+      Mx: x is a math problem \\
+      Lx: x is a logic problem \\
       Sxy: x is easier to solve than is y
       \begin{enumerate}
         \item Math problems are easier to solve than logic problems.
+
+          $(\forall x)(\forall y)[(Mx \land Ly) \supset Sxy]$
+
         \item Some logic problems are easier to solve than are others.
+
+          $(\exists x)(\exists y)(Lx \land Ly \land Sxy)$
       \end{enumerate}
     \item Determine the truth values of the following with the given interpretation.
-      UD: Set of people and planets
-      Hx: x is a human being
-      Lxy: x lives on y
-      Px: x is a planet
-      Sx: x is in the solar system
+
+      UD: Set of people and planets \\
+      Hx: x is a human being \\
+      Lxy: x lives on y \\
+      Px: x is a planet \\
+      Sx: x is in the solar system \\
       e: earth
 
       \begin{enumerate}
         \item $(\exists x)(\forall y)[Hx \land (Py \supset Lxy)]$
+
+          This is false
+          for it states that some human lives on every planet, yet no humans live on Mercury.
         \item $(Pe \land Se) \land (\exists w)(Hw \land Lwe)$
+
+          This is true
+          for it states that Earth is a planet in the solar system and there is some human living on earth.
+          You can verify this by being alive.
         \item $(\exists x)(Hx \land Lxe) \equiv Se$
+
+          This is indeterminate.
+          It states that there is some human living on earth if and only if the earth is in the solar system.
+          There are some creation myths which believe the earth was created with the sun and humans, who have existed on it the whole time.
+          Science tells us the earth is much older than the human species, yet it has been a part of the solar system long before the existence of humans, and would continue to be part of the solar system if our species became extinct.
+          Since there is at least one interpretation where this is true and another where it is false,
+          this sentence must be indeterminate.
         \item $(\forall x)(\forall y)[(Hx \land Py) \supset \neg x \equiv y]$
+
+          This is true.
+          It states that no human is a planet.
       \end{enumerate}
     \item Determine the truth values for the following with the given interpretation.
-      UD: Set of people
-      Mx: x is a male
-      Sx: x is a scientist
-      Oxy: x is older than y
+
+      UD: Set of people \\
+      Mx: x is a male \\
+      Sx: x is a scientist \\
+      Oxy: x is older than y \\
       a: Albert Einstein
 
       \begin{enumerate}
         \item $(\forall x)(Mx \land Sx) \supset \neg Sa$
+
+          This states that if all males are scientists,
+          then Albert Einstein is not a scientist.
+
+          This is true because the antecedent cannot be made true,
+          since there will always be some male that is not a scientist.
         \item $(\forall x)[(Mx \land Sx) \supset \neg Sa]$
+
+          This states that
         \item $(\forall x)(\forall y)(Oxy \supset \neg Oyx)$
-        \item $(\forall y)[\neg y \equiv [a \land (My \land Sy)]]$
+
+          This states that no person is older than another person that is older than themselves.
+          This is true.
+        \item $(\forall y)[\neg (y = a) \land (My \land Sy)]$
+
+          This states that everyone who isn't Albert Einstein is a male scientist.
+
+          This is clearly false because women are people also.
       \end{enumerate}
     \item Construct an expansion of each of the following sentences for the set of constants $\{ a, s \}$
       \begin{enumerate}
         \item $(\forall x)(\exists y)Sxy \land D$
+
+          $[(\exists y)Say \land (\exists y)Ssy] \land D$ \\
+          $[(Saa \lor Sas) \land (Ssa \lor Sss)] \land D$
         \item $(\exists x)Fx \equiv \neg (\forall y)Gsy$
+
+          $(Fa \lor Fs) \equiv \neg (\forall y)Gsy$ \\
+          $(Fa \lor Fs) \equiv \neg (Gsa \land Gss)$
       \end{enumerate}
     \item
       Show that the following argument is not quantificationally valid.
@@ -99,6 +147,32 @@
         \hline
         $(\exists x)\neg Cxx$
       \end{tabular}
+
+      We can use the interpretation of natural numbers.
+
+      UD: $\mathbb{N}$
+      Px: x is positive.
+      Cxy: x is equal to y.
+
+      Now since we're dealing with the naturals, every element of our set is positive.
+      We also know that for every number we can find a number that is equal to it, namely itself.
+
+      So we can see that both premises are true, however the conclusion is false.
+
+      $\therefore$ this argument is not quantificationally valid.
+
+      Using expansion it helps to rewrite the argument.
+
+      $[(\forall y)(\exists x)(Py \supset Cyx) \land (\exists x)Cxx] \supset (\exists x)\neg Cxx$
+
+      UD: $\{ 1, 2 \}$
+      Px: x is positive.
+      Cxy: x is equal to y.
+      a: 1
+      b: 2
+
+      $[[(\exists x)(Pa \supset Cax) \land (\exists x)(Pb \supset Cbx)] \land (\exists x)Cxx] \supset (\exists x)\neg Cxx$ \\
+      $[[[(Pa \supset Caa) \lor (Pa \supset Cab)] \land [(Pb \supset Cba) \lor (Pb \supset Cbb)]] \land (Caa \lor Cbb)] \supset \neg (Caa \lor Cbb)$ \\
     \item
       Are the sentences $(\forall y)Fy$ and $\neg (\exists y) \neg Fy$
       quantificationally equivalent?
