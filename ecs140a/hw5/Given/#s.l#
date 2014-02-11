@@ -1,0 +1,19 @@
+;;; ECS 140A HW 5
+;;; Hardy Jones
+;;; 999397426
+
+;; Part 1
+;; A little helper to clean up our code.
+(defun double (y)
+  (list y y))
+
+(defun double-recursive (y)
+  (cond ((null y) ())
+	(t        (cons (do y) (double-recursive (cdr y))))))
+
+(defun double-iterative (y)
+  (do ((iter-y y (cdr iter-y))
+       (l () (cons (car iter-y)
+		   (cons (car iter-y)
+			 l))))
+      (iter-y l)))

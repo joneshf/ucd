@@ -1,0 +1,23 @@
+#!/bin/csh -f
+# test all and do diff, i.e., act as batch tester
+
+# note that this rm is (generally) redundant with (ty)'s remove.
+# but do it just in case Output.your exists and clisp isn't in path;
+# don't want to be misled by diff below.
+/bin/rm -f Output.your
+
+clisp -q -i init.lsp -x '(ty)'
+
+# alternatively, create a file run.l that contains
+# (ty)
+# (quit)
+# and then
+# clisp -i init.lsp run.l
+# hmmm, man page says no read-eval-print loop if give lisp-file argument
+# as we do here, but we still get one.  so, just quit out of it.
+
+# diff the results
+# you can replace diff with another diff tool if you prefer
+# e.g., "diff --side-by-side" or "sdiff" or "tkdiff"
+# (to quit tkdiff, type q or click on File and then Exit.)
+diff Output.your Output.correct

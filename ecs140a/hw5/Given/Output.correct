@@ -1,0 +1,325 @@
+;; Dribble of #<io terminal-stream> started on 2013-12-18 10:22:20.
+
+          BEGIN TESTING
+
+
+                    TEST-DOUBLE
+
+
+                              TEST-A-DOUBLE on:  double-recursive
+
+testing:  (double-fun nil)
+value:    nil
+
+testing:  (double-fun 44)
+value:    nil
+
+testing:  (double-fun 'a)
+value:    nil
+
+testing:  (double-fun '(44))
+value:    (44 44)
+
+testing:  (double-fun '(44 55))
+value:    (44 44 55 55)
+
+testing:  (double-fun '(1 2 3))
+value:    (1 1 2 2 3 3)
+
+testing:  (double-fun '(11 12 13 14))
+value:    (11 11 12 12 13 13 14 14)
+
+testing:  (double-fun '(1 (2 3) 4))
+value:    (1 1 (2 3) (2 3) 4 4)
+
+testing:  (double-fun '(1 (2) (3 4) (5 6 7) (8 (9 10) 11)))
+value:    (1 1 (2) (2) (3 4) (3 4) (5 6 7) (5 6 7) (8 (9 10) 11) (8 (9 10) 11))
+
+testing:  (double-fun '((111 112) (120) nil (140)))
+value:    ((111 112) (111 112) (120) (120) nil nil (140) (140))
+
+testing:  (double-fun '(((111 112)) ((120)) (nil) (140)))
+value:    (((111 112)) ((111 112)) ((120)) ((120)) (nil) (nil) (140) (140))
+
+testing:  (double-fun '(1 (2 3) ((((4))))))
+value:    (1 1 (2 3) (2 3) ((((4)))) ((((4)))))
+
+
+                              TEST-A-DOUBLE on:  double-mapcar
+
+testing:  (double-fun nil)
+value:    nil
+
+testing:  (double-fun 44)
+value:    nil
+
+testing:  (double-fun 'a)
+value:    nil
+
+testing:  (double-fun '(44))
+value:    (44 44)
+
+testing:  (double-fun '(44 55))
+value:    (44 44 55 55)
+
+testing:  (double-fun '(1 2 3))
+value:    (1 1 2 2 3 3)
+
+testing:  (double-fun '(11 12 13 14))
+value:    (11 11 12 12 13 13 14 14)
+
+testing:  (double-fun '(1 (2 3) 4))
+value:    (1 1 (2 3) (2 3) 4 4)
+
+testing:  (double-fun '(1 (2) (3 4) (5 6 7) (8 (9 10) 11)))
+value:    (1 1 (2) (2) (3 4) (3 4) (5 6 7) (5 6 7) (8 (9 10) 11) (8 (9 10) 11))
+
+testing:  (double-fun '((111 112) (120) nil (140)))
+value:    ((111 112) (111 112) (120) (120) nil nil (140) (140))
+
+testing:  (double-fun '(((111 112)) ((120)) (nil) (140)))
+value:    (((111 112)) ((111 112)) ((120)) ((120)) (nil) (nil) (140) (140))
+
+testing:  (double-fun '(1 (2 3) ((((4))))))
+value:    (1 1 (2 3) (2 3) ((((4)))) ((((4)))))
+
+
+                              TEST-A-DOUBLE on:  double-iterative
+
+testing:  (double-fun nil)
+value:    nil
+
+testing:  (double-fun 44)
+value:    nil
+
+testing:  (double-fun 'a)
+value:    nil
+
+testing:  (double-fun '(44))
+value:    (44 44)
+
+testing:  (double-fun '(44 55))
+value:    (44 44 55 55)
+
+testing:  (double-fun '(1 2 3))
+value:    (1 1 2 2 3 3)
+
+testing:  (double-fun '(11 12 13 14))
+value:    (11 11 12 12 13 13 14 14)
+
+testing:  (double-fun '(1 (2 3) 4))
+value:    (1 1 (2 3) (2 3) 4 4)
+
+testing:  (double-fun '(1 (2) (3 4) (5 6 7) (8 (9 10) 11)))
+value:    (1 1 (2) (2) (3 4) (3 4) (5 6 7) (5 6 7) (8 (9 10) 11) (8 (9 10) 11))
+
+testing:  (double-fun '((111 112) (120) nil (140)))
+value:    ((111 112) (111 112) (120) (120) nil nil (140) (140))
+
+testing:  (double-fun '(((111 112)) ((120)) (nil) (140)))
+value:    (((111 112)) ((111 112)) ((120)) ((120)) (nil) (nil) (140) (140))
+
+testing:  (double-fun '(1 (2 3) ((((4))))))
+value:    (1 1 (2 3) (2 3) ((((4)))) ((((4)))))
+
+
+                    TEST-RDOUBLE
+
+
+                              TEST-A-DOUBLE on:  rdouble
+
+testing:  (double-fun nil)
+value:    nil
+
+testing:  (double-fun 44)
+value:    nil
+
+testing:  (double-fun 'a)
+value:    nil
+
+testing:  (double-fun '(44))
+value:    (44 44)
+
+testing:  (double-fun '(44 55))
+value:    (44 44 55 55)
+
+testing:  (double-fun '(1 2 3))
+value:    (1 1 2 2 3 3)
+
+testing:  (double-fun '(11 12 13 14))
+value:    (11 11 12 12 13 13 14 14)
+
+testing:  (double-fun '(1 (2 3) 4))
+value:    (1 1 (2 2 3 3) 4 4)
+
+testing:  (double-fun '(1 (2) (3 4) (5 6 7) (8 (9 10) 11)))
+value:    (1 1 (2 2) (3 3 4 4) (5 5 6 6 7 7) (8 8 (9 9 10 10) 11 11))
+
+testing:  (double-fun '((111 112) (120) nil (140)))
+value:    ((111 111 112 112) (120 120) nil (140 140))
+
+testing:  (double-fun '(((111 112)) ((120)) (nil) (140)))
+value:    (((111 111 112 112)) ((120 120)) (nil) (140 140))
+
+testing:  (double-fun '(1 (2 3) ((((4))))))
+value:    (1 1 (2 2 3 3) ((((4 4)))))
+
+
+                    TEST-MY-MAPCAR
+
+testing:  (my-mapcar #'+ '(1 2) '(3 4))
+value:    (4 6)
+
+testing:  (my-mapcar #'+ 'nil 'nil)
+value:    nil
+
+testing:  (my-mapcar #'+ '(1 2 3) '(4 5))
+value:    (5 7)
+
+testing:  (my-mapcar #'* '(1 2 3) '(4 5 6 7))
+value:    (4 10 18)
+
+testing:  (my-mapcar #'* 'nil '(4 5 6 7))
+value:    nil
+
+testing:  (my-mapcar #'* '(1 2 3) 'nil)
+value:    nil
+
+testing:  (my-mapcar #'cons '((1) (2 3)) '((a b) (c)))
+value:    (((1) a b) ((2 3) c))
+
+testing:  (my-mapcar #'list '((1) (2 3)) '((a b) (c)))
+value:    (((1) (a b)) ((2 3) (c)))
+
+testing:  (my-mapcar #'(lambda (a b) (+ (* 2 a a) (* b b))) '(1 2 3) '(4 5 6))
+value:    (18 33 54)
+
+
+                    TEST-REWRITE
+
+testing:  (rewrite nil)
+value:    nil
+
+testing:  (rewrite 44)
+value:    44
+
+testing:  (rewrite '(* 44 2))
+value:    (* 44 2)
+
+testing:  (rewrite 'a)
+value:    a
+
+testing:  (rewrite '(list 3 4))
+value:    (list 3 4)
+
+testing:  (rewrite '(if 3 4))
+value:    (cond (3 4))
+
+testing:  (rewrite '(if nil 4))
+value:    (cond (nil 4))
+
+testing:  (rewrite '(if 3 4 5))
+value:    (cond (3 4) (t 5))
+
+testing:  (rewrite '(if (if 3 8 9) 4 5))
+value:    (cond ((cond (3 8) (t 9)) 4) (t 5))
+
+testing:  (rewrite '(if nil 4 5))
+value:    (cond (nil 4) (t 5))
+
+testing:  (rewrite '(* 44 (if 3 2 5)))
+value:    (* 44 (cond (3 2) (t 5)))
+
+testing:  (rewrite '(* 44 (if nil 7 10)))
+value:    (* 44 (cond (nil 7) (t 10)))
+
+testing:  (rewrite '(if (= 8 (if 3 8 9)) 4 5))
+value:    (cond ((= 8 (cond (3 8) (t 9))) 4) (t 5))
+
+testing:  (rewrite '(if (= 8 (if nil 8 9)) 4 5))
+value:    (cond ((= 8 (cond (nil 8) (t 9))) 4) (t 5))
+
+testing:  (rewrite '(if (= 8 (if 3 (if (= 7 7) 8 1) 9)) 4 5))
+value:    (cond ((= 8 (cond (3 (cond ((= 7 7) 8) (t 1))) (t 9))) 4) (t 5))
+
+testing:  (rewrite '(if (= 8 (if 3 (if (= 7 6) 8 (if (+ 1 22) 3 77)) 9)) 5))
+value:    
+(cond
+ ((= 8 (cond (3 (cond ((= 7 6) 8) (t (cond ((+ 1 22) 3) (t 77))))) (t 9))) 5))
+
+testing:  (rewrite '(cons (if (= 8 7) 'bad 'good) (if (= 8 7) 'nope 'yup)))
+value:    (cons (cond ((= 8 7) 'bad) (t 'good)) (cond ((= 8 7) 'nope) (t 'yup)))
+
+testing:  (rewrite '(list (if (= 8 7) 'bad) (if (= 8 7) 'nope)))
+value:    (list (cond ((= 8 7) 'bad)) (cond ((= 8 7) 'nope)))
+
+testing:  (rewrite '(list (if (= 8 8) 'yes) (if (= 8 8) 'okay)))
+value:    (list (cond ((= 8 8) 'yes)) (cond ((= 8 8) 'okay)))
+
+testing:  (rewrite '(list (if (= 8 8) 'yes) (if (= 8 7) 'nope)))
+value:    (list (cond ((= 8 8) 'yes)) (cond ((= 8 7) 'nope)))
+
+
+                    TEST-CHECK
+
+testing:  (check nil)
+value:    (t nil nil)
+
+testing:  (check 44)
+value:    (t 44 44)
+
+testing:  (check '(* 44 2))
+value:    (t 88 88)
+
+testing:  (check '(list 3 4))
+value:    (t (3 4) (3 4))
+
+testing:  (check '(if 3 4))
+value:    (t 4 4)
+
+testing:  (check '(if nil 4))
+value:    (t nil nil)
+
+testing:  (check '(if 3 4 5))
+value:    (t 4 4)
+
+testing:  (check '(if (if 3 8 9) 4 5))
+value:    (t 4 4)
+
+testing:  (check '(if nil 4 5))
+value:    (t 5 5)
+
+testing:  (check '(* 44 (if 3 2 5)))
+value:    (t 88 88)
+
+testing:  (check '(* 44 (if nil 7 10)))
+value:    (t 440 440)
+
+testing:  (check '(if (= 8 (if 3 8 9)) 4 5))
+value:    (t 4 4)
+
+testing:  (check '(if (= 8 (if nil 8 9)) 4 5))
+value:    (t 5 5)
+
+testing:  (check '(if (= 8 (if 3 (if (= 7 7) 8 1) 9)) 4 5))
+value:    (t 4 4)
+
+testing:  (check '(if (= 8 (if 3 (if (= 7 6) 8 (if (+ 1 22) 3 77)) 9)) 5))
+value:    (t nil nil)
+
+testing:  (check '(cons (if (= 8 7) 'bad 'good) (if (= 8 7) 'nope 'yup)))
+value:    (t (good . yup) (good . yup))
+
+testing:  (check '(list (if (= 8 7) 'bad) (if (= 8 7) 'nope)))
+value:    (t (nil nil) (nil nil))
+
+testing:  (check '(list (if (= 8 8) 'yes) (if (= 8 8) 'okay)))
+value:    (t (yes okay) (yes okay))
+
+testing:  (check '(list (if (= 8 8) 'yes) (if (= 8 7) 'nope)))
+value:    (t (yes nil) (yes nil))
+
+
+          DONE TESTING
+
+;; Dribble of #<io terminal-stream> finished on 2013-12-18 10:22:20.
