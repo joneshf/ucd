@@ -1,15 +1,20 @@
 ;;; ECS 140A HW 5
 ;;; Hardy Jones
 ;;; 999397426
+;;; Most of these functions are horribly inefficient
+;;; but they are simpler than a tail recursive version.
+;;; This is probably for the best,
+;;; as the idea is to show comprehension of the material
+;;; rather than understanding of algorithmic complexity.
 
 ;; Part 1
 
 (defun double-recursive (y)
   (defun double (l)
       (cond ((null l) ())
-	    (t        (cons (car l)
-			    (cons (car l)
-				  (double (cdr l)))))))
+	    (t        (list* (car l)
+			     (car l)
+			     (double (cdr l))))))
   ;; We need to do an initial check before we recurse.
   (if (listp y)
       (double y)
@@ -18,9 +23,8 @@
 (defun double-iterative (y)
   (defun double ()
     (do ((iter-y y (cdr iter-y))
-	 (l () (append l
-		       (list (car iter-y) (car iter-y)))))
-	((null iter-y) l)))
+	 (l () (list* (car iter-y) (car iter-y) l)))
+	((null iter-y) (reverse l))))
 
   ;; We need to do an initial check before we iterate.
   (if (listp y)
@@ -38,9 +42,9 @@
     (cond ((null l)        ())
 	  ((listp (car l)) (cons (rdouble (car l))
 				 (rdouble (cdr l))))
-	  (t               (cons (car l)
-				 (cons (car l)
-				       (rdouble (cdr l)))))))
+	  (t               (list* (car l)
+				  (car l)
+				  (rdouble (cdr l))))))
   ;; We need to do an initial check before we iterate.
   (if (listp y)
       (double y)
