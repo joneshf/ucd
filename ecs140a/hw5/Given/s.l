@@ -29,7 +29,7 @@
 
 (defun double-mapcar (y)
   (if (listp y)
-      (apply 'append (mapcar (lambda (x) (list x x)) y))
+      (apply #'append (mapcar (lambda (x) (list x x)) y))
       nil))
 
 ;; Part 2
@@ -45,3 +45,13 @@
   (if (listp y)
       (double y)
       nil))
+
+;; Part 3
+(defun my-mapcar (fun l1 l2)
+  ;; If either of the lists are empty, just return nil.
+  ;; This way we keep the semantics of mapcar,
+  ;; mapping to the length of the shortest list.
+  (cond ((null l1) nil)
+	((null l2) nil)
+	(t         (cons (funcall fun (car l1) (car l2))
+			 (my-mapcar fun (cdr l1) (cdr l2))))))
