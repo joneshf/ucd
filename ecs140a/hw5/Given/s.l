@@ -83,6 +83,8 @@
 
 ;; Part 5
 (defun check (x)
+  ;; Use a local binding so we only evaluate it once.
   (let* ((evaled (eval x))
 	 (rewritten (eval (rewrite x))))
+    ;; This should be (<are the two equal?> <eval the s-expr> <rewrite then eval the s-expr>)
     (list (equal evaled rewritten) evaled rewritten)))
