@@ -10,6 +10,7 @@
 	    (t        (cons (car l)
 			    (cons (car l)
 				  (double (cdr l)))))))
+  ;; We need to do an initial check before we recurse.
   (if (listp y)
       (double y)
       nil))
@@ -21,6 +22,7 @@
 		       (list (car iter-y) (car iter-y)))))
 	((null iter-y) l)))
 
+  ;; We need to do an initial check before we iterate.
   (if (listp y)
       (double)
       nil))
@@ -31,3 +33,15 @@
       nil))
 
 ;; Part 2
+(defun rdouble (y)
+  (defun double (l)
+    (cond ((null l)        ())
+	  ((listp (car l)) (cons (rdouble (car l))
+				 (rdouble (cdr l))))
+	  (t               (cons (car l)
+				 (cons (car l)
+				       (rdouble (cdr l)))))))
+  ;; We need to do an initial check before we iterate.
+  (if (listp y)
+      (double y)
+      nil))

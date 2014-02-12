@@ -20,4 +20,4 @@ clisp -q -i init.lsp -x '(ty)'
 # you can replace diff with another diff tool if you prefer
 # e.g., "diff --side-by-side" or "sdiff" or "tkdiff"
 # (to quit tkdiff, type q or click on File and then Exit.)
-diff Output.your Output.correct
+meld Output.your Output.correct
