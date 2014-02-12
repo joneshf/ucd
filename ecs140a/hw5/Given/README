@@ -14,6 +14,9 @@ part1: Works on all tests.
 part2: Works on all tests.
 part3: Works on all tests.
 part4: Works on all tests.
-part5: Works on only the first test case.
+part5: Works on all tests.
 
 Overall: Any comment/discussion related to this HW.
+
+The output for `(rewrite '(if (= 8 (if 3 (if (= 7 6) 8 (if (+ 1 22) 3 77)) 9)) 5))`
+is formatted differently from the rest of the outputs. Hopefully this will not cause grading issues.
