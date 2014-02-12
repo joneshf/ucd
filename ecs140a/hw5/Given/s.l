@@ -80,3 +80,9 @@
 			    (rewrite (cdr x))))
     ;; Leave the first part alone, and rewrite the rest.
     (t (cons (car x) (rewrite (cdr x))))))
+
+;; Part 5
+(defun check (x)
+  (let* ((evaled (eval x))
+	 (rewritten (eval (rewrite x))))
+    (list (equal evaled rewritten) evaled rewritten)))
