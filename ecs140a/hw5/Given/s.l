@@ -55,3 +55,28 @@
 	((null l2) nil)
 	(t         (cons (funcall fun (car l1) (car l2))
 			 (my-mapcar fun (cdr l1) (cdr l2))))))
+
+;; Part 4
+(defun rewrite (x)
+  (defun rewrite-if-then (x)
+    (list (rewrite (cadr x)) 
+	  (rewrite (caddr x))))
+  (defun rewrite-else (x)
+    (list 't (rewrite (cadddr x))))
+  (cond 
+    ;; It's not a list, so we can't recurse it. Just return it.
+    ((not (listp x))  x)
+    ;; The empty list is time to stop.
+    ((null x) ())
+    ;; We've got an if expression.
+    ((eq 'if (car x)) 
+     ;; If it's got an else part,
+     (if (cadddr x)
+	 ;; tack on the catchall to the cond.
+	 (list 'cond (rewrite-if-then x) (rewrite-else x))
+	 (list 'cond (rewrite-if-then x))))
+    ;; There's some list to recurse.
+    ((listp (car x))  (cons (rewrite (car x))
+			    (rewrite (cdr x))))
+    ;; Leave the first part alone, and rewrite the rest.
+    (t (cons (car x) (rewrite (cdr x))))))
