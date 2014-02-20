@@ -109,11 +109,37 @@ cross([X|Xs], Ys, Next) :-
 %% Part 5a
 
 %% Returns the sorted list of unique meeting names.
-getallmeetings(People, SortedMeetings) :-
+getallmeetings(People, Meetings) :-
     get_meetings(People, Nested),
-    flatten(Nested, FlattenedMeetings),
-    sort(FlattenedMeetings, SortedMeetings).
+    flatten(Nested, Flattened),
+    sort(Flattened, Meetings).
 
 get_meetings([], []).
 get_meetings([[_Person, Meetings]|Others], [Meetings|MoreMeetings]) :-
     get_meetings(Others, MoreMeetings).
+
+%% Part 5b
+
+%% Returns the list of meetings and their participants.
+participants(People, Participants) :-
+    % Grab every meeting.
+    getallmeetings(People, Meetings),
+    % Grab every person for each meeting.
+    relate(Meetings, People, UnsortedParticipants),
+    sort(UnsortedParticipants, Participants).
+
+%% Returns every person for each meeting.
+relate([], _People, []).
+relate(_Meetings, [], []).
+relate([Meeting|Meetings], People, [[Meeting, SortedParticipants]|Participants]) :-
+    % Filter people that are in the meeting.
+    filter_people(People, Meeting, SomeParticipants),
+    sort(SomeParticipants, SortedParticipants),
+    relate(Meetings, People, Participants).
+
+filter_people([], _Meeting, []).
+filter_people([[Person, Meetings]|People], Meeting, [Person|Participants]) :-
+    member(Meeting, Meetings),
+    filter_people(People, Meeting, Participants).
+filter_people([_NoBueno|People], Meeting, Participants) :-
+    filter_people(People, Meeting, Participants).
