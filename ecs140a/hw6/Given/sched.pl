@@ -63,3 +63,13 @@ c_12_inst_2wo(N) :-
     course(N, _Name, [_Prof]).
 c_12_inst_2wo(N) :-
     course(N, _Name, [_Prof, _Prof2]).
+
+%% Part 2
+
+%% Which version of delete?
+delete_question("It uses the version which doesn't fail if the element is not in the list.").
+
+%% Append two lists and sort them.
+sort_append(L1, L2, Ls) :-
+    append(L1, L2, Appended),
+    sort(Appended, Ls).
