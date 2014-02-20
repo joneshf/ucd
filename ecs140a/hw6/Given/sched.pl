@@ -103,3 +103,17 @@ cross([X|Xs], Ys, Next) :-
     distribute(X, Ys, Comb),
     append(Comb, Combs, Next),
     cross(Xs, Ys, Combs).
+
+%% Part 5
+
+%% Part 5a
+
+%% Returns the sorted list of unique meeting names.
+getallmeetings(People, SortedMeetings) :-
+    get_meetings(People, Nested),
+    flatten(Nested, FlattenedMeetings),
+    sort(FlattenedMeetings, SortedMeetings).
+
+get_meetings([], []).
+get_meetings([[_Person, Meetings]|Others], [Meetings|MoreMeetings]) :-
+    get_meetings(Others, MoreMeetings).
