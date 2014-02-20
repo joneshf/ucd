@@ -1,0 +1,119 @@
+
+TESTING C_s
+
+testing: c_numbers(Number)
+Number = 140
+
+Number = 141
+
+Number = 142
+
+Number = 240
+
+Number = 150
+
+Number = 122
+
+Number = 60
+
+Number = 20
+
+testing: c_pl(Number)
+Number = 140
+
+Number = 141
+
+Number = 240
+
+testing: c_notpl(Number)
+Number = 142
+
+Number = 150
+
+Number = 122
+
+Number = 60
+
+Number = 20
+
+testing: c_inst60(List_of_60_Instructors)
+List_of_60_Instructors = [rogaway,davis]
+
+testing: c_inst60_sorted(Sorted_List_of_60_Instructors)
+Sorted_List_of_60_Instructors = [davis,rogaway]
+
+testing: c_inst20(List_of_20_Instructors)
+List_of_20_Instructors = [gusfield,levitt,davis]
+
+testing: c_inst20_sorted(Sorted_List_of_20_Instructors)
+Sorted_List_of_20_Instructors = [davis,gusfield,levitt]
+
+testing: c_inst_sorted(60,Sorted_List_of_Instructors)
+Sorted_List_of_Instructors = [davis,rogaway]
+
+testing: c_inst_sorted(20,Sorted_List_of_Instructors)
+Sorted_List_of_Instructors = [davis,gusfield,levitt]
+
+testing: c_inst_sorted(140,Sorted_List_of_Instructors)
+Sorted_List_of_Instructors = [olsson,pandey]
+
+testing: c_single_inst(Number)
+Number = 141
+
+Number = 142
+
+Number = 240
+
+Number = 150
+
+testing: c_multi_inst(Number)
+Number = 140
+
+Number = 122
+
+Number = 60
+
+Number = 20
+
+testing: c_exclusive(levitt,Number)
+Number = 240
+
+Number = 150
+
+testing: c_exclusive(pandey,Number)
+Number = 142
+
+testing: c_exclusive(rogaway,Number)
+testing: c_exclusive(olsson,Number)
+Number = 141
+
+testing: c_12_inst_1or(Number)
+Number = 141
+
+Number = 142
+
+Number = 240
+
+Number = 150
+
+Number = 140
+
+Number = 122
+
+Number = 60
+
+testing: c_12_inst_2wo(Number)
+Number = 141
+
+Number = 142
+
+Number = 240
+
+Number = 150
+
+Number = 140
+
+Number = 122
+
+Number = 60
+

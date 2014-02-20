@@ -1,0 +1,15 @@
+
+TESTING GETALLMEETINGS
+
+testing: getallmeetings([],Z)
+Z = []
+
+testing: getallmeetings([[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+Z = [admin,finance,research,sales]
+
+testing: getallmeetings([],Z)
+Z = []
+
+testing: getallmeetings([[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+Z = [admin,finance,marketing,research,sales]
+

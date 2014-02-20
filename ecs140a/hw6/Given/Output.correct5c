@@ -1,0 +1,873 @@
+
+TESTING SCHED (short) osched
+
+  UNSORTED
+testing: osched(1,1,[],Z)
+Z = []
+
+testing: osched(1,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: osched(1,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: osched(1,3,[[jimi,[research]],[eva,[admin,finance]]],Z)
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]]]
+
+testing: osched(1,4,[[jimi,[research]],[eva,[admin,finance]]],Z)
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]]]
+
+testing: osched(1,5,[[jimi,[research]],[eva,[admin,finance]]],Z)
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]]]
+
+Z = [[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,4],[admin,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[1,4],[admin,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]]]
+
+Z = [[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]],[[1,5],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,4],[admin,[eva]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[1,4],[admin,[eva]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva]]]]
+
+Z = [[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva]]]]
+
+  SORTED
+testing: osched(1,1,[],Z)
+SL = [[]]
+
+testing: osched(1,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: osched(1,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: osched(1,3,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = [[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]]]]
+
+testing: osched(1,4,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = [[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,4],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,4],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,4],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,4],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,4],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,4],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]]],[[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]]],[[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]]]]
+
+testing: osched(1,5,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = [[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,4],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[1,5],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,4],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[1,5],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,5],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,5],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[finance,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,4],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[1,5],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,4],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[1,5],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,5],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,5],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,4],[admin,[eva]]],[[1,5],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,4],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[1,5],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,4],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[1,5],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,5],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,5],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,4],[admin,[eva]]],[[1,5],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva]]]],[[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[1,3],[finance,[eva]]],[[1,5],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]]],[[[1,2],[admin,[eva]]],[[1,3],[research,[jimi]]],[[1,5],[finance,[eva]]]],[[[1,2],[admin,[eva]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[finance,[eva]]]],[[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[1,3],[admin,[eva]]],[[1,5],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]]],[[[1,2],[finance,[eva]]],[[1,3],[research,[jimi]]],[[1,5],[admin,[eva]]]],[[[1,2],[finance,[eva]]],[[1,4],[admin,[eva]]],[[1,5],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[1,3],[admin,[eva]]],[[1,5],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[1,3],[finance,[eva]]],[[1,5],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[1,4],[admin,[eva]]],[[1,5],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva]]]],[[[1,3],[admin,[eva]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi]]]],[[[1,3],[admin,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[finance,[eva]]]],[[[1,3],[finance,[eva]]],[[1,4],[admin,[eva]]],[[1,5],[research,[jimi]]]],[[[1,3],[finance,[eva]]],[[1,4],[research,[jimi]]],[[1,5],[admin,[eva]]]],[[[1,3],[research,[jimi]]],[[1,4],[admin,[eva]]],[[1,5],[finance,[eva]]]],[[[1,3],[research,[jimi]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva]]]]]
+
+
+TESTING SCHED (medium) osched
+
+  UNSORTED
+testing: osched(2,1,[],Z)
+Z = []
+
+testing: osched(2,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: osched(2,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]]
+
+testing: osched(3,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+Z = [[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,1],[admin,[eva]]]]
+
+testing: osched(3,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[3,1],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[3,1],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,2],[admin,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[2,1],[admin,[eva]]],[[3,1],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[2,1],[admin,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,1],[research,[jimi]]]]
+
+Z = [[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,1],[finance,[eva]]]]
+
+Z = [[[2,2],[admin,[eva]]],[[3,1],[finance,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[2,2],[admin,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[3,1],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[3,1],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[2,1],[finance,[eva]]],[[3,1],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,1],[admin,[eva]]]]
+
+Z = [[[2,2],[finance,[eva]]],[[3,1],[admin,[eva]]],[[3,2],[research,[jimi]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[3,1],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[3,1],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[2,1],[research,[jimi]]],[[3,1],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[2,2],[research,[jimi]]],[[3,1],[admin,[eva]]],[[3,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,2],[finance,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[2,1],[finance,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[2,2],[finance,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi]]],[[3,1],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[1,2],[research,[jimi]]],[[3,1],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[2,1],[research,[jimi]]],[[3,1],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+Z = [[[2,2],[research,[jimi]]],[[3,1],[finance,[eva]]],[[3,2],[admin,[eva]]]]
+
+testing: osched(1,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+testing: osched(1,3,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+testing: osched(2,1,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+testing: osched(2,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[sales,[nancy]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,1],[sales,[nancy]]],[[2,2],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[finance,[eva]]],[[2,2],[sales,[nancy]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[sales,[nancy]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[sales,[nancy]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva]]],[[1,2],[sales,[nancy]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[sales,[nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,1],[sales,[nancy]]],[[2,2],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[sales,[nancy]]]]
+
+Z = [[[1,1],[sales,[nancy]]],[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva]]],[[2,1],[sales,[nancy]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[sales,[nancy]]],[[1,2],[admin,[eva]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[admin,[eva]]],[[2,2],[sales,[nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[sales,[nancy]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[sales,[nancy]]]]
+
+Z = [[[1,1],[sales,[nancy]]],[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[nancy]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[sales,[nancy]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[sales,[nancy]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[sales,[nancy]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[2,1],[sales,[nancy]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[sales,[nancy]]],[[1,2],[finance,[eva]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[nancy]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]]
+
+Z = [[[1,1],[sales,[nancy]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]]
+
+  SORTED
+testing: osched(2,1,[],Z)
+SL = [[]]
+
+testing: osched(2,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: osched(2,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = [[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,2],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[2,2],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,2],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[2,2],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[2,2],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[2,2],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]],[[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]]],[[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]]]
+
+testing: osched(3,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = [[[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,1],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[finance,[eva]]]],[[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,1],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,1],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,1],[admin,[eva]]]]]
+
+testing: osched(3,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = [[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,2],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[3,1],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[2,2],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[3,1],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,1],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,1],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[3,1],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[1,1],[admin,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,2],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[3,1],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[2,2],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[3,1],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,1],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,1],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[3,1],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[1,1],[finance,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[2,2],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[3,1],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[2,2],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[3,1],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[1,2],[finance,[eva]]],[[3,2],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,1],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,1],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,2],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,1],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,1],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,2],[admin,[eva]]]],[[[1,1],[research,[jimi]]],[[3,1],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[1,1],[research,[jimi]]],[[3,1],[finance,[eva]]],[[3,2],[admin,[eva]]]],[[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,1],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]]],[[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[finance,[eva]]]],[[[1,2],[admin,[eva]]],[[2,1],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[1,2],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,1],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[finance,[eva]]]],[[[1,2],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[1,2],[admin,[eva]]],[[3,1],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[1,2],[admin,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,1],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]]],[[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,1],[admin,[eva]]]],[[[1,2],[finance,[eva]]],[[2,1],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[1,2],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,1],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[admin,[eva]]]],[[[1,2],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[1,2],[finance,[eva]]],[[3,1],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[1,2],[finance,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,1],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[2,1],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,1],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[2,1],[finance,[eva]]],[[3,2],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,1],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,1],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,2],[admin,[eva]]]],[[[1,2],[research,[jimi]]],[[3,1],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[1,2],[research,[jimi]]],[[3,1],[finance,[eva]]],[[3,2],[admin,[eva]]]],[[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,1],[research,[jimi]]]],[[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[finance,[eva]]]],[[[2,1],[admin,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[2,1],[admin,[eva]]],[[3,1],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[2,1],[admin,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,1],[research,[jimi]]]],[[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,1],[admin,[eva]]]],[[[2,1],[finance,[eva]]],[[2,2],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[2,1],[finance,[eva]]],[[3,1],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[2,1],[finance,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,1],[finance,[eva]]]],[[[2,1],[research,[jimi]]],[[2,2],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,1],[admin,[eva]]]],[[[2,1],[research,[jimi]]],[[2,2],[finance,[eva]]],[[3,2],[admin,[eva]]]],[[[2,1],[research,[jimi]]],[[3,1],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[2,1],[research,[jimi]]],[[3,1],[finance,[eva]]],[[3,2],[admin,[eva]]]],[[[2,2],[admin,[eva]]],[[3,1],[finance,[eva]]],[[3,2],[research,[jimi]]]],[[[2,2],[admin,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[finance,[eva]]]],[[[2,2],[finance,[eva]]],[[3,1],[admin,[eva]]],[[3,2],[research,[jimi]]]],[[[2,2],[finance,[eva]]],[[3,1],[research,[jimi]]],[[3,2],[admin,[eva]]]],[[[2,2],[research,[jimi]]],[[3,1],[admin,[eva]]],[[3,2],[finance,[eva]]]],[[[2,2],[research,[jimi]]],[[3,1],[finance,[eva]]],[[3,2],[admin,[eva]]]]]
+
+testing: osched(1,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+SL = []
+
+testing: osched(1,3,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+SL = []
+
+testing: osched(2,1,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+SL = []
+
+testing: osched(2,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+SL = [[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[sales,[nancy]]]],[[[1,1],[admin,[eva]]],[[1,2],[finance,[eva]]],[[2,1],[sales,[nancy]]],[[2,2],[research,[jimi,nancy]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[finance,[eva]]],[[2,2],[sales,[nancy]]]],[[[1,1],[admin,[eva]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[sales,[nancy]]],[[2,2],[finance,[eva]]]],[[[1,1],[admin,[eva]]],[[1,2],[sales,[nancy]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi,nancy]]]],[[[1,1],[admin,[eva]]],[[1,2],[sales,[nancy]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[finance,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[sales,[nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva]]],[[2,1],[sales,[nancy]]],[[2,2],[research,[jimi,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[admin,[eva]]],[[2,2],[sales,[nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[sales,[nancy]]],[[2,2],[admin,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[sales,[nancy]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[sales,[nancy]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[admin,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[sales,[nancy]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva]]],[[2,1],[sales,[nancy]]],[[2,2],[finance,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[sales,[nancy]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[2,1],[sales,[nancy]]],[[2,2],[admin,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[nancy]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[nancy]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]],[[[1,1],[sales,[nancy]]],[[1,2],[admin,[eva]]],[[2,1],[finance,[eva]]],[[2,2],[research,[jimi,nancy]]]],[[[1,1],[sales,[nancy]]],[[1,2],[admin,[eva]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[finance,[eva]]]],[[[1,1],[sales,[nancy]]],[[1,2],[finance,[eva]]],[[2,1],[admin,[eva]]],[[2,2],[research,[jimi,nancy]]]],[[[1,1],[sales,[nancy]]],[[1,2],[finance,[eva]]],[[2,1],[research,[jimi,nancy]]],[[2,2],[admin,[eva]]]],[[[1,1],[sales,[nancy]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[admin,[eva]]],[[2,2],[finance,[eva]]]],[[[1,1],[sales,[nancy]]],[[1,2],[research,[jimi,nancy]]],[[2,1],[finance,[eva]]],[[2,2],[admin,[eva]]]]]
+
+
+TESTING SCHED (long) osched
+
+  UNSORTED
+testing: osched(1,1,[],Z)
+Z = []
+
+testing: osched(1,1,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+testing: osched(1,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+testing: osched(1,3,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+testing: osched(1,4,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+testing: osched(1,5,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]]
+
+Z = [[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]]
+
+  SORTED
+testing: osched(1,1,[],Z)
+SL = [[]]
+
+testing: osched(1,1,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = []
+
+testing: osched(1,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = []
+
+testing: osched(1,3,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = []
+
+testing: osched(1,4,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = []
+
+testing: osched(1,5,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = [[[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[admin,[eva,ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[finance,[eva]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[marketing,[ludwig]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[sales,[ludwig,nancy]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[sales,[ludwig,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[sales,[ludwig,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[research,[jimi,nancy]]],[[1,2],[sales,[ludwig,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[admin,[eva,ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[marketing,[ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[finance,[eva]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[finance,[eva]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[research,[jimi,nancy]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[finance,[eva]]],[[1,4],[research,[jimi,nancy]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[marketing,[ludwig]]],[[1,3],[research,[jimi,nancy]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[admin,[eva,ludwig]]],[[1,4],[marketing,[ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[marketing,[ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[finance,[eva]]],[[1,4],[marketing,[ludwig]]],[[1,5],[admin,[eva,ludwig]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[admin,[eva,ludwig]]],[[1,5],[finance,[eva]]]],[[[1,1],[sales,[ludwig,nancy]]],[[1,2],[research,[jimi,nancy]]],[[1,3],[marketing,[ludwig]]],[[1,4],[finance,[eva]]],[[1,5],[admin,[eva,ludwig]]]]]
+

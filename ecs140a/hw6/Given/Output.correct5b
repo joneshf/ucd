@@ -1,0 +1,9 @@
+
+TESTING PARTICIPANTS
+
+testing: participants([],Z)
+Z = []
+
+testing: participants([[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+

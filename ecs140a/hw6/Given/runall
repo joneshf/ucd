@@ -1,0 +1,7 @@
+#!/bin/csh -f
+# a simple way to test everything
+
+foreach t (  "" 1 2 3 4 5 5a 5b 5c 5d )
+	echo ==== test $t ====
+	./run1 $t
+end

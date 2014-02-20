@@ -1,0 +1,19 @@
+#!/bin/csh -f
+# test one and do diff
+
+# assumes that all your code is in sched.pl;
+# if not, then change that to all your .pl files.
+
+gplc -o z.out --no-top-level run.pl test.pl sched.pl
+
+# if no args specified, this runs the whole thing
+# (since that's what predicate ty does).
+./z.out ty$1
+
+# diff the results
+# you can replace diff with another diff tool if you prefer
+# e.g., "diff --side-by-side" or "sdiff" or "tkdiff"
+# (to quit tkdiff, type q or click on File and then Exit.)
+diff Output.your$1 Output.correct$1
+
+/bin/rm -f z.out

@@ -1,0 +1,99 @@
+
+TESTING SCHED (short) xsched
+
+  UNSORTED
+testing: xsched(1,1,[],Z)
+testing: xsched(1,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: xsched(1,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: xsched(1,3,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: xsched(1,4,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: xsched(1,5,[[jimi,[research]],[eva,[admin,finance]]],Z)
+  SORTED
+testing: xsched(1,1,[],Z)
+SL = []
+
+testing: xsched(1,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: xsched(1,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: xsched(1,3,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: xsched(1,4,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: xsched(1,5,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+
+TESTING SCHED (medium) xsched
+
+  UNSORTED
+testing: xsched(2,1,[],Z)
+testing: xsched(2,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: xsched(2,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: xsched(3,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: xsched(3,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+testing: xsched(1,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+testing: xsched(1,3,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+testing: xsched(2,1,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+testing: xsched(2,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+  SORTED
+testing: xsched(2,1,[],Z)
+SL = []
+
+testing: xsched(2,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: xsched(2,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: xsched(3,1,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: xsched(3,2,[[jimi,[research]],[eva,[admin,finance]]],Z)
+SL = []
+
+testing: xsched(1,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+SL = []
+
+testing: xsched(1,3,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+SL = []
+
+testing: xsched(2,1,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+SL = []
+
+testing: xsched(2,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]]],Z)
+SL = []
+
+
+TESTING SCHED (long) xsched
+
+  UNSORTED
+testing: xsched(1,1,[],Z)
+testing: xsched(1,1,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+testing: xsched(1,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+testing: xsched(1,3,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+testing: xsched(1,4,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+testing: xsched(1,5,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+  SORTED
+testing: xsched(1,1,[],Z)
+SL = []
+
+testing: xsched(1,1,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = []
+
+testing: xsched(1,2,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = []
+
+testing: xsched(1,3,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = []
+
+testing: xsched(1,4,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = []
+
+testing: xsched(1,5,[[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+SL = []
+
