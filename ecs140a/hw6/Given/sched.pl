@@ -73,3 +73,14 @@ delete_question("It uses the version which doesn't fail if the element is not in
 sort_append(L1, L2, Ls) :-
     append(L1, L2, Appended),
     sort(Appended, Ls).
+
+%% Part 3
+
+%% Map over the second argument cons-ing on the first argument.
+distribute(W, X, Y) :-
+    distribute(W, X, Soln, []),
+    reverse(Soln, Y).
+
+distribute(_W, [], Acc, Acc).
+distribute(W, [H|T], Y, Acc) :-
+    distribute(W, T, Y, [[W,H]|Acc]).
