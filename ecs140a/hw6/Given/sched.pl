@@ -34,7 +34,7 @@ c_inst20_sorted(L) :-
     sort(UnsortedL, L).
 
 %% Sorted list of those teaching `N`.
-c_inst_sorted(N,L) :-
+c_inst_sorted(N, L) :-
     course(N, _Name, UnsortedL),
     sort(UnsortedL, L).
 
@@ -50,7 +50,7 @@ c_multi_inst(N) :-
     Num > 1.
 
 %% Numbers of courses for which `I` is the only instructor.
-c_exclusive(I,N) :-
+c_exclusive(I, N) :-
     course(N, _Name, [I]).
 
 %% Numbers of courses with exactly one or two instructors.
@@ -77,10 +77,29 @@ sort_append(L1, L2, Ls) :-
 %% Part 3
 
 %% Map over the second argument cons-ing on the first argument.
-distribute(W, X, Y) :-
-    distribute(W, X, Soln, []),
-    reverse(Soln, Y).
+distribute(_W, [], []).
+distribute(W, [H|T], [[W,H]|Rest]) :-
+    distribute(W, T, Rest).
 
-distribute(_W, [], Acc, Acc).
-distribute(W, [H|T], Y, Acc) :-
-    distribute(W, T, Y, [[W,H]|Acc]).
+%% Part 4
+
+%% Generates a range from `L` to `U` only in increasing order.
+myfor(L, U, []) :-
+    L > U.
+myfor(L, U, [L | Res1]) :-
+    L =< U,
+    L1 is L + 1,
+    myfor(L1, U, Res1).
+
+%% Generates the cross product of [1..X] and [1..Y].
+crossmyfor(X, Y, Z) :-
+    myfor(1, X, Xs),
+    myfor(1, Y, Ys),
+    cross(Xs, Ys, Z).
+
+cross([], _Ys, []).
+cross(_Xs, [], []).
+cross([X|Xs], Ys, Next) :-
+    distribute(X, Ys, Comb),
+    append(Comb, Combs, Next),
+    cross(Xs, Ys, Combs).
