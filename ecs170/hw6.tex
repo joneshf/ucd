@@ -1,0 +1,93 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{graphicx}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 170 Homework 6\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Davidson\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+    What condition must hold on the training data so that a perceptron
+    can accurately represent a function which classifies the training data perfectly?
+
+    The training data must be linearly separable.
+
+    \item Name two properties why the objective function of linear units is desirable.
+
+    \begin{enumerate}
+      \item This function is differentiable.
+      \item This function will find the global minimum.
+    \end{enumerate}
+
+    \item Construct a network of linear units that is capable of representing the XOR function of two inputs.
+
+      We cannot construct the network with a single perceptron.
+      We need at least one hidden layer,
+      depending on what primitive functions are available.
+
+      It helps to look at how to construct XOR.
+
+      \begin{tabular}{c | c | c | c | c | c | c}
+       A & B & A $\oplus$ B & A $\land$ B & A $\lor$ B & $\neg$(A $\land$ B) & $\neg$(A $\land$ B) $\land$ (A $\lor$ B) \\
+       \hline
+       0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+       0 & 1 & 1 & 0 & 1 & 1 & 1 \\
+       1 & 0 & 1 & 0 & 1 & 1 & 1 \\
+       1 & 1 & 0 & 1 & 1 & 0 & 0
+      \end{tabular}
+
+      So, if we have functions for AND, OR, and NOT we can construct XOR.
+
+      So given two input nodes $x_1$ and $x_2$ we construct hidden nodes $x_3$ to $x_6$, and output $o_7$,
+
+      Intermediate nodes:
+
+      \begin{align*}
+        x_3 &= AND(x_1, x_2) \\
+        x_4 &= OR(x_1, x_2) \\
+        x_5 &= NOT(x_3) \\
+        x_6 &= NOT(NOT(x_4)) \tag{*}\label{q3:id} \\
+      \end{align*}
+
+      Output node:
+        \[o_7 = AND(x_5, x_6)\]
+
+      ~\ref{q3:id}: this is the Identity function.
+    \item
+      Suppose the inputs are given by $x_1$ and $x_2$,
+      and the activation functions at each unit is given by the function $g$.
+      Write out the values $o_5$ and $o_6$ at the output nodes of figure 1
+      in terms of the weights $w_{i,j}$ and the inputs $x_k$.
+
+      It helps to work backwards from the output to the input.
+      Let's start with $o_6$.
+      \begin{align*}
+        o_6 &= g(w_{3,6} \cdot x_3, w_{4,6} \cdot x_4) \\
+        &= g(w_{3,6} \cdot g(w_{1,3} \cdot x_1, w_{2,3} \cdot x_2), w_{4,6} \cdot g(w_{1,4} \cdot x_1, w_{2,4} \cdot x_2))
+      \end{align*}
+
+      And now $o_5$.
+      \begin{align*}
+        o_5 &= g(w_{3,5} \cdot x_3, w_{4,5} \cdot x_4) \\
+        &= g(w_{3,5} \cdot g(w_{1,3} \cdot x_1, w_{2,3} \cdot x_2), w_{4,5} \cdot g(w_{1,4} \cdot x_1, w_{2,4} \cdot x_2))
+      \end{align*}
+  \end{enumerate}
+\end{document}
