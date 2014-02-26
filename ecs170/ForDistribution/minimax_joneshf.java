@@ -2,12 +2,11 @@ import java.util.*;
 
 public class minimax_joneshf extends AIModule {
 
-    public int[][] board;
-
     public int player;
     public int opponent;
     public int height = 0;
     public int width = 0;
+    public boolean firstMove = true;
     public TextDisplay td;
 
     public minimax_joneshf() {
@@ -27,33 +26,44 @@ public class minimax_joneshf extends AIModule {
         this.opponent = player == 1 ? 2 : 1;
         this.width = game.getWidth();
         this.height = game.getHeight();
-        this.board = new int[this.width][this.height];
-        // Enumerate the board.
-        for (int i = 0; i < game.getWidth(); ++i) {
-            for (int j = 0; j < game.getHeight(); ++j) {
-                this.board[i][j] = game.getAt(i, j);
-            }
+        if (this.firstMove && this.player == 1) {
+            this.chosenMove = this.width / 2;
+            this.firstMove = false;
+            return;
         }
+        int maxDepth = 1;
+        for (int i = 0; i < this.width; ++i) {
+            maxDepth *= Math.max(this.height - game.getHeightAt(i), 1);
+        }
+        // Enumerate the board.
         System.out.println("that took: "+((System.nanoTime() - start)));
         showBoard(game);
         int depth = 0;
-        while (!this.terminate && depth < 7) {
+        System.out.println("depth: "+depth);
+        System.out.println("maxDepth: "+maxDepth);
+        while (!this.terminate && depth < maxDepth) {
+            System.out.println("\n\n\nDeepening\n\n\n");
+            System.out.println("depth: "+depth);
+            System.out.println("maxDepth: "+maxDepth);
             minimaxDecision(depth++, game);
         }
     }
 
     public void minimaxDecision(int depth, final GameStateModule game) {
-        int[] v = maxValue(depth, this.width / 2, game);
+        int[] v = maxValue(depth, game.getWidth() / 2, game);
         System.out.println("Choosing "+v[1]);
         this.chosenMove = v[1];
     }
 
     public int[] maxValue(int depth, int col, final GameStateModule game) {
 
-        System.out.println("In maxValue");
-        showBoard(game);
         if (depth == 0 || this.terminate || game.isGameOver()) {
-            return utility(col, game);
+            // System.out.println("In maxValue");
+            // showBoard(game);
+            // System.out.print("utility: "+utility(game, game.getHeightAt(col), col));
+            // System.out.println(" col: "+col);
+            // System.out.println();
+            return new int[] {utility(game, game.getHeightAt(col), col), col};
         }
 
         int[] v = {-Integer.MAX_VALUE, 0};
@@ -71,10 +81,13 @@ public class minimax_joneshf extends AIModule {
 
     public int[] minValue(int depth, int col, final GameStateModule game) {
 
-        System.out.println("In minValue");
-        showBoard(game);
         if (depth == 0 || this.terminate || game.isGameOver()) {
-            return utility(col, game);
+            // System.out.println("In minValue");
+            // showBoard(game);
+            // System.out.print("utility: "+utility(game, game.getHeightAt(col), col));
+            // System.out.println(" col: "+col);
+            // System.out.println();
+            return new int[] {utility(game, game.getHeightAt(col), col), col};
         }
 
         int[] v = {Integer.MAX_VALUE, 0};
@@ -97,15 +110,15 @@ public class minimax_joneshf extends AIModule {
     }
 
     public long[] gameToBits(final GameStateModule game) {
-        long playerBoard = 0x0000000000000000l;
-        long opponentBoard = 0x0000000000000000l;
+        long playerBoard = 0l;
+        long opponentBoard = 0l;
         int pos = 0;
-        for (int c = 0; c < this.width; ++c) {
-            for (int r = 0; r < this.height; ++r) {
+        for (int c = 0; c < game.getWidth(); ++c) {
+            for (int r = 0; r < game.getHeight(); ++r) {
                 if (game.getAt(c, r) == this.player) {
-                    playerBoard |= 1 << (c * this.height + r);
+                    playerBoard |= 1l << (c * (game.getHeight() + 1) + r);
                 } else if (game.getAt(c, r) == this.opponent) {
-                    opponentBoard |= 1 << (c * this.height + r);
+                    opponentBoard |= 1l << (c * (game.getHeight() + 1) + r);
                 }
             }
         }
@@ -115,23 +128,23 @@ public class minimax_joneshf extends AIModule {
 
     public boolean checkWins(long board) {
         // Diagonal down
-        long temp = board & (board >> (this.width - 1));
-        if (0 < (temp & (temp >> 2 * (this.width - 1)))) {
+        long temp = board & (board >> (this.height - 2));
+        if (0 != (temp & (temp >> 2 * (this.height - 2)))) {
             return true;
         }
         // Horizontal
-        temp = board & (board >> this.width);
-        if (0 < (temp & (temp >> 2 * this.width))) {
+        temp = board & (board >> (this.height + 1));
+        if (0 != (temp & (temp >> 2 * (this.height + 1)))) {
             return true;
         }
         // Diagonal up
-        temp = board & (board >> (this.width + 1));
-        if (0 < (temp & (temp >> 2 * (this.width + 1)))) {
+        temp = board & (board >> (this.height + 2));
+        if (0 != (temp & (temp >> 2 * (this.height + 2)))) {
             return true;
         }
         // Vertical
         temp = board & (board >> 1);
-        if (0 < (temp & (temp >> 2 * 1))) {
+        if (0 != (temp & (temp >> 2 * 1))) {
             return true;
         }
 
@@ -140,23 +153,23 @@ public class minimax_joneshf extends AIModule {
 
     public boolean checkThrees(long board) {
         // Diagonal down
-        long temp = board & (board >> (this.width - 1));
-        if (0 < (temp & (temp >> (this.width - 1)))) {
+        long temp = board & (board >> (this.height - 2));
+        if (0 != (temp & (temp >> (this.height - 2)))) {
             return true;
         }
         // Horizontal
-        temp = board & (board >> this.width);
-        if (0 < (temp & (temp >> this.width))) {
+        temp = board & (board >> (this.height + 1));
+        if (0 != (temp & (temp >> (this.height + 1)))) {
             return true;
         }
         // Diagonal up
-        temp = board & (board >> (this.width + 1));
-        if (0 < (temp & (temp >> (this.width + 1)))) {
+        temp = board & (board >> (this.height + 2));
+        if (0 != (temp & (temp >> (this.height + 2)))) {
             return true;
         }
         // Vertical
         temp = board & (board >> 1);
-        if (0 < (temp & (temp >> 1))) {
+        if (0 != (temp & (temp >> 1))) {
             return true;
         }
 
@@ -165,53 +178,119 @@ public class minimax_joneshf extends AIModule {
 
     public boolean checkTwos(long board) {
         // Diagonal down
-        long temp = board & (board >> (this.width - 1));
-        if (0 < temp) {
+        long temp = board & (board >> (this.height - 2));
+        if (0 != temp) {
             return true;
         }
         // Horizontal
-        temp = board & (board >> this.width);
-        if (0 < temp) {
+        temp = board & (board >> (this.height + 1));
+        if (0 != temp) {
             return true;
         }
         // Diagonal up
-        temp = board & (board >> (this.width + 1));
-        if (0 < temp) {
+        temp = board & (board >> (this.height + 2));
+        if (0 != temp) {
             return true;
         }
         // Vertical
         temp = board & (board >> 1);
-        if (0 < temp) {
+        if (0 != temp) {
             return true;
         }
 
         return false;
     }
 
-    public int[] utility(int col, final GameStateModule game) {
+    public boolean checkBlocks(long player, long opponent) {
+        // We need to see if 3 in a row for the opponent
+        // intersects with one of the player's pieces.
+        // Make the diagonal for opponent.
+
+        // Backslash up
+        long oppo = opponent & (opponent >> (this.height - 2));
+        oppo &= oppo >> (this.height - 2);
+        boolean block = 0 != (player & (oppo >> (this.height - 2)));
+
+        // Backslash down
+        oppo = opponent & (opponent << (this.height - 2));
+        oppo &= (oppo << (this.height - 2));
+        block |= 0 != (player & (oppo << (this.height - 2)));
+
+        // Forwardslash up
+        oppo = opponent & (opponent << (this.height + 2));
+        oppo &= oppo << (this.height + 2);
+        block |= 0 != (player & (oppo << (this.height + 2)));
+
+        // Forwardslash down
+        oppo = opponent & (opponent >> (this.height + 2));
+        oppo &= (oppo >> (this.height + 2));
+        block |= 0 != (player & (oppo >> (this.height + 2)));
+
+        // Horizontal right
+        oppo = opponent & (opponent << (this.height + 1));
+        oppo &= oppo << (this.height + 1);
+        block |= 0 != (player & (oppo << (this.height + 1)));
+
+        // Horizontal left
+        oppo = opponent & (opponent >> (this.height + 1));
+        oppo &= (oppo >> (this.height + 1));
+        block |= 0 != (player & (oppo >> (this.height + 1)));
+
+        // Vertical up
+        oppo = opponent & (opponent << 1);
+        oppo &= oppo << 1;
+        block |= 0 != (player & (oppo << 1));
+
+        // Vertical down
+        oppo = opponent & (opponent >> 1);
+        oppo &= (oppo >> 1);
+        block |= 0 != (player & (oppo >> 1));
+
+        return block;
+    }
+
+    public int utility(final GameStateModule game, int row, int col) {
         long[] boards = gameToBits(game);
-        if (checkWins(boards[0])) {
-            return new int[] {100, col};
-        } else if (checkWins(boards[1])) {
-            return new int[] {-100, col};
-        } else if (checkThrees(boards[0])) {
-            return new int[] {75, col};
-        } else if (checkThrees(boards[1])) {
-            return new int[] {-75, col};
-        } else if (checkTwos(boards[0])) {
-            return new int[] {25, col};
-        } else if (checkTwos(boards[1])) {
-            return new int[] {-25, col};
-        } else {
-            return new int[] {0, col};
+        int total = 0;
+        long player = 1 << (col * (game.getHeight() + 1) + row);
+        if (checkBlocks(player, boards[1])) {
+            return Integer.MAX_VALUE;
         }
+        if (checkBlocks(player, boards[0])) {
+            return -Integer.MAX_VALUE;
+        }
+        if (checkWins(boards[0])) {
+            total += 250;
+        }
+        if (checkWins(boards[1])) {
+            total += -250;
+        }
+        // if (checkBlocks(player, boards[1])) {
+        //     total += 500;
+        // }
+        // if (checkBlocks(player, boards[0])) {
+        //     total += -500;
+        // }
+        if (checkThrees(boards[0])) {
+            total += 75;
+        }
+        if (checkThrees(boards[1])) {
+            total += -75;
+        }
+        if (checkTwos(boards[0])) {
+            total += 25;
+        }
+        if (checkTwos(boards[1])) {
+            total += -25;
+        }
+        return total;
     }
 
     public List<Integer> getMoves(int player, final GameStateModule game) {
         List<Integer> moves = new ArrayList<Integer>();
         int row;
         int size = 0;
-        for (int col = 0; col < this.width; ++col) {
+        for (int col = 0; col < game.getWidth(); ++col) {
             if (game.canMakeMove(col)) {
                 ++size;
                 moves.add(col);
