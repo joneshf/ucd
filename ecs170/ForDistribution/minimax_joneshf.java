@@ -37,7 +37,7 @@ public class minimax_joneshf extends AIModule {
         System.out.println("that took: "+((System.nanoTime() - start)));
         showBoard(game);
         int depth = 0;
-        while (!this.terminate && depth < 3) {
+        while (!this.terminate && depth < 7) {
             minimaxDecision(depth++, game);
         }
     }
@@ -114,20 +114,74 @@ public class minimax_joneshf extends AIModule {
     }
 
     public boolean checkWins(long board) {
+        // Diagonal down
         long temp = board & (board >> (this.width - 1));
         if (0 < (temp & (temp >> 2 * (this.width - 1)))) {
             return true;
         }
+        // Horizontal
         temp = board & (board >> this.width);
         if (0 < (temp & (temp >> 2 * this.width))) {
             return true;
         }
+        // Diagonal up
         temp = board & (board >> (this.width + 1));
         if (0 < (temp & (temp >> 2 * (this.width + 1)))) {
             return true;
         }
+        // Vertical
         temp = board & (board >> 1);
         if (0 < (temp & (temp >> 2 * 1))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkThrees(long board) {
+        // Diagonal down
+        long temp = board & (board >> (this.width - 1));
+        if (0 < (temp & (temp >> (this.width - 1)))) {
+            return true;
+        }
+        // Horizontal
+        temp = board & (board >> this.width);
+        if (0 < (temp & (temp >> this.width))) {
+            return true;
+        }
+        // Diagonal up
+        temp = board & (board >> (this.width + 1));
+        if (0 < (temp & (temp >> (this.width + 1)))) {
+            return true;
+        }
+        // Vertical
+        temp = board & (board >> 1);
+        if (0 < (temp & (temp >> 1))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkTwos(long board) {
+        // Diagonal down
+        long temp = board & (board >> (this.width - 1));
+        if (0 < temp) {
+            return true;
+        }
+        // Horizontal
+        temp = board & (board >> this.width);
+        if (0 < temp) {
+            return true;
+        }
+        // Diagonal up
+        temp = board & (board >> (this.width + 1));
+        if (0 < temp) {
+            return true;
+        }
+        // Vertical
+        temp = board & (board >> 1);
+        if (0 < temp) {
             return true;
         }
 
@@ -140,6 +194,14 @@ public class minimax_joneshf extends AIModule {
             return new int[] {100, col};
         } else if (checkWins(boards[1])) {
             return new int[] {-100, col};
+        } else if (checkThrees(boards[0])) {
+            return new int[] {75, col};
+        } else if (checkThrees(boards[1])) {
+            return new int[] {-75, col};
+        } else if (checkTwos(boards[0])) {
+            return new int[] {25, col};
+        } else if (checkTwos(boards[1])) {
+            return new int[] {-25, col};
         } else {
             return new int[] {0, col};
         }
