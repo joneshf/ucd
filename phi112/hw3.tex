@@ -1,0 +1,78 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{PHIL 112 Homework 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Dr. Landry\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item Explicate in terms of open and/or closed truth trees.
+      \begin{enumerate}
+        \item Quantificational validity
+        \item Quantificational equivalence
+      \end{enumerate}
+    \item
+      Use the tree method to show
+      \begin{enumerate}
+        \item quantificational truth
+        \item quantificational validity
+        \item quantificational equivalence
+        \item quantificational entailment
+      \end{enumerate}
+      \begin{enumerate}
+        \item
+          $[Fa \supset (\forall x)Fx] \supset [(\exists x)Fx \supset (\forall x) Fx]$
+
+          \begin{tikzpicture}[sibling distance=0.5cm]
+            \begin{scope}[xshift=-1.5in]
+              \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
+              \Tree
+                [. 1 ]
+            \end{scope}
+            \Tree
+              [. {$[Fa \supset (\forall x)Fx] \supset [(\exists x)Fx \supset (\forall x) Fx]$}
+              ]
+            \begin{scope}[xshift=3.5in]
+              \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
+              \Tree
+                [. SM ]
+            \end{scope}
+          \end{tikzpicture}
+
+        \item
+          \begin{tabular}{l}
+            $(\forall x)[Nx \supset (\exists y)Rxy]$ \\
+            $\neg (\exists x)Rxx \land Na$ \\
+            \hline
+            $(\exists y)Ray$
+          \end{tabular}
+        \item $[(\forall x)Fx \supset Ga] \equiv (\exists x)(Fx \supset Ga)$
+        \item $\{(\forall x)[(\exists y) Hg(x,y) \supset Bg(x,x)], Ha, a = g(a,b)\} \vDash (\exists y)Bg(y,y)$
+      \end{enumerate}
+    \item
+      Why does the rule \textit{Existential Decomposition}
+      require that the instantiating constant \textbf{a}
+      be foreign to all preceding lines of the branch?
+  \end{enumerate}
+\end{document}
