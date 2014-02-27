@@ -30,7 +30,16 @@
     \item Explicate in terms of open and/or closed truth trees.
       \begin{enumerate}
         \item Quantificational validity
+
+          An argument of \textbf{PL} is quantificationally valid if and only if
+          the set consisting of the premises and the negation of the conclusion
+          of the argument has a closed truth tree.
+
         \item Quantificational equivalence
+
+          Two sentences \textbf{P} and \textbf{Q} of \textbf{PL}
+          are quantificationally equivalent if and only if
+          the set $\{\neg (\mathbf{P} \equiv \mathbf{Q})\}$ has a closed truth tree.
       \end{enumerate}
     \item
       Use the tree method to show
@@ -74,5 +83,10 @@
       Why does the rule \textit{Existential Decomposition}
       require that the instantiating constant \textbf{a}
       be foreign to all preceding lines of the branch?
+
+      By not requiring \textit{Existential Decomposition} to introduce foreign constants
+      we have opened up the possibility that the same constant can be reused in a conflicting predicate.
+      So, we require foreign constants with \textit{Existential Decomposition}
+      in order to preserve truth, validity, equivalence, etc.
   \end{enumerate}
 \end{document}
