@@ -42,12 +42,12 @@
           the set $\{\neg (\mathbf{P} \equiv \mathbf{Q})\}$ has a closed truth tree.
       \end{enumerate}
     \item
-      Use the tree method to show
+      Use the tree method to show whether:
       \begin{enumerate}
-        \item quantificational truth
-        \item quantificational validity
-        \item quantificational equivalence
-        \item quantificational entailment
+        \item is quantificationally true
+        \item is quantificationally valid
+        \item sentences are quantificationally equivalent
+        \item quantificational entailment holds
       \end{enumerate}
       \begin{enumerate}
         \item
@@ -57,17 +57,43 @@
             \begin{scope}[xshift=-1.5in]
               \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
               \Tree
-                [. 1 ]
+                [. 1
+                [. 2
+                [. 3
+                [. 4
+                [. 5
+                [. 6
+                [. 7
+                [. 8
+                [. 9 ]]]]]]]]]
             \end{scope}
             \Tree
-              [. {$[Fa \supset (\forall x)Fx] \supset [(\exists x)Fx \supset (\forall x) Fx]$}
-              ]
+              [. {$\neg [[Fa \supset (\forall x)Fx] \supset [(\exists x)Fx \supset (\forall x) Fx]] \checkmark$}
+              [. {$Fa \supset (\forall x)Fx \checkmark$}
+              [. {$\neg [(\exists x)Fx \supset (\forall x) Fx] \checkmark$}
+              [. {$(\exists x)Fx \checkmark$}
+              [. {$\neg (\forall x) Fx \checkmark$}
+              [. {$(\exists x) \neg Fx \checkmark$}
+              [. {$Fb$}
+              [. {$Fc$}
+                [. {$\neg Fa$} ]
+                [. {$(\forall x)Fx$} ]]]]]]]]]
             \begin{scope}[xshift=3.5in]
               \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
               \Tree
-                [. SM ]
+                [. SM
+                [. {1 $\neg \supset$ D}
+                [. {1 $\neg \supset$ D}
+                [. {3 $\neg \supset$ D}
+                [. {3 $\neg \supset$ D}
+                [. {5 $\neg \forall$ D}
+                [. {4 $\exists$ D}
+                [. {6 $\exists$ D}
+                [. {2 $\supset$ D} ]]]]]]]]]
             \end{scope}
           \end{tikzpicture}
+
+          Since this tree is not closed, the sentence is not quantificationally true.
 
         \item
           \begin{tabular}{l}
