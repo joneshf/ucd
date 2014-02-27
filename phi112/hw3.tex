@@ -126,7 +126,7 @@
               [. {$(\forall x)[Nx \supset (\exists y)Rxy]$}
               [. {$\neg (\exists x)Rxx \land Na \checkmark$}
               [. {$\neg (\exists y)Ray \checkmark$}
-              [. {$\neg (\exists x)Rxx$}
+              [. {$\neg (\exists x)Rxx \checkmark$}
               [. {$Na$}
               [. {$(\forall y)\neg Ray$}
               [. {$Na \supset (\exists y)Ray \checkmark$}
@@ -163,7 +163,7 @@
         \item $[(\forall x)Fx \supset Ga] \equiv (\exists x)(Fx \supset Ga)$
 
           \begin{tikzpicture}[sibling distance=0.5cm]
-            \begin{scope}[xshift=-2.0in]
+            \begin{scope}[xshift=-2.5in]
               \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
               \Tree
                 [. 1
@@ -188,24 +188,24 @@
             \Tree
               [. {$\neg [[(\forall x)Fx \supset Ga] \equiv (\exists x)(Fx \supset Ga)] \checkmark$}
               [. {$(\forall x)Fx \supset Ga$}
-                [. {$\neg (\exists x)(Fx \supset Ga)$}
+                [. {$\neg (\exists x)(Fx \supset Ga) \checkmark$}
                 [. {$\ $}
                 [. {$\ $}
                 [. {$\ $}
                 [. {$\ $}
                 [. {$\ $}
-                [. {$(\forall x)\neg(Fx \supset Ga) \checkmark$}
+                [. {$(\forall x)\neg(Fx \supset Ga)$}
                 [. {$\neg(\forall x)Fx \checkmark$}
                 [. {$\ $}
                 [. {$\ $}
                 [. {$\ $}
-                [. {$(\exists x)\neg Fx$}
+                [. {$(\exists x)\neg Fx \checkmark$}
                 [. {$\neg Fb$}
-                [. {$\neg(Fb \supset Ga)$}
+                [. {$\neg(Fb \supset Ga) \checkmark$}
                 [. {$Fb$}
                 [. {$\closedbranch{\neg Ga}$} ]]]]]]]]]
                 [. {$Ga$}
-                  [. {$\neg(Fb \supset Ga)$}
+                  [. {$\neg(Fb \supset Ga) \checkmark$}
                   [. {$Fb$}
                   [. {$\closedbranch{\neg Ga}$} ]]]]]]]]]]]]
               [. {$\neg (\forall x)Fx \supset Ga \checkmark$}
