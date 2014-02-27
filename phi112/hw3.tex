@@ -10,6 +10,10 @@
 \usepackage{tikz}
 \usepackage{tikz-qtree}
 
+\newcommand{\annotatebranch}[2]{\underset{#1}{#2}}
+\newcommand{\closedbranch}[1]{\annotatebranch{\times}{#1}}
+\newcommand{\openbranch}[1]{\annotatebranch{\circ}{#1}}
+
 \setlength{\droptitle}{-10ex}
 
 \preauthor{\begin{flushright}\large \lineskip 0.5em}
@@ -76,8 +80,8 @@
               [. {$(\exists x) \neg Fx \checkmark$}
               [. {$Fb$}
               [. {$Fc$}
-                [. {$\neg Fa$} ]
-                [. {$(\forall x)Fx$} ]]]]]]]]]
+                [. {$\openbranch{\neg Fa}$} ]
+                [. {$\openbranch{(\forall x)Fx}$} ]]]]]]]]]
             \begin{scope}[xshift=3.5in]
               \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
               \Tree
@@ -102,6 +106,52 @@
             \hline
             $(\exists y)Ray$
           \end{tabular}
+
+          \begin{tikzpicture}[sibling distance=0.5cm]
+            \begin{scope}[xshift=-1.5in]
+              \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
+              \Tree
+                [. 1
+                [. 2
+                [. 3
+                [. 4
+                [. 5
+                [. 6
+                [. 7
+                [. 8
+                [. 9
+                [. 10 ]]]]]]]]]]
+            \end{scope}
+            \Tree
+              [. {$(\forall x)[Nx \supset (\exists y)Rxy]$}
+              [. {$\neg (\exists x)Rxx \land Na \checkmark$}
+              [. {$\neg (\exists y)Ray \checkmark$}
+              [. {$\neg (\exists x)Rxx$}
+              [. {$Na$}
+              [. {$(\forall y)\neg Ray$}
+              [. {$Na \supset (\exists y)Ray \checkmark$}
+              [. {$\closedbranch{\neg Na}$} ]
+              [. {$(\exists y)Ray \checkmark$}
+                [. {$Rab$}
+                [. {$\closedbranch{\neg Rab}$} ]]]]]]]]]]
+            \begin{scope}[xshift=3.5in]
+              \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
+              \Tree
+                [. SM
+                [. SM
+                [. SM
+                [. {2 $\land$ D}
+                [. {2 $\land$ D}
+                [. {3 $\neg \exists$ D}
+                [. {1 $\forall$ D}
+                [. {7 $\supset$ D}
+                [. {8 $\exists$ D}
+                [. {9 $\forall$ D} ]]]]]]]]]]
+            \end{scope}
+          \end{tikzpicture}
+
+          Since this tree is closed, the argument is quantificationally valid.
+
         \item $[(\forall x)Fx \supset Ga] \equiv (\exists x)(Fx \supset Ga)$
         \item $\{(\forall x)[(\exists y) Hg(x,y) \supset Bg(x,x)], Ha, a = g(a,b)\} \vDash (\exists y)Bg(y,y)$
       \end{enumerate}
