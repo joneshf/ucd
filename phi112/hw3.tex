@@ -153,6 +153,93 @@
           Since this tree is closed, the argument is quantificationally valid.
 
         \item $[(\forall x)Fx \supset Ga] \equiv (\exists x)(Fx \supset Ga)$
+
+          \begin{tikzpicture}[sibling distance=0.5cm]
+            \begin{scope}[xshift=-2.0in]
+              \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
+              \Tree
+                [. 1
+                [. 2
+                [. 3
+                [. 4
+                [. 5
+                [. 6
+                [. 7
+                [. 8
+                [. 9
+                [. 10
+                [. 11
+                [. 12
+                [. 13
+                [. 14
+                [. 15
+                [. 16
+                [. 17
+                [. 18 ]]]]]]]]]]]]]]]]]]
+            \end{scope}
+            \Tree
+              [. {$\neg [[(\forall x)Fx \supset Ga] \equiv (\exists x)(Fx \supset Ga)] \checkmark$}
+              [. {$(\forall x)Fx \supset Ga$}
+                [. {$\neg (\exists x)(Fx \supset Ga)$}
+                [. {$\ $}
+                [. {$\ $}
+                [. {$\ $}
+                [. {$\ $}
+                [. {$\ $}
+                [. {$(\forall x)\neg(Fx \supset Ga) \checkmark$}
+                [. {$\neg(\forall x)Fx \checkmark$}
+                [. {$\ $}
+                [. {$\ $}
+                [. {$\ $}
+                [. {$(\exists x)\neg Fx$}
+                [. {$\neg Fb$}
+                [. {$\neg(Fb \supset Ga)$}
+                [. {$Fb$}
+                [. {$\closedbranch{\neg Ga}$} ]]]]]]]]]
+                [. {$Ga$}
+                  [. {$\neg(Fb \supset Ga)$}
+                  [. {$Fb$}
+                  [. {$\closedbranch{\neg Ga}$} ]]]]]]]]]]]]
+              [. {$\neg (\forall x)Fx \supset Ga \checkmark$}
+                [. {$(\exists x)(Fx \supset Ga) \checkmark$}
+                [. {$Fb \supset Ga \checkmark$}
+                [. {$\neg \neg (\forall x)Fx \checkmark$}
+                  [. {$(\forall x)Fx$}
+                  [. {$Fb$}
+                  [. {$\closedbranch{\neg Fb}$} ]
+                  [. {$\openbranch{Ga}$} ]]]]
+                  [. {$Ga$}
+                  [. {$\ $}
+                  [. {$\ $}
+                  [. {$\openbranch{\neg Fb}$} ]
+                  [. {$\openbranch{Ga}$} ]]]]]]]]
+            \begin{scope}[xshift=3.0in]
+              \tikzset{edge from parent/.style={edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}, every tree node/.style={text width=5em, align=left}}
+              \Tree
+                [. SM
+                [. {1 $\neg \equiv$ D}
+                [. {1 $\neg \equiv$ D}
+                [. {3 $\exists$ D}
+                [. {2 $\supset$ D}
+                [. {5 $\neg \neg$ D}
+                [. {6 $\forall$ D}
+                [. {4 $\supset$ D}
+                [. {3 $\neg \exists$ D}
+                [. {2 $\supset$ D}
+                [. {9 $\forall$ D}
+                [. {11 $\neg \supset$ D}
+                [. {11 $\neg \supset$ D}
+                [. {10 $\neg \forall$ D}
+                [. {14 $\exists$ D}
+                [. {9 $\forall$ D}
+                [. {11 $\neg \supset$ D}
+                [. {11 $\neg \supset$ D} ]]]]]]]]]]]]]]]]]]
+            \end{scope}
+          \end{tikzpicture}
+
+          Since there is at least one open branch, this tree is not closed.
+          Thus, the two sentences are not quantificationally equivalent.
+
         \item $\{(\forall x)[(\exists y) Hg(x,y) \supset Bg(x,x)], Ha, a = g(a,b)\} \vDash (\exists y)Bg(y,y)$
       \end{enumerate}
     \item
