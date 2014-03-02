@@ -9,6 +9,8 @@ public class minimax_joneshf extends AIModule {
     public boolean firstMove = true;
     public TextDisplay td;
 
+    public int evaluations = 0;
+
     public minimax_joneshf() {
         this.td = new TextDisplay();
         this.player = 0;
@@ -20,7 +22,6 @@ public class minimax_joneshf extends AIModule {
     }
 
     public void getNextMove(final GameStateModule game) {
-        long start = System.nanoTime();
         int player = game.getActivePlayer();
         this.player = player;
         this.opponent = player == 1 ? 2 : 1;
@@ -31,63 +32,52 @@ public class minimax_joneshf extends AIModule {
             this.firstMove = false;
             return;
         }
-        int maxDepth = 1;
+        int maxDepth = this.width;
         for (int i = 0; i < this.width; ++i) {
             maxDepth *= Math.max(this.height - game.getHeightAt(i), 1);
         }
-        // Enumerate the board.
-        System.out.println("that took: "+((System.nanoTime() - start)));
         showBoard(game);
-        int depth = 0;
-        System.out.println("depth: "+depth);
-        System.out.println("maxDepth: "+maxDepth);
-        while (!this.terminate && depth < maxDepth) {
-            System.out.println("\n\n\nDeepening\n\n\n");
-            System.out.println("depth: "+depth);
-            System.out.println("maxDepth: "+maxDepth);
-            minimaxDecision(depth++, game);
-        }
+        int depth = maxDepth - 1;
+        // while (!this.terminate && depth <= maxDepth) {
+        //     minimaxDecision(depth++, game);
+        // }
+        minimaxDecision(depth++, game);
     }
 
     public void minimaxDecision(int depth, final GameStateModule game) {
         int[] v = maxValue(depth, game.getWidth() / 2, game);
         System.out.println("Choosing "+v[1]);
+        System.out.println("Value "+v[0]);
         this.chosenMove = v[1];
     }
 
     public int[] maxValue(int depth, int col, final GameStateModule game) {
 
-        if (depth == 0 || this.terminate || game.isGameOver()) {
-            // System.out.println("In maxValue");
-            // showBoard(game);
-            // System.out.print("utility: "+utility(game, game.getHeightAt(col), col));
-            // System.out.println(" col: "+col);
-            // System.out.println();
+        if (/*depth == 0 ||*/ this.terminate || game.isGameOver()) {
             return new int[] {utility(game, game.getHeightAt(col), col), col};
         }
 
-        int[] v = {-Integer.MAX_VALUE, 0};
+        int[] v = {-Integer.MAX_VALUE, col};
         int temp[];
         for (int c : getMoves(this.player, game)) {
             game.makeMove(c);
             temp = minValue(depth - 1, c, game);
-            v = v[0] < temp[0] ? temp : v;
+            v[0] = v[0] < temp[0] ? temp[0] : v[0];
             game.unMakeMove();
         }
 
+        if (v[0] > 10000) {
+            System.out.println("Max value "+v[0]+" at "+v[1]);
+            showBoard(game);
+        }
         return v;
 
     }
 
     public int[] minValue(int depth, int col, final GameStateModule game) {
 
-        if (depth == 0 || this.terminate || game.isGameOver()) {
-            // System.out.println("In minValue");
-            // showBoard(game);
-            // System.out.print("utility: "+utility(game, game.getHeightAt(col), col));
-            // System.out.println(" col: "+col);
-            // System.out.println();
-            return new int[] {utility(game, game.getHeightAt(col), col), col};
+        if (/*depth == 0 ||*/ this.terminate || game.isGameOver()) {
+            return new int[] {utility(game, game.getHeightAt(col) - 1, col), col};
         }
 
         int[] v = {Integer.MAX_VALUE, 0};
@@ -253,11 +243,30 @@ public class minimax_joneshf extends AIModule {
         long[] boards = gameToBits(game);
         int total = 0;
         long player = 1 << (col * (game.getHeight() + 1) + row);
-        if (checkBlocks(player, boards[1])) {
-            return Integer.MAX_VALUE;
+        if (game.isGameOver()) {
+            switch (game.getWinner()) {
+                case 1:
+                    return Integer.MAX_VALUE;
+                case 2:
+                    return -Integer.MAX_VALUE;
+                default:
+                    return 0;
+                }
         }
-        if (checkBlocks(player, boards[0])) {
-            return -Integer.MAX_VALUE;
+        if (game.getActivePlayer() == 1) {
+            if (checkBlocks(player, boards[1])) {
+                return Integer.MAX_VALUE;
+            }
+            if (checkBlocks(player, boards[0])) {
+                return Integer.MAX_VALUE;
+            }
+        } else if (game.getActivePlayer() == 2) {
+            if (checkBlocks(player, boards[0])) {
+                return -Integer.MAX_VALUE;
+            }
+            if (checkBlocks(player, boards[1])) {
+                return -Integer.MAX_VALUE;
+            }
         }
         if (checkWins(boards[0])) {
             total += 250;
