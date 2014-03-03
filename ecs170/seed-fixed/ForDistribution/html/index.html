@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE>Connect Four: Project 1: Connect Four</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.4.1  (Win32)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20140217;15071068">
+	<META NAME="Info 1" CONTENT="">
+	<META NAME="Info 2" CONTENT="">
+	<META NAME="Info 3" CONTENT="">
+	<META NAME="Info 4" CONTENT="">
+	<META NAME="Originator" CONTENT="Microsoft Word 14">
+	<META NAME="ProgId" CONTENT="Word.Document">
+	<META NAME="Title" CONTENT="Connect Four: Project 1: Connect Four">
+	<META NAME="CHANGEDBY" CONTENT="Sean ">
+	<STYLE TYPE="text/css">
+	<!--
+		P { color: #000000 }
+		ADDRESS { color: #000000 }
+		H1 { color: #000000 }
+		H2 { color: #000000 }
+		H2.cjk { font-family: "SimSun" }
+		H2.ctl { font-family: "Lohit Hindi" }
+		A:link { color: #153788 }
+		A:visited { color: #153788 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" LINK="#153788" VLINK="#153788" BGCOLOR="#ffffff" DIR="LTR">
+<H1>Project 1: Connect Four</H1>
+<H2 CLASS="western"><A NAME="intro_sec"></A>Introduction</H2>
+<P>In this assignment, you'll write a computer program to play the
+classic game Connect Four. This is a great way to practice the
+minimax and heuristic algorithms we've covered in class.</P>
+<H2 CLASS="western"><A NAME="rules_sec"></A>How to Play</H2>
+<P>Connect Four is a tic-tac-toe variant played on a grid. Players
+alternate turns dropping coins into one of the seven different
+columns. Unlike tic-tac-toe, Connect Four worlds are affected by
+gravity and you may only place coins at the lowest possible positions
+in each column. In other words, moves in Connect Four are made by
+dropping the coins into the columns, rather than placing them into
+specific squares.</P>
+<P>As the name implies, the goal of Connect Four is to get four of
+your colored coins in a row, either horizontally, diagonally, or
+vertically. The first player to do so wins. If all&nbsp;locations are
+filled without a player getting four in a row, the game is a draw.</P>
+<P>Connect Four is known to be biased in favor of the first player,
+so when testing your AI make sure that you have it play as both the
+first and second player. A decent AI program will never lose as the
+first player, and a good AI program will be able to win going second.</P>
+<H2 CLASS="western"><A NAME="instruct_sec"></A>Instructions</H2>
+<P>We've provided you with a good amount of starter code to handle
+most of the complicated setup. The provided starter code is a working
+Connect Four engine that allows you to mix and match human and
+computer opponents using the command line. Your assignment is to
+create an instance of the <A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_a_i_module.html">AIModule</A>
+class that plays Connect Four. To do so, you'll need to familiarize
+yourself with the workings of the <A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_game_state.html">GameState</A>
+and <A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_a_i_module.html">AIModule</A>
+classes.</P>
+<P>Because even a simple minimax player can play perfectly given
+unlimited time, in this assignment part of your task will be to
+create a player that can work in limited time conditions. During game
+play, your player will have to select a move within a given time
+frame. <B>Make sure you understand what the chosenMove field of the
+</B><A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_a_i_module.html"><SPAN STYLE="font-weight: normal">AIModule</SPAN></A>
+<B>class is for before writing your player. Take a look at
+</B><A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_monte_carlo_a_i.html"><SPAN STYLE="font-weight: normal">MonteCarloAI</SPAN></A>
+<B>for an example of how to write a working AI.</B></P>
+<H2 CLASS="western"><A NAME="code_sec"></A>The Provided Framework</H2>
+<P>The starter code we've provided will work out of the box and
+should require no changes on your part. As with the previous
+assignment, if you want to make any changes to our code, please let
+us know in advance.</P>
+<P>The Connect Four program has several different command-line
+switches that you can use to control how the game is played. By
+default, the two players are human-controlled. You can choose which
+AI modules to use by using the -p1 and -p2 switches to select the
+AIModules to use as the first and second player. For example, to pit
+the <A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_random_a_i.html">RandomAI</A>
+player against the <A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_monte_carlo_a_i.html">MonteCarloAI</A>
+player, you could use:</P>
+<P>java <A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_main.html">Main</A>
+-p1 <A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_random_a_i.html">RandomAI</A>
+-p2 <A HREF="/../../../../../../../davidson/Teaching/2009-ECS170/Assign2/Code%252520To%252520Distribute/html/class_monte_carlo_a_i.html">MonteCarloAI</A></P>
+<P>Any unspecified players will be filled in with human players.</P>
+<P>You can also customize how much time is available to the AI
+players. By default, each computer has 500ms to think. You can use
+the -t switch to change this. Use the --help switch to learn more
+about the options available to you.</P>
+<H2 CLASS="western"><A NAME="grading_sec"></A>Questions</H2>
+<P STYLE="margin-bottom: 0in">In all of these questions you will be
+playing connect-4 on a 7x6 board. Please form groups of two and
+choose a name and clearly in the assignment state who is part of your
+group (include student ids). <B>You should not divulge your
+evaluation function to any of your opponents. </B><BR><BR>1. In this
+question you are to clearly (but in no more than one page), describe
+your evaluation function. 
+</P>
+<P STYLE="margin-bottom: 0in">&nbsp;</P>
+<P STYLE="margin-bottom: 0in">Your answer must cover:<BR>a) A
+detailed motivation on why you believe your evaluation function is
+reasonable (one paragraph)<BR>b) Your evaluation function as a
+numerical expression with definitions of all variables.<BR>c) One
+worked example showing a board state and your evaluation function
+score.<BR><BR>(20 points)<BR><BR>2. Implement the mini-max algorithm
+and your evaluation function following the interface defined above.
+Call your java file that is to be submitted
+minimax_&lt;team-name&gt;.java.<BR><BR>(15 points)<BR><BR>3. Play
+your algorithm five times against the given players: StupidAI.java
+and RandomAI.java (seeds 1 thru 5). Your algorithm should always beat
+these two players. Play your algorithm ten times against
+MonteCarloAI.java, your algorithm should beat this player the
+majority of times. Use the -text option and the &ndash;seed options
+(seeds 1 thru 10) and submit&nbsp;for each of the twenty games the
+final board and the win loss result as output by the program. <B>Clearly
+report these results in a file called &lt;Part3_team_name.txt&gt;.</B><BR><BR>(20
+points &ndash; 1 point for a win, 0.5 points for a draw)<BR><BR>4. In
+the next question you shall implement alpha-beta pruning. In this
+question you are to describe your successor function and how you
+shall order moves to ensure that the best case situation will occur.
+In this question you are expected convince the grader that your
+scheme will work. Unconvincing answers will receive little or no
+grade.<BR><BR>(25 points)<BR><BR>5. In this question the TAs will
+play your algorithm against all other groups twice. In the first game
+your algorithm will be p1 and in the second it will be p2.</P>
+<P STYLE="margin-bottom: 0in">Implement the alpha-beta pruning
+algorithm <B>and your evaluation function</B> and submit your code as
+alphabeta_&lt;team-name&gt;.java.</P>
+<P STYLE="margin-left: 0.21in; margin-top: 0.07in; margin-bottom: 0in">
+You will score 1 points for a win, 0.5 points for a draw, 0 for a
+loss.</P>
+<P STYLE="margin-left: 0.21in; margin-top: 0.07in; margin-bottom: 0in">
+If there are say x different groups then your maximum score is (x-1)
+(since you can&rsquo;t win against yourself). Your bonus points will
+then be: YourScore / (x-1) * 40.</P>
+<P STYLE="margin-left: 0.21in; margin-top: 0.07in; margin-bottom: 0in">
+&nbsp;<BR>(<B>All bonus.</B> 40 points, maximum for tournament
+results ). 
+</P>
+<ADDRESS STYLE="text-align: right"><BR>
+</ADDRESS>
+</BODY>
+</HTML>

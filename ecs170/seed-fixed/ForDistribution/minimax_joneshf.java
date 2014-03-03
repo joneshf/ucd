@@ -35,16 +35,11 @@ public class minimax_joneshf extends AIModule {
         HashMap<Integer, Integer> vals = new HashMap<Integer, Integer>();
         int max = -Integer.MAX_VALUE;
         int move = 0;
-        System.out.println("Depth: "+depth);
         if (useStatic) {
-            System.out.println("Static Board");
-            td.drawBoard(this.staticGame);
             for (int c : availableMoves(this.staticGame)) {
                 vals.put(maxValue(depth, this.staticGame), c);
             }
         } else {
-            System.out.println("Board");
-            td.drawBoard(this.game);
             for (int c : availableMoves(game)) {
                 vals.put(maxValue(depth, game), c);
             }
