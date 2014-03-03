@@ -2,6 +2,16 @@ import java.util.*;
 
 public class minimax_joneshf extends AIModule {
 
+    public class moveComparator implements Comparator<Integer> {
+        // public int compare(Integer i1, Integer i2) {
+        //     return Integer.compare(game.getHeightAt(i2), game.getHeightAt(i1));
+        // }
+        public int compare(Integer i1, Integer i2) {
+            Integer mid = width / 2;
+            return Integer.compare(Math.abs(i1 - mid), Math.abs(i2 - mid));
+        }
+    }
+
     public int player;
     public int opponent;
     public int height = 0;
@@ -9,7 +19,10 @@ public class minimax_joneshf extends AIModule {
     public boolean firstMove = true;
     public TextDisplay td;
 
-    public int evaluations = 0;
+    public int numMax = 0;
+    public int numMin = 0;
+
+    public GameStateModule game;
 
     public minimax_joneshf() {
         this.td = new TextDisplay();
@@ -17,16 +30,31 @@ public class minimax_joneshf extends AIModule {
         this.opponent = 0;
     }
 
-    public void showBoard(final GameStateModule game) {
-        this.td.drawBoard(game);
+    public void showBoard() {
+        this.td.drawBoard(this.game);
+    }
+
+    public List<Integer> getMoves() {
+        List<Integer> moves = new ArrayList<Integer>();
+        int row;
+        int size = 0;
+        for (int col = 0; col < this.game.getWidth(); ++col) {
+            if (this.game.canMakeMove(col)) {
+                ++size;
+                moves.add(col);
+            }
+        }
+        // Collections.sort(moves, new moveComparator());
+        return moves;
     }
 
     public void getNextMove(final GameStateModule game) {
         int player = game.getActivePlayer();
+        this.game = game;
         this.player = player;
         this.opponent = player == 1 ? 2 : 1;
-        this.width = game.getWidth();
-        this.height = game.getHeight();
+        this.width = this.game.getWidth();
+        this.height = this.game.getHeight();
         if (this.firstMove && this.player == 1) {
             this.chosenMove = this.width / 2;
             this.firstMove = false;
@@ -34,81 +62,76 @@ public class minimax_joneshf extends AIModule {
         }
         int maxDepth = this.width;
         for (int i = 0; i < this.width; ++i) {
-            maxDepth *= Math.max(this.height - game.getHeightAt(i), 1);
+            maxDepth *= Math.max(this.height - this.game.getHeightAt(i), 1);
         }
-        showBoard(game);
+        showBoard();
         int depth = maxDepth - 1;
-        // while (!this.terminate && depth <= maxDepth) {
-        //     minimaxDecision(depth++, game);
-        // }
-        minimaxDecision(depth++, game);
+        while (!this.terminate && depth <= maxDepth) {
+            minimaxDecision(depth++);
+        }
+        // minimaxDecision(depth++);
     }
 
-    public void minimaxDecision(int depth, final GameStateModule game) {
-        int[] v = maxValue(depth, game.getWidth() / 2, game);
-        System.out.println("Choosing "+v[1]);
-        System.out.println("Value "+v[0]);
-        this.chosenMove = v[1];
+    public void minimaxDecision(int depth) {
+        this.chosenMove = maxValue(depth, 0)[1];
     }
 
-    public int[] maxValue(int depth, int col, final GameStateModule game) {
-
-        if (/*depth == 0 ||*/ this.terminate || game.isGameOver()) {
-            return new int[] {utility(game, game.getHeightAt(col), col), col};
+    public int[] maxValue(int depth, int col) {
+        if (this.terminate || this.game.isGameOver()/* || depth == 0*/) {
+            return new int[] {utility(col), 0};
         }
 
-        int[] v = {-Integer.MAX_VALUE, col};
-        int temp[];
-        for (int c : getMoves(this.player, game)) {
-            game.makeMove(c);
-            temp = minValue(depth - 1, c, game);
-            v[0] = v[0] < temp[0] ? temp[0] : v[0];
-            game.unMakeMove();
+        int max = -Integer.MAX_VALUE;
+        int nextValue;
+        int nextMove = 0;
+        int[] ret = {0, 0};
+        int[] tempRet = {0, 0};
+        for (int c : getMoves()) {
+            this.game.makeMove(c);
+            tempRet = minValue(depth - 1, c);
+            if (tempRet[0] > max) {
+                max = tempRet[0];
+                ret[0] = tempRet[0];
+                ret[1] = c;
+            }
+            this.game.unMakeMove();
         }
-
-        if (v[0] > 10000) {
-            System.out.println("Max value "+v[0]+" at "+v[1]);
-            showBoard(game);
-        }
-        return v;
-
+        return ret;
     }
 
-    public int[] minValue(int depth, int col, final GameStateModule game) {
-
-        if (/*depth == 0 ||*/ this.terminate || game.isGameOver()) {
-            return new int[] {utility(game, game.getHeightAt(col) - 1, col), col};
+    public int[] minValue(int depth, int col) {
+        if (this.terminate || this.game.isGameOver()/* || depth == 0*/) {
+            return new int[] {utility(col), 0};
         }
 
-        int[] v = {Integer.MAX_VALUE, 0};
-        int temp[];
-        for (int c : getMoves(this.opponent, game)) {
-            game.makeMove(c);
-            temp = maxValue(depth - 1, c, game);
-            v = v[0] > temp[0] ? temp : v;
-            game.unMakeMove();
+        int min = Integer.MAX_VALUE;
+        int nextValue;
+        int nextMove = 0;
+        int[] ret = {0, 0};
+        int[] tempRet = {0, 0};
+        for (int c : getMoves()) {
+            this.game.makeMove(c);
+            tempRet = maxValue(depth - 1, c);
+            if (tempRet[0] < min) {
+                min = tempRet[0];
+                ret[0] = tempRet[0];
+                ret[1] = c;
+            }
+            this.game.unMakeMove();
         }
-
-        return v;
-
+        return ret;
     }
 
-    public boolean terminal(final GameStateModule game) {
-        long[] boards = gameToBits(game);
-
-        return checkWins(boards[0]) || checkWins(boards[1]);
-    }
-
-    public long[] gameToBits(final GameStateModule game) {
+    public long[] gameToBits() {
         long playerBoard = 0l;
         long opponentBoard = 0l;
         int pos = 0;
-        for (int c = 0; c < game.getWidth(); ++c) {
-            for (int r = 0; r < game.getHeight(); ++r) {
-                if (game.getAt(c, r) == this.player) {
-                    playerBoard |= 1l << (c * (game.getHeight() + 1) + r);
-                } else if (game.getAt(c, r) == this.opponent) {
-                    opponentBoard |= 1l << (c * (game.getHeight() + 1) + r);
+        for (int c = 0; c < this.game.getWidth(); ++c) {
+            for (int r = 0; r < this.game.getHeight(); ++r) {
+                if (this.game.getAt(c, r) == this.player) {
+                    playerBoard |= 1l << (c * (this.game.getHeight() + 1) + r);
+                } else if (this.game.getAt(c, r) == this.opponent) {
+                    opponentBoard |= 1l << (c * (this.game.getHeight() + 1) + r);
                 }
             }
         }
@@ -239,12 +262,13 @@ public class minimax_joneshf extends AIModule {
         return block;
     }
 
-    public int utility(final GameStateModule game, int row, int col) {
-        long[] boards = gameToBits(game);
+    public int utility(int col) {
+        long[] boards = gameToBits();
         int total = 0;
-        long player = 1 << (col * (game.getHeight() + 1) + row);
-        if (game.isGameOver()) {
-            switch (game.getWinner()) {
+        int row = this.game.getHeightAt(col);
+        long player = 1 << (col * (this.height + 1) + row);
+        if (this.game.isGameOver()) {
+            switch (this.game.getWinner()) {
                 case 1:
                     return Integer.MAX_VALUE;
                 case 2:
@@ -253,27 +277,27 @@ public class minimax_joneshf extends AIModule {
                     return 0;
                 }
         }
-        if (game.getActivePlayer() == 1) {
+        if (this.game.getActivePlayer() == 1) {
             if (checkBlocks(player, boards[1])) {
-                return Integer.MAX_VALUE;
+                total += 500;
             }
             if (checkBlocks(player, boards[0])) {
-                return Integer.MAX_VALUE;
+                total += 1500;
             }
-        } else if (game.getActivePlayer() == 2) {
+        } else if (this.game.getActivePlayer() == 2) {
             if (checkBlocks(player, boards[0])) {
-                return -Integer.MAX_VALUE;
+                total += -500;
             }
             if (checkBlocks(player, boards[1])) {
-                return -Integer.MAX_VALUE;
+                total += -1500;
             }
         }
-        if (checkWins(boards[0])) {
-            total += 250;
-        }
-        if (checkWins(boards[1])) {
-            total += -250;
-        }
+        // if (checkWins(boards[0])) {
+        //     total += 250;
+        // }
+        // if (checkWins(boards[1])) {
+        //     total += -250;
+        // }
         // if (checkBlocks(player, boards[1])) {
         //     total += 500;
         // }
@@ -293,18 +317,5 @@ public class minimax_joneshf extends AIModule {
             total += -25;
         }
         return total;
-    }
-
-    public List<Integer> getMoves(int player, final GameStateModule game) {
-        List<Integer> moves = new ArrayList<Integer>();
-        int row;
-        int size = 0;
-        for (int col = 0; col < game.getWidth(); ++col) {
-            if (game.canMakeMove(col)) {
-                ++size;
-                moves.add(col);
-            }
-        }
-        return moves;
     }
 }
