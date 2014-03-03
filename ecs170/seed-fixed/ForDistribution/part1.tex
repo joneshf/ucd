@@ -1,0 +1,63 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{listings}
+\usepackage{color}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 170 Project 2 Part 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Davidson\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+
+  \definecolor{dkgreen}{rgb}{0,0.6,0}
+  \definecolor{gray}{rgb}{0.5,0.5,0.5}
+  \definecolor{mauve}{rgb}{0.58,0,0.82}
+
+  \lstset{frame=tb,
+    language=Java,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true
+    tabsize=3
+  }
+
+  The evaluation function first checks to see if the state is an end state. If so it returns what is effectively $\infty$ for MAX and $-\infty$ for MIN.
+  Assuming the state is not terminal, it takes into account all of the chips on the board.
+  It looks first for any blocks, any three in a row, and any two in a row.
+  Then it assigns a weighted value to each of these and sums them together.
+  This should work because it will give more weight to a state that has more coins grouped together than a sparser board.
+  This is ideal because it is easier to get four in a row, with a more densely packed board than a sparser one.
+
+  The evaluation function as a numerical expression:
+  \begin{align*}
+    \text{utility} &= \infty \cdot win_{MAX} - \infty \cdot win_{MIN} \\
+    &+ 500 \cdot \sum_{b \in blocks_{MAX}}b - 500 \cdot \sum_{b \in blocks_{MIN}}b \\
+    &+ 75 \cdot \sum_{t \in threes_{MAX}}t - 75 \cdot \sum_{t \in threes_{MIN}}t \\
+    &+ 25 \cdot \sum_{t \in twos_{MAX}}t - 25 \cdot \sum_{t \in twos_{MIN}}t
+  \end{align*}
+\end{document}
