@@ -1,0 +1,138 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{textcomp}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{lplfitch}
+
+\newcommand{\annotatebranch}[2]{\underset{#1}{#2}}
+\newcommand{\closedbranch}[1]{\annotatebranch{\times}{#1}}
+\newcommand{\openbranch}[1]{\annotatebranch{\circ}{#1}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{PHIL 112 Homework 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Dr. Landry\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item Define
+      \begin{enumerate}
+        \item Theorem in \textit{PD}
+
+          A sentence \textbf{P} of \textit{PL} is a theorem in \textit{PD} if and only if
+          \textbf{P} is derivable in \textit{PD} from the empty set.
+
+        \item Equivalence in \textit{PD}
+
+          Sentences \textbf{P} and \textbf{Q} of \textit{PL} are equivalent in \textit{PD} if and only if
+          \textbf{Q} is derivable in \textit{PD} from \{\textbf{P}\} and
+          \textbf{P} is derivable in \textit{PD} from \{\textbf{Q}\}.
+      \end{enumerate}
+
+    \item Construct derivations that show each of the following:
+      \begin{enumerate}
+        % \item $\{\neg (\forall x)(\exists y)Lxy, (\exists y)(\forall x)Lxy\}$ is inconsistent in \textit{PD}
+        \item
+          $\{((\exists x)Fx \lor (\exists x)Gx) \lif (\exists x)(Fx \lor Gx)\}$ is a theorem in \textit{PD}
+
+          \fitchprf{}{
+            \subproof{\pline[1.]{(\exi x)Fx \lor (\exi x)Gx}[\textbf{Assum}]}{
+              \subproof{\pline[2.]{(\exi x)Fx}[\textbf{Assum}]}{
+                \subproof{\pline[3.]{Fa}[\textbf{Assum}]}{
+                  \pline[4.]{Fa \lor Ga}[\lori{3}] \\
+                  \pline[5.]{(\exi x)(Fx \lor Gx)}[\lexii{4}]
+                }
+                \pline[6.]{(\exi x)(Fx \lor Gx)}[\lexie{2}{3--5}]
+              }
+              \subproof{\pline[7.]{(\exi x)Gx}[\textbf{Assum}]}{
+                \subproof{\pline[8.]{Gb}[\textbf{Assum}]}{
+                  \pline[9.]{Fb \lor Gb}[\lori{8}] \\
+                  \pline[10.]{(\exi x)(Fx \lor Gx)}[\lexii{9}]
+                }
+                \pline[11.]{(\exi x)(Fx \lor Gx)}[\lexie{7}{8--10}]
+              }
+              \pline[12.]{(\exi x)(Fx \lor Gx)}[\lore{1}{2--6,7--11}]
+            }
+            \pline[13.]{((\exi x)Fx \lor (\exi x)Gx) \lif (\exi x)(Fx \lor Gx)}[\lifi{1--12}]
+          }
+      \end{enumerate}
+
+    \item
+      Symbolize Casino Slim's reasoning and
+      construct a derivation in \textit{PD+}
+      showing that the symbolized argument is valid in \textit{PD+}.
+
+      \fitchprf{\pline[1.]{(\lall x)(\lall y)[(Fx \land Sy) \lif Bxy]}[\textbf{Assum}] \\
+                \pline[2.]{(Fh \lor Ff) \land Ss}[\textbf{Assum}]}{
+        \pline[3.]{Fh \lor Ff}[\lande{2}] \\
+        \pline[4.]{Ss}[\lande{2}] \\
+        \pline[5.]{(\lall y)[(Fx \land Sy) \lif Bhy]}[\lalle{1}] \\
+        \pline[6.]{(Fh \land Ss) \lif Bhs}[\lalle{5}] \\
+        \pline[7.]{\lnot(Fh \land Ss) \lor Bhs}[\textbf{Impl:} 5] \\
+        \subproof{\pline[8.]{Fh \lor Ff}[\textbf{Assum}]}{
+          \subproof{\pline[9.]{Fh}[\textbf{Assum}]}{
+            \pline[10.]{(\exi x)Fx}[\lexii{9}]
+          }
+          \subproof{\pline[11.]{Ff}[\textbf{Assum}]}{
+            \pline[12.]{(\exi x)Fx}[\lexii{11}]
+          }
+          \pline[13.]{(\exi x)Fx}[\lore{8}{9--10}{11--12}]
+        }
+        \pline[14.]{(\exi x)Fx}[\lexii{13}] \\
+        \subproof{\pline[15.]{Fh}[\textbf{Assum}]}{
+          \pline[16.]{Fh}[\reit{15}]
+        }
+        \pline[17.]{Fh}[\lexie{14}{15--16}] \\
+        \pline[18.]{Fh \land Ss}[\landi{4,17}] \\
+        \pline[19.]{Bhs}[\life{6}{18}] \\
+        \pline[20.]{Bhs \lor Bfs}[\lori{19}] \\
+        \pline[21.]{(\exi x)(Bhx \lor Bfx)}[\lexii{20}]
+      }
+
+    \item Show the following argument is valid in \textit{PD+}:
+
+      \begin{tabular}{l}
+        $(\forall x)[(\exists y)(Byb \land Lxyb) \lif Fx]$ \\
+        $(\exists x)(Cxb \land Lxab)$ \\
+        \hline
+        $(\forall x)(Cxb \lif \neg Fx) \lif \neg Bab$
+      \end{tabular}
+
+    \item
+      Suppose a set is inconsistent in \textit{PD}.
+      Is an argument that has the sentences in the set as premises valid in \textit{PD}?
+
+    \item
+      Show in \textit{PDE} that
+      $\{a = b, b = c\} \vdash c = a$
+
+    \item
+      Complete the following derivation in \textit{PDE}:
+
+      Derive: $(\forall x)(Rf(x)g(x) = Rg(x)f(x))$
+
+      Where
+
+      \begin{tabular}{l l}
+        $(\forall x)(\forall y)(Ryx \lif Rxy)$ & \quad Assumption \\
+        \hline
+      \end{tabular}
+  \end{enumerate}
+\end{document}
