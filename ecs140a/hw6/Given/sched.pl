@@ -153,9 +153,37 @@ relate([Meeting|Meetings], People, [[Meeting,Persons]|Parts]) :-
 %% Part 5c
 
 %% Schedules the meetings with overlap.
+%% should return [[[Room, Hour], [Meeting, [Person]]]]
 osched(_MR, _MH, [], []).
-osched(MR, MH, Peeps, [RH,Part]) :-
+osched(MR, MH, Peeps, Schedule) :-
     participants(Peeps, Parts),
     crossmyfor(MR, MH, RoomHour),
-    member(RH, RoomHour),
-    member(Part, Parts).
+    length(RoomHour, NumRH),
+    length(Parts, NumParts),
+    NumRH >= NumParts,
+    join_up(RoomHour, Parts, Schedule),
+    increasing_order(Schedule).
+    %% all_different(Schedule).
+
+join_up(_RoomHours, [], []).
+join_up([], _Parts, []).
+join_up(RoomHours, Parts, [[RH,Part]|Joined]) :-
+    select(RH, RoomHours, RoomHours1),
+    select(Part, Parts, Parts1),
+    join_up(RoomHours1, Parts1, Joined).
+
+increasing_order([]).
+increasing_order([_]).
+increasing_order([[[X0, Y0]|_Junk0],[[X1, Y1]|Rest]|Shit]) :-
+    X0 =< X1,
+    Y0 =< Y1,
+    increasing_order([[[X1, Y1]|Rest]|Shit]).
+
+increasing_order([[[X0, Y0]|_Junk0],[[X1, Y1]|Rest]|Shit]) :-
+    X0 < X1,
+    increasing_order([[[X1, Y1]|Rest]|Shit]).
+
+all_different([]).
+all_different([H|T]) :-
+    \+member(H, T),
+    all_different(T).
