@@ -2,4 +2,520 @@
 TESTING PARTICIPANTS
 
 testing: participants([],Z)
+Z = []
+
+Z = []
+
 testing: participants([[jimi,[research]],[eva,[admin,finance]],[nancy,[research,sales]],[ludwig,[sales,marketing,admin]]],Z)
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[eva,ludwig]],[finance,[]],[marketing,[]],[research,[]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[eva]],[finance,[]],[marketing,[]],[research,[]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[ludwig]],[finance,[]],[marketing,[]],[research,[]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[ludwig]],[research,[]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[eva]],[marketing,[]],[research,[]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[ludwig]],[research,[]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[jimi,nancy]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[jimi]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[nancy]],[sales,[]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[]],[sales,[ludwig,nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[]],[sales,[nancy]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[]],[sales,[ludwig]]]
+
+Z = [[admin,[]],[finance,[]],[marketing,[]],[research,[]],[sales,[]]]
+

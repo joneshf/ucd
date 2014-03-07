@@ -67,10 +67,21 @@ c_12_inst_2wo(N) :-
 %% Part 2
 
 %% Which version of delete?
-delete_question("It uses the version which doesn't fail if the element is not in the list.").
+delete_question("It uses the version which doesn't fail if the element is not in the list. (4th Edition 145)").
+
+delete1(_, [], []).
+delete1(X, [X|L], M) :-
+    !,
+    delete1(X,L,M).
+delete1(X, [Y|L1], [Y|L2]) :-
+    delete1(X, L1, L2).
+
+delete2(X, [X|Y], Y).
+delete2(X, [Y|L1], [Y|L2]) :-
+    delete2(X, L1, L2).
 
 %% Append two lists and sort them.
-sort_append(L1, L2, Ls) :-
+sortappend(L1, L2, Ls) :-
     append(L1, L2, Appended),
     sort(Appended, Ls).
 
@@ -98,7 +109,6 @@ crossmyfor(X, Y, Z) :-
     cross(Xs, Ys, Z).
 
 cross([], _Ys, []).
-cross(_Xs, [], []).
 cross([X|Xs], Ys, Next) :-
     distribute(X, Ys, Comb),
     append(Comb, Combs, Next),
@@ -143,3 +153,11 @@ filter_people([[Person, Meetings]|People], Meeting, [Person|Participants]) :-
     filter_people(People, Meeting, Participants).
 filter_people([_NoBueno|People], Meeting, Participants) :-
     filter_people(People, Meeting, Participants).
+
+%% Part 5c
+
+%% Schedules the meetings with overlap.
+%% osched(MR, MH, Peeps, [RoomHour,Part]) :-
+%%     participants(Peeps, Parts),
+%%     crossmyfor(MR, MH, RoomHour),
+%%     member(Part, Parts).
