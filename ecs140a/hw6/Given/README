@@ -2,9 +2,9 @@
 *** repeat it for each group member;
 *** list group members alphabetically by last name
 
-Name(last): xxxx
-Name(first): xxxx
-Login_ID: xxxxx
+Name(last): Jones
+Name(first): Hardy
+Login_ID: 999397426
 
 *** Give the status of your work; here's a sample.
 
@@ -16,7 +16,9 @@ part3: Works on all tests.
 part4: Works on all tests.
 part5a:  Works on all tests.
 part5b:  Works on all tests.
-part5c:  Works on only the first test case.
-part5d:  Didn't attempt.
+part5c:  Works on all tests.
+part5d:  Works on some tests.
 
 Overall: Any comment/discussion related to this HW.
+
+There are a lot of duplicates in the allowed areas.
