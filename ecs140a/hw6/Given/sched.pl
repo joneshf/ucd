@@ -174,16 +174,46 @@ join_up(RoomHours, Parts, [[RH,Part]|Joined]) :-
 
 increasing_order([]).
 increasing_order([_]).
-increasing_order([[[X0, Y0]|_Junk0],[[X1, Y1]|Rest]|Shit]) :-
+increasing_order([[[X0, Y0]|_Junk0],[[X1, Y1]|Rest]|Stuff]) :-
     X0 =< X1,
     Y0 =< Y1,
-    increasing_order([[[X1, Y1]|Rest]|Shit]).
+    increasing_order([[[X1, Y1]|Rest]|Stuff]).
 
-increasing_order([[[X0, Y0]|_Junk0],[[X1, Y1]|Rest]|Shit]) :-
+increasing_order([[[X0, _Y0]|_Junk0],[[X1, Y1]|Rest]|Stuff]) :-
     X0 < X1,
-    increasing_order([[[X1, Y1]|Rest]|Shit]).
+    increasing_order([[[X1, Y1]|Rest]|Stuff]).
 
 all_different([]).
 all_different([H|T]) :-
     \+member(H, T),
     all_different(T).
+
+%% Part 5d
+
+%% Schedules the meetings with people exclusively in them.
+
+xsched(MR, MH, Peeps, Overlapping) :-
+    osched(MR, MH, Peeps, Overlapping),
+    schedule_to_hours(Overlapping, Hrs0),
+    msort(Hrs0, Hrs1),
+    group(Hrs1, Hrs2),
+    all_good(Hrs2).
+
+schedule_to_hours([], []).
+schedule_to_hours([[[_MR, MH],[_Meeting, People]]|More], [[MH, People]|Result]) :-
+    schedule_to_hours(More, Result).
+
+group([], []).
+group([[N, Xs],[N, Ys]|More], Rest) :-
+    append(Xs, Ys, Zs),
+    group([[N, Zs]|More], Rest).
+group([[N, Xs]|More], [[N, Xs]|Rest]) :-
+    group(More, Rest).
+
+all_good([]).
+all_good([[_N, People]|More]) :-
+    sort(People, People1),
+    msort(People, People2),
+    length(People1, Len1),
+    length(People2, Len2),
+    Len1 == Len2.
