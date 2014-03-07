@@ -138,26 +138,24 @@ participants(People, Participants) :-
     relate(Meetings, People, UnsortedParticipants),
     sort(UnsortedParticipants, Participants).
 
+in_meeting(Meeting, [_Person, Meetings]) :-
+    member(Meeting, Meetings).
+
 %% Returns every person for each meeting.
 relate([], _People, []).
-relate(_Meetings, [], []).
-relate([Meeting|Meetings], People, [[Meeting, SortedParticipants]|Participants]) :-
-    % Filter people that are in the meeting.
-    filter_people(People, Meeting, SomeParticipants),
-    sort(SomeParticipants, SortedParticipants),
-    relate(Meetings, People, Participants).
-
-filter_people([], _Meeting, []).
-filter_people([[Person, Meetings]|People], Meeting, [Person|Participants]) :-
-    member(Meeting, Meetings),
-    filter_people(People, Meeting, Participants).
-filter_people([_NoBueno|People], Meeting, Participants) :-
-    filter_people(People, Meeting, Participants).
+relate([Meeting|Meetings], People, [[Meeting,Persons]|Parts]) :-
+    findall(Person,
+            (member([Person|Ms], People), in_meeting(Meeting, [Person|Ms])),
+            UnsortedPersons),
+    sort(UnsortedPersons, Persons),
+    relate(Meetings, People, Parts).
 
 %% Part 5c
 
 %% Schedules the meetings with overlap.
-%% osched(MR, MH, Peeps, [RoomHour,Part]) :-
-%%     participants(Peeps, Parts),
-%%     crossmyfor(MR, MH, RoomHour),
-%%     member(Part, Parts).
+osched(_MR, _MH, [], []).
+osched(MR, MH, Peeps, [RH,Part]) :-
+    participants(Peeps, Parts),
+    crossmyfor(MR, MH, RoomHour),
+    member(RH, RoomHour),
+    member(Part, Parts).
