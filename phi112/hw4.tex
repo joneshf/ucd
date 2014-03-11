@@ -161,5 +161,43 @@
       }
 
       Thus the argument is valid.
+
+    \item
+      Suppose that a set is inconsistent in PD.
+      Is an argument that has the sentences in the set as premises valid in PD?
+
+      Yes, the argument would still be valid.
+      Validity only states that the conclusion must be derivable from the premises.
+      Since a conclusion can still be derived, it can still be valid.
+
+    \item
+      Show in PDE that $\{a = b, b = c\} \vdash c = a$
+
+      \fitchprf{\pline[1.]{a = b}[\textbf{Assum}] \\
+                \pline[2.]{b = c}[\textbf{Assum}]}{
+        \pline[3.]{a = c}[1, 2 $=$\textbf{Elim}] \\
+        \pline[4.]{c = b}[1, 3 $=$\textbf{Elim}] \\
+        \pline[5.]{c = a}[1, 4 $=$\textbf{Elim}]
+      }
+
+    \item
+      Complete the following definition in PDE:
+
+      $(\forall x)[Rf(x)g(x) \equiv Rg(x)f(x)]$
+
+      \fitchprf{\pline[.]{(\forall x)(\forall y)(Ryx \lif Rxy)}[\textbf{Assum}]}{
+        \subproof{\pline[.]{Rg(a)f(a)}[\textbf{Assum }$/ \equiv$ \textbf{Intro}]}{
+          \pline[.]{(\forall y)(Ryf(a) \lif Rf(a)y)}[\lalle{1}] \\
+          \pline[.]{Rg(a)f(a) \lif Rf(a)g(a)}[\lalle{1}] \\
+          \pline[.]{Rf(a)g(a)}[\textbf{MP} 2, 4]
+        }
+        \subproof{\pline[.]{Rf(a)g(a)}[\textbf{Assum }$/ \equiv$ \textbf{Intro}]}{
+          \pline[.]{(\forall y)(Ryg(a) \lif Rf(a)y)}[\lalle{1}] \\
+          \pline[.]{Rf(a)g(a) \lif Rg(a)f(a)}[\lalle{1}] \\
+          \pline[.]{Rg(a)f(a)}[\textbf{MP} 6, 8]
+        }
+        \pline[.]{Rf(a)g(a) \equiv Rg(a)f(a)}[$\equiv $ \textbf{Intro}] \\
+        \pline[.]{(\forall x)[Rf(x)g(x) \equiv Rg(x)f(x)]}[\lalli {10}]
+      }
   \end{enumerate}
 \end{document}
