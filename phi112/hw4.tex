@@ -22,7 +22,7 @@
 \predate{\begin{flushright}\large}
 \postdate{\par\end{flushright}}
 
-\title{PHIL 112 Homework 3\vspace{-2ex}}
+\title{PHIL 112 Homework 4\vspace{-2ex}}
 \author{Hardy Jones\\
         999397426\\
         Dr. Landry\vspace{-2ex}}
@@ -48,7 +48,28 @@
 
     \item Construct derivations that show each of the following:
       \begin{enumerate}
-        % \item $\{\neg (\forall x)(\exists y)Lxy, (\exists y)(\forall x)Lxy\}$ is inconsistent in \textit{PD}
+        \item
+          $\{\neg (\forall x)(\exists y)Lxy, (\exists y)(\forall x)Lxy\}$ is inconsistent in \textit{PD}
+
+          \fitchprf{\pline[1.]{\neg (\forall x)(\exists y)Lxy}[\textbf{Assum}] \\
+                    \pline[2.]{(\exists y)(\forall x)Lxy}[\textbf{Assum}]}{
+            \pline[3.]{(\exists x)\neg(\exists y)Lxy}[\textbf{QN 1}] \\
+            \pline[4.]{(\exists x)(\forall y)\neg Lxy}[\textbf{QN 3}] \\
+            \subproof{\pline[5.]{(\forall y)\neg Lay}[\textbf{Assum }$\exists$ \textbf{Elim}]}{
+              \pline[6.]{(\forall y)\neg Lay}[\reit{5}]
+            }
+            \pline[7.]{(\forall y)\neg Lay}[\lexie{5}{6}] \\
+            \subproof{\pline[8.]{(\forall x)Lxb}[\textbf{Assum }$\exists$ \textbf{Elim}]}{
+              \pline[9.]{(\forall x)Lxb}[\reit{8}]
+            }
+            \pline[10.]{(\forall x)Lxb}[\lexie{8}{9}] \\
+            \pline[11.]{\neg Lab}[\lalle{7}] \\
+            \pline[12.]{Lab}[\lalle{10}]
+          }
+
+          From lines 11 and 12 we have $\neg Lab \land Lab$.
+
+          Thus $\{\neg (\forall x)(\exists y)Lxy, (\exists y)(\forall x)Lxy\}$ is inconsistent in \textit{PD}.
         \item
           $\{((\exists x)Fx \lor (\exists x)Gx) \lif (\exists x)(Fx \lor Gx)\}$ is a theorem in \textit{PD}
 
