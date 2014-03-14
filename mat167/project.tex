@@ -25,7 +25,7 @@
   \maketitle
 
   \begin{enumerate}
-    \item[Part 1]
+    \item[Part 1] Least Squares Approximation
 
       When a problem is overspecified, that is there are more equations than unknowns, we cannot compute an exact solution (or fit the data).
       The Least Squares Approximation attempts to solve this by projecting the problem onto a suitable space and minimizing the error in this projection.
@@ -111,48 +111,90 @@
           b_m
         \end{bmatrix}
       \end{align*}
+
+      When we use a linear fit, Figure \ref{fig:linear_least_squares}, we get a \textit{very} rough fit of the data. It seems to just barely provide enough information to find a given datum, and when it does, the error is still fairly large.
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\textwidth]{least_squares_linear.jpg}
+        \caption{Linear Least Squares}
+        \label{fig:linear_least_squares}
+      \end{figure}
+
+      \pagebreak
+
+      When we use a parabolic fit, Figure \ref{fig:parabolic_least_squares}, we see that our solution much better describes the problem.
+      With the linear fit, it appears as if we're saying the, ``The data goes this way''.
+      With the parabolic fit, it appears more as though we're saying, ``the data is in this region, give or take''. There are still some points where the curve is above and below the ``meat'' of the data. This is a much better approximation because our error has decreased dramatically, but we can still do better.
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\textwidth]{least_squares_parabolic.jpg}
+        \caption{Parabolic Least Squares}
+        \label{fig:parabolic_least_squares}
+      \end{figure}
+
+      \pagebreak
+
+      When we use a cubic fit, Figure \ref{fig:cubic_least_squares}, we see a curve that very nearly describes the attitude of the data. It never seems to deviate too far from the ``slope'' of the data. The error has been reduced even further in comparison with the parabolic fit.
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\textwidth]{least_squares_cubic.jpg}
+        \caption{Cubic Least Squares}
+        \label{fig:cubic_least_squares}
+      \end{figure}
+
+      In each of these examples, the error is the vertical distance between a datum point and the curve.
+
+    \pagebreak
+
+    \item[Part 2] Singular Value Decomposition
+
+      With large data sets a problem arises in storage and transmission of the data. Singular Value Decomposition (SVD) allows us to transform a large data set into a smaller set, and back again. One popular example is signal processing.
+
+      SVD says that we can decompose any \textit{m}x\textit{n} matrix into three matricies:
+
+      \[\mathbf{A} = \mathbf{U\Sigma V^T}\].
+
+      $\mathbf{\Sigma}$ is a diagonal matrix. \\
+      We get the columns of $\mathbf{U}$ from the eigenvectors of $\mathbf{AA^T}$. \\
+      We get the columns of $\mathbf{V}$ from the eigenvectors of $\mathbf{A^TA}$. \\
+      We get the values on the diagonal of $\mathbf{\Sigma}$ from the non-zero square rutes of the eigenvalues of $\mathbf{AA^T}$ and $\mathbf{A^TA}$.
+
+      We have computed the singular values of $\mathbf{\Sigma}$ in Figure \ref{fig:svd_big}
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\textwidth]{svd_big.jpg}
+        \caption{Values of $\mathbf{\Sigma}$}
+        \label{fig:svd_big}
+      \end{figure}
+
+      \pagebreak
+
+      The Rank-K approximation can be computed using the SVD.
+      This approximation provides a better approximation of data than the Least Squares Approximation for larger values of K.
+
+      We have computed the Rank-K approximation for four different values of K in Figure \ref{fig:rank_k}.
+
+      We can see that for $k = 1$ the approximation is not very indicative of the image.
+
+      With $k = 6$, it is able to make out that the image is of a person, though lots of the features are still missing.
+
+      With $k = 11$, this could actually pass as a viable picture.
+      We can make out the facial features: eyes, mouth, beard, etc.
+
+      With $k = 31$, we have the picture at nearly normal quality.
+      More details are able to be made out,
+      such as the wrinkles in the shirt, and cheekbones.
+
+      \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.95\textwidth]{rank_k.jpg}
+        \caption{Rank K Approx.}
+        \label{fig:rank_k}
+      \end{figure}
+
   \end{enumerate}
-
-  When we use a linear fit, Figure \ref{fig:linear_least_squares}, we get a \textit{very} rough fit of the data. It seems to just barely provide enough information to find a given datum, and when it does, the error is still fairly large.
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.95\textwidth]{least_squares_linear.jpg}
-    \caption{Linear Least Squares}
-    \label{fig:linear_least_squares}
-  \end{figure}
-
-  \pagebreak
-
-  When we use a parabolic fit, Figure \ref{fig:parabolic_least_squares}, we see that our solution much better describes the problem.
-  With the linear fit, it appears as if we're saying the, ``The data goes this way''.
-  With the parabolic fit, it appears more as though we're saying, ``the data is in this region, give or take''. There are still some points where the curve is above and below the ``meat'' of the data. This is a much better approximation because our error has decreased dramatically, but we can still do better.
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.95\textwidth]{least_squares_parabolic.jpg}
-    \caption{Parabolic Least Squares}
-    \label{fig:parabolic_least_squares}
-  \end{figure}
-
-  \pagebreak
-
-  When we use a cubic fit, Figure \ref{fig:cubic_least_squares}, we see a curve that very nearly describes the attitude of the data. It never seems to deviate too far from the ``slope'' of the data. The error has been reduced even further in comparison with the parabolic fit.
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.95\textwidth]{least_squares_cubic.jpg}
-    \caption{Cubic Least Squares}
-    \label{fig:cubic_least_squares}
-  \end{figure}
-
-  In each of these examples, the error is the vertical distance between a datum point and the curve.
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.95\textwidth]{rank_k.jpg}
-    \caption{Rank K Approx.}
-    \label{fig:rank_k}
-  \end{figure}
-
 \end{document}
