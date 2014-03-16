@@ -1,0 +1,84 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{graphicx}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 170 Homework 7\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Davidson\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Consider a cumulative discount reward with $\gamma = 0$ and $\gamma = 1$.
+      What type of behavior would these reward functions encourage?
+
+      The reward function with $\gamma = 0$ would reward short term goals.
+      The reward function with $\gamma = 1$ would reward long term goals.
+
+    \item
+      Why would you prefer to use Q-learning to implement a black-jack player rather than the mini-max algorithm?
+
+      BlackJack is a partially observable game.
+      Minimax would have to search the entire state space for every possible card combination can could occur.
+      This is realistically impossible.
+      The only viable option is to create an evaluation function that will most likely not be optimal.
+
+      Q-learning can learn the optimal choice to make given enough time to learn.
+
+    \item
+      One Q-learning algorithm described in class assumed that the $\delta$ and $r$ functions were deterministic.
+      Can this algorithm be used for
+        \begin{enumerate}
+          \item Learning to control an inverted pendulum
+
+            Yes, this is possible with deterministic functions.
+          \item Play chess
+
+            No, this is not possible even with deterministic $\delta$ and $r$ because the game is still inherently adversarial.
+         \end{enumerate}
+
+    \item
+      Evaluate the table.
+      \begin{tabular}{| c | c | c | c |}
+      \hline
+      Step & Start State & Subsequent State & Update to Q(s, a) \\
+      \hline
+      1  & B1 & A1 & Q(B1, Up) = \\
+      \hline
+      2  & A1 & A2 & Q(A1, Right) = \\
+      \hline
+      3  & A2 & A3 & Q(A2, Right) = \\
+      \hline
+      4  & A3 & B3 & Q(A3, Down) = \\
+      \hline
+      5  & B3 & B2 & Q(B3, Left) = \\
+      \hline
+      6  & B1 & A1 & Q(B1, Up) = \\
+      \hline
+      7  & A1 & A2 & Q(A1, Right) = \\
+      \hline
+      8  & A2 & A3 & Q(A2, Right) = \\
+      \hline
+      9  & A3 & B3 & Q(A3, Down) = \\
+      \hline
+      10 & B3 & B2 & Q(B3, Left) = \\
+      \hline
+      \end{tabular}
+  \end{enumerate}
+\end{document}
