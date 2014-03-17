@@ -5,7 +5,7 @@ import javax.swing.*;
  * This class acts as the entry point to the program and is responsible for parsing command line arguments
  * and setting up the GameController.  Run the program with the --help command-line parameter for more
  * information.
- * 
+ *
  * @author Leonid Shamis
  */
 public class Main
@@ -170,22 +170,22 @@ public class Main
  * In this assignment, you'll write a computer program to play the classic game Connect Four.  This is a great
  * way to practice the minimax and heuristic algorithms we've covered in class, and once you've finished you'll
  * have created a silicon foe capable of defeating mere mortals like you and I...
- * 
+ *
  * @section rules_sec How to Play
  *
  * Connect Four is a tic-tac-toe variant played on a 7x6 grid.  Players alternate turns dropping coins into one
  * of the seven different columns.  Unlike tic-tac-toe, Connect Four worlds are affected by gravity and you may
  * only place coins at the lowest possible positions in each column.  In other words, moves in Connect Four are
  * made by dropping the coins into the columns, rather than placing them into specific squares.
- * 
+ *
  * As the name implies, the goal of Connect Four is to get four of your colored coins in a row, either horizontally,
  * diagonally, or vertically.  The first player to do so wins.  If all forty-two locations are filled without a
  * player getting four in a row, the game is a draw.
- * 
+ *
  * Connect Four is known to be biased in favor of the first player, so when testing your AI make sure that you
  * have it play as both the first and second player.  A decent AI will never lose as the first player, and
  * a truly gifted AI will be able to win going second.
- * 
+ *
  * @section instruct_sec Instructions
  *
  * As with PathFinder, we've provided you with a good amount of starter code to handle most of the complicated
@@ -193,33 +193,33 @@ public class Main
  * and computer opponents using the command line.  Your assignment is to create an instance of the AIModule
  * class that plays Connect Four.  To do so, you'll need to familiarize yourself with the workings of the
  * GameStateModule and AIModule classes.
- * 
+ *
  * Because even a simple minimax player can play perfectly given unlimited time, in this assignment part of your
  * task will be to create a player that can work in limited time conditions.  During game play, your player will
  * have to select a move within a given time frame.  Make sure you understand what the chosenMove field of the
  * AIModule class is for before writing your player.  Take a look at MonteCarloAI for an example of how to write
  * a working AI.
- * 
+ *
  * @section code_sec The Provided Framework
- * 
+ *
  * The starter code we've provided will work out of the box and should require no changes on your part.  As with
  * the previous assignment, if you want to make any changes to our code, please let us know in advance.
- * 
+ *
  * The Connect Four program has several different command-line switches that you can use to control how the game
  * is played.  By default, the two players are human-controlled.  You can choose which AI modules to use by using
  * the -p1 and -p2 switches to select the AIModules to use as the first and second player.  For example, to pit
  * the RandomAI player against the MonteCarloAI player, you could use:
- * 
+ *
  * java Main -p1 RandomAI -p2 MonteCarloAI
- * 
+ *
  * Any unspecified players will be filled in with human players.
- * 
+ *
  * You can also customize how much time is available to the AI players.  By default, each computer has 500ms to
  * think.  You can use the -time switch to change this.  Use the --help switch to learn more about the options
  * available to you.
- * 
+ *
  * @section grading_sec Grading
- * 
+ *
  * // TODO: This!
- * 
+ *
  */

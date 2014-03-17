@@ -1,0 +1,76 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 167 Homework 8\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Cheer\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+  \section*{6.1}
+    \subsection*{5}
+      \begin{enumerate}
+        \item[a]
+          We have $f = x^2 + 2bxy + 81y^2$.
+          So $a = 1$ and $c = 81$.
+          We need $ac > b^2$ or $81 > b^2$.
+          So $A$ is positive definite when $-3 < b < 3$.
+        \item[b]
+          \[
+            \begin{bmatrix}
+              1 & b \\
+              b & 9
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & b \\
+              0 & 9 - b^2
+            \end{bmatrix}
+          \]
+          So we have
+          \[
+            A = \begin{bmatrix}
+              1 & 0 \\
+              b & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 0 \\
+              0 & 9 - b^2
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & b \\
+              0 & 1
+            \end{bmatrix}
+          \]
+      \end{enumerate}
+    \subsection*{9}
+    \subsection*{17}
+  \section*{6.2}
+    \subsection*{6}
+    \subsection*{19}
+    \subsection*{29}
+    \subsection*{41}
+  \section*{6.3}
+    \subsection*{5}
+    \subsection*{9}
+    \subsection*{18}
+  \section*{6.4}
+    \subsection*{2}
+    \subsection*{4}
+\end{document}

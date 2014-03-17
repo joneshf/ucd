@@ -3,9 +3,13 @@ import java.util.*;
 public class minimax_joneshf extends AIModule {
 
     public class MoveComparator implements Comparator<Move> {
-        @Override
+        // public int compare(Move a, Move b) {
+        //     return Integer.compare(a.util, b.util);
+        // }
+        // // Distance from the center of the board.
         public int compare(Move a, Move b) {
-            return Integer.compare(a.util, b.util);
+            Integer mid = width / 2;
+            return Integer.compare(Math.abs(a.col - mid), Math.abs(b.col - mid));
         }
     }
 
@@ -19,23 +23,32 @@ public class minimax_joneshf extends AIModule {
         }
     }
 
-    public GameStateModule game;
-    public boolean useStatic;
-    public TextDisplay td = new TextDisplay();
-    public int height;
-    public int width;
     public int player;
     public int opponent;
+    public int height = 0;
+    public int width = 0;
+    public boolean firstMove = true;
+    public GameStateModule game;
 
     public void getNextMove(final GameStateModule game) {
+        int player = game.getActivePlayer();
         this.game = game;
+        this.player = player;
+        this.opponent = player == 1 ? 2 : 1;
         this.width = this.game.getWidth();
         this.height = this.game.getHeight();
-        this.player = this.game.getActivePlayer();
-        this.opponent = this.player == 1 ? 2 : 1;
-        int depth = 0;
-        while (!this.terminate) {
-            minimaxDecision(++depth);
+        if (this.firstMove && this.player == 1) {
+            this.chosenMove = this.width / 2;
+            this.firstMove = false;
+            return;
+        }
+        int maxDepth = this.width;
+        for (int i = 0; i < this.width; ++i) {
+            maxDepth *= Math.max(this.height - this.game.getHeightAt(i), 1);
+        }
+        int depth = maxDepth - 1;
+        while (!this.terminate && depth <= maxDepth) {
+            minimaxDecision(depth++);
         }
     }
 
@@ -45,193 +58,64 @@ public class minimax_joneshf extends AIModule {
         for (int c = 0; c < this.width; ++c) {
             if (this.game.canMakeMove(c)) {
                 this.game.makeMove(c);
-                moves.add(new Move(c, utility()));
+                moves.add(new Move(c, utility(c)));
                 this.game.unMakeMove();
             }
         }
         for (Move m : moves) {
             ms.add(m.col);
         }
+        System.out.println(ms);
         return ms;
     }
 
     public void minimaxDecision(int depth) {
-        PriorityQueue<Move> vals = new PriorityQueue<Move>(10, new MoveComparator());
+        HashMap<Integer, Integer> vals = new HashMap<Integer, Integer>();
+        int max = -Integer.MAX_VALUE;
         int move = 0;
         int α = -Integer.MAX_VALUE;
         int β = Integer.MAX_VALUE;
         for (int c : availableMoves()) {
-            vals.add(new Move(c, maxValue(depth, α, β)));
+            vals.put(maxValue(depth, c, α, β), c);
         }
-        this.chosenMove = vals.poll().col;
+        for (Map.Entry<Integer, Integer> m : vals.entrySet()) {
+            if (m.getKey() > max) {
+                move = m.getValue();
+            }
+        }
+        this.chosenMove = move;
     }
 
-    public int maxValue(int depth, int α, int β) {
-        if (depth == 0 || this.terminate || this.game.isGameOver()) {
-            return utility();
+    public int maxValue(int depth, int col, int α, int β) {
+        if (this.terminate || this.game.isGameOver() || depth == 0) {
+            return utility(col);
         }
 
         for (int c : availableMoves()) {
             this.game.makeMove(c);
-            α = Math.max(α, minValue(depth - 1, α, β));
-            this.game.unMakeMove();
+            α = Math.max(α, minValue(depth - 1, c, α, β));
             if (α >= β) {
                 return β;
             }
+            this.game.unMakeMove();
         }
-
         return α;
     }
 
-    public int minValue(int depth, int α, int β) {
-        if (depth == 0 || this.terminate || this.game.isGameOver()) {
-            return utility();
+    public int minValue(int depth, int col, int α, int β) {
+        if (this.terminate || this.game.isGameOver() || depth == 0) {
+            return utility(col);
         }
 
         for (int c : availableMoves()) {
             this.game.makeMove(c);
-            β = Math.min(β, maxValue(depth - 1, α, β));
-            this.game.unMakeMove();
-            if (α >= β) {
+            β = Math.min(β, maxValue(depth - 1, c, α, β));
+            if (β < α) {
                 return α;
             }
+            this.game.unMakeMove();
         }
-
         return β;
-    }
-
-    public int utility() {
-        long[] boards = gameToBits();
-        int total = 0;
-
-        if (this.game.isGameOver()) {
-            if (this.game.getWinner() == this.player) {
-                return Integer.MAX_VALUE;
-            } else if (this.game.getWinner() == this.opponent) {
-                return -Integer.MAX_VALUE;
-            } else {
-                return 0;
-            }
-        } else {
-            // total += 10000 * checkWins(boards[0]);
-            // total += -10000 * checkWins(boards[0]);
-            total += 500 * checkBlocks(boards[0], boards[1]);
-            // total += 500 * checkBlocks(boards[0], boards[0]);
-            total += -500 * checkBlocks(boards[1], boards[0]);
-            // total += -500 * checkBlocks(boards[1], boards[1]);
-            // total += 75 * checkThrees(boards[0]);
-            // total += -75 * checkThrees(boards[1]);
-            // total += 25 * checkTwos(boards[0]);
-            // total += -25 * checkTwos(boards[1]);
-            return total;
-        }
-    }
-
-    public int checkWins(long board) {
-        int wins = 0;
-        // Diagonal down
-        long temp = board & (board >> (this.height - 2));
-        temp &= temp >> 2 * (this.height - 2);
-        wins += countBits(temp);
-        // Horizontal
-        temp = board & (board >> (this.height + 1));
-        temp &= temp >> 2 * (this.height + 1);
-        wins += countBits(temp);
-        // Diagonal up
-        temp = board & (board >> (this.height + 2));
-        temp &= temp >> 2 * (this.height + 2);
-        wins += countBits(temp);
-        // Vertical
-        temp = board & (board >> 1);
-        temp &= temp >> 2 * 1;
-        wins += countBits(temp);
-
-        return wins;
-    }
-
-    public int checkThrees(long board) {
-        int threes = 0;
-        // Diagonal down
-        long temp = board & (board >> (this.height - 2));
-        temp &= temp >> (this.height - 2);
-        threes += countBits(temp);
-        // Horizontal
-        temp = board & (board >> (this.height + 1));
-        temp &= temp >> (this.height + 1);
-        threes += countBits(temp);
-        // Diagonal up
-        temp = board & (board >> (this.height + 2));
-        temp &= temp >> (this.height + 2);
-        threes += countBits(temp);
-        // Vertical
-        temp = board & (board >> 1);
-        temp &= temp >> 1;
-        threes += countBits(temp);
-
-        return threes;
-    }
-
-    public int checkTwos(long board) {
-        int twos = 0;
-        // Diagonal down
-        twos += countBits(board & (board >> (this.height - 2)));
-        // Horizontal
-        twos += countBits(board & (board >> (this.height + 1)));
-        // Diagonal up
-        twos += countBits(board & (board >> (this.height + 2)));
-        // Vertical
-        twos += countBits(board & (board >> 1));
-
-        return twos;
-    }
-
-    public int checkBlocks(long player, long opponent) {
-        int blocks = 0;
-        // We need to see if 3 in a row for the opponent
-        // intersects with one of the player's pieces.
-        // Make the diagonal for opponent.
-
-        // Backslash up
-        long oppo = opponent & (opponent >> (this.height - 2));
-        oppo &= oppo >> (this.height - 2);
-        blocks += countBits(player & (oppo >> (this.height - 2)));
-
-        // Backslash down
-        oppo = opponent & (opponent << (this.height - 2));
-        oppo &= (oppo << (this.height - 2));
-        blocks += countBits(player & (oppo << (this.height - 2)));
-
-        // Forwardslash up
-        oppo = opponent & (opponent << (this.height + 2));
-        oppo &= oppo << (this.height + 2);
-        blocks += countBits(player & (oppo << (this.height + 2)));
-
-        // Forwardslash down
-        oppo = opponent & (opponent >> (this.height + 2));
-        oppo &= (oppo >> (this.height + 2));
-        blocks += countBits(player & (oppo >> (this.height + 2)));
-
-        // Horizontal right
-        oppo = opponent & (opponent << (this.height + 1));
-        oppo &= oppo << (this.height + 1);
-        blocks += countBits(player & (oppo << (this.height + 1)));
-
-        // Horizontal left
-        oppo = opponent & (opponent >> (this.height + 1));
-        oppo &= (oppo >> (this.height + 1));
-        blocks += countBits(player & (oppo >> (this.height + 1)));
-
-        // Vertical up
-        oppo = opponent & (opponent << 1);
-        oppo &= oppo << 1;
-        blocks += countBits(player & (oppo << 1));
-
-        // Vertical down
-        oppo = opponent & (opponent >> 1);
-        oppo &= (oppo >> 1);
-        blocks += countBits(player & (oppo >> 1));
-
-        return blocks;
     }
 
     public long[] gameToBits() {
@@ -251,12 +135,162 @@ public class minimax_joneshf extends AIModule {
         return new long[] {playerBoard, opponentBoard};
     }
 
-    public int countBits(long v) {
-        int count = 0;
-        for (; v > 0; ++count)
-        {
-          v &= v - 1; // clear the least significant bit set
+    public boolean checkWins(long board) {
+        // Diagonal down
+        long temp = board & (board >> (this.height - 2));
+        if (0 != (temp & (temp >> 2 * (this.height - 2)))) {
+            return true;
         }
-        return count;
+        // Horizontal
+        temp = board & (board >> (this.height + 1));
+        if (0 != (temp & (temp >> 2 * (this.height + 1)))) {
+            return true;
+        }
+        // Diagonal up
+        temp = board & (board >> (this.height + 2));
+        if (0 != (temp & (temp >> 2 * (this.height + 2)))) {
+            return true;
+        }
+        // Vertical
+        temp = board & (board >> 1);
+        if (0 != (temp & (temp >> 2 * 1))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkThrees(long board) {
+        // Diagonal down
+        long temp = board & (board >> (this.height - 2));
+        if (0 != (temp & (temp >> (this.height - 2)))) {
+            return true;
+        }
+        // Horizontal
+        temp = board & (board >> (this.height + 1));
+        if (0 != (temp & (temp >> (this.height + 1)))) {
+            return true;
+        }
+        // Diagonal up
+        temp = board & (board >> (this.height + 2));
+        if (0 != (temp & (temp >> (this.height + 2)))) {
+            return true;
+        }
+        // Vertical
+        temp = board & (board >> 1);
+        if (0 != (temp & (temp >> 1))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkTwos(long board) {
+        // Diagonal down
+        long temp = board & (board >> (this.height - 2));
+        if (0 != temp) {
+            return true;
+        }
+        // Horizontal
+        temp = board & (board >> (this.height + 1));
+        if (0 != temp) {
+            return true;
+        }
+        // Diagonal up
+        temp = board & (board >> (this.height + 2));
+        if (0 != temp) {
+            return true;
+        }
+        // Vertical
+        temp = board & (board >> 1);
+        if (0 != temp) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkBlocks(long player, long opponent) {
+        // We need to see if 3 in a row for the opponent
+        // intersects with one of the player's pieces.
+        // Make the diagonal for opponent.
+
+        // Backslash up
+        long oppo = opponent & (opponent >> (this.height - 2));
+        oppo &= oppo >> (this.height - 2);
+        boolean block = 0 != (player & (oppo >> (this.height - 2)));
+
+        // Backslash down
+        oppo = opponent & (opponent << (this.height - 2));
+        oppo &= (oppo << (this.height - 2));
+        block |= 0 != (player & (oppo << (this.height - 2)));
+
+        // Forwardslash up
+        oppo = opponent & (opponent << (this.height + 2));
+        oppo &= oppo << (this.height + 2);
+        block |= 0 != (player & (oppo << (this.height + 2)));
+
+        // Forwardslash down
+        oppo = opponent & (opponent >> (this.height + 2));
+        oppo &= (oppo >> (this.height + 2));
+        block |= 0 != (player & (oppo >> (this.height + 2)));
+
+        // Horizontal right
+        oppo = opponent & (opponent << (this.height + 1));
+        oppo &= oppo << (this.height + 1);
+        block |= 0 != (player & (oppo << (this.height + 1)));
+
+        // Horizontal left
+        oppo = opponent & (opponent >> (this.height + 1));
+        oppo &= (oppo >> (this.height + 1));
+        block |= 0 != (player & (oppo >> (this.height + 1)));
+
+        // Vertical up
+        oppo = opponent & (opponent << 1);
+        oppo &= oppo << 1;
+        block |= 0 != (player & (oppo << 1));
+
+        // Vertical down
+        oppo = opponent & (opponent >> 1);
+        oppo &= (oppo >> 1);
+        block |= 0 != (player & (oppo >> 1));
+
+        return block;
+    }
+
+    public int utility(int col) {
+        long[] boards = gameToBits();
+        int total = 0;
+        int row = this.game.getHeightAt(col);
+        long player = 1 << (col * (this.height + 1) + row);
+        if (this.game.isGameOver()) {
+            switch (this.game.getWinner()) {
+                case 1:
+                    return Integer.MAX_VALUE;
+                case 2:
+                    return -Integer.MAX_VALUE;
+                default:
+                    return 0;
+                }
+        }
+        if (checkBlocks(player, boards[1])) {
+            total += 500;
+        }
+        if (checkBlocks(player, boards[0])) {
+            total += -500;
+        }
+        if (checkThrees(boards[0])) {
+            total += 75;
+        }
+        if (checkThrees(boards[1])) {
+            total += -75;
+        }
+        if (checkTwos(boards[0])) {
+            total += 25;
+        }
+        if (checkTwos(boards[1])) {
+            total += -25;
+        }
+        return total;
     }
 }

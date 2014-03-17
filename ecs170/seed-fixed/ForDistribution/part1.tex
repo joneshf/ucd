@@ -60,4 +60,35 @@
     &+ 75 \cdot \sum_{t \in threes_{MAX}}t - 75 \cdot \sum_{t \in threes_{MIN}}t \\
     &+ 25 \cdot \sum_{t \in twos_{MAX}}t - 25 \cdot \sum_{t \in twos_{MIN}}t
   \end{align*}
+
+  One game state:
+
+  Let $X = MAX$, $O = MIN$
+
+  \begin{tabular}{| c | c | c | c | c | c | c |}
+   \hline
+   &  &  &  &  &  & \\
+   \hline
+   &  &  &  &  &  & \\
+   \hline
+   &  &  &  &  &  & \\
+   \hline
+   &  &  & X &  &  & \\
+   \hline
+   &  &  & X & O &  & \\
+   \hline
+   X & X & O & X & O & O & O \\
+   \hline
+  \end{tabular}
+
+  \
+  This would work out to:
+
+  \begin{align*}
+    \text{utility} &= \infty \cdot 0 - \infty \cdot 0 \\
+    &+ 500 \cdot 1 - 500 \cdot 1 \\
+    &+ 75 \cdot 1 - 75 \cdot 1 \\
+    &+ 25 \cdot 1 - 25 \cdot 1 \\
+    &= 0
+  \end{align*}
 \end{document}

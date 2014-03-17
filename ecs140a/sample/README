@@ -1,0 +1,28 @@
+*** fill in the following;
+*** repeat it for each group member;
+*** list group members alphabetically by last name
+
+Name(last): xxxx
+Name(first): xxxx
+Login_ID: xxxxx
+
+*** Give the status of your work; here's a sample.
+
+Status:
+
+part1: Works on all tests.
+part2: Works on all tests.
+part3: Works on all tests.
+part4: Works on all tests.
+part5: Works on all tests.
+part6: Works on all tests.
+
+Overall: Any comment/discussion related to this HW.
+
+
+1. The putback boolean is needed because we could have tokens longer than a single character , for example the arrow token(‘->’). We need to read the next character/s to determine the correct token. If the current character is not part of the Token we’re checking for, then we make putback true so when we go back to scan() we don’t read another character and instead use the one currently in c.
+
+
+2. The values will be putback = TRUE, and c = '*'.
+
+3. The following case is when the the character read in is a slash '/'.  This differs from the previous cases because unlike the operands above, which will only map to a single operator made up of a single character, the slash could map to different operands (divide or not equal).  Therefore we must look at the next character to see which one it is.  The ccase1or2 code checks the next character in the stream, and if it is a valid second character for an operand, it calls Token() on the second possible operand, the one of length 2.  Otherwise, if it is not valid (meaning the character read in is not c2), it puts back that character back in the stream and calls Token() on the first option, of length 1.

@@ -47,37 +47,38 @@
         \begin{enumerate}
           \item Learning to control an inverted pendulum
 
-            Yes, this is possible with deterministic functions.
+            Yes.
           \item Play chess
 
-            No, this is not possible even with deterministic $\delta$ and $r$ because the game is still inherently adversarial.
+            Yes.
          \end{enumerate}
 
     \item
       Evaluate the table.
+
       \begin{tabular}{| c | c | c | c |}
       \hline
       Step & Start State & Subsequent State & Update to Q(s, a) \\
       \hline
-      1  & B1 & A1 & Q(B1, Up) = \\
+      1  & B1 & A1 & Q(B1, Up) = 0 \\
       \hline
-      2  & A1 & A2 & Q(A1, Right) = \\
+      2  & A1 & A2 & Q(A1, Right) = 9 \\
       \hline
-      3  & A2 & A3 & Q(A2, Right) = \\
+      3  & A2 & A3 & Q(A2, Right) = 7.5 \\
       \hline
-      4  & A3 & B3 & Q(A3, Down) = \\
+      4  & A3 & B3 & Q(A3, Down) = 14 \\
       \hline
-      5  & B3 & B2 & Q(B3, Left) = \\
+      5  & B3 & B2 & Q(B3, Left) = 10 \\
       \hline
-      6  & B1 & A1 & Q(B1, Up) = \\
+      6  & B1 & A1 & Q(B1, Up) = 9 \\
       \hline
-      7  & A1 & A2 & Q(A1, Right) = \\
+      7  & A1 & A2 & Q(A1, Right) = 16.5 \\
       \hline
-      8  & A2 & A3 & Q(A2, Right) = \\
+      8  & A2 & A3 & Q(A2, Right) = 16 \\
       \hline
-      9  & A3 & B3 & Q(A3, Down) = \\
+      9  & A3 & B3 & Q(A3, Down) = 14 \\
       \hline
-      10 & B3 & B2 & Q(B3, Left) = \\
+      10 & B3 & B2 & Q(B3, Left) = 19 \\
       \hline
       \end{tabular}
   \end{enumerate}

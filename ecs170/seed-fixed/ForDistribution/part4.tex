@@ -1,0 +1,60 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{listings}
+\usepackage{color}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 170 Project 2 Part 4\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Davidson\vspace{-2ex}}
+\date{Winter 2014}
+
+\begin{document}
+  \maketitle
+
+
+  \definecolor{dkgreen}{rgb}{0,0.6,0}
+  \definecolor{gray}{rgb}{0.5,0.5,0.5}
+  \definecolor{mauve}{rgb}{0.58,0,0.82}
+
+  \lstset{frame=tb,
+    language=Java,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true
+    tabsize=3
+  }
+
+  The successor function will first generate all of the possible states,
+  then calculate the utility for each state,
+  and sort them depending on who the current player is.
+
+  Given a good utility function this should give states that end with a win or at least a draw position priority over states that end with a loss.
+  This can be seen by assuming that MAX has the next state and all are terminal states.
+  If the successor function generates the states in this way, it will generate any of the winning states first, followed by any ties, and finally any losses.
+  MAX can then prune all states except the first win, or if there are no wins, the first draw, and if no draws, then the first loss.
+
+  A similar argument holds for MIN if the states are ordered by lowest utility first.
+
+\end{document}
