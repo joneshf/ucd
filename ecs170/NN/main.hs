@@ -33,6 +33,15 @@ data PropLayer = PropLayer { plIn :: ColumnVector Double
                            }
                | PropInputLayer { pilOut :: ColumnVector Double }
 
+data BackPropLayer = BackPropLayer { bpDel     :: ColumnVector Double
+                                   , bpErrGrad :: ColumnVector Double
+                                   , bpFA      :: ColumnVector Double
+                                   , bpIn      :: ColumnVector Double
+                                   , bpOut     :: ColumnVector Double
+                                   , bpWeight  :: Matrix Double
+                                   , bpASpec   :: ASpec
+                                   }
+
 instance Num t => Monoid (Matrix t) where
     mempty = Matrix 0 0 (array (0, 0) [])
     x `mappend` y = Matrix rx cy dat
@@ -54,16 +63,16 @@ instance Functor Matrix where
 instance F.Foldable Matrix where
     foldr f z Matrix{mdat = dat} = F.foldr f z dat
 
---transpose :: Matrix a -> Matrix a
---transpose Matrix{mrows = r, mcols = c, mdat = dat} = Matrix c r dat'
---    where
---        foo = assocs dat
---        foo' = [(r' * r + c', e)
---               | r' <- [0..(c - 1)]
---               , c' <- [1..r]
---               , (_, e) <- foo
---               ]
---        dat' = array (bounds dat) foo'
+trans :: Matrix a -> Matrix a
+trans Matrix{mrows = r, mcols = c, mdat = dat} = Matrix c r dat'
+    where
+        foo = assocs dat
+        foo' = [(r' * r + c', e)
+               | r' <- [0..(c - 1)]
+               , c' <- [1..r]
+               , (_, e) <- foo
+               ]
+        dat' = array (bounds dat) foo'
 
 chunks :: Int -> [a] -> [[a]]
 chunks n = takeWhile (not . null) . unfoldr (Just . splitAt n)
@@ -108,6 +117,52 @@ propagateNetwork input net = do
     let layer' = PropInputLayer valid
     let calcs = scanl propagate layer' (nLayers net)
     return $ tail calcs
+
+backpropagate :: PropLayer -> BackPropLayer -> BackPropLayer
+backpropagate lj lk = BackPropLayer delJ eGrad fAJ bpIn' bpOut' bpWeight' bpASpec'
+    where
+        delJ = wKT <> delK <> fAK
+        delK = bpDel lk
+        wKT = trans (bpWeight lk)
+        fAK = bpFA lk
+        fAJ = pFA lj
+        eGrad = errorGrad delJ fAJ (plIn lj)
+        bpIn' = plIn lj
+        bpOut' = plOut lj
+        bpWeight' = pWeight lj
+        bpASpec' = pASpec lj
+
+backpropagateFinal :: PropLayer -> ColumnVector Double -> BackPropLayer
+backpropagateFinal l t = BackPropLayer del eGrad pFA' pIn' pOut' pWeight' pASpec'
+    where
+        del = plOut l `sub` t
+        fA = pFA l
+        eGrad = errorGrad del fA (plIn l)
+        pFA' = pFA l
+        pIn' = plIn l
+        pOut' = plOut l
+        pWeight' = pWeight l
+        pASpec' = pASpec l
+
+sub :: ColumnVector Double -> ColumnVector Double -> ColumnVector Double
+sub Matrix{mrows = r, mcols = c, mdat = d1} Matrix{mdat = d2} =
+    Matrix r c $ array (bounds d1) (zipWith (\(i, e1) (_, e2) -> (i, e1 - e2)) (assocs d1) (assocs d2))
+
+backpropagateNetwork :: ColumnVector Double -> [PropLayer] -> [BackPropLayer]
+backpropagateNetwork target layers = scanr backpropagate ll hidden
+    where
+        hidden = init layers
+        ll = backpropagateFinal (last layers) target
+
+update :: Double -> BackPropLayer -> Layer
+update rate layer = Layer newWeight (bpASpec layer)
+    where
+        oldWeight = bpWeight layer
+        delWeight = fmap (* rate) (bpErrGrad layer)
+        newWeight = oldWeight `sub` delWeight
+
+errorGrad :: ColumnVector Double -> ColumnVector Double -> ColumnVector Double -> Matrix Double
+errorGrad del fA input = del <> fA <> trans input
 
 validate :: Network -> ColumnVector Double -> Maybe (ColumnVector Double)
 validate Network{nLayers = []} _ = Nothing
