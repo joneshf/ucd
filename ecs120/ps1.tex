@@ -6,6 +6,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{titling}
 \usepackage{multirow}
+\usepackage{amssymb}
 
 \setlength{\droptitle}{-10ex}
 
@@ -22,6 +23,8 @@
 
 \begin{document}
   \maketitle
+
+  Some problems were discussed with Brandon Maynard.
 
   \begin{enumerate}
     \item[Problem 1]
@@ -91,7 +94,7 @@
 
       \begin{tabular}{l | l}
         \hline
-        $w_1$ & $\epsilon$ \\
+        $w_1$ & $\varepsilon$ \\
         $w_2$ & 0 \\
         $w_3$ & 1 \\
         $w_4$ & 00 \\
@@ -130,7 +133,7 @@
           \begin{tabular}{l | l}
             \multicolumn{1}{l}{length} & \multicolumn{1}{l}{elements} \\
             \hline
-            0 & $\epsilon$\\
+            0 & $\varepsilon$\\
             1 & $a, b$ \\
             2 & $aa, ab, ba, bb$ \\
             3 & $aaa, aab, aba, abb, baa, bab, bba, bbb$
@@ -138,7 +141,7 @@
 
           So it looks like the number of elements is $2^{l}$, where $l$ is the length of the string.
 
-          This means that there are $2^10 = 1024$ strings of length 10 from this language.
+          This means that there are $2^{10} = 1024$ strings of length 10 from this language.
 
         \item
           We can start by enumerating some lengths
@@ -146,7 +149,7 @@
           \begin{tabular}{l | l}
             \multicolumn{1}{l}{length} & \multicolumn{1}{l}{elements} \\
             \hline
-            0 & $\epsilon$\\
+            0 & $\varepsilon$\\
             1 & $a$ \\
             2 & $aa, bb$ \\
             3 & $aaa, abb, bba$ \\
@@ -198,7 +201,7 @@
 
           One way to handle this is to take a cue from linear algebra and view the problem as operating on polynomial space.
           Then, for however many distinct variables we have in our polynomial, we only need to find all possible enumerations of vectors in that space.
-          This can be simplified by starting at the zero vector and working outwards in all dimensions of the vector space.
+          This can be simplified by starting at the zero vector and working outwards in all dimensions of the vector space, using the standard basis.
 
           For example, with a single variable polynomial, we have one variable to check, so we can enumerate the options:
           $\{0, 1, -1, 2, -2, 3, -3, \dots\}$. With a 2-variable polynomial we have two variables to check, so we can enumerate the options:
@@ -206,6 +209,39 @@
           This way we are guaranteed to try every possible choice of integers for the polynomial.
 
           Since our oracle has told us that there is some integer solution, and we trust our oracle, we are guaranteed to at least halt at some point.
+
+        \item
+          We only know that $s(n)$ halts and is computable because our oracle has told us so.
+          However, the oracle has not told us how long it will take to halt.
+          This oracle has not solved the halting problem in general, merely for our specific case.
+          Since we still have the halting problem around, we cannot make any assumptions about a function that takes more algorithmic steps than our oracle-based function.
+          Thus we do not know that a function $S(n) \ge s(n), \forall n$ will ever halt.
+          So any function $S$ cannot be computed in general, and thus no algorithm can exist for $S$.
+      \end{enumerate}
+
+    \item[Problem 6]
+      \begin{enumerate}
+        \item True.
+          $\varnothing^* = \{\varepsilon\}$ is a set containing the empty string.
+        \item False.
+          Languages are sets containing strings, $\varepsilon$ is not a set.
+        \item False.
+          $\varnothing^*$ is finite, and given a universe $U = {a}$, $\overline{\varnothing^*}$ is finite as well.
+        \item True.
+          Given a universe $U = \{1^i | i \in \mathbb{N}\}$, $L = \{1^e | e \in \mathbb{N}, e \text{ is even}\}$ is infinite.
+          Its complement $\overline{L} = \{1^o | o \in \mathbb{N}, o \text{ is odd}\}$ is also infinite.
+        \item False.
+          There are some reals without a finite representation.
+          These numbers cannot be strings, since strings must be finite.
+          Thus, no languages can be made of the reals.
+        \item True.
+          $\varnothing$ is a subset of all languages.
+        \item False.
+          $\varnothing^* = \{\varepsilon\}$ is finite.
+        \item False.
+          Assuming some infinite language $L$, $L \circ \varnothing = \varnothing$, which is finite.
+        \item False.
+          This is a rewording for the Kleene closure, so it cannot be a proper subset of itself.
       \end{enumerate}
   \end{enumerate}
 \end{document}
