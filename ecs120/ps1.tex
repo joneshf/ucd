@@ -86,5 +86,30 @@
       Now, we can calculate
       $D_{20} = 9 \cdot 10^{\lfloor \frac{20-1}{2} \rfloor} = 9 \cdot 10^9 = 9000000000$
 
+    \item[Problem 2]
+      Let's begin by enumerating some of the first few strings in lexographic order.
+
+      \begin{tabular}{l | l}
+        \hline
+        $w_1$ & $\epsilon$ \\
+        $w_2$ & 0 \\
+        $w_3$ & 1 \\
+        $w_4$ & 00 \\
+        $w_5$ & 01 \\
+        $w_6$ & 10 \\
+        $w_7$ & 11 \\
+        $w_8$ & 000
+      \end{tabular}
+
+      Interestingly, this looks like the binary representation of each $n$ in $w_n$ without the leading digit.
+      In the case of $n = 1$, removing the leading (only) digit leaves the empty string.
+
+      So we have a mapping: $n \in \mathbb{N} \rightarrow w_n$.
+
+      This means that $w_{1234567}$ can be easily computed.
+      We just find the binary representation for $1234567_{10}$ and remove the first digit.
+
+      \[1234567_{10} = 100101101011010000111_2\]
+      Removing the first digit, we end up with: $00101101011010000111$
   \end{enumerate}
 \end{document}
