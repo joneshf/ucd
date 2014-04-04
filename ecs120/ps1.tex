@@ -111,5 +111,78 @@
 
       \[1234567_{10} = 100101101011010000111_2\]
       Removing the first digit, we end up with: $00101101011010000111$
+
+    \item[Problem 3]
+      \begin{enumerate}
+        \item
+          We can take some intuition from linear algebra for this.
+          If we view each of the strings as a vector,
+          concatenation as vector addition,
+          and the number of characters in a string as the magnitude of the vector,
+          then we can see that there are only two linearly independent vectors in $L$.
+          For simplicity, we take $a$ and $b$ to be these two independent vectors.
+
+          The question then becomes,
+          how many different ways can we arrange these two vectors so that the resulting vector has magnitude 10?
+
+          Let's enumerate the first few lengths.
+
+          \begin{tabular}{l | l}
+            \multicolumn{1}{l}{length} & \multicolumn{1}{l}{elements} \\
+            \hline
+            0 & $\epsilon$\\
+            1 & $a, b$ \\
+            2 & $aa, ab, ba, bb$ \\
+            3 & $aaa, aab, aba, abb, baa, bab, bba, bbb$
+          \end{tabular}
+
+          So it looks like the number of elements is $2^{l}$, where $l$ is the length of the string.
+
+          This means that there are $2^10 = 1024$ strings of length 10 from this language.
+
+        \item
+          We can start by enumerating some lengths
+
+          \begin{tabular}{l | l}
+            \multicolumn{1}{l}{length} & \multicolumn{1}{l}{elements} \\
+            \hline
+            0 & $\epsilon$\\
+            1 & $a$ \\
+            2 & $aa, bb$ \\
+            3 & $aaa, abb, bba$ \\
+            4 & $aaaa, aabb, abba, bbaa, bbbb$ \\
+            5 & $aaaaa, aaabb, aabba, abbaa, abbbb, bbaaa, bbabb, bbbba$
+          \end{tabular}
+
+          Here it looks like the number of elements is $fib(l)$,
+          where $l$ is the length of the string and $fib(l) = fib(l-1) + fib(l-2)$.
+
+          This means there are $fib(10) = 89$ strings of length 10 from this language.
+
+      \end{enumerate}
+
+    \item[Problem 4]
+      We can use the division formula here: $s = qN + r$,
+
+      where $s \in \mathcal{S}, N = 314159265359, q, r \in \mathbb{Z}, q, r \ge 0$.
+
+      Since $\mathcal{S}$ is infinite, we have more elements in $\mathcal{S}$ than there are congruence classes modulo N.
+      So, by the pigeon hole principle, at least two elements in $\mathcal{S}$ must have the same remainder when divided by N.
+
+      Using the division formula:
+
+      \[s_1 = q_1N + r \text{ and } s_2 = q_2N + r\]
+
+      If we manipulate and substitute for $r$:
+
+      \begin{align*}
+        s_1 &= q_1N + (s_2 - q_2N) \\
+        s_1 - s_2 &= q_1N - q_2N \\
+        &= (q_1 - q_2)N
+      \end{align*}
+
+      Thus, since $q_1 - q_2$ is an integer, $s_1 - s_2$ is a multiple of $N$.
+
+      More succinctly, the difference of two elements of $\mathcal{S}$ is a multiple of $N$.
   \end{enumerate}
 \end{document}
