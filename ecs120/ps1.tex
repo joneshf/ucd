@@ -1,0 +1,90 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 120 Problem Set 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Rogaway\vspace{-2ex}}
+\date{Spring 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item[Problem 1]
+      We can gain some insight by looking at the first few $n$-digit palindromes.
+
+      \begin{tabular}{l | l | l}
+        \multicolumn{1}{l}{$n$} & \multicolumn{1}{l}{elements} & \multicolumn{1}{l}{$|n|$} \\
+        \hline
+        1 & 1,2,3,4,5,6,7,8,9 & 9 \\
+        2 & 11,22,33,44,55,66,77,88,99 & 9 \\
+        \multirow{4}{*}{3} & 101,202,303,404,505,606,707,808,909 & \multirow{4}{*}{90} \\
+                           & 111,212,313,414,515,616,717,818,919 & \\
+                           & $\vdots$ & \\
+                           & 191,292,393,494,595,696,797,898,999 & \\
+        \multirow{4}{*}{4} & 1001,2002,3003,4004,5005,6006,7007,8008,9009 & \multirow{4}{*}{90} \\
+                           & 1111,2112,3113,4114,5115,6116,7117,8118,9119 & \\
+                           & $\vdots$ & \\
+                           & 1991,2992,3993,4994,5995,6996,7997,8998,9999 &
+      \end{tabular}
+
+      If we continue in this way we see that the number of palindromes increases by 10 for every 2 digits added.
+
+      We can see a recurrence relation here:
+      \begin{align*}
+        D_1 &= 9 \\
+        D_2 &= 9 \\
+        D_n &= D_{n-2} \cdot 10 \text{, for n $>$ 2}
+      \end{align*}
+
+      From this we can manipulate it to a closed form:
+      \[D_n = 9 \cdot 10^{\lfloor \frac{n-1}{2} \rfloor}\]
+
+      We can prove this by induction.
+
+      \begin{proof} \
+        Base Cases:
+        \begin{enumerate}
+          \item[$n = 1$]
+            \[D_1 = 9 \cdot 10^{\lfloor \frac{1-1}{2} \rfloor} = 9 \cdot 10^0 = 9\]
+          \item[$n = 2$]
+            \[D_2 = 9 \cdot 10^{\lfloor \frac{2-1}{2} \rfloor} = 9 \cdot 10^0 = 9\]
+        \end{enumerate}
+
+        Inductive Hypothesis:
+        \[D_n = 9 \cdot 10^{\lfloor \frac{n-1}{2} \rfloor}\]
+
+        Inductive Case:
+        \begin{align*}
+          D_{n+1} &= D_{n-1} \cdot 10 \\
+          &= 9 \cdot 10^{\lfloor \frac{(n-1)-1}{2} \rfloor} \cdot 10 \\
+          &= 9 \cdot 10^{\lfloor \frac{n-2}{2} \rfloor} \cdot 10 \\
+          &= 9 \cdot 10^{\lfloor \frac{n}{2}-\frac{2}{2} \rfloor} \cdot 10 \\
+          &= 9 \cdot 10^{\lfloor \frac{n}{2}-1 \rfloor} \cdot 10 \\
+          &= 9 \cdot 10^{\lfloor \frac{n}{2}-1+1 \rfloor} \\
+          &= 9 \cdot 10^{\lfloor \frac{n}{2} \rfloor} \\
+        \end{align*}
+
+        Thus, we have proved that our formula is correct.
+
+      \end{proof}
+
+      Now, we can calculate
+      $D_{20} = 9 \cdot 10^{\lfloor \frac{20-1}{2} \rfloor} = 9 \cdot 10^9 = 9000000000$
+
+  \end{enumerate}
+\end{document}
