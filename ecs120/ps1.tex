@@ -184,5 +184,28 @@
       Thus, since $q_1 - q_2$ is an integer, $s_1 - s_2$ is a multiple of $N$.
 
       More succinctly, the difference of two elements of $\mathcal{S}$ is a multiple of $N$.
+
+    \item[Problem 5]
+      \begin{enumerate}
+        \item
+          Given such an oracle, the first step is to check if the polynomial has an integer root.
+          If it doesn't have an integer root, we're done, so just report \textit{No Root}.
+          In the other case, assuming our oracle is truthful, we need to find an integer root for the given polynomial.
+
+          So we have to start enumerating all possible choices for the variables of the polynomial.
+          Since we want this algorithm to be sufficiently general, we'll have to find how many variables are in the polynomial first.
+          Once we know this we can start enumerating the possibilities.
+
+          One way to handle this is to take a cue from linear algebra and view the problem as operating on polynomial space.
+          Then, for however many distinct variables we have in our polynomial, we only need to find all possible enumerations of vectors in that space.
+          This can be simplified by starting at the zero vector and working outwards in all dimensions of the vector space.
+
+          For example, with a single variable polynomial, we have one variable to check, so we can enumerate the options:
+          $\{0, 1, -1, 2, -2, 3, -3, \dots\}$. With a 2-variable polynomial we have two variables to check, so we can enumerate the options:
+          $\{(0, 0), (0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), \dots\}$.
+          This way we are guaranteed to try every possible choice of integers for the polynomial.
+
+          Since our oracle has told us that there is some integer solution, and we trust our oracle, we are guaranteed to at least halt at some point.
+      \end{enumerate}
   \end{enumerate}
 \end{document}
