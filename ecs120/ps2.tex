@@ -171,5 +171,68 @@
       Each of these DFA's will accept a reversed string from $L$.
       So, if we take the union of all of these DFA's,
       we have a single DFA which accepts all reversed strings from $L$, for DFA's are closed under union.
+
+    \item[Problem 3]
+      \begin{enumerate}
+        \item True.
+          We have two cases:
+            \begin{enumerate}
+              \item The DFA already has an odd number of states, in which case the statement is true.
+              \item The DFA has an even number of states.
+
+                In this case, we can add another state to our DFA which is unreachable,
+                and does not change the strings the DFA accepts.
+                Thus we have an odd number of states in our new DFA, and it still accepts the same language as before.
+            \end{enumerate}
+
+            Thus, Every DFA-acceptable language can be accepted by a DFA with an odd number of states.
+
+        \item True.
+          For any DFA where $q_0$ is visited multiple times,
+          we introduce a new state $q'$ and new transition function $\delta'$ such that
+          \begin{align*}
+            \delta(q_0, x) &= q_0 \implies \delta'(q_0, x) = q' \\
+            \delta(q_0, x) &= q_1 \implies \delta'(q', x) = q_1
+          \end{align*}
+
+          Now the start state is only visited once,
+          and the DFA still accepts the same language.
+
+          Thus, Every DFA-acceptable language can be accepted by a DFA whose start state is never visited twice.
+
+        \item False.
+          Consider an infinite language $\{1^i | \ i \in \mathbb{N}\}$.
+          The DFA for this language would have to have a state for each element in the language.
+          In other words we create a mapping from $\mathbb{N}$ to the states in DFA.
+          Since $\mathbb{N}$ is countably infinite,
+          our DFA would have to have an infinite number of states.
+          However, it would no longer be a DFA at this point.
+
+          Thus, it is not the case that
+          every DFA-acceptable language can be accepted by a DFA no state of which is ever visited more
+than once.
+
+        \item False.
+          Assume $\delta^*(q_0, a) = q_0$, then we have this DFA:
+
+          \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+             \node[state,initial,accepting] (q_0)   {$q_0$};
+             \node[state,accepting] (q_1) [right=of q_0] {$q_1$};
+             \node[state](q_2) [right=of q_1] {$q_2$};
+              \path[->]
+              (q_0) edge [loop above] node {a} ()
+                    edge node {b} (q_1)
+              (q_1) edge [bend right] node {a} (q_2)
+                    edge [loop above] node {b} ()
+              (q_2) edge [loop right] node {a} ()
+                    edge [bend right] node [above] {b} (q_1);
+          \end{tikzpicture}
+
+          So, while this DFA can determine if string starts and ends with $b$,
+          or if it contains all $a$'s
+          it also accepts strings such as $ab$.
+
+          Thus, the assumption was false.
+      \end{enumerate}
   \end{enumerate}
 \end{document}
