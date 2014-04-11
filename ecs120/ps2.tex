@@ -1,0 +1,97 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\newcommand{\Mod}[1]{\ (\text{mod}\ #1)}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 120 Problem Set 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Rogaway\vspace{-2ex}}
+\date{Spring 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item[Problem 1]
+      \begin{enumerate}
+        \item
+          \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+             \node[state,initial] (q_0)   {$q_0$};
+             \node[state] (q_1) [right=of q_0] {$q_1$};
+             \node[state] (q_2) [right=of q_1] {$q_2$};
+             \node[state,accepting](q_3) [right=of q_2] {$q_3$};
+              \path[->]
+              (q_0) edge  node {a,b} (q_1)
+              (q_1) edge  node {a,b} (q_2)
+              (q_2) edge  node {a,b} (q_3)
+              (q_3) edge [loop right] node {a,b} ();
+          \end{tikzpicture}
+        \item
+          The hint given provides some intuition.
+          We have to realize what happens when we see a new binary digit.
+          Given the current value $p$:
+            \begin{enumerate}
+              \item If the next digit is $0$, then we have $2p$.
+              \item If the next digit is $1$, then we have $2p+1$.
+            \end{enumerate}
+          We can catalog the effect in a table.
+
+          \begin{tabular}{l | l | l}
+            $p \equiv n \Mod{7}$ & $2p \equiv n \Mod{7}$ & $2p + 1 \equiv n \Mod{7}$ \\
+            \hline
+            0 & 0 & 1 \\
+            1 & 2 & 3 \\
+            2 & 4 & 5 \\
+            3 & 6 & 0 \\
+            4 & 1 & 2 \\
+            5 & 3 & 4 \\
+            6 & 5 & 6
+          \end{tabular}
+
+          We can then map these directly to states, where $0$ is the only accepting state.
+
+          \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+             \node[state,initial,accepting] (q_0)   {$q_0$};
+             \node[state] (q_1) [right=of q_0] {$q_1$};
+             \node[state] (q_2) [right=of q_1] {$q_2$};
+             \node[state] (q_3) [above right=of q_2] {$q_3$};
+             \node[state] (q_4) [below right=of q_2] {$q_4$};
+             \node[state] (q_5) [below right=of q_3] {$q_5$};
+             \node[state] (q_6) [right=of q_5] {$q_6$};
+              \path[->]
+              (q_0) edge node {1} (q_1)
+                    edge [loop above] node {0} ()
+              (q_1) edge node {0} (q_2)
+                    edge [bend left] node [pos=0.1] {1} (q_3)
+              (q_2) edge node {0} (q_4)
+                    edge node {1} (q_5)
+              (q_3) edge [bend left] node [pos=0.15] {0} (q_6)
+                    edge [bend right] node [above, pos=0.1] {1} (q_0)
+              (q_4) edge [bend left] node [pos=0.1] {0} (q_1)
+                    edge [bend left] node [below] {1} (q_2)
+              (q_5) edge node [above, pos=0.2] {0} (q_3)
+                    edge node {1} (q_4)
+              (q_6) edge node {0} (q_5)
+                    edge [loop right] node {1} ();
+          \end{tikzpicture}
+
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
