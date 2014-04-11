@@ -1,0 +1,145 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{algorithm2e}
+
+\newcommand{\lb}[0]{\text{lg}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 122A Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bai\vspace{-2ex}}
+\date{Spring 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      We hope to solve $8n^2 < 64 n \lb  n$.
+      We can get fairly far with just algebraic manipulations.
+      \begin{align*}
+        8n^2 &< 64n\lb n \\
+        n^2 &< 8n\lb n \\
+        n &< 8\lb n \\
+        n &< \lb n^8 \\
+        2^n &< n^8
+      \end{align*}
+
+      After a bit of guess and check, we see that this is valid for $1 < n < 44$.
+
+      So Insertion sort beats merge sort for arrays of length $1 < n < 44$.
+
+    \item
+      \begin{proof}
+        \textbf{Base Case} n = 2
+
+        \[T(2) = 2 lg2 = 2\]
+
+        \textbf{Inductive Case}
+
+        \textit{Assume} $T(n) = n\lb n$
+
+        \textit{Show} $T(2n) = 2n\lb 2n$
+
+        \begin{align*}
+          T(2n) &= 2T\left(\frac{2n}{2}\right) + 2n \\
+          &= 2T(n) + 2n \\
+          &= 2n\lb n + 2n \\
+          &= 2n(\lb n + 1) \\
+          &= 2n(\lb n + \lb 2) \\
+          &= 2n\lb 2n
+        \end{align*}
+
+        Thus, By mathematical induction, our recurrence is satisfied.
+      \end{proof}
+    \item[4.]
+      \begin{enumerate}
+        \item
+          \begin{algorithm}[H]
+            \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+            Selection Sort
+            \BlankLine
+            \Input{Array of length n}
+            \Output{Sorted array of length n}
+
+            \For{$i \leftarrow 0$ \KwTo $n$}{
+              smallest = i
+
+              \For{$j \leftarrow i$ \KwTo $n$}{
+                \If{array[i] $<$ array[smallest]}{
+                  smallest = j
+                }
+              }
+              swap array[i] with array[smallest]
+            }
+            \KwRet sorted array
+          \end{algorithm}
+        \item
+          Best case: $T(n) = n^2 + 2n + 1$
+
+          Worst case: $T(n) = 2n^2 + 2n + 1$
+      \end{enumerate}
+
+    \item[5.]
+      \begin{enumerate}
+        \item
+          With the exception of the initial element in an array, we have to perform 2 comparisons at every element of the array.
+          One comparison for maximum, and one for minimum.
+          For the initial element we can just assume that it is both the maximum and the minimum of the array.
+
+          So, we end up making $2$ comparisons for $n-1$ elements in the array, or $2n - 2$ comparisons
+
+        \item
+          \begin{algorithm}[H]
+            \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+            MinMax
+            \BlankLine
+            \Input{Array of length n}
+            \Output{Array of with minimum and maximum}
+
+            \eIf{length of array is 2}{
+              \eIf{array[0] $>$ array[1]}{
+                \Return [array[0], array[1]]
+              }{
+                \Return [array[1], array[0]]
+              }
+            }{
+              split array into left and right halves
+              [min1, max1] $\leftarrow$ MinMax(leftHalf)
+              [min2, max2] $\leftarrow$ MinMax(rightHalf)
+              \eIf{min1 $<$ min2}{
+                trueMin $\leftarrow$ min1
+              }{
+                trueMin $\leftarrow$ min2
+              }
+              \eIf{max1 $>$ max2}{
+                trueMax $\leftarrow$ max1
+              }{
+                trueMax $\leftarrow$ max2
+              }
+              \Return [trueMin, trueMax]
+            }
+          \end{algorithm}
+
+        \item
+          \begin{align*}
+            T(n) &= 1 \text{ if } n = 2 \\
+            T(n) &= 2T\left(\frac{n}{2}\right) - 2 \text{ if } n = 2^d \text{ for } d > 1
+          \end{align*}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
