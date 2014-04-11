@@ -153,5 +153,23 @@
                     edge [loop right] node {0} ();
           \end{tikzpicture}
       \end{enumerate}
+
+    \item[Problem 2]
+      Since Regular languages are equivalent to DFA's, we work with DFA's.
+
+      Given some DFA $M(L)$ we can construct a new DFA $M^R(L)$ that accepts $L^R$.
+
+      Let $L = (Q, \Sigma, \delta, q_0, F)$.
+
+      For each $q_i \in F$ we construct a new DFA $M_i = (Q, \Sigma, \delta_i, q_i, F_i)$
+      where
+      \begin{align*}
+        \delta_i &::= \forall q_j, q_k \in Q, \forall x \in \Sigma, \delta(q_j, x) = q_k \implies \delta_i(q_k, x) = q_j \\
+        F_i &::= {q_0}
+      \end{align*}
+
+      Each of these DFA's will accept a reversed string from $L$.
+      So, if we take the union of all of these DFA's,
+      we have a single DFA which accepts all reversed strings from $L$, for DFA's are closed under union.
   \end{enumerate}
 \end{document}
