@@ -126,6 +126,32 @@
               (q_6) edge node {0} (q_5)
                     edge [loop right] node {1} ();
           \end{tikzpicture}
+
+        \item
+          For this, it is easiest to begin enumerating possibilities.
+
+          \[\{\varepsilon , 0, 1, 00, 11, 000, 010, 101, 111, 0000, \dots\}\]
+
+          What we find is that the string must contain the same starting and ending character.
+
+          \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+             \node[state,initial] (epsilon)   {$\varepsilon$};
+             \node[state,accepting] (q_1) [above right=of epsilon] {$q_1$};
+             \node[state] (q_2) [right=of q_1] {$q_2$};
+             \node[state,accepting](q_3) [below right=of epsilon] {$q_3$};
+             \node[state] (q_4) [right=of q_3] {$q_4$};
+              \path[->]
+              (epsilon) edge  node {0} (q_1)
+                        edge  node {1} (q_3)
+              (q_1) edge [loop above] node {0} ()
+                    edge [bend right] node {1} (q_2)
+              (q_2) edge [bend right] node [above] {0} (q_1)
+                    edge [loop right] node {1} ()
+              (q_3) edge [bend right] node {0} (q_4)
+                    edge [loop below] node {1} ()
+              (q_4) edge [bend right] node [above] {1} (q_3)
+                    edge [loop right] node {0} ();
+          \end{tikzpicture}
       \end{enumerate}
   \end{enumerate}
 \end{document}
