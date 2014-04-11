@@ -1,9 +1,13 @@
 module Main where
 
 import Data.Array
-import qualified Data.Foldable as F
 import Data.List
 import Data.Monoid
+
+import System.Environment
+import System.Random
+
+import qualified Data.Foldable as F
 
 data Matrix t = Matrix { mrows :: Int
                        , mcols :: Int
@@ -24,6 +28,10 @@ data Layer = Layer { lWeight :: Matrix Double
 data Network = Network { nLayers :: [Layer]
                        , nRate   :: Double
                        }
+
+data BackNetwork = BackNetwork { bLayers :: [Layer]
+                               , bRate   :: Double
+                               }
 
 data PropLayer = PropLayer { plIn :: ColumnVector Double
                            , plOut :: ColumnVector Double
@@ -46,7 +54,7 @@ instance Num t => Monoid (Matrix t) where
     mempty = Matrix 0 0 (array (0, 0) [])
     x `mappend` y = Matrix rx cy dat
         where
-            dat = array (0, rx * cy) (zip [1..] arr)
+            dat = fromList rx cy arr
             rx = mrows x
             ry = mrows y
             cy = mcols y
@@ -76,6 +84,9 @@ trans Matrix{mrows = r, mcols = c, mdat = dat} = Matrix c r dat'
 
 chunks :: Int -> [a] -> [[a]]
 chunks n = takeWhile (not . null) . unfoldr (Just . splitAt n)
+
+fromList :: (Ix i, Num i, Enum i) => i -> i -> [e] -> Array i e
+fromList row col vals = array (0, row * col) (zip [1..] vals)
 
 toList :: Ix i => Array i e -> [e]
 toList a = map snd (assocs a)
@@ -154,6 +165,20 @@ backpropagateNetwork target layers = scanr backpropagate ll hidden
         hidden = init layers
         ll = backpropagateFinal (last layers) target
 
+buildBackpropNet ::
+  -- The learning rate
+  Double ->
+  -- The weights for each layer
+  [Matrix Double] ->
+  -- The activation specification (used for all layers)
+  ASpec ->
+  -- The network
+  BackNetwork
+buildBackpropNet lr ws s = BackNetwork ls lr
+  where checkedWeights = scanl1 checkDims ws
+        ls = map buildLayer checkedWeights
+        buildLayer w = Layer { lWeight=w, lASpec=s }
+
 update :: Double -> BackPropLayer -> Layer
 update rate layer = Layer newWeight (bpASpec layer)
     where
@@ -174,5 +199,43 @@ validate Network{nLayers = (n:ns)} input = if good then Just input else Nothing
         weights = concatMap (toList . mdat . lWeight) (n:ns)
         inBound = F.all (\x -> 0 <= x && x <= 1) weights
 
+makTrix :: Int -> Int -> [t] -> Matrix t
+makTrix rows cols = Matrix rows cols . fromList rows cols
+
+smallRandoms :: Int -> [Double]
+smallRandoms seed = map (/100) (randoms (mkStdGen seed))
+
+randomWeight :: Int -> Int -> Int -> Matrix Double
+randomWeight numInputs numOutputs seed = makTrix numOutputs numInputs weights
+    where weights = take (numOutputs*numInputs) (smallRandoms seed)
+
+zeroWeight :: Int -> Int -> Matrix Double
+zeroWeight numInputs numOutputs = makTrix numOutputs numInputs weights
+    where weights = repeat 0
+
+learningRate = 0.8
+
+readTrainingData :: IO []
+
 main :: IO ()
-main = putStrLn "Hello World"
+main = do
+    let w1 = randomWeight (28*28 + 1) 20 7
+    let w2 = randomWeight 20 10 42
+    let initialNet = buildBackpropNet learningRate [w1, w2] tanhASpec
+    trainingData2 <- readTrainingData
+    let trainingData = take 20000 trainingData2
+    putStrLn $ "Training with " ++ show (length trainingData) ++ " images"
+    let finalNet = trainWithAllPatterns initialNet trainingData
+    testData2 <- readTestData
+    let testData = take 1000 testData2
+    putStrLn $ "Testing with " ++ show (length testData) ++ " images"
+    let results = evalAllPatterns finalNet testData
+    let score = fromIntegral (sum results)
+    let count = fromIntegral (length testData)
+    let percentage = 100.0 * score / count
+    putStrLn $ "I got " ++ show percentage ++ "% correct"
+
+
+xorTarget :: [[Double]]
+xorTarget = [
+            ]

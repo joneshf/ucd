@@ -91,7 +91,41 @@
               (q_6) edge node {0} (q_5)
                     edge [loop right] node {1} ();
           \end{tikzpicture}
+        \item
+          We can extend the DFA presented above to ignore $\varepsilon$ and leading zeros.
 
+          \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+             \node[state,accepting] (q_0)   {$q_0$};
+             \node[state] (q_1) [right=of q_0] {$q_1$};
+             \node[state] (q_2) [right=of q_1] {$q_2$};
+             \node[state] (q_3) [above right=of q_2] {$q_3$};
+             \node[state] (q_4) [below right=of q_2] {$q_4$};
+             \node[state] (q_5) [below right=of q_3] {$q_5$};
+             \node[state] (q_6) [right=of q_5] {$q_6$};
+             \node[state] (fail) [below left=of q_4] {fail};
+             \node[state,accepting] (0) [left=of fail] {$0$};
+             \node[state,initial] (epsilon) [left=of 0] {$\varepsilon$};
+              \path[->]
+              (epsilon) edge node {0} (0)
+                        edge node {1} (q_1)
+              (0) edge node {0} (fail)
+                  edge node {1} (q_1)
+              (fail) edge [loop right] node {0,1} ()
+              (q_0) edge node {1} (q_1)
+                    edge [loop above] node {0} ()
+              (q_1) edge node {0} (q_2)
+                    edge [bend left] node [pos=0.1] {1} (q_3)
+              (q_2) edge node {0} (q_4)
+                    edge node {1} (q_5)
+              (q_3) edge [bend left] node [pos=0.15] {0} (q_6)
+                    edge [bend right] node [above, pos=0.1] {1} (q_0)
+              (q_4) edge [bend left] node [pos=0.1] {0} (q_1)
+                    edge [bend left] node [below] {1} (q_2)
+              (q_5) edge node [above, pos=0.2] {0} (q_3)
+                    edge node {1} (q_4)
+              (q_6) edge node {0} (q_5)
+                    edge [loop right] node {1} ();
+          \end{tikzpicture}
       \end{enumerate}
   \end{enumerate}
 \end{document}
