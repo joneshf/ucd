@@ -145,5 +145,50 @@
         But we know that each of these intersections is DFA-acceptable,
         so \textbf{maj}($L_1,L_2,L_3$) is DFA-acceptable.
       \end{proof}
+
+    \item[Problem 4]
+      \begin{proof}
+        Given some accepting DFA $M = (Q, \Sigma, \delta, q_0, F)$ for $L$,
+        we can construct a new accepting DFA $M' = (Q', \Sigma', \delta', q_0, F')$ for $\mathcal{Z}(L)$, where:
+
+        \begin{align*}
+          Q' &= Q \cup n \text{ additional states, where } n = |Q| \\
+          \Sigma' &= \Sigma \cup \{0\} \\
+          \delta' &: Q' \times \Sigma' \rightarrow Q' \\
+          F' &= F \cup q_f\\
+        \end{align*}
+
+        Where we define
+        \begin{align*}
+          \delta'(q, \varepsilon) &= \delta(q, \varepsilon) \\
+          \delta'(q_i, a0x) &= \delta(q_i, ax) \\
+          & \text{In other words, we ``consume'' the } 0 \text{ by sending the DFA to an }\\
+          & \text{intermediate state } q_{i_0} \text{ which needs a } 0 \\
+          & \text{in order to continue accepting the string.} \\
+          q_f &= \text{ The state with an arrow for the character } 0 \text{ coming from all final}\\
+          & \text{states of } M \text{ and an arrow for every character in } \Sigma' \text{ going to a rejection state.}
+        \end{align*}
+
+        By construction, $M'$ accepts all strings from $M$ with $0$ interspersed and also suffixed by $0$.
+        So, $M'$ is also DFA-acceptable.
+
+        Thus, DFA-acceptable languages are closed under $\mathcal{Z}$.
+      \end{proof}
+
+      \begin{proof}
+        We can also prove this in another way.
+
+        Given some accepting DFA $M$ for $L$ and the fact that DFA's are closed under concatenation, we can decompose $M$ into smaller DFA's of a single character.
+        I.e. $M = M_1M_2 \cdots M_n$.
+        We can also construct a DFA $M_0$ that accepts the singleton $\{0\}$.
+        Now we can intersperse $M_0$ through our decomposed $M$.
+        We end up with $M' = M_1M_0M_2M_0 \cdots M_nM_0$.
+
+        And since DFA-acceptable languages are closed under concatenation.
+        Our new machine is an accepting DFA.
+
+        If we define $\mathcal{Z}$ as this deconstruction/reconstruction operation,
+        then we see that DFA-acceptable languages are closed under $\mathcal{Z}$.
+      \end{proof}
   \end{enumerate}
 \end{document}
