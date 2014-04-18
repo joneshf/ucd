@@ -1,0 +1,85 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 120 Problem Set 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Rogaway\vspace{-2ex}}
+\date{Spring 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item[Problem 1]
+      \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+         \node[state,initial,accepting] (0)   {$0$};
+         \node[state,accepting] (1) [right=of 0] {$1$};
+         \node[state] (2) [right=of 1] {$2$};
+          \path[->]
+            (0) edge [bend left] node {a} (1)
+            (1) edge [bend left] node {b,c} (0)
+                edge [loop above] node {b} ()
+                edge [bend left] node {c} (2)
+            (2) edge [bend left] node {c} (1);
+      \end{tikzpicture}
+
+      We need to start by enumerating all sets of states,
+      and their transitions for each input.
+
+      \begin{tabular}{l | l | l | l}
+        State & a & b & c \\
+        \hline
+        \{0\}     & \{1\} & \{\}    & \{\}      \\
+        \{1\}     & \{\}  & \{0,1\} & \{0,2\}   \\
+        \{0,1\}   & \{1\} & \{0,1\} & \{0,1,2\} \\
+        \{0,2\}   & \{1\} & \{\}    & \{1\}     \\
+        \{0,1,2\} & \{1\} & \{0,1\} & \{0,1,2\}
+      \end{tabular}
+
+      Now we need to generate new final states.
+      These are any state sets that contain the original final states.
+      In this case, all of the states in the first column are final states.
+
+      Finally, we can generate our DFA.
+
+      \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+         \node[state,initial,accepting] (0)   {$\{0\}$};
+         \node[state,accepting] (1) [above right=of 0] {$\{1\}$};
+         \node[state] (fail) [below right=of 1] {$\{\}$};
+         \node[state,accepting] (01) [above right=of fail] {$\{01\}$};
+         \node[state,accepting] (02) [below right=of 01] {$\{02\}$};
+         \node[state,accepting] (012) [above right=of 1] {$\{012\}$};
+          \path[->]
+            (0) edge [bend left] node {a} (1)
+                edge [bend right] node [below] {b,c} (fail)
+            (1) edge node [below, pos=0.15] {a} (fail)
+                edge [bend left] node [pos=0.15] {b} (01)
+                edge [bend left=10] node [below, pos=0.15] {c} (02)
+            (01)  edge node [pos=0.15] {a} (1)
+                  edge [loop right] node {b} ()
+                  edge [bend right=20] node {c} (012)
+            (02)  edge [bend left=10] node [above, pos=0.15] {a,c} (1)
+                  edge node {b} (fail)
+            (012) edge [bend right] node [above] {a} (1)
+                  edge [bend left=45] node {b} (01)
+                  edge [loop above] node {c} ();
+      \end{tikzpicture}
+  \end{enumerate}
+\end{document}
