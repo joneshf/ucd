@@ -129,7 +129,7 @@
             1 \\
             lg lg$n$ \\
             lg$n$, ln$n$ & The change of base merely changes the value by a constant factor \\
-            (lg$n$)^2 \\
+            $(\text{lg}n)^2$ \\
             $n$lg$n$ \\
             $\sqrt{n}$, $\sqrt{2}^{\text{lg}n}$, $n^{1+\epsilon}$ & $\sqrt{n} = \sqrt{2}^{\text{lg}n}$, $n^{1+\epsilon}$ differs by  constant factor \\
             n \\
@@ -140,6 +140,58 @@
             $e^n$ \\
             $n!$
           \end{tabular}
+      \end{enumerate}
+
+    \pagebreak
+
+    \item
+      \begin{enumerate}
+        \item
+          $a = 2, b = 4, f(n) = 1, n^{log_4 2} = n^\frac{1}{2} = \sqrt{n}$
+
+          We can see this fits case 1 of the master theorem, where we let $\epsilon = \frac{1}{2}$.
+
+          So we have $f(n) = O(n^{log_4 2 - \frac{1}{2}}) = O(n^{\frac{1}{2} - \frac{1}{2}}) = O(n^0) = O(1)$.
+
+          Thus, $T(n) = \Theta(n^\frac{1}{2}) = \Theta(\sqrt{n})$
+        \item
+          $a = 2, b = 4, f(n) = \sqrt{n}, n^{log_4 2} = n^\frac{1}{2} = \sqrt{n}$
+
+          This is exactly case 2 of the master theorem.
+
+          Thus, $T(n) = \Theta(\sqrt{n}\text{lg}n)$
+
+        \item
+          $a = 2, b = 4, f(n) = n, n^{log_4 2} = n^\frac{1}{2} = \sqrt{n}$
+
+          This might fit case 3 of the master theorem (with $\epsilon = \frac{1}{2}$) if we can find an appropriate constant $c$.
+
+          \begin{align*}
+            af\left(\frac{n}{b}\right) &= 2f\left(\frac{n}{4}\right) \\
+            &= 2\left(\frac{n}{4}\right) \\
+            &= \frac{1}{2}n
+          \end{align*}
+
+          So, if we let $c = \frac{1}{2}$, then we satisfy the conditions of case 3 of the master theorem.
+
+          Thus, $T(n) = \Theta(n)$
+
+        \item
+          $a = 2, b = 4, f(n) = n^2, n^{log_4 2} = n^\frac{1}{2} = \sqrt{n}$
+
+          This might fit case 3 of the master theorem (with $\epsilon = \frac{3}{2}$) if we can find an appropriate constant $c$.
+
+          \begin{align*}
+            af\left(\frac{n}{b}\right) &= 2f\left(\frac{n}{4}\right) \\
+            &= 2\left(\frac{n}{4}\right)^2 \\
+            &= 2\left(\frac{n}{16}\right) \\
+            &= \frac{1}{8}n
+          \end{align*}
+
+          So, if we let $c = \frac{1}{8}$, then we satisfy the conditions of case 3 of the master theorem.
+
+          Thus, $T(n) = \Theta(n^2)$
+
       \end{enumerate}
   \end{enumerate}
 \end{document}
