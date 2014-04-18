@@ -1,0 +1,84 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{algorithm2e}
+
+\newcommand{\lb}[0]{\text{lg}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 122A Homework 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bai\vspace{-2ex}}
+\date{Spring 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          We can expand some of the polynomial
+          \[(n + 2)^{10} = n^{10} + 20n^9 + \dots + 1024\]
+
+          Looking at everything except the first term, we see that the greatest power is $n^9$.
+          We can set a \textit{little-oh} bound of $n^{10}$,
+          because $\forall c > 0, \exists n_0 > 0$ such that $0 \le 20n^9 + \dots + 1024 < cn^{10}, \forall n \ge n_0$.
+          That is:
+          \[(n + 2)^{10} = n^{10} + o(n^{10})\]
+
+          Now, this is $\Theta(n^{10})$ because
+
+          $\exists c_1 > 0, c_2 > 0, n_0 > 0$ such that $0 \le c_1n^{10} \le n^{10} + o(n^{10}) \le c_2n^{10}, \ \forall n \ge n_0$
+
+          This simplifies to $0 \le c_1 \le 1 + \frac{o(n^{10})}{n^{10}} \le c_2$.
+
+          Now, since $o(n^{10})$ is an upper bound we know the largest the term $\frac{o(n^{10})}{n^{10}}$ can be is 1.
+          So, this further siplifies to $0 \le c_1 \le 2 \le c_2$.
+
+          So this is $\Theta(n^{10})$ if we choose appropriate constants.
+          For instance we can choose $c_1 = c_2 = 2$.
+
+          Thus, $(n + 2)^{10} = \Theta(n^{10})$
+
+        \item
+          We can apply reasoning similar to the previous problem.
+
+          We can expand some of the polynomial
+          \[(n + a)^b = n^b + \binom{b}{1}n^{b-1}a + \dots + a^b\]
+
+          Looking at everything except the first term, we see that the greatest power is $n^{b-1}$.
+          We can set a \textit{little-oh} bound of $n^b$,
+          because $\forall c > 0, \exists n_0 > 0$ such that $0 \le \binom{b}{1}n^{b-1}a + \dots + a^b < cn^b, \forall n \ge n_0$.
+          That is:
+          \[(n + a)^b = n^b + o(n^b)\]
+
+          Now, this is $\Theta(n^b)$ because
+
+          $\exists c_1 > 0, c_2 > 0, n_0 > 0$ such that $0 \le c_1n^b \le n^b + o(n^b) \le c_2n^b, \ \forall n \ge n_0$
+
+          This simplifies to $0 \le c_1 \le 1 + \frac{o(n^b)}{n^b} \le c_2$.
+
+          Now, since $o(n^b)$ is an upper bound we know the largest the term $\frac{o(n^b)}{n^b}$ can be is 1.
+          So, this further siplifies to $0 \le c_1 \le 2 \le c_2$.
+
+          So this is $\Theta(n^b)$ if we choose appropriate constants.
+          For instance we can choose $c_1 = c_2 = 2$.
+
+          Thus, $(n + a)^b = \Theta(n^b)$
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
