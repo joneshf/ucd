@@ -126,5 +126,24 @@
             (4) edge node {b} (5)
             (5) edge [loop right] node {d} ();
       \end{tikzpicture}
+
+    \item[Problem 3]
+      \begin{proof}
+        If $L_1,L_2,L_3$ are DFA-acceptable languages, then the intersection of these languages is also acceptable.
+        We can reformulate the definition of \textbf{maj}:
+
+        \textbf{maj}($L_1,L_2,L_3$) =
+
+        $\{x \in \Sigma^* | (x \in L_1 \land x \in L_2) \lor (x \in L_1 \land x \in L_3) \lor (x \in L_2 \land x \in L_3) \lor (x \in L_1 \land x \in L_2 \land x \in L_3)\}$
+
+        Or put more succinctly:
+
+        \textbf{maj}($L_1,L_2,L_3$) =
+
+        $\{x \in \Sigma^* | x \in (L_1 \cap L_2) \lor x \in (L_1 \cap L_3) \lor x \in (L_2 \cap L_3) \lor x \in (L_1 \cap L_2 \cap L_3)\}$
+
+        But we know that each of these intersections is DFA-acceptable,
+        so \textbf{maj}($L_1,L_2,L_3$) is DFA-acceptable.
+      \end{proof}
   \end{enumerate}
 \end{document}
