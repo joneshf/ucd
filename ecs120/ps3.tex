@@ -81,5 +81,50 @@
                   edge [bend left=45] node {b} (01)
                   edge [loop above] node {c} ();
       \end{tikzpicture}
+
+    \item[Problem 2]
+      We have $\varepsilon$-arrows from 1 to 2, from 2 to 5, and from 3 to 1.
+
+      From 1 to 2, we can get to state 4 following the path ``$\varepsilon$a''.
+      So, we can eliminate this $\varepsilon$-arrow by creating a new path from 1 to 4 via a.
+
+      From 1 to 2, we can also get to state 5 through an $\varepsilon$-arrow to state 2 following the path ``$\varepsilon\varepsilon$''.
+      Since state 5 is a final state, we can eliminate these $\varepsilon$-arrows by making state 1 a final state.
+
+      We can get from 2 to 5 via an $\varepsilon$-arrow and state 5 is a final state.
+      So, we can eliminate this $\varepsilon$-arrow by making state 2 a final state.
+
+      From 3 to 1, we can get to 1 again following the path ``$\varepsilon$a''.
+      So, we can eliminate this $\varepsilon$-arrow by creating a new path from 3 to 1 via a.
+
+      From 3 to 1, we can get to 1 again following the path ``$\varepsilon$c''.
+      So, we can eliminate this $\varepsilon$-arrow by creating a new path from 3 to 1 via c.
+
+      From 3 to 1, we can get to state 4 through an $\varepsilon$-arrow to state 2 following the path ``$\varepsilon\varepsilon$a''.
+      So, we can eliminate this $\varepsilon$-arrow by creating a new path from 3 to 4 via a.
+
+      Finally, from 3 to 1, we can also get to state 5 through an $\varepsilon$-arrow to state 2 and another $\varepsilon$-arrow to state 5 following the path ``$\varepsilon\varepsilon\varepsilon$''.
+      Since state 5 is a final state, we can eliminate these $\varepsilon$-arrows by making state 3 a final state.
+
+      Our $\varepsilon$-arrow-free NFA is:
+
+      \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+         \node[state,initial,accepting] (1)   {$1$};
+         \node[state,accepting] (2) [above right=of 1] {$2$};
+         \node[state,accepting] (3) [below right=of 1] {$3$};
+         \node[state,accepting] (4) [below right=of 2] {$4$};
+         \node[state,accepting] (5) [right=of 4] {$5$};
+          \path[->]
+            (1) edge [loop above] node {a} ()
+                edge node [pos=0.15] {a} (4)
+                edge node {b} (2)
+                edge node [pos=0.20] {d} (3)
+            (2) edge node {a} (4)
+            (3) edge [bend left] node {a,c} (1)
+                edge node [below] {a,d} (4)
+                edge node [pos=0.15] {b} (2)
+            (4) edge node {b} (5)
+            (5) edge [loop right] node {d} ();
+      \end{tikzpicture}
   \end{enumerate}
 \end{document}
