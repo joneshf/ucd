@@ -190,5 +190,149 @@
         If we define $\mathcal{Z}$ as this deconstruction/reconstruction operation,
         then we see that DFA-acceptable languages are closed under $\mathcal{Z}$.
       \end{proof}
+
+    \pagebreak
+
+    \item[Problem 5]
+      The smallest DFA for $\{0,1\}^*{1^10}$ has 11 states.
+      It must contain at least 10 individual states each counting one 1.
+
+      \begin{proof}
+        This DFA, let's call it $M$, could be described by the following table:
+
+        \begin{tabular}{c | c | c}
+          State & 0 & 1 \\
+          \hline
+          0   & 0 & 1   \\
+          1   & 0 & 2   \\
+          2   & 0 & 3   \\
+          3   & 0 & 4   \\
+          4   & 0 & 5   \\
+          5   & 0 & 6   \\
+          6   & 0 & 7   \\
+          7   & 0 & 8   \\
+          8   & 0 & 9   \\
+          9   & 0 & 10  \\
+          10  & 0 & 10
+        \end{tabular}
+
+        Where state 0 is the initial state, and the only final state is state 10.
+
+        Now assume that we could construct a smaller DFA $M'$ with $i$ less states, where $0 < i < 11$.
+
+        If $i \ge 11$, then $M'$ vacuously would not accept the language, and not the equivalent to $M$.
+        If $i \le 0$, then $M'$ does not have less states.
+
+        For other values of $i$, $M'$ will accept strings with $i$ less characters than $M$.
+        E.g. if $i=10$, $M'$ will accept the string $1$, which is clearly not accepted by $M$.
+
+        So, these smaller state DFA's are not equivalent to $M$, and we cannot make the assumption that we could construct a smaller DFA.
+
+        Thus, the smallest DFA for $\{0,1\}^*{1^10}$ has 11 states.
+      \end{proof}
+
+    \item[Problem 6]
+      It helps to describe what our language is.
+      One interpretation is that $L_n$ is the language where $1$ is $n$ characters from the end of the string.
+      Rephrasing like this can help us see, this is similar to the previous problem
+      in the sense that we must have $n$ states to count each $\{0,1\}$ at the end of the accepted string.
+
+      Let's look at some NFA's.
+
+      $L_1 = $
+      \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+         \node[state,initial] (1)   {$1$};
+         \node[state] (2) [right=of 1] {$2$};
+         \node[state,accepting] (3) [right=of 2] {$3$};
+          \path[->]
+            (1) edge [loop above] node {0,1} ()
+                edge node {1} (2)
+            (2) edge node {0,1} (3);
+      \end{tikzpicture}
+
+      $L_2 = $
+      \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+         \node[state,initial] (1)   {$1$};
+         \node[state] (2) [right=of 1] {$2$};
+         \node[state] (3) [right=of 2] {$3$};
+         \node[state,accepting] (4) [right=of 3] {$4$};
+          \path[->]
+            (1) edge [loop above] node {0,1} ()
+                edge node {1} (2)
+            (2) edge node {0,1} (3)
+            (3) edge node {0,1} (4);
+      \end{tikzpicture}
+
+      $L_3 = $
+      \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+         \node[state,initial] (1)   {$1$};
+         \node[state] (2) [right=of 1] {$2$};
+         \node[state] (3) [right=of 2] {$3$};
+         \node[state] (4) [right=of 3] {$4$};
+         \node[state,accepting] (5) [right=of 4] {$5$};
+          \path[->]
+            (1) edge [loop above] node {0,1} ()
+                edge node {1} (2)
+            (2) edge node {0,1} (3)
+            (3) edge node {0,1} (4)
+            (4) edge node {0,1} (5);
+      \end{tikzpicture}
+
+      We start to see that each $L_n$ has:
+      \begin{itemize}
+        \item an initial state for the prefix $\{0,1\}$
+        \item one state to count a single $1$
+        \item exactly $n$ states counting the suffix $\{0,1\}^n$
+      \end{itemize}
+
+      In other words, we suggest that an accepting NFA for $L_n$ has exactly $n + 2$ states.
+
+      We can prove this by induction.
+
+      \begin{proof}
+        \textit{Base Case} $n = 1$
+
+        \begin{align*}
+          |states(L_1)| &= |\{0,1\}^*\{1\}\{0,1\}| \\
+          &= |\{0,1\}^*| + |\{1\}| + |\{0,1\}| \\
+          &= 1 + 1 + 1 \\
+          &= 3 \\
+          &= 1 + 2
+        \end{align*}
+
+        So our base case holds.
+
+        \textit{Inductive Case} Assume $|states(L_n)| = n + 2$. Show $|states(L_{n+1})| = (n + 1) + 2 = n + 3$.
+
+        \begin{align*}
+          |states(L_{n+1}) &= |\{0,1\}^*\{1\}\{0,1\}^{n+1}| \\
+          &= |\{0,1\}^*\{1\}\{0,1\}^n\{0,1\}| \\
+          &= |\{0,1\}^*\{1\}\{0,1\}^n| + |\{0,1\}| \\
+          &= |states(L_n)| + |\{0,1\}| \\
+          &= (n + 2) + |\{0,1\}| \\
+          &= (n + 2) + 1 \\
+          &= n + 3 \\
+        \end{align*}
+
+        So our Inductive Hypothesis is true as well.
+
+        Thus, we have shown that an accepting NFA for $L_n$ has exactly $n + 2$ states.
+      \end{proof}
+
+      We still need to show that an accepting DFA for $L_n$ has no less than $2^n$ states.
+
+      \begin{proof}
+        We know from the construction of a DFA, $M'$, from an NFA, $M$, that we will have to construct subsets of the possible states in an NFA.
+
+        Assume that we can construct an arbitrary DFA $M'$ with fewer than $2^n$ states which still accepts our language.
+
+        This means that we have left out at least one element of the powerset of states in our construction of $M'$.
+        This element was a possible state set in $M'$
+        Without this element we cannot guarantee that we have constructed a DFA that accepts the same language as our NFA.
+
+        So, our assumption does not hold, and we must have at least $2^n$ states in $M'$.
+
+        Thus, an accepting DFA for $L_n$ has no less than $2^n$ states.
+      \end{proof}
   \end{enumerate}
 \end{document}
