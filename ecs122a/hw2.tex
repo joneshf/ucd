@@ -85,5 +85,61 @@
       ``The running time of algorithm A is at least $O(n^2)$,'' states that the running time of ``A'' can be greater than $O(n^2)$.
       This has no meaning because \textit{big-oh} notation states an asymptotic upper bound on a function.
       Asserting that the running time can be greater than this value negates the reason for using a bound in the first place.
+
+    \item
+      \begin{enumerate}
+        \item Yes.
+          We need to find some positive constants $c, n_0$ such that $0 \le 2^{n+1} \le c2^n \forall n \ge n_0$.
+          \[0 \le 2^{n + 1} = 2 \cdot 2^n\]. So we have our $c = 2, n = 1$.
+
+          Thus $2^{n+1} = O(2^n)$.
+
+        \item No.
+          We need to show that no constants exist that satisfy the definition.
+          \[2^{2n} = 2^n \cdot 2^n \le c2^n\].
+
+          It's easy to see that no constant will make this equation true for all values of $n$.
+
+          Thus $2^{2n} \ne O(2^n)$.
+      \end{enumerate}
+
+    \item
+      \begin{enumerate}
+        \item
+          From smallest to largest:
+
+          \begin{tabular}{c | l}
+            Function & Notes \\
+            \hline
+            lg$n$ \\
+            $n$lg$n$ \\
+            n \\
+            $n^2, n^2 + $lg$n$ & These are the same asymptotically because the lg$n$ term will ``drop-out'' \\
+            $n^3$ \\
+            $n - n^3 + 7n^5$ \\
+            $2^n$
+          \end{tabular}
+
+        \item
+          From smallest to largest:
+
+          \begin{tabular}{c | l}
+            Function & Notes \\
+            \hline
+            1 \\
+            lg lg$n$ \\
+            lg$n$, ln$n$ & The change of base merely changes the value by a constant factor \\
+            (lg$n$)^2 \\
+            $n$lg$n$ \\
+            $\sqrt{n}$, $\sqrt{2}^{\text{lg}n}$, $n^{1+\epsilon}$ & $\sqrt{n} = \sqrt{2}^{\text{lg}n}$, $n^{1+\epsilon}$ differs by  constant factor \\
+            n \\
+            $n^2, n^2 + $lg$n$ & These are the same asymptotically because the lg$n$ term will ``drop-out'' \\
+            $n^3$ \\
+            $n - n^3 + 7n^5$ \\
+            $2^n$, $2^{n-1}$ & See Problem 3.a \\
+            $e^n$ \\
+            $n!$
+          \end{tabular}
+      \end{enumerate}
   \end{enumerate}
 \end{document}
