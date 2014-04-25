@@ -1,0 +1,287 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 120 Problem Set 4\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Rogaway\vspace{-2ex}}
+\date{Spring 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item[Problem 1]
+      \begin{enumerate}
+        \item
+          \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+            \node[state,initial,accepting] (0)   {$0$};
+            \node[state,accepting] (1) [right=of 0] {$1$};
+            \node[state] (2) [right=of 1] {$2$};
+            \path[->]
+              (0) edge [bend left] node {$a$} (1)
+              (1) edge [bend left] node [above] {$b$,c} (0)
+                  edge [loop above] node {$b$} ()
+                  edge [bend left] node {$c$} (2)
+              (2) edge [bend left] node {$c$} (1);
+          \end{tikzpicture}
+
+        We start by creating new initial and final states.
+        We also convert the two arrows from 1 to 0 to a regular expression.
+
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+          \node[state,initial] (s) {$s$};
+          \node[state] (0) [right=of s] {$0$};
+          \node[state,accepting] (f) [below right=of 0] {$f$};
+          \node[state] (1) [above right=of f] {$1$};
+          \node[state] (2) [right=of 1] {$2$};
+          \path[->]
+            (s) edge node {$\varepsilon$} (0)
+            (0) edge [bend left] node {$a$} (1)
+                edge node [below] {$\varepsilon$} (f)
+            (1) edge [bend left] node [above] {$(b \cup c)$} (0)
+                edge [loop above] node {$b$} ()
+                edge [bend left] node {$c$} (2)
+                edge node {$\varepsilon$} (f)
+            (2) edge [bend left] node {$c$} (1);
+        \end{tikzpicture}
+
+        Now we start eliminating states.
+
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+          \node[state,initial] (s) {$s$};
+          \node[state] (0) [right=of s] {$0$};
+          \node[state,accepting] (f) [below right=of 0] {$f$};
+          \node[state] (1) [above right=of f] {$1$};
+          \path[->]
+            (s) edge node {$\varepsilon$} (0)
+            (0) edge [bend left] node {$a$} (1)
+                edge node [below] {$\varepsilon$} (f)
+            (1) edge [bend left] node [above] {$(b \cup c)$} (0)
+                edge [loop above] node {$b$} ()
+                edge [loop right] node {$cc$} ()
+                edge node {$\varepsilon$} (f);
+        \end{tikzpicture}
+
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+          \node[state,initial] (s) {$s$};
+          \node[state] (0) [right=of s] {$0$};
+          \node[state,accepting] (f) [below right=of 0] {$f$};
+          \node[state] (1) [above right=of f] {$1$};
+          \path[->]
+            (s) edge node {$\varepsilon$} (0)
+            (0) edge [bend left] node {$a$} (1)
+                edge node [below] {$\varepsilon$} (f)
+            (1) edge [bend left] node [above] {$(b \cup c)$} (0)
+                edge [loop right] node {$(b \cup cc)$} ()
+                edge node {$\varepsilon$} (f);
+        \end{tikzpicture}
+
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+          \node[state,initial] (s) {$s$};
+          \node[state] (0) [right=of s] {$0$};
+          \node[state,accepting] (f) [below right=of 0] {$f$};
+          \path[->]
+            (s) edge node {$\varepsilon$} (0)
+            (0) edge [loop above] node {$a(b \cup cc)^*(b \cup c)$} ()
+                edge [bend left] node [above, sloped] {$a(b \cup cc)^*\varepsilon$} (f)
+                edge node [below] {$\varepsilon$} (f);
+        \end{tikzpicture}
+
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+          \node[state,initial] (s) {$s$};
+          \node[state] (0) [right=of s] {$0$};
+          \node[state,accepting] (f) [right=4cm of 0] {$f$};
+          \path[->]
+            (s) edge node {$\varepsilon$} (0)
+            (0) edge [loop above] node {$a(b \cup cc)^*(b \cup c)$} ()
+                edge node {$(a(b \cup cc)^*\varepsilon \cup \varepsilon)$} (f);
+        \end{tikzpicture}
+
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+          \node[state,initial] (s) {$s$};
+          \node[state,accepting] (f) [right=5cm of 0] {$f$};
+          \path[->]
+            (s) edge node {$\varepsilon (a(b \cup cc)^*(b \cup c))^* (a(b \cup cc)^*\varepsilon \cup \varepsilon)$} (f);
+        \end{tikzpicture}
+
+        Thus, our regular expression is:
+        \[\varepsilon (a(b \cup cc)^*(b \cup c))^* (a(b \cup cc)^*\varepsilon \cup \varepsilon)\]
+
+      \item
+        Let's start by creating a state for each atom of the regular expression $(ab^* \cup c)^*$.
+
+        \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+          \node[state,initial] (0) {};
+          \node[state,accepting] (1) [right=of 0] {};
+          \node[state,initial] (2) [below=of 0] {};
+          \node[state,accepting] (3) [right=of 2] {};
+          \node[state,initial] (4) [below=of 2] {};
+          \node[state,accepting] (5) [right=of 4] {};
+          \path[->]
+            (0) edge node {$a$} (1)
+            (2) edge node {$b$} (3)
+            (4) edge node {$c$} (5);
+        \end{tikzpicture}
+
+        Now we make the Kleene Star of $b$.
+
+          \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+            \node[state,initial] (0) {};
+            \node[state,accepting] (1) [right=of 0] {};
+            \node[state,initial,accepting] (2) [below=of 0] {};
+            \node[state] (2-1) [right=of 2] {};
+            \node[state,accepting] (3) [right=of 2-1] {};
+            \node[state,initial] (4) [below=of 2] {};
+            \node[state,accepting] (5) [right=of 4] {};
+            \path[->]
+              (0) edge node {$a$} (1)
+              (2) edge node {$\varepsilon$} (2-1)
+              (2-1) edge [bend left] node {$b$} (3)
+              (3) edge [bend left] node {$\varepsilon$} (2-1)
+              (4) edge node {$c$} (5);
+          \end{tikzpicture}
+
+        Now, we concatenate $a$ and $b^*$.
+
+          \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+            \node[state,initial] (0) {};
+            \node[state] (1) [right=of 0] {};
+            \node[state,accepting] (2) [below=of 0] {};
+            \node[state] (2-1) [right=of 2] {};
+            \node[state,accepting] (3) [right=of 2-1] {};
+            \node[state,initial] (4) [below=of 2] {};
+            \node[state,accepting] (5) [right=of 4] {};
+            \path[->]
+              (0) edge node {$a$} (1)
+              (1) edge node {$\varepsilon$} (2)
+              (2) edge node {$\varepsilon$} (2-1)
+              (2-1) edge [bend left] node {$b$} (3)
+              (3) edge [bend left] node {$\varepsilon$} (2-1)
+              (4) edge node {$c$} (5);
+          \end{tikzpicture}
+
+        Now, we union the two together.
+
+          \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+            \node[state,initial] (0) {};
+            \node[state] (0-1) [right=of 0] {};
+            \node[state] (1) [right=of 0-1] {};
+            \node[state,accepting] (2) [below=of 0-1] {};
+            \node[state] (2-1) [right=of 2] {};
+            \node[state,accepting] (3) [right=of 2-1] {};
+            \node[state] (4) [below=of 2] {};
+            \node[state,accepting] (5) [right=of 4] {};
+            \path[->]
+              (0) edge node {$\varepsilon$} (0-1)
+                  edge node {$\varepsilon$} (4)
+              (0-1) edge node {$a$} (1)
+              (1) edge node {$\varepsilon$} (2)
+              (2) edge node {$\varepsilon$} (2-1)
+              (2-1) edge [bend left] node {$b$} (3)
+              (3) edge [bend left] node {$\varepsilon$} (2-1)
+              (4) edge node {$c$} (5);
+          \end{tikzpicture}
+
+        Finally, we construct the Kleene star of this.
+
+          \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+            \node[state,initial,accepting] (0) {};
+            \node[state] (0-1) [right=of 0] {};
+            \node[state] (0-2) [right=of 0-1] {};
+            \node[state] (1) [right=of 0-2] {};
+            \node[state,accepting] (2) [below=of 0-2] {};
+            \node[state] (2-1) [right=of 2] {};
+            \node[state,accepting] (3) [right=of 2-1] {};
+            \node[state] (4) [below=of 2] {};
+            \node[state,accepting] (5) [right=of 4] {};
+            \path[->]
+              (0) edge node {$\varepsilon$} (0-1)
+              (0-1) edge node {$\varepsilon$} (0-2)
+                  edge node {$\varepsilon$} (4)
+              (0-2) edge node {$a$} (1)
+              (1) edge node {$\varepsilon$} (2)
+              (2) edge node {$\varepsilon$} (2-1)
+                  edge node {$\varepsilon$} (0-1)
+              (2-1) edge [bend left] node {$b$} (3)
+              (3) edge [bend left] node {$\varepsilon$} (2-1)
+                  edge [out=90, in=60, distance=4cm] node [above] {$\varepsilon$} (0-1)
+              (4) edge node {$c$} (5)
+              (5) edge [out=240, in=240, distance=4cm] node {$\varepsilon$} (0-1);
+          \end{tikzpicture}
+
+        \item
+          We start by converting $\alpha$ from a regular expression to an NFA.
+          For every atom, we have two states, an initial state, and a final state,
+          connected by an arrow for the atom.
+          This gives us $2c$ states.
+
+          For every composition operator, we only add $\varepsilon$-arrows to our states.
+          So, we still have $2c$ states.
+
+          For every star operator, we add one state and some $\varepsilon$-arrows to our states.
+          So, we now have $2c + s$ states.
+
+          For every union operator, we add one state and some $\varepsilon$-arrows to our states.
+          So, we now have $2c + s + u$ states.
+
+          At this point, we have constructed an NFA for the regular expression.
+
+          Now, we just need to convert it to a DFA.
+          We end up with $2^{2c + s + u}$ states in this DFA.
+
+          So $M$ has $2^{2c + s + u}$ states.
+      \end{enumerate}
+
+    \pagebreak
+
+    \item[Problem 3]
+      \begin{enumerate}
+        \item $L = \{x \in {a, b}^∗ : x \text{ is not a palindrome}\}$
+
+          Assume $L$ is regular, then the pumping lemma should hold.
+
+          So we choose $s = a^iba^I$, where $x = a^ib, y = a^I, z = \varepsilon$, for some integer values of $i, I \ge 0$.
+
+          Since the pumping lemma should hold, we should be able to choose any values for $i$ and $I$.
+          Let's choose $i = mI$, for some integer $m > 1$.
+          Clearly $s$ is not a palindrome.
+
+          Now, we should be able to pump $y$ any number of times, and have our new string in $L$, since it was assumed to be regular.
+          However, we see that after pumping $y$ $m$-times, we have a palindrome.
+          So our pumped string is not in the the language $L$.
+          So, the pumping lemma does not hold for $L$.
+
+          Thus, $L$ is not regular.
+      \end{enumerate}
+
+    \item[Problem 6]
+      \begin{enumerate}
+        \item False.
+          Let $L = \{a\}^*\{b\}^*$, and $L' = \{a^nb^n | n \ge 0\}$.
+          $L \cup L' = L$, so their union is regular, but $L'$ is not.
+
+        \item False.
+          Let $L = \{a^nb^n | n \ge 0\}$.
+          This is not regular.
+          So, by the contrapositive, $L^*$ should not be regular.
+          However, $L^* = \{ab, ba\}^*$
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
