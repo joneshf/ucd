@@ -1,0 +1,61 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\newcommand{\lb}[0]{\text{lg}}
+
+\newcommand{\Let}[2]{\State $#1 \gets #2$}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 122A Homework 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bai\vspace{-2ex}}
+\date{Spring 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      \begin{algorithm}
+        \begin{algorithmic}[1]
+          \Function{maxSubarray}{$arr$}
+            \Let{n}{\textrm{ length of }arr}
+            \Let{max}{-\infty}
+            \Let{start}{0}
+            \Let{end}{0}
+            \For{$i \gets 0 \textrm{ to } n$}
+              \Let{total}{0}
+              \For{$j \gets i \textrm{ to } n$}
+                \Let{total}{total + arr[j]}
+                \If{$total \ge max$}
+                  \Let{max}{total}
+                  \Let{start}{i}
+                  \Let{end}{j}
+                \EndIf
+              \EndFor
+            \EndFor
+            \State \textbf{return} $arr[start..end]$
+          \EndFunction
+        \end{algorithmic}
+      \end{algorithm}
+
+      N.B. If the result is expected to be a single value,
+      the function should return $max$.
+  \end{enumerate}
+\end{document}
