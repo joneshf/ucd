@@ -84,3 +84,34 @@ cbs_bc --> [b, c], cbs.
 cbs_a --> [a], cbs.
 
 epsilon --> [].
+
+r --> t, t.
+r --> u, u.
+r --> v, v.
+
+t --> [a], t, [b].
+t --> [a, b], t.
+t --> [b], t, [a].
+t --> [b, a], t.
+t --> [c], t.
+t --> epsilon.
+t --> t, [a, b].
+t --> t, [b, a].
+
+u --> [a], u, [c].
+u --> [a, c], u.
+u --> [c], u, [a].
+u --> [c, a], u.
+u --> [b], u.
+u --> epsilon.
+u --> u, [a, c].
+u --> u, [c, a].
+
+v --> [b], v, [c].
+v --> [b, c], v.
+v --> [c], v, [b].
+v --> [c, b], v.
+v --> [a], v.
+v --> epsilon.
+v --> v, [b, c].
+v --> v, [c, b].

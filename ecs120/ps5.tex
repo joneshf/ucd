@@ -10,6 +10,14 @@
 \usepackage{tikz}
 \usetikzlibrary{automata,positioning}
 
+\usepackage{listings}
+\lstset{
+  basicstyle=\itshape,
+  literate={->}{$\rightarrow$}{2}
+           {ε}{$\varepsilon$}{1}
+           {≠}{$\ne$}{2}
+}
+
 \setlength{\droptitle}{-10ex}
 
 \preauthor{\begin{flushright}\large \lineskip 0.5em}
@@ -51,5 +59,85 @@
 
           From this contraction, we see that $L_b$ is not regular.
       \end{enumerate}
+
+    \item[Problem 3]
+
+      It helps to see some of the strings in the language.
+
+      \[L = \{\varepsilon, a, b, c, aa, ab, ac, ba, bb, bc, ca, cb, cc, aaa, abc, acb, bac, bbb, bca, \dots\}\]
+
+      We see that this language is quite a bit more complex than it appears on the face.
+
+      \begin{lstlisting}
+        S -> T | U | V
+        T -> aTbT | bTaT | abT | baT | cT | ε
+        U -> aUcU | cUaU | acU | caU | bU | ε
+        V -> bVcV | cVbV | bcV | cbV | aV | ε
+      \end{lstlisting}
+
+      So, we can see that each production has an equal number of two different characters.
+
+    \item[Problem 4]
+      It helps to see some of the strings in the language.
+
+      \begin{align*}
+        L = \{& 0\ne1, 1\ne0, \\
+        & 0\ne00, 0\ne01, 0\ne10, 0\ne11, 1\ne00, 1\ne01, 1\ne10, 1\ne11, \\
+        & 00\ne0, 01\ne0, 10\ne0, 11\ne0, 00\ne1, 01\ne1, 10\ne1, 11\ne1, \\
+        & 00\ne01, 00\ne10, 00\ne11, 01\ne00, 01\ne10, \dots\}
+      \end{align*}
+
+      We can see that we'll have to look at at least two situation.
+
+      One where $|x| = |y|$ and one where $|x| \ne |y|$.
+
+      When $|x| = |y|$, we want to separate $x$ and $y$ into substrings $x = x_0x_1x_2$ and $y = y_0y_1y_2$ such that $|x_0| = |y_0|, |x_2| = |y_2|, x_1 \ne \varepsilon, y_1 \ne \epsilon, x_1 \ne y_1$.
+
+      We can easily construct a CFG for this.
+      Let's start with each side.
+
+      \begin{lstlisting}
+        X -> BXB | 1
+        Y -> BYB | 0
+        B -> 0 | 1
+      \end{lstlisting}
+
+      Now, we can connect both sides.
+
+      \begin{lstlisting}
+        E -> X≠Y | Y≠X
+      \end{lstlisting}
+
+      For the other case, where $|x| \ne |y|$ we don't care which digits are in which position, just that one side has more digits than the other.
+
+      Let's start with each side.
+
+      \begin{lstlisting}
+        T -> BTB | U
+        B -> 0 | 1
+        U -> 0≠0 | 0≠1 | 1≠0 | 1≠1
+      \end{lstlisting}
+
+      Now, connect both sides, ensure that one has at least one more letter than the other.
+
+      \begin{lstlisting}
+        N -> VT | TV
+        V -> 0V | 1V
+      \end{lstlisting}
+
+      All together we end up with the following CFG.
+
+      \begin{lstlisting}
+        S -> E | N
+        E -> X≠Y | Y≠X
+        N -> TV | VT
+        X -> BXB | 1
+        Y -> BYB | 0
+        T -> BTB | U
+        U -> 0≠0 | 0≠1 | 1≠0 | 1≠1
+        V -> 0V | 1V
+        B -> 0 | 1
+      \end{lstlisting}
+
   \end{enumerate}
 \end{document}
