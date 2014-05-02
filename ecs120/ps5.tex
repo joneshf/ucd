@@ -77,6 +77,8 @@
 
       So, we can see that each production has an equal number of two different characters.
 
+    \pagebreak
+
     \item[Problem 4]
       It helps to see some of the strings in the language.
 
@@ -138,6 +140,16 @@
         V -> 0V | 1V
         B -> 0 | 1
       \end{lstlisting}
+
+    \item[Problem 5]
+      Given a DFA $M = (Q, \Sigma, \delta, q_0, F)$, we can construct a CFG $G = (V, \Sigma, R, S)$ as follows:
+
+      \begin{itemize}
+        \item For each $q_i \in Q$, create a variable $R_i \in V$.
+        \item For each transition $\delta(q_i, a) = q_j$, create a rule \lstinline[mathescape]{$R_i$ -> $aR_j$}.
+        \item For each $q_i \in F$, create a rule \lstinline[mathescape]{$R_i$ -> $\varepsilon$}.
+        \item Let $S$ be the start symbol corresponding to $q_0$.
+      \end{itemize}
 
   \end{enumerate}
 \end{document}
