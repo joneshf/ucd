@@ -1,0 +1,55 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 120 Problem Set 5\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Rogaway\vspace{-2ex}}
+\date{Spring 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item[Problem 1]
+      \begin{enumerate}
+        \item
+          Yes, this is a regular language.
+
+          Since the distinct number of decimal digits is finite, i.e. less than or equal to $10$, we can construct an NFA to correspond to this.
+          We need not know which digits appear infinitely often.
+          We just need our NFA to have an arrow for each $d$ in $\{0,1,2,...,9\}$ where $d$ is a decimal digits that occurs infinitely often.
+
+        \item
+          No, this is not a regular language.
+
+          Assume for contradiction that $L_b$ is regular.
+
+          Then, there exists some $\rho$ such that,
+          for all $s \in L_b, |s| \ge \rho$,
+          there exists some $xyz = s, y \ne \varepsilon$ such that,
+          for all $i \ge 0, xy^iz \in L_b$.
+
+          Now, this implies that there is some repeating pattern within the decimal representation of $\pi$.
+          However, since $\pi$ is irrational, there can be no such repeating pattern.
+
+          From this contraction, we see that $L_b$ is not regular.
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
