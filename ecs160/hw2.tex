@@ -8,7 +8,8 @@
 \usepackage{multirow}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage{zed-csp}
+\usepackage{tikz}
+\usepackage[mathrm,colour,cntbysection]{czt}
 
 \setlength{\droptitle}{-10ex}
 
@@ -30,10 +31,209 @@
     \item
       \begin{enumerate}
         \item
-          Two predicates at the same level,
-          not connected by an arrow have the same strength.
+          You cannot say much about two predicates not connected by an arrow.
+          The only thing you can say is that neither is strong with relative to the other.
         \item
+          The strongest thing that $\neg P$ can imply is $P \implies Q$.
+          This is because, when $\neg P$ is True, $P$ is False.
+          So, $P \implies Q$ is True.
 
+          \begin{tikzpicture}[node distance=1.5cm]
+            \node(false) {$False$};
+            \node(pandq)   [below of=false] {$P \land Q$};
+            \node(p)      [below left of=pandq]  {$P$};
+            \node(q)      [below right of=pandq]  {$Q$};
+            \node(qimpp)  [below left of=p]  {$Q \implies P$};
+            \node(porq)  [below right of=p]  {$P \lor Q$};
+            \node(pimpq)  [below right of=q]  {$P \implies Q$};
+            \node(true)  [below of=porq]  {$True$};
+            \node(negp)  [above right of=q]  {$\neg P$};
+            \path[->]
+              (false) edge (pandq)
+                      edge [color=red] (negp)
+              (pandq) edge (p)
+                     edge (q)
+              (p) edge (qimpp)
+                  edge (porq)
+              (q) edge (porq)
+                  edge (pimpq)
+              (qimpp) edge (true)
+              (porq) edge (true)
+              (pimpq) edge (true)
+              (negp) edge [color=red] (pimpq)
+              ;
+          \end{tikzpicture}
       \end{enumerate}
+
+    \item
+      \begin{align*}
+        \mathbb{P}(\mathbb{P}(\{1\})) &= \mathbb{P}(\{\{\}, \{1\}\}) \\
+        &= \{\{\}, \{\{\}\}, \{\{1\}\}, \{\{\}, \{1\}\}\}
+      \end{align*}
+    \item
+      \begin{zed}
+        [People]
+      \end{zed}
+
+      \begin{axdef}
+        knows : People \rel People \\
+        livesAlone : \power People \\
+      \where
+        \forall x : People @ (\exists y : People @ x \mapsto y \in knows \land y \in livesAlone )
+      \end{axdef}
+    \item
+      \begin{zed}
+        PrimeNumbers == \{n, p : \nat | p > 1 \land 1 < n < p \land (p \mod n \neq 0) @ p\}
+      \end{zed}
+    \item
+      \begin{zed}
+        [ Student ]
+      \end{zed}
+      \begin{axdef}
+        size : \nat
+      \end{axdef}
+      \begin{zed}
+      Category ::= c1 | c2 | c3
+      \end{zed}
+
+      \begin{schema}{Class}
+        enrolled, tested : \power Student
+      \where
+        \# enrolled \leq size \\
+        tested \subseteq enrolled
+      \end{schema}
+
+      \begin{schema}{CanBeTested}
+        \Xi Class \\
+        s? : Student \\
+        c? : Category \\
+        testedIn : Student \rel Category
+      \where
+        s? \in enrolled \\
+        s? \mapsto c? \notin testedIn \\
+        testedIn = testedIn \cup \{s? \mapsto c?\}
+      \end{schema}
+
+      \begin{schema}{CanBeDeTested}
+        \Xi Class \\
+        s? : Student \\
+        c? : Category \\
+        testedIn : Student \rel Category
+      \where
+        s? \in enrolled \\
+        s? \mapsto c? \in testedIn \\
+        testedIn = testedIn \setminus \{s? \mapsto c?\}
+      \end{schema}
+
+    \item
+      \begin{schema}{LeaveSetOk}
+        \Delta Class \\
+        students? : \power Student
+      \where
+        students? \cap enrolled = students? \\
+        students? \cap tested = \{\} \\
+        enrolled' = enrolled \setminus students?
+      \end{schema}
+
+    \item
+      \begin{zed}
+        [ Char ] \\
+        Text == \seq Char \\
+      \end{zed}
+
+      \begin{axdef}
+        maxsize : \nat \\
+        Printing : \power Char
+      \end{axdef}
+
+      \begin{schema}{Editor}
+        left, right, text : Text
+      \where
+        text = left \cat right
+      \end{schema}
+
+      \begin{schema}{Init}
+        left, right, text : Text
+      \where
+        left = \{\}
+        right = \{\}
+        text = \{\}
+      \end{schema}
+
+      \begin{schema}{Insert}
+        \Delta Editor \\
+        ch? : Char
+      \where
+        \#left + \#right < maxsize \\
+        left' = \{\#left + 1 \mapsto ch?\} \cup left
+      \end{schema}
+
+      \begin{schema}{Forward}
+        \Delta Editor \\
+        c : Char
+      \where
+        \#right > 0 \\
+        1 \mapsto c \in right \\
+        left' = left \cup \{\#left + 1 \mapsto c \} \\
+        right' = \{n : \nat; char : Char | n \mapsto char \in right \land n > 1 @ n + 1 \mapsto char\}
+      \end{schema}
+
+    \pagebreak
+
+    \item
+      \begin{zed}
+        \relation(\_ in \_)
+      \end{zed}
+      \begin{gendef}[X]
+        \_ in \_ : (\seq X \rel \seq X)
+      \where
+        \forall u, v : \seq X \\
+        @ (u \ in \ v \iff \\
+        \t1 \exists x, y : \seq X | x \cat u \cat y = v)
+      \end{gendef}
+
+    \item
+      $\mathbb{P}(X)$ has $2^n$ members
+
+    \item
+      \begin{zed}
+        xs == \{n : \num | n \neq \negate1\} \cup \{1\}
+      \end{zed}
+
+    \item
+      This set is exactly $\mathbb{Z}$.
+      Since for every element of $\mathbb{Z}$,
+      we can find two elements of $\mathbb{Z}$ that add to our chosen element.
+
+    \item[13.]
+      \begin{zed}
+        R2R1 == \{1 \mapsto 3, 2 \mapsto 2, 2 \mapsto 3, 3 \mapsto 1\} \\
+        R1R1R1 == \{1 \mapsto 4, 2 \mapsto 2, 2 \mapsto 3, 3 \mapsto 2, 3 \mapsto 3, 4 \mapsto 1\}
+      \end{zed}
+
+    \item[14.]
+      \begin{zed}
+        [CHAR]
+      \end{zed}
+
+      \begin{axdef}
+        blank : \power CHAR
+      \end{axdef}
+      \begin{zed}
+        TEXT == \seq CHAR \\
+        SPACE == \seq blank \\
+        WORD == \seq (CHAR \setminus blank)
+      \end{zed}
+      \begin{axdef}
+        words : TEXT \fun \seq WORD
+      \where
+        \forall s : SPACE; w : WORD; l, r : TEXT \\
+        @     words \langle \rangle     = \langle \rangle \\
+        \land words \ s                 = \langle \rangle \\
+        \land words \ w                 = \langle w \rangle \\
+        \land words ( s \cat r )        = words \ r \\
+        \land words ( r \cat s )        = words \ r \\
+        \land words ( l \cat s \cat r ) = words \ l \cat words \ r
+      \end{axdef}
   \end{enumerate}
 \end{document}
