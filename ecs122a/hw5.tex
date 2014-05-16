@@ -71,7 +71,8 @@
           but, there is only one $indegree$, which is odd.
       \end{enumerate}
 
-    \item
+    \pagebreak
+    \item[4.]
       After running BFS on the graph, we have the following list as a result:
       \[[\infty, 3, 0, 2, 1, 1]\]
       where each entry corresponds to the list:
@@ -98,7 +99,7 @@
           ;
       \end{tikzpicture}
 
-    \item
+    \item[5.]
       After running BFS on the graph, we have the following list as a result:
       \[[4, 3, 1, 0, 5, 2, 2, 1]\]
       where each entry corresponds to the list:
@@ -127,6 +128,40 @@
           (u) edge (y)
           (w) edge (x)
           (x) edge (y)
+          ;
+      \end{tikzpicture}
+
+    \item[6.]
+      After running DFS on the graph, we have the following graph.
+
+      \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+
+        \tikzstyle{every state}=[fill=black,text=white]
+        \node[state] (q) {$q$};
+        \node[state] (s) [below left=of q] {$s$};
+        \node[state] (v) [below left=of s] {$v$};
+        \node[state] (w) [below right=of s] {$w$};
+        \node[state] (t) [below right=of q] {$t$};
+        \node[state] (x) [below=of t] {$x$};
+        \node[state] (y) [below right=of t] {$y$};
+        \node[state] (r) [above right=of y] {$r$};
+        \node[state] (u) [right=of y] {$u$};
+        \node[state] (z) [below=of x] {$z$};
+        \path[->]
+          (q) edge (s)
+              edge (t)
+              edge (w)
+          (r) edge (u)
+              edge (y)
+          (s) edge (v)
+          (t) edge (x)
+              edge (y)
+          (u) edge (y)
+          (v) edge (w)
+          (w) edge (s)
+          (x) edge (z)
+          (y) edge [bend right] (q)
+          (z) edge [bend right] (x)
           ;
       \end{tikzpicture}
 
