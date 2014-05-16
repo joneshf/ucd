@@ -8,8 +8,8 @@
 \usepackage{multirow}
 \usepackage{amssymb}
 \usepackage{algorithm2e}
-\usepackage{tikz}
-\usetikzlibrary{automata,positioning}
+\usepackage{tikz,siunitx}
+\usetikzlibrary{automata,positioning,arrows}
 
 \newcommand{\lb}[0]{\text{lg}}
 
@@ -131,39 +131,52 @@
           ;
       \end{tikzpicture}
 
+    \pagebreak
     \item[6.]
-      After running DFS on the graph, we have the following graph.
+      After running DFS on the graph, assuming everything in alphabetical order, we have the following graph,
+      with the convention of (discovery time / finish time):
 
-      \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+      \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto,highlight/.style={line width=4pt,gray!70},MyArrow/.style={->,>=stealth'}]
 
-        \tikzstyle{every state}=[fill=black,text=white]
-        \node[state] (q) {$q$};
-        \node[state] (s) [below left=of q] {$s$};
-        \node[state] (v) [below left=of s] {$v$};
-        \node[state] (w) [below right=of s] {$w$};
-        \node[state] (t) [below right=of q] {$t$};
-        \node[state] (x) [below=of t] {$x$};
-        \node[state] (y) [below right=of t] {$y$};
-        \node[state] (r) [above right=of y] {$r$};
-        \node[state] (u) [right=of y] {$u$};
-        \node[state] (z) [below=of x] {$z$};
-        \path[->]
+        \tikzstyle{every state}=[fill=black,text=white,text width=1cm,align=center]
+        \node[state] (q) {$q$ \\ 1/16};
+        \node[state] (s) [below left=of q] {$s$ \\ 2/7};
+        \node[state] (v) [below left=of s] {$v$ \\ 3/6};
+        \node[state] (w) [below right=of s] {$w$ \\ 4/5};
+        \node[state] (t) [below right=of q] {$t$ \\ 8/15};
+        \node[state] (x) [below=of t] {$x$ \\ 9/12};
+        \node[state] (z) [below=of x] {$z$ \\ 10/11};
+        \node[state] (y) [below right=of t] {$y$ \\ 13/14};
+        \node[state] (r) [above right=of y] {$r$ \\ 17/20};
+        \node[state] (u) [right=of y] {$u$ \\ 18/19};
+        \path[highlight] % Draw highlights first
           (q) edge (s)
               edge (t)
-              edge (w)
           (r) edge (u)
-              edge (y)
           (s) edge (v)
           (t) edge (x)
               edge (y)
-          (u) edge (y)
           (v) edge (w)
-          (w) edge (s)
           (x) edge (z)
-          (y) edge [bend right] (q)
-          (z) edge [bend right] (x)
+          ;
+        \path[dashed,->]% Draw dashed arrows
+          (q) edge node {$F$} (w)
+          (r) edge node {$C$} (y)
+          (u) edge node {$C$} (y)
+          (w) edge node {$B$} (s)
+          (y) edge [bend right] node [above] {$B$} (q)
+          (z) edge [bend right] node [above] {$B$} (x)
+          ;
+        \path[MyArrow] % Draw regular arrows
+          (q) edge (s)
+              edge (t)
+          (r) edge (u)
+          (s) edge (v)
+          (t) edge (x)
+              edge (y)
+          (v) edge (w)
+          (x) edge (z)
           ;
       \end{tikzpicture}
-
   \end{enumerate}
 \end{document}
