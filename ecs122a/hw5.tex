@@ -1,0 +1,72 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{algorithm2e}
+
+\newcommand{\lb}[0]{\text{lg}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 122A Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bai\vspace{-2ex}}
+\date{Spring 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      The entries of $BB^T$ are describe the edges in the graph.
+
+      For each $i, j$ in $BB^T$
+      \begin{itemize}
+        \item if $i = j$ then it describes how many edges are at node $i$.
+        \item if $i \ne j$ then it describes if there is an edge between node $i$ and node $j$.
+      \end{itemize}
+    \item
+      \begin{enumerate}
+        \item
+          \begin{proof}
+            Every edge $e$ in $G$ connects two vertices $v_i, v_j$.
+            So each vertex $v_i$ adds $1$ to the total sum for every edge $e$ it has.
+            This means that each edge $e$ is counted exactly twice in the sum.
+
+            Thus,
+              \[\sum_{v \in V}{d(v)} = 2|E|\]
+          \end{proof}
+        \item
+          \begin{proof}
+            Assume not, that is assume there is an odd number of vertices with odd degree.
+            Call this set of vertices $v_o$, and the rest of the vertices $v_e$
+
+            We can see that $\sum_{v \in v_e}{d(v)}$ is even,
+            and that $\sum_{v \in v_o}{d(v)}$ is odd.
+            Also we have, $\sum_{v \in (v_e \cup v_o)}{d(v)}$ is odd.
+            N.B. $v_e \cup v_o = V$.
+            but we know that $\sum_{v \in V}{d(v)} = 2|E|$,
+            so we have a contradiction.
+
+            So our assumption was wrong.
+
+            Thus, there must be an even number of vertices with odd degree.
+          \end{proof}
+        \item
+          No, there is no similar statement.
+          We can have a simple directed graph from $A$ to $B$,
+          but, there is only one $indegree$, which is odd.
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
