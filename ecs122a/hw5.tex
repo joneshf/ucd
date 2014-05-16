@@ -178,5 +178,49 @@
           (x) edge (z)
           ;
       \end{tikzpicture}
+
+    \item[8.]
+      After a topological sort we have the following:
+
+      \begin{tikzpicture}[shorten >=1pt,node distance=1.2cm,on grid,auto,highlight/.style={line width=4pt,gray!70},MyArrow/.style={->,>=stealth'}]
+        \tikzset{every state/.style={minimum size=0pt},pin distance=1.5cm}
+        \node[state] (p) [pin={[pin distance=1.5cm]below:27/28}] {$p$};
+        \node[state] (n) [pin={[pin distance=2cm]below:21/26},right=of p] {$n$};
+        \node[state] (o) [pin={[pin distance=1.5cm]below:22/25},right=of n] {$o$};
+        \node[state] (s) [pin={[pin distance=2cm]below:23/24},right=of o] {$s$};
+        \node[state] (m) [pin={[pin distance=1.5cm]below:1/20},right=of s] {$m$};
+        \node[state] (q) [pin={[pin distance=2cm]below:2/5},right=of m] {$q$};
+        \node[state] (t) [pin={[pin distance=1.5cm]below:3/4},right=of q] {$t$};
+        \node[state] (r) [pin={[pin distance=2cm]below:6/19},right=of t] {$r$};
+        \node[state] (u) [pin={[pin distance=1.5cm]below:7/8},right=of r] {$u$};
+        \node[state] (y) [pin={[pin distance=2cm]below:9/18},right=of u] {$y$};
+        \node[state] (v) [pin={[pin distance=1.5cm]below:10/17},right=of y] {$v$};
+        \node[state] (w) [pin={[pin distance=2cm]below:11/14},right=of v] {$w$};
+        \node[state] (z) [pin={[pin distance=1.5cm]below:12/13},right=of w] {$z$};
+        \node[state] (x) [pin={[pin distance=2cm]below:15/16},right=of z] {$x$};
+        \path[MyArrow] % Draw regular arrows
+          (p) edge [bend left] (o)
+              edge [bend left] (s)
+              edge [bend left] (z)
+          (n) edge (o)
+              edge [bend right] (q)
+              edge [bend right] (u)
+          (o) edge (s)
+              edge [bend left] (r)
+              edge [bend left] (v)
+          (s) edge [bend left] (r)
+          (m) edge (q)
+              edge [bend right] (r)
+              edge [bend right] (x)
+          (q) edge (t)
+          (r) edge (u)
+              edge [bend left] (y)
+          (y) edge (v)
+          (v) edge [bend left] (w)
+              edge [bend left] (x)
+          (w) edge (z)
+          ;
+      \end{tikzpicture}
+
   \end{enumerate}
 \end{document}
