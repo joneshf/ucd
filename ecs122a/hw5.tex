@@ -8,6 +8,8 @@
 \usepackage{multirow}
 \usepackage{amssymb}
 \usepackage{algorithm2e}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
 
 \newcommand{\lb}[0]{\text{lg}}
 
@@ -68,5 +70,65 @@
           We can have a simple directed graph from $A$ to $B$,
           but, there is only one $indegree$, which is odd.
       \end{enumerate}
+
+    \item
+      After running BFS on the graph, we have the following list as a result:
+      \[[\infty, 3, 0, 2, 1, 1]\]
+      where each entry corresponds to the list:
+      \[[1,2,3,4,5,6]\]
+
+      As a graph, the enumerated vertices are:
+
+      \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+        \node[state] (1)   {$\infty$};
+        \node[state] (2) [fill=black,text=white,right=of 1] {$3$};
+        \node[state] (3) [fill=black,text=white,right=of 2] {$0$};
+        \node[state] (4) [fill=black,text=white,below=of 1] {$2$};
+        \node[state] (5) [fill=black,text=white,right=of 4] {$1$};
+        \node[state] (6) [fill=black,text=white,right=of 5] {$1$};
+        \path[->]
+          (1) edge (2)
+              edge (4)
+          (2) edge (5)
+          (3) edge (5)
+              edge (6)
+          (4) edge (2)
+          (5) edge (4)
+          (6) edge [loop right] ()
+          ;
+      \end{tikzpicture}
+
+    \item
+      After running BFS on the graph, we have the following list as a result:
+      \[[4, 3, 1, 0, 5, 2, 2, 1]\]
+      where each entry corresponds to the list:
+      \[[r,s,t,u,v,w,x,y]\]
+
+      As a graph, the enumerated vertices are:
+
+      \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+
+        \tikzstyle{every state}=[fill=black,text=white]
+        \node[state] (r)              {$4$};
+        \node[state] (s) [right=of r] {$3$};
+        \node[state] (t) [right=of s] {$1$};
+        \node[state] (u) [right=of t] {$0$};
+        \node[state] (v) [below=of r] {$5$};
+        \node[state] (w) [right=of v] {$2$};
+        \node[state] (x) [right=of w] {$2$};
+        \node[state] (y) [right=of x] {$1$};
+        \path
+          (r) edge (s)
+              edge (v)
+          (s) edge (w)
+          (t) edge (u)
+              edge (w)
+              edge (x)
+          (u) edge (y)
+          (w) edge (x)
+          (x) edge (y)
+          ;
+      \end{tikzpicture}
+
   \end{enumerate}
 \end{document}
