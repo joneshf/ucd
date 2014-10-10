@@ -78,7 +78,7 @@
           Thus, $XY \in H(F)$.
 
         \item[(2)]
-          Given some array
+          Given some matrix
           \[A =
             \begin{bmatrix}
               1 & a & b \\
@@ -176,6 +176,359 @@
 
         \item[(3)]
           Given
+          \[A =
+            \begin{bmatrix}
+              1 & a & b \\
+              0 & 1 & c \\
+              0 & 0 & 1
+            \end{bmatrix}
+            , B =
+            \begin{bmatrix}
+              1 & d & e \\
+              0 & 1 & f \\
+              0 & 0 & 1
+            \end{bmatrix}
+            , C =
+            \begin{bmatrix}
+              1 & g & h \\
+              0 & 1 & i \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \in H(F)
+          \].
+
+          We want to show that $A(BC) = (AB)C$.
+
+          \begin{align*}
+            A(BC) &= A
+              \left(
+                \begin{bmatrix}
+                  1 & d & e \\
+                  0 & 1 & f \\
+                  0 & 0 & 1
+                \end{bmatrix}
+                \begin{bmatrix}
+                  1 & g & h \\
+                  0 & 1 & i \\
+                  0 & 0 & 1
+                \end{bmatrix}
+              \right) \\
+            &= A
+              \left(
+                \begin{bmatrix}
+                  1 & d+g & e+h+id \\
+                  0 & 1   & f+i \\
+                  0 & 0   & 1
+                \end{bmatrix}
+              \right) \\
+            &=
+              \begin{bmatrix}
+                1 & a & b \\
+                0 & 1 & c \\
+                0 & 0 & 1
+              \end{bmatrix}
+              \begin{bmatrix}
+                1 & d+g & e+h+id \\
+                0 & 1   & f+i \\
+                0 & 0   & 1
+              \end{bmatrix} \\
+            &=
+              \begin{bmatrix}
+                1 & a+d+g & af+ai+b+e+h+id \\
+                0 & 1     & c+f+i \\
+                0 & 0     & 1
+              \end{bmatrix}
+          \end{align*}
+
+          \begin{align*}
+            (AB)C &=
+              \left(
+                \begin{bmatrix}
+                  1 & a & b \\
+                  0 & 1 & c \\
+                  0 & 0 & 1
+                \end{bmatrix}
+                \begin{bmatrix}
+                  1 & d & e \\
+                  0 & 1 & f \\
+                  0 & 0 & 1
+                \end{bmatrix}
+              \right) C \\
+            &=
+              \left(
+                \begin{bmatrix}
+                  1 & a+d & af+b+e \\
+                  0 & 1   & c+f \\
+                  0 & 0   & 1
+                \end{bmatrix}
+              \right) C \\
+            &=
+              \begin{bmatrix}
+                1 & a+d & af+b+e \\
+                0 & 1   & c+f \\
+                0 & 0   & 1
+              \end{bmatrix}
+              \begin{bmatrix}
+                1 & g & h \\
+                0 & 1 & i \\
+                0 & 0 & 1
+              \end{bmatrix} \\
+            &=
+              \begin{bmatrix}
+                1 & a+d+g & af+ai+b+e+h+id \\
+                0 & 1   & c+f+i \\
+                0 & 0   & 1
+              \end{bmatrix}
+          \end{align*}
+
+          So, $A(BC) = (AB)C$.
+
+          Thus, $H(F)$ is associative under matrix multiplication.
+
+        \item[(4)]
+          The elements of $\mathbb{F}_2$ are $\{0,1\}$,
+          with $+$ and $\cdot$ defined: \\
+
+          \begin{tabular}{c | c | c |}
+            $+$ & 0 & 1 \\
+            \hline
+            0 & 0 & 1 \\
+            \hline
+            1 & 1 & 0 \\
+            \hline
+          \end{tabular}
+          \qquad
+          \begin{tabular}{c | c | c |}
+            $\cdot$ & 0 & 1 \\
+            \hline
+            0 & 0 & 0 \\
+            \hline
+            1 & 0 & 1 \\
+            \hline
+          \end{tabular}
+
+          The elements of $H(\mathbb{F}_2)$ are:
+          \begin{align*}
+            H(\mathbb{F}_2) &=
+              \left\{
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  0 & 1 & 0 \\
+                  0 & 0 & 1
+                \end{bmatrix},
+                \begin{bmatrix}
+                  1 & 1 & 0 \\
+                  0 & 1 & 0 \\
+                  0 & 0 & 1
+                \end{bmatrix},
+                \begin{bmatrix}
+                  1 & 0 & 1 \\
+                  0 & 1 & 0 \\
+                  0 & 0 & 1
+                \end{bmatrix},
+                \begin{bmatrix}
+                  1 & 1 & 1 \\
+                  0 & 1 & 0 \\
+                  0 & 0 & 1
+                \end{bmatrix},
+                \right. \\
+              &
+              \qquad \left.
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  0 & 1 & 1 \\
+                  0 & 0 & 1
+                \end{bmatrix},
+                \begin{bmatrix}
+                  1 & 1 & 0 \\
+                  0 & 1 & 1 \\
+                  0 & 0 & 1
+                \end{bmatrix},
+                \begin{bmatrix}
+                  1 & 0 & 1 \\
+                  0 & 1 & 1 \\
+                  0 & 0 & 1
+                \end{bmatrix},
+                \begin{bmatrix}
+                  1 & 1 & 1 \\
+                  0 & 1 & 1 \\
+                  0 & 0 & 1
+                \end{bmatrix}
+              \right\}
+          \end{align*}
+
+          For simplicity we enumerate these as $\{H_0, H_1, \dots, H_7\}$
+
+          We see that $H_0$ has order 1.
+
+          $
+            \begin{bmatrix}
+              1 & 1 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 1 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          $, so $H_1$ has order 2.
+
+          $
+            \begin{bmatrix}
+              1 & 0 & 1 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 0 & 1 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          $, so $H_2$ has order 2.
+
+          $
+            \begin{bmatrix}
+              1 & 1 & 1 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 1 & 1 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          $, so $H_3$ has order 2.
+
+          $
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          $, so $H_4$ has order 2.
+
+          $
+            \begin{bmatrix}
+              1 & 1 & 0 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 1 & 0 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 1 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          $ and
+          $
+            \begin{bmatrix}
+              1 & 0 & 1 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 1 & 0 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          $, so $H_5$ has order 2.
+
+          $
+            \begin{bmatrix}
+              1 & 0 & 1 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 0 & 1 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          $, so $H_6$ has order 2.
+
+          $
+            \begin{bmatrix}
+              1 & 1 & 1 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 1 & 1 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 1 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          $ and
+          $
+            \begin{bmatrix}
+              1 & 0 & 1 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 & 1 & 1 \\
+              0 & 1 & 1 \\
+              0 & 0 & 1
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+            \end{bmatrix}
+          $, so $H_7$ has order 3.
       \end{enumerate}
   \end{enumerate}
 \end{document}
