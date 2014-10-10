@@ -530,5 +530,189 @@
             \end{bmatrix}
           $, so $H_7$ has order 3.
       \end{enumerate}
+
+    \item
+      Let's look at a few cases first.
+
+      $n = 2$,
+      \[
+        \begin{vmatrix}
+          2 & -1 \\
+          -1 & 2
+        \end{vmatrix}
+        = 3
+      \]
+      $n = 3$,
+      \[
+        \begin{vmatrix}
+          2  & -1 &    \\
+          -1 & 2  & -1 \\
+             & -1 & 2
+        \end{vmatrix}
+        = 4
+      \]
+      $n = 4$,
+      \[
+        \begin{vmatrix}
+          2  & -1 &    &    \\
+          -1 & 2  & -1 &    \\
+             & -1 & 2  & -1 \\
+             &    & -1 & 2
+        \end{vmatrix}
+        = 5
+      \]
+
+      Looks like the determinate of the $n \times n$ matrix is $n+1$
+
+      \begin{proof}
+
+        \textbf{Base Case} $n = 2$
+        \[
+          \begin{vmatrix}
+            2 & -1 \\
+            -1 & 2
+          \end{vmatrix}
+          = 2(2) - (-1)(-1) = 4 - 1 = 3
+        \]
+        and $n + 1 = 3$.
+
+        So our base case holds.
+
+        \textbf{Inductive Case}
+
+        Assume determinate of an $n \times n$ matrix is $n + 1$.
+        Need to show, the determinate of an $(n+1) \times (n+1)$ matrix is $(n+1) + 1 = n + 2$
+
+        \[
+          \begin{vmatrix}
+            2  & -1 &        &        &        &        \\
+            -1 & 2  & -1     &        &        &        \\
+               & -1 & 2      & -1     &        &        \\
+               &    & -1     & \ddots & \ddots &        \\
+               &    &        & \ddots & 2      & -1     \\
+               &    &        &        & -1     & 2      \\
+          \end{vmatrix}
+        \]
+
+        We first expand along the first column.
+
+        \begin{align*}
+          \begin{vmatrix}
+            2  & -1 &        &        &        &        \\
+            -1 & 2  & -1     &        &        &        \\
+               & -1 & 2      & -1     &        &        \\
+               &    & -1     & \ddots & \ddots &        \\
+               &    &        & \ddots & 2      & -1     \\
+               &    &        &        & -1     & 2      \\
+          \end{vmatrix}
+          &= 2
+            \begin{vmatrix}
+              2  & -1     &        &        &        \\
+              -1 & 2      & -1     &        &        \\
+                 & -1     & \ddots & \ddots &        \\
+                 &        & \ddots & 2      & -1     \\
+                 &        &        & -1     & 2      \\
+            \end{vmatrix}
+            - (-1)
+            \begin{vmatrix}
+              -1 &        &        &        &        \\
+              -1 & 2      & -1     &        &        \\
+                 & -1     & \ddots & \ddots &        \\
+                 &        & \ddots & 2      & -1     \\
+                 &        &        & -1     & 2      \\
+            \end{vmatrix} \\
+          & \qquad + 0 \begin{vmatrix}\dots\end{vmatrix}
+            - 0 \begin{vmatrix}\dots\end{vmatrix}
+            + \dots \\
+          &= 2
+            \begin{vmatrix}
+              2  & -1     &        &        &        \\
+              -1 & 2      & -1     &        &        \\
+                 & -1     & \ddots & \ddots &        \\
+                 &        & \ddots & 2      & -1     \\
+                 &        &        & -1     & 2      \\
+            \end{vmatrix}
+            +
+            \begin{vmatrix}
+              -1 &        &        &        &        \\
+              -1 & 2      & -1     &        &        \\
+                 & -1     & \ddots & \ddots &        \\
+                 &        & \ddots & 2      & -1     \\
+                 &        &        & -1     & 2      \\
+            \end{vmatrix}
+        \end{align*}
+
+        Looking at the first matrix expansion, we see that it is an $n \times n$ matrix of the same form.
+        By our assumption, it has determinate of $n + 1$.
+
+        \begin{align*}
+          \begin{vmatrix}
+            2  & -1 &        &        &        &        \\
+            -1 & 2  & -1     &        &        &        \\
+               & -1 & 2      & -1     &        &        \\
+               &    & -1     & \ddots & \ddots &        \\
+               &    &        & \ddots & 2      & -1     \\
+               &    &        &        & -1     & 2      \\
+          \end{vmatrix}
+          &= 2(n + 1)
+            +
+            \begin{vmatrix}
+              -1 &        &        &        &        \\
+              -1 & 2      & -1     &        &        \\
+                 & -1     & \ddots & \ddots &        \\
+                 &        & \ddots & 2      & -1     \\
+                 &        &        & -1     & 2      \\
+            \end{vmatrix}
+        \end{align*}
+
+        We expand the remaining determinate across the first column.
+
+        \begin{align*}
+          \begin{vmatrix}
+            2  & -1 &        &        &        &        \\
+            -1 & 2  & -1     &        &        &        \\
+               & -1 & 2      & -1     &        &        \\
+               &    & -1     & \ddots & \ddots &        \\
+               &    &        & \ddots & 2      & -1     \\
+               &    &        &        & -1     & 2      \\
+          \end{vmatrix}
+          &= 2(n + 1)
+            + (-1)
+            \begin{vmatrix}
+              2      & -1     &        &        \\
+              -1     & \ddots & \ddots &        \\
+                     & \ddots & 2      & -1     \\
+                     &        & -1     & 2      \\
+            \end{vmatrix} \\
+          & \qquad - 0 \begin{vmatrix}\dots\end{vmatrix}
+            + 0 \begin{vmatrix}\dots\end{vmatrix}
+            + \dots \\
+          &= 2(n + 1)
+            -
+            \begin{vmatrix}
+              2      & -1     &        &        \\
+              -1     & \ddots & \ddots &        \\
+                     & \ddots & 2      & -1     \\
+                     &        & -1     & 2      \\
+            \end{vmatrix}
+        \end{align*}
+
+        This is now an $(n - 1) \times (n - 1)$ matrix of the same form.
+        Again, by our assumption, the determinate is $(n-1) + 1 = n$.
+
+        \begin{align*}
+          \begin{vmatrix}
+            2  & -1 &        &        &        &        \\
+            -1 & 2  & -1     &        &        &        \\
+               & -1 & 2      & -1     &        &        \\
+               &    & -1     & \ddots & \ddots &        \\
+               &    &        & \ddots & 2      & -1     \\
+               &    &        &        & -1     & 2      \\
+          \end{vmatrix}
+          &= 2(n + 1) - n = 2n + 2 - n = n + 2
+        \end{align*}
+
+        So, we have shown by induction, that the determinate of an $n \times n$ matrix of this form is $n + 1$.
+      \end{proof}
   \end{enumerate}
 \end{document}
