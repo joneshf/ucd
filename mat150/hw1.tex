@@ -714,5 +714,134 @@
 
         So, we have shown by induction, that the determinate of an $n \times n$ matrix of this form is $n + 1$.
       \end{proof}
+
+    \item
+      Given the permutation $(1,3,4,2)$.
+      \begin{enumerate}
+        \item
+          \[
+            P =
+            \begin{bmatrix}
+              0 & 1 & 0 & 0 \\
+              0 & 0 & 0 & 1 \\
+              1 & 0 & 0 & 0 \\
+              0 & 0 & 1 & 0 \\
+            \end{bmatrix}
+          \]
+        \item
+          \begin{align*}
+            p &= (1, 2)(1, 4)(1, 3) \\
+            &=
+              \begin{bmatrix}
+                0 & 1 & 0 & 0 \\
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 1 \\
+              \end{bmatrix}
+              \begin{bmatrix}
+                0 & 0 & 0 & 1 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                1 & 0 & 0 & 0 \\
+              \end{bmatrix}
+              \begin{bmatrix}
+                0 & 0 & 1 & 0 \\
+                0 & 1 & 0 & 0 \\
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+              \end{bmatrix} \\
+            &=
+              \begin{bmatrix}
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+                0 & 0 & 1 & 0 \\
+                1 & 0 & 0 & 0 \\
+              \end{bmatrix}
+              \begin{bmatrix}
+                0 & 0 & 1 & 0 \\
+                0 & 1 & 0 & 0 \\
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+              \end{bmatrix} \\
+            &=
+              \begin{bmatrix}
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 1 \\
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+              \end{bmatrix}
+          \end{align*}
+        \item
+          Since $p$ can be written as the product of three transpositions, the sign is odd.
+      \end{enumerate}
+    \item
+      Given some $n \times n$ permutation matrix $P$, by definition, each row and column has exactly one $1$ and the rest $0$.
+      This means that $P^T$ also has every row and column with exactly one $1$ and the rest $0$.
+
+      Without loss of generality, we can compute the product of these matrices by:
+
+      \begin{align*}
+        PP^T &=
+          \begin{bmatrix}
+            {PP^T}_{1 1} & {PP^T}_{1 2} & \cdots & {PP^T}_{1 n} \\
+            {PP^T}_{2 1} & {PP^T}_{2 2} & \cdots & {PP^T}_{2 n} \\
+            \vdots       & \vdots       & \ddots & \vdots       \\
+            {PP^T}_{n 1} & {PP^T}_{n 2} & \cdots & {PP^T}_{n n} \\
+          \end{bmatrix}\\
+      \end{align*}
+
+      Where each ${PP^T}_{i j}$ is the inner product between row $i$ of $P$ and column $j$ of $P^T$.
+
+      By definition of transposition, when $i = j$ the inner product is between row $i$ of $P$ and the transpose of row $i$ of $P$.
+
+      In other words:
+        \[
+          \begin{bmatrix}
+            0, 0, \cdots, 1_i, \cdots, 0
+          \end{bmatrix}
+          \begin{bmatrix}
+            0 \\
+            0 \\
+            \vdots \\
+            1_i \\
+            \vdots \\
+            0
+          \end{bmatrix}
+        \]
+      where $1_i$ is in the same row/column number.
+
+      The inner product of this is $1$.
+
+      However, when $i \ne j$ the inner product is between a row and a column which are orthogonal to each other.
+
+      In other words:
+        \[
+          \begin{bmatrix}
+            0, 0, \cdots, 1_i, \cdots, 0
+          \end{bmatrix}
+          \begin{bmatrix}
+            0 \\
+            0 \\
+            \vdots \\
+            1_j \\
+            \vdots \\
+            0
+          \end{bmatrix}
+        \]
+      where $1_i$ and $1_j$ are in different row/column numbers.
+
+      Since these vectors are orthogonal, the inner product is $0$.
+
+      So, for each ${PP^T}_{i j}$, if $i = j$, the value is $1$,
+      and if $i \ne j$, the value is $0$.
+
+      In other words, it produces all $0$'s except on the main diagonal.
+      This is the Identity matrix.
+
+      So, $PP^T = I$.
+
+      A similar argument holds for $P^TP = I$.
+
+      Thus, the transpose of a permutation matrix is its inverse.
   \end{enumerate}
 \end{document}
