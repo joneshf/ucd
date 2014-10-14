@@ -84,5 +84,26 @@
           This algorithm is $O(1)$ because it only performs standard arithmetic and comparisons, each of which have $O(1)$ cost.
           The algorithm is not dependent on the size of $n$.
       \end{enumerate}
+
+    \item
+      \begin{enumerate}
+        \item An algorithm for finding the closest points on a line can be described by:
+
+          Given some array of points, first sort the array of points.
+          Then, starting from one end of the array, we compare pairwise then distance between points.
+          Assuming our distance function is a metric, we keep track of the minimum distance, and which points provided this distance.
+          If a pair provides a smaller distance, we update the minimum with this distance and the pair of points that provided it.
+          When we have traversed the entire array, we return the pair of points that provide the minimum distance.
+
+          This algorithm works because we are only measuring distance in one dimension.
+          Since we sort the array, we know that each point is next to its closest neighbor(s).
+          So, we don't need to check the distance between any points except the possible one before and after a point.
+
+          We can verify this by assuming that we have some points $a, b, c$ in sorted order.
+          Now, if $d(a, c) < d(a, b)$ (for some distance function $d$), then the points would not be in sorted order, as the inequality implies that $b$ is either greater or less than $c$. So, the points must not have been in sorted order.
+
+          This algorithm is $O(n\lb{n})$ because the sort can be $O(n\lb{n})$, and the pairwise comparison is then $O(n)$.
+          Since $O(n) < O(n\lb{n})$, the overall cost is $O(n\lb{n})$.
+      \end{enumerate}
   \end{enumerate}
 \end{document}
