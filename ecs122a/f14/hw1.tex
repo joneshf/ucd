@@ -105,5 +105,46 @@
           This algorithm is $O(n\lb{n})$ because the sort can be $O(n\lb{n})$, and the pairwise comparison is then $O(n)$.
           Since $O(n) < O(n\lb{n})$, the overall cost is $O(n\lb{n})$.
       \end{enumerate}
+
+    \item
+      \begin{enumerate}
+        \item
+          We want to show that the solution of $T(n) = T(n-1) + n$ is $O(n^2)$.
+
+          Using the substitution method we need to perform two steps:
+          \begin{enumerate}
+            \item Guess that the solution is $T(n) = O(n^2)$
+            \item Show by induction that $T(n) \le cn^2$ for some $c > 0$.
+
+              \begin{proof} We begin with the inductive step.
+                Assume this holds for all $m < n$ and choose $m = n - 1$.
+
+                Now we have $T(n-1) \le c(n-1)^2$.
+
+                Substitute the recurrence:
+                \begin{align*}
+                  T(n) &\le c(n-1)^2 + n \\
+                  &= c(n^2-2n+1) + n \\
+                  &= cn^2 - 2cn + c + n \\
+                  &\le cn^2
+                \end{align*}
+
+                And we still need to show the base case.
+                Let's try $n = 1$.
+
+                \begin{align*}
+                  T(1) &= T(1 - 1) + 1 \\
+                  &= T(0) + 1
+                \end{align*}
+
+                We want $T(1) \le c(1)^2 = c$ for some $c$ we choose.
+
+                Since we have no explicit value for $T(0)$,
+                we choose $c \ge T(0) + 1$.
+
+                Thus we have shown that the solution holds by induction.
+              \end{proof}
+          \end{enumerate}
+      \end{enumerate}
   \end{enumerate}
 \end{document}
