@@ -9,6 +9,7 @@
 \usepackage{amssymb}
 \usepackage{algorithm2e}
 \usepackage{wasysym}
+\usepackage{qtree}
 
 \newcommand{\lb}[0]{\text{lg}}
 
@@ -119,15 +120,19 @@
               \begin{proof} We begin with the inductive step.
                 Assume this holds for all $m < n$ and choose $m = n - 1$.
 
-                Now we have $T(n-1) \le c(n-1)^2$.
+                Now we have
+                \[T(n-1) \le c(n-1)^2\].
 
                 Substitute the recurrence:
                 \begin{align*}
-                  T(n) &\le c(n-1)^2 + n \\
+                  T(n) &\le T(n-1) + n \\
+                  &= c(n-1)^2 + n \\
                   &= c(n^2-2n+1) + n \\
                   &= cn^2 - 2cn + c + n \\
                   &\le cn^2
                 \end{align*}
+
+                This holds for all $c \ge 1$
 
                 And we still need to show the base case.
                 Let's try $n = 1$.
@@ -144,6 +149,112 @@
 
                 Thus we have shown that the solution holds by induction.
               \end{proof}
+          \end{enumerate}
+
+        \item
+          We want to show that the solution of $T(n) = 4T\left(\frac{n}{2}\right) + n$ is $O(n^2)$.
+
+          Using the substitution method we need to perform two steps:
+          \begin{enumerate}
+            \item Guess that the solution is $T(n) = O(n^2)$
+            \item Show by induction that $T(n) \le cn^2$ for some $c > 0$.
+
+              \begin{proof} We begin with the inductive step.
+                Assume this holds for all $m < n$ and choose $m = \frac{n}{2}$.
+
+                Now we have
+                \[T\left(\frac{n}{2}\right) \le c\left(\frac{n}{2}\right)^2 = \frac{cn^2}{4}\].
+
+                Substitute the recurrence:
+                \begin{align*}
+                  T(n) &\le 4T\left(\frac{n}{2}\right) \\
+                  &= 4\frac{cn^2}{4} + n \\
+                  &= cn^2 + n
+                \end{align*}
+
+                But, this means $T(n) \nleq cn^2$ for all $c > 0$.
+
+                So, we need to revamp our thinking.
+
+                We try to subtract a lower order term with a new guess: $T(n) \le cn^2 - dn$, for some $d > 0$.
+
+                And, using our choice of $m = \frac{n}{2}$, we have:
+                \[
+                  T\left(\frac{n}{2}\right) \le c\left(\frac{n}{2}\right)^2 - d\left(\frac{n}{2}\right) = \left(\frac{cn^2-2dn}{4}\right)
+                \]
+
+                Let's try the recurrence:
+
+                \begin{align*}
+                  T(n) &\le 4T\left(\frac{n}{2}\right) \\
+                  &= 4\left(\frac{cn^2-2dn}{4}\right) + n \\
+                  &= cn^2 - 2dn + n \\
+                  &\le cn^2 - dn
+                \end{align*}
+
+                Which holds for all $d \ge 1$
+
+                We still need to check the base case.
+                Let's try with $n = 1$.
+
+                \[
+                  T(1) = 4T\left(\frac{1}{2}\right) + 1
+                \]
+
+                And we want $T(1) \le c(1)^2 - d(1) = c - d$ for some $c,d > 0$ we choose.
+
+                Since we have to explicit value of $T\left(\frac{1}{2}\right)$,
+                we choose $c - d \ge 4T\left(\frac{1}{2}\right) + 1 $.
+
+                Thus we have shown that the solution holds by induction.
+              \end{proof}
+          \end{enumerate}
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          $T(12) =$
+          \Tree
+            [.$12c$
+              [.$6c$
+                [.$3c$
+                  $c$
+                  $c$
+                ]
+                [.$2c$
+                  $c$
+                  $0$
+                ]
+              ]
+              [.$4c$
+                [.$2c$
+                  $c$
+                  $0$
+                ]
+                $c$
+              ]
+            ]
+
+          This tree has 4 levels.
+
+        \begin{tabular}{| c | c | c |}
+          \hline
+          level & work per level & total work \\
+          \hline
+          0 & $12c$ & $12c$ \\
+          1 & $10c$ & $22c$ \\
+          2 & $8c$  & $30c$ \\
+          3 & $4c$  & $34c$ \\
+          \hline
+        \end{tabular}
+        The total amount of work is $34c$.
+
+        \item
+          \begin{enumerate}
+            \item $T(n) = 2T\left(\frac{n}{4}\right) + 1$
+            \item $T(n) = 2T\left(\frac{n}{4}\right) + \sqrt{n}$
+            \item $T(n) = 2T\left(\frac{n}{4}\right) + n$
+            \item $T(n) = 2T\left(\frac{n}{4}\right) + n^2$
           \end{enumerate}
       \end{enumerate}
   \end{enumerate}
