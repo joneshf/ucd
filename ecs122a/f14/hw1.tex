@@ -105,6 +105,16 @@
 
           This algorithm is $O(n\lb{n})$ because the sort can be $O(n\lb{n})$, and the pairwise comparison is then $O(n)$.
           Since $O(n) < O(n\lb{n})$, the overall cost is $O(n\lb{n})$.
+
+        \item
+          We simply need to take our closest points algorithm and replace every occurrence of the euclidean metric with our new $L_{\infty}$ metric.
+
+          Since we use this as our metric, we need use this to sort the input with this metric.
+          If we use some other metric for sorting, we cannot guarantee the validity of the sort, and our algorithm may choose points which are not closest.
+
+          In the combine step, we still use the minimum distance of $\delta_L$ and $\delta_R$, but when we check the boundary condition, we have to continue to use the $L_{\infty}$ metric.
+
+          In other words, nothing changes in the algorithm aside from the metric we use throughout it.
       \end{enumerate}
 
     \item
@@ -252,9 +262,78 @@
         \item
           \begin{enumerate}
             \item $T(n) = 2T\left(\frac{n}{4}\right) + 1$
+              We check if we can use the master theorem, we have
+              \[a = 2, b = 4, f(n) = n^0 = 1, n^{\log_4{2} - \varepsilon} = n ^{\frac{1}{2} - \varepsilon}\]
+
+              If we choose $\varepsilon = \frac{1}{2}$, we get $f(n) = n^{\frac{1}{2} - \frac{1}{2}} = n^0 = 1$.
+
+              So, we have the first case of the master theorem.
+
+              So we substitute in our values and get
+
+              \[T(n) = \Theta(\sqrt{n})\]
             \item $T(n) = 2T\left(\frac{n}{4}\right) + \sqrt{n}$
+              We check if we can use the master theorem, we have
+              \[a = 2, b = 4, f(n) = \sqrt{n}, n^{\log_4{2}} = n ^{\frac{1}{2}} = \sqrt{n}\]
+
+              Since, $f(n) = n^{\log_4{2}}$, we have the second case of the master theorem.
+
+              So we substitute in our values and get
+
+              \[T(n) = \Theta(\sqrt{n}\lb{n})\]
             \item $T(n) = 2T\left(\frac{n}{4}\right) + n$
+              We check if we can use the master theorem, we have
+              \[a = 2, b = 4, f(n) = n, n^{\log_4{2} + \varepsilon} = n ^{\frac{1}{2} + \varepsilon}\]
+
+              If we choose $\varepsilon = \frac{1}{2}$, we get $f(n) = n^{\frac{1}{2} + \frac{1}{2}} = n^1 = n$.
+
+              So, we might have the third case of the master theorem, if we can show that:
+
+              \[2f\left(\frac{n}{4}\right) \le cf(n)\]
+              for $c < 1$ and sufficiently large $n$.
+
+              So, we want:
+
+              \begin{align*}
+                2f\left(\frac{n}{4}\right) &= 2\frac{n}{4} \\
+                &= \frac{n}{2} \\
+                &\le cn
+              \end{align*}
+
+              So, we choose $c \ge \frac{1}{2}$, and the inequality holds for all $n$.
+
+              Thus, we do have the third case of the master theorem.
+
+              So, we substitute in our values and get
+
+              \[T(n) = \Theta(n)\]
             \item $T(n) = 2T\left(\frac{n}{4}\right) + n^2$
+              We check if we can use the master theorem, we have
+              \[a = 2, b = 4, f(n) = n^2, n^{\log_4{2} + \varepsilon} = n ^{\frac{1}{2} + \varepsilon}\]
+
+              If we choose $\varepsilon = \frac{3}{2}$, we get $f(n) = n^{\frac{1}{2} + \frac{3}{2}} = n^2$.
+
+              So, we might have the third case of the master theorem, if we can show that:
+
+              \[2f\left(\frac{n}{4}\right) \le cf(n)\]
+              for $c < 1$ and sufficiently large $n$.
+
+              So, we want:
+
+              \begin{align*}
+                2f\left(\frac{n}{4}\right) &= 2\left(\frac{n}{4}\right)^2 \\
+                &= \frac{2n^2}{16} \\
+                &= \frac{n^2}{8} \\
+                &\le cn^2
+              \end{align*}
+
+              So, we choose $c \ge \frac{1}{8}$, and the inequality holds for all $n$.
+
+              Thus, we do have the third case of the master theorem.
+
+              So, we substitute in our values and get
+
+              \[T(n) = \Theta(n^2)\]
           \end{enumerate}
       \end{enumerate}
   \end{enumerate}
