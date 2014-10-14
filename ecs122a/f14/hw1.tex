@@ -8,6 +8,7 @@
 \usepackage{multirow}
 \usepackage{amssymb}
 \usepackage{algorithm2e}
+\usepackage{wasysym}
 
 \newcommand{\lb}[0]{\text{lg}}
 
@@ -47,7 +48,41 @@
             \item $50 \le n:$ We can use 2 quarters to get down to one of the above cases, then continue with the reasoning from there. This is less overall coins than using dimes or pennies alone to get down to any of the above cases.
           \end{itemize}
 
+        \item
+          Assume that it is not the case that using quarters initially when $n \ge 50$ provides the optimal solution.
 
+          This means we can provide the optimal solution by first using dimes and/or pennies until the change needed is less than 50\cent.
+          We can see that once the change needed is below 50\cent, we can use the cases in part \textit{a} to continue reasoning.
+          So, we need 5 dimes for any $n \ge 50$ to get it down to the cases used above.
+          However, we know that we can use just 2 quarters to get any $n \ge 50$ down to the cases above.
+          Since 2 quarters is less overall coins than 5 dimes, we have found a solution better than what we assumed to be the optimal.
+          Similar reasoning works with using pennies, however, we would need 50 pennies rather than 5 dimes and this is clearly non-optimal.
+
+          Thus, our assumption was wrong.
+
+          Therefore, the optimal solution uses quarters until the amount is less than 50\cent.
+
+        \item
+          One algorithm for this is to do a direct translation of the cases above.
+
+          We first check to see if $n \ge 50$.
+
+          If so we know we need at least 2 quarters.
+          We also subtract $50$ from $n$ to get a new amount of change needed, say $n_1$.
+          If $n < 50$ we can still say the new amount of change needed is $n_1$.
+
+          Then, we take $n_1$ and find which case it fits.
+
+          Since we have already enumerated the number and denomination of quarters and dimes for each case,
+          we subtract that amount from whichever case $n_1$ falls under.
+          E.g. if $n_1 = 36\text{\cent}$, when we would subtract the total of 1 quarter and 1 dime (or 35\cent) from $n_1$.
+          We call this new amount of change needed $n_2$.
+          We also add the respective number and denomination of quarters and dimes to the coins needed.
+
+          Finally, we return $n_2$ pennies.
+
+          This algorithm is $O(1)$ because it only performs standard arithmetic and comparisons, each of which have $O(1)$ cost.
+          The algorithm is not dependent on the size of $n$.
       \end{enumerate}
   \end{enumerate}
 \end{document}
