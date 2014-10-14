@@ -1,0 +1,53 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{algorithm2e}
+
+\newcommand{\lb}[0]{\text{lg}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 122A Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Gysel\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          The most number of pennies an optimal solution can have is 9.
+          The most number of dimes an optimal solution can have is 4.
+          We can see this by looking at some cases:
+          \begin{itemize}
+            \item $0 \le n < 10 :$ We have no choice but to use pennies, as any other denomination will be more than the change required. This has a maximum of 9 coins.
+            \item $10 \le n < 20 :$ We can use 1 dime to get down to the first case (rather than all pennies), and the rest returned in pennies. This has a maximum of 1 dime + 9 pennies = 10 coins.
+            \item $20 \le n < 25 :$ We can use 1 dime to get down to the previous case, then continue following the previous reasoning. This is less overall coins than using pennies to get to the previous case. This has a maximum of 2 dimes + 4 pennies = 6 coins.
+            \item $25 \le n < 30 :$ We can use 1 quarter to get to the case where $0 \le n < 5$, then use pennies from there. This is less overall coins than using pennies and dimes to get to any previous cases. This has a maximum of 1 quarter + 4 pennies = 5 coins.
+            \item $30 \le n < 35 :$ We can use 1 dime to get down to the case where $20 \le n < 25$, then continue with the reasoning from there.
+            This is less overall coins than using a quarter to get the the previous case and pennies. This has a maximum of 3 dimes + 4 pennies = 7 coins.
+            \item $35 \le n < 40 :$ We can use 1 quarter to get to the case where $10 \le n < 20$, then continue with the reasoning from there. This is less overall coins than using dimes and pennies alone. This has a maximum of 1 quarter + 1 dime + 9 pennies = 11 coins.
+            \item $40 \le n < 45 :$ We can use 1 dime to get to the case where $30 \le n < 35$, then continue with the reasoning from there. This is less overall coins than using a quarter to get to another case. This has a maximum of 4 dimes + 4 pennies = 8 coins.
+            \item $45 \le n < 50 :$ We can use 1 quarter to get to the case where $20 \le n < 25$, then continue with the reasoning from there. This is less overall coins than using a dime to get to another case. This has a maximum of 1 quarter + 2 dimes + 4 pennies = 7 coins.
+            \item $50 \le n:$ We can use 2 quarters to get down to one of the above cases, then continue with the reasoning from there. This is less overall coins than using dimes or pennies alone to get down to any of the above cases.
+          \end{itemize}
+
+
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
