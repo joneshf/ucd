@@ -1,0 +1,89 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{algorithm2e}
+\usepackage{wasysym}
+\usepackage{qtree}
+
+\newcommand{\lb}[0]{\text{lg}}
+\newcommand{\parens}[1]{\left(#1\right)}
+\newcommand{\Ans}[0]{\text{Ans}}
+\newcommand{\Car}[0]{\text{Car}}
+\newcommand{\EV}[0]{\text{EV}}
+\newcommand{\Pickup}[0]{\text{Pickup}}
+\newcommand{\Product}[0]{\text{Product}}
+\newcommand{\AND}[0]{\text{ AND }}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 165A Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Nitta\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item \[\Pi_{\parens{model}}\parens{\sigma_{city > 30}\parens{\Car}}\]
+        \item \[\Pi_{\parens{model}}\parens{\sigma_{towing > 15000 \AND highway > 18}\parens{\Pickup}}\]
+        \item
+          \begin{align*}
+            C(make)  &:= \Pi_{\parens{make}}\parens{\Car \bowtie_{\Car.model = \Product.model \AND price < 20000} \Product} \\
+            P(make)  &:= \Pi_{\parens{make}}\parens{\Pickup \bowtie_{\Pickup.model = \Product.model \AND price < 20000} \Product} \\
+            E(make)  &:= \Pi_{\parens{make}}\parens{\EV \bowtie_{\EV.model = \Product.model \AND price < 20000} \Product} \\
+            C'(make) &:= \Pi_{\parens{make}}\parens{\Car \bowtie_{\Car.model = \Product.model \AND price > 50000} \Product} \\
+            P'(make) &:= \Pi_{\parens{make}}\parens{\Pickup \bowtie_{\Pickup.model = \Product.model \AND price > 50000} \Product} \\
+            E'(make) &:= \Pi_{\parens{make}}\parens{\EV \bowtie_{\EV.model = \Product.model \AND price > 50000} \Product} \\
+            C''(make) &:= \parens{C \bowtie C'} \cup \parens{C \bowtie P'} \cup \parens{C \bowtie E'} \\
+            P''(make) &:= \parens{P \bowtie C'} \cup \parens{P \bowtie P'} \cup \parens{P \bowtie E'} \\
+            E''(make) &:= \parens{E \bowtie C'} \cup \parens{E \bowtie P'} \cup \parens{E \bowtie E'} \\
+            \Ans(make) &:= C'' \cup P'' \cup E''
+          \end{align*}
+        \item
+          \begin{align*}
+            C(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\Car} \\
+            C'(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\Car} \\
+            CC(passengers) &:= \Pi_{\parens{passengers}}\parens{C \bowtie_{C.passengers = C'.passengers \AND C.model \ne C'.model} C'} \\
+            E(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\EV} \\
+            E'(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\EV} \\
+            EE(passengers) &:= \Pi_{\parens{passengers}}\parens{E \bowtie_{E.passengers = E'.passengers \AND E.model \ne E'.model} E'} \\
+            P(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\Pickup} \\
+            P'(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\Pickup} \\
+            PP(passengers) &:= \Pi_{\parens{passengers}}\parens{P \bowtie_{P.passengers = P'.passengers \AND P.model \ne P'.model} P'} \\
+            CE(passengers) &:= \Pi_{\parens{passengers}}\parens{\Car \bowtie_{\Car.passengers = \EV.passengers} \EV} \\
+            CP(passengers) &:= \Pi_{\parens{passengers}}\parens{\Car \bowtie_{\Car.passengers = \Pickup.passengers} \Pickup} \\
+            PE(passengers) &:= \Pi_{\parens{passengers}}\parens{\Pickup \bowtie_{\Pickup.passengers = \EV.passengers} \EV} \\
+            \Ans(passengers) &:= CC \cup EE \cup PP \cup CE \cup CP \cup PE
+          \end{align*}
+        \item
+          \begin{align*}
+            C(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Car} \\
+            C'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Car} \\
+            C''(city, highway, model) &:= C \bowtie_{C.city * 0.55 + C.highway * 0.45 > C'.city * 0.55 + C'.highway * 0.45} C' \\
+            C'''(city, highway, model) &:= C - C'' \\
+            P(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Pickup} \\
+            P'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Pickup} \\
+            P''(city, highway, model) &:= P \bowtie_{P.city * 0.55 + P.highway * 0.45 > P'.city * 0.55 + P'.highway * 0.45} P' \\
+            P'''(city, highway, model) &:= P - P'' \\
+            Both(model) &:= \Pi_{\parens{model}}\parens{C''' \bowtie_{C'''.city * 0.55 + C'''.highway * 0.45 \ge P'''.city * 0.55 + P'''.highway * 0.45} P'''} \\
+            Both'(model) &:= \Pi_{\parens{model}}\parens{P''' \bowtie_{P'''.city * 0.55 + P'''.highway * 0.45 \ge C'''.city * 0.55 + C'''.highway * 0.45} C'''} \\
+            \Ans(make) &:= \Pi_{\parens{make}}\parens{\parens{Both \cup Both'} \bowtie \Product}
+          \end{align*}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
