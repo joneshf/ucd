@@ -214,7 +214,25 @@
       we have generated all possible elements of this cyclic group.
 
     \item
-      wat
+      \begin{proof}
+        \begin{align*}
+          ab &= aeb = aeeb = aa^7eb = aa^7a^7b \\
+          &= a^3a^3a^3a^3(a^3b) \\
+          &= a^3a^3a^3a^3(ba^3) \\
+          &= a^3a^3a^3(a^3b)a^3 \\
+          &= a^3a^3a^3(ba^3)a^3 \\
+          &= a^3a^3(a^3b)a^3a^3 \\
+          &= a^3a^3(ba^3)a^3a^3 \\
+          &= a^3(a^3b)a^3a^3a^3 \\
+          &= a^3(ba^3)a^3a^3a^3 \\
+          &= (a^3b)a^3a^3a^3a^3 \\
+          &= (ba^3)a^3a^3a^3a^3 \\
+          &= baa^7a^7 = baa^7e = baee\\
+          &= ba
+        \end{align*}
+
+        Thus, $ab=ba$ as was to be shown.
+      \end{proof}
 
     \item
       \begin{enumerate}
@@ -289,8 +307,7 @@
           $H$ is not a subgroup of $G$ as $H \not \subseteq G$ since every element of $H$ is not invertible.
       \end{enumerate}
 
-    \item
-    \item
+    \item[7.]
       \begin{enumerate}
         \item
           We can enumerate the possibilities with this group.
@@ -387,5 +404,34 @@
 
           So, in general, we have $\varphi(n)$ generators in a cyclic group.
       \end{enumerate}
+
+    \item[8.]
+      Given some group $(G, \cdot)$ with every element except the identity having order 2.
+      We want to show that $ab = ba$
+
+      \begin{proof}
+        Choose $a, b \in G$.
+
+        Since every element except the identity has order 2, we have:
+        \begin{align*}
+          e &= aa \\
+          &= aea \\
+          &= a(bb)a \\
+          &= (ab)(ba)
+        \end{align*}
+
+        Using this, we have.
+
+        \begin{align*}
+          (ab)(ba) &= e \\
+          (ab)(ba)(ba) &= e(ba) \\
+          (ab)e &= e(ba) \\
+          ab &= e(ba) \\
+          ab &= ba
+        \end{align*}
+
+        Thus, for every group $(G, \cdot)$ with each element aside from the identity having order 2,
+        the group is abelian.
+      \end{proof}
   \end{enumerate}
 \end{document}
