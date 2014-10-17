@@ -1,0 +1,216 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+
+% From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
+% Using brackets instead of parens.
+
+%-------------bmat
+% For matrices with arguments.
+% Usage: \begin{bmat}{c|c|c} 1 &2 &3 \end{bmat}
+\newenvironment{bmat}[1]{
+  \left[\begin{array}{@{}#1@{}}
+}{\end{array}\right]
+}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 150A Homework 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Schilling\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      We need to show that $a(bc) = (ab)c$
+
+      \begin{proof}
+        \begin{align*}
+          a(bc) &= a(b) \\
+          &= ab \\
+          &= a \tag{left} \label{left}
+        \end{align*}
+        \begin{align*}
+          (ab)c &= (ab) \\
+          &= ab \\
+          &= a \tag{right} \label{right}
+        \end{align*}
+
+        Since \ref{left} = \ref{right}, we have shown that the operation is associative.
+      \end{proof}
+
+      This law is an identity for sets with exactly one element.
+
+      \begin{proof}
+        Assume that a set with more than one element had this law.
+
+        Choose $a \in S$ with $e$ as the identity.
+
+        Then we want that $ae = a = ea$.
+
+        But we see that $ea = e \ne a$.
+
+        It can be shown that if $e = a$ then the identity law holds.
+        As $ee = e = ee$.
+      \end{proof}
+    \item
+      We need to show
+      \begin{itemize}
+        \item $\star$ is closed
+          \begin{proof}
+            Choose $a, b \in G^O$.
+            $a \star b = ba$ and we know that $ba \in G$,
+            so since the set is the same between $G$ and $G^O$, we also know $ba \in G^O$.
+
+            Thus, $\star$ is closed.
+          \end{proof}
+        \item $\forall a, b, c \in G^O, a \star (b \star c) = (a \star b) \star c$
+          \begin{proof}
+            Choose $a, b, c \in G^O$.
+
+            \begin{align*}
+              a \star (b \star c) &= a \star (cb) \\
+              &= (cb)a \tag{left} \label{left}
+            \end{align*}
+            \begin{align*}
+              (a \star b) \star c) &= c(a \star b) \\
+              &= c(ba) \tag{right} \label{right}
+            \end{align*}
+
+            Since we know the underlying group $G$, we know that it is associative.
+            So \ref{left} = \ref{right} since $G$ is associative.
+
+            Thus, we have shown that the associativity law holds.
+          \end{proof}
+        \item $\exists e \in G^O$ s.t. $\forall a \in G^O, a \star e = a = e \star a$
+          \begin{proof}
+            Choose $a \in G^O$.
+
+            $a \star e = ea = a$ and $e \star a = ae = a$.
+
+            Thus, we have shown that the identity law holds.
+          \end{proof}
+        \item $\forall a \in G^O, \exists a^{-1} \in G^O$ s.t. $a \star a^{-1} = e = a^{-1} \star a$
+
+          \begin{proof}
+            Choose $a \in G^O$.
+
+            $a \star a^{-1} = a^{-1}a = e$ and $a^{-1} \star a = aa^{-1} = e$.
+
+            Thus, we have shown that the inverse law holds.
+          \end{proof}
+      \end{itemize}
+
+      Since we have shown all four properties of a group,
+      we conclude $G^O$ is a group.
+
+    \item
+      Let's name our matrix.
+      \[
+        A =
+        \begin{bmatrix}
+          1  & 1  \\
+          -1 & 0
+        \end{bmatrix}
+      \]
+      \[
+        A^2 = AA =
+        \begin{bmatrix}
+          1  & 1  \\
+          -1 & 0
+        \end{bmatrix}
+        \begin{bmatrix}
+          1  & 1  \\
+          -1 & 0
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          0  & 1  \\
+          -1 & -1
+        \end{bmatrix}
+      \]
+      \[
+        A^3 = A^2A =
+        \begin{bmatrix}
+          0  & 1  \\
+          -1 & -1
+        \end{bmatrix}
+        \begin{bmatrix}
+          1  & 1  \\
+          -1 & 0
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          -1 & 0  \\
+          0  & -1
+        \end{bmatrix}
+      \]
+      \[
+        A^4 = A^3A =
+        \begin{bmatrix}
+          -1 & 0  \\
+          0  & -1
+        \end{bmatrix}
+        \begin{bmatrix}
+          1  & 1  \\
+          -1 & 0
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          -1 & -1 \\
+          1  & 0
+        \end{bmatrix}
+      \]
+      \[
+        A^5 = A^4A =
+        \begin{bmatrix}
+          -1 & -1 \\
+          1  & 0
+        \end{bmatrix}
+        \begin{bmatrix}
+          1  & 1  \\
+          -1 & 0
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          0  & -1 \\
+          1  & 1
+        \end{bmatrix}
+      \]
+      \[
+        A^6 = A^5A =
+        \begin{bmatrix}
+          0  & -1 \\
+          1  & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+          1  & 1  \\
+          -1 & 0
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          1  & 0  \\
+          0  & 1
+        \end{bmatrix}
+      \]
+
+      Since we have generated the identity,
+      we have generated all possible elements of this cyclic group.
+  \end{enumerate}
+\end{document}
