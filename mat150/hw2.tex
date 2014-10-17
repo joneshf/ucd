@@ -4,7 +4,7 @@
 \usepackage{amsthm}
 \usepackage{mathtools}
 \usepackage{cancel}
-\usepackage[margin=1in]{geometry}
+\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
 \usepackage{titling}
 
 % From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
@@ -212,5 +212,180 @@
 
       Since we have generated the identity,
       we have generated all possible elements of this cyclic group.
+
+    \item
+      wat
+
+    \item
+      \begin{enumerate}
+        \item[(b)]
+          We need to show:
+          \begin{itemize}
+            \item Closure
+              \begin{proof}
+                We can actually prove this by enumeration.
+                \[1 \times 1 = 1 \in H\]
+                \[1 \times -1 = -1 \in H\]
+                \[-1 \times 1 = -1 \in H\]
+                \[-1 \times -1 = 1 \in H\]
+
+                So every element is in $H$, thus we have closure.
+              \end{proof}
+            \item Identity
+              \begin{proof}
+                Again, we can prove by enumeration that $e = 1$.
+                \[1 \times 1 = 1 = 1 \times 1\]
+                \[-1 \times 1 = -1 = 1 \times -1\]
+
+                Thus, the identity exists.
+              \end{proof}
+            \item Inverse
+              \begin{proof}
+                Once again, we prove by enumeration.
+                \[1 \times 1 = 1 = 1 \times 1\]
+                \[-1 \times -1 = 1 = -1 \times -1\]
+
+                Thus, each element in $H$ has an inverse.
+              \end{proof}
+          \end{itemize}
+
+          From these three we have shown that $H$ is a subgroup of $G$.
+
+        \item[(c)]
+          $H$ is not a subgroup of $G$ as it lacks an identity element and it lacks inverses.
+        \item[(d)]
+          We need to show:
+          \begin{itemize}
+            \item Closure
+              \begin{proof}
+                Choose $a, b \in H$.
+
+                $a \times b$ is a positive real number.
+                So, we have shown closure.
+              \end{proof}
+            \item Identity
+              \begin{proof}
+                We want $e = 1$ to be the identity.
+                Choose $a \in H$.
+
+                $1 \times a = a = a \times 1$.
+
+                So, we have shown the identity exists.
+              \end{proof}
+            \item Inverse
+              \begin{proof}
+                Choose $a \in H$.
+
+                Since $a$ is a real number there exists $\frac{1}{a} \in H$.
+
+                $a \times \frac{1}{a} = 1 = \frac{1}{a} \times a$.
+
+                So we have shown that inverses exist.
+              \end{proof}
+          \end{itemize}
+
+          From these three we have shown that $H$ is a subgroup of $G$.
+        \item[(e)]
+          $H$ is not a subgroup of $G$ as $H \not \subseteq G$ since every element of $H$ is not invertible.
+      \end{enumerate}
+
+    \item
+    \item
+      \begin{enumerate}
+        \item
+          We can enumerate the possibilities with this group.
+
+          \begin{tabular}{| c | c | c | c | c | c |}
+            \hline
+            $a^0$          & $a^1$          & $a^2$          & $a^3$          & $a^4$          & $a^5$          \\
+            $a^0a^0 = a^0$ & $a^1a^1 = a^2$ & $a^2a^2 = a^4$ & $a^3a^3 = a^0$ & $a^4a^4 = a^2$ & $a^5a^5 = a^4$ \\
+            $a^0a^0 = a^0$ & $a^2a^1 = a^3$ & $a^4a^2 = a^2$ & $a^0a^3 = a^3$ & $a^2a^4 = a^4$ & $a^4a^5 = a^3$ \\
+            $a^0a^0 = a^0$ & $a^3a^1 = a^4$ & $a^2a^2 = a^4$ & $a^3a^3 = a^0$ & $a^4a^4 = a^2$ & $a^3a^5 = a^2$ \\
+            $a^0a^0 = a^0$ & $a^4a^1 = a^5$ & $a^4a^2 = a^2$ & $a^0a^3 = a^3$ & $a^2a^4 = a^4$ & $a^2a^5 = a^1$ \\
+            $a^0a^0 = a^0$ & $a^5a^1 = a^0$ & $a^2a^2 = a^4$ & $a^3a^3 = a^0$ & $a^4a^4 = a^2$ & $a^1a^5 = a^0$ \\
+            \hline
+          \end{tabular}
+
+          So, we see two of its elements generate the group.
+          Namely, $a^1$ and $a^5$.
+
+        \item
+          We again enumerate the possibilities.
+
+          First for order 5.
+
+          \begin{tabular}{| c | c | c | c | c |}
+            \hline
+            $a^0$          & $a^1$          & $a^2$          & $a^3$          & $a^4$          \\
+            $a^0a^0 = a^0$ & $a^1a^1 = a^2$ & $a^2a^2 = a^4$ & $a^3a^3 = a^1$ & $a^4a^4 = a^3$ \\
+            $a^0a^0 = a^0$ & $a^2a^1 = a^3$ & $a^4a^2 = a^1$ & $a^1a^3 = a^4$ & $a^3a^4 = a^2$ \\
+            $a^0a^0 = a^0$ & $a^3a^1 = a^4$ & $a^1a^2 = a^3$ & $a^4a^3 = a^2$ & $a^2a^4 = a^1$ \\
+            $a^0a^0 = a^0$ & $a^4a^1 = a^0$ & $a^3a^2 = a^0$ & $a^2a^3 = a^0$ & $a^1a^4 = a^0$ \\
+            \hline
+          \end{tabular}
+
+          So, we see 4 of its elements generate the group.
+          Namely, $a^1, a^2, a^3,$ and $a^4$
+
+          And for order 8.
+
+          \begin{tabular}{| c | c | c | c | c | c | c | c |}
+            \hline
+            $a^0$          & $a^1$          & $a^2$          & $a^3$          & $a^4$          & $a^5$          & $a^6$          & $a^7$          \\
+            $a^0a^0 = a^0$ & $a^1a^1 = a^2$ & $a^2a^2 = a^4$ & $a^3a^3 = a^6$ & $a^4a^4 = a^0$ & $a^5a^5 = a^2$ & $a^6a^6 = a^4$ & $a^7a^7 = a^6$ \\
+            $a^0a^0 = a^0$ & $a^2a^1 = a^3$ & $a^4a^2 = a^6$ & $a^6a^3 = a^1$ & $a^0a^4 = a^4$ & $a^2a^5 = a^7$ & $a^4a^6 = a^2$ & $a^6a^7 = a^5$ \\
+            $a^0a^0 = a^0$ & $a^3a^1 = a^4$ & $a^6a^2 = a^0$ & $a^1a^3 = a^4$ & $a^4a^4 = a^0$ & $a^7a^5 = a^4$ & $a^2a^6 = a^0$ & $a^5a^7 = a^4$ \\
+            $a^0a^0 = a^0$ & $a^4a^1 = a^5$ & $a^0a^2 = a^2$ & $a^4a^3 = a^7$ & $a^0a^4 = a^4$ & $a^4a^5 = a^1$ & $a^0a^6 = a^6$ & $a^4a^7 = a^3$ \\
+            $a^0a^0 = a^0$ & $a^5a^1 = a^6$ & $a^2a^2 = a^4$ & $a^7a^3 = a^2$ & $a^4a^4 = a^0$ & $a^1a^5 = a^6$ & $a^6a^6 = a^4$ & $a^3a^7 = a^2$ \\
+            $a^0a^0 = a^0$ & $a^6a^1 = a^7$ & $a^4a^2 = a^6$ & $a^2a^3 = a^5$ & $a^0a^4 = a^4$ & $a^6a^5 = a^3$ & $a^4a^6 = a^2$ & $a^2a^7 = a^1$ \\
+            $a^0a^0 = a^0$ & $a^7a^1 = a^0$ & $a^6a^2 = a^0$ & $a^5a^3 = a^0$ & $a^4a^4 = a^0$ & $a^3a^5 = a^0$ & $a^2a^6 = a^0$ & $a^1a^7 = a^0$ \\
+            \hline
+          \end{tabular}
+
+          So, we see 4 of its elements generate the group.
+          Namely, $a^1, a^3, a^5,$ and $a^7$.
+
+        \item
+          If we look at the generators for each of the previous groups,
+          we notice that the elements are generators when $gcd(i, n) = 1$,
+          where $i$ is the element and $n$ is the order of the group.
+          In other words, it is the count of the number of coprimes of $n$.
+
+          But we know that Euler's totient, $\varphi(n)$ provides us with this number.
+
+          Euler's totient is defined as:
+          \[\varphi(n) = n\prod_{p|n}^n\left(1-\frac{1}{p}\right)\]
+
+          where $p$ are distinct prime numbers.
+
+          We can double check this for the cases above.
+
+          \begin{itemize}
+            \item $n = 6$
+              \begin{align*}
+                \varphi(6) &= 6\prod_{p|6}^6\left(1-\frac{1}{p}\right) \\
+                &= 6\left(\left(1-\frac{1}{2}\right)\left(1-\frac{1}{3}\right)\right) \\
+                &= 6\left(\frac{1}{2}\frac{2}{3}\right) \\
+                &= 6\left(\frac{1}{3}\right) \\
+                &= 2 \\
+              \end{align*}
+            \item $n = 5$
+              \begin{align*}
+                \varphi(5) &= 5\prod_{p|5}^5\left(1-\frac{1}{p}\right) \\
+                &= 5\left(1-\frac{1}{5}\right) \\
+                &= 5\left(\frac{4}{5}\right) \\
+                &= 4 \\
+              \end{align*}
+            \item $n = 8$
+              \begin{align*}
+                \varphi(8) &= 8\prod_{p|8}^8\left(1-\frac{1}{p}\right) \\
+                &= 8\left(1-\frac{1}{2}\right) \\
+                &= 8\left(\frac{1}{2}\right) \\
+                &= 4 \\
+              \end{align*}
+          \end{itemize}
+
+          So, in general, we have $\varphi(n)$ generators in a cyclic group.
+      \end{enumerate}
   \end{enumerate}
 \end{document}
