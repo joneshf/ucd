@@ -3,7 +3,7 @@
 \usepackage{amsfonts}
 \usepackage{amsthm}
 \usepackage{cancel}
-\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
+\usepackage[bottom=1in,left=0.4in,right=1in,top=1in]{geometry}
 \usepackage{titling}
 \usepackage{multirow}
 \usepackage{amssymb}
@@ -57,53 +57,37 @@
           \end{align*}
         \item
           \begin{align*}
-            C(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\Car} \\
-            C'(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\Car} \\
-            CC(passengers) &:= \Pi_{\parens{passengers}}\parens{C \bowtie_{C.passengers = C'.passengers \AND C.model \ne C'.model} C'} \\
-            E(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\EV} \\
-            E'(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\EV} \\
-            EE(passengers) &:= \Pi_{\parens{passengers}}\parens{E \bowtie_{E.passengers = E'.passengers \AND E.model \ne E'.model} E'} \\
-            P(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\Pickup} \\
-            P'(model, passengers) &:= \Pi_{\parens{model, passengers}}\parens{\Pickup} \\
-            PP(passengers) &:= \Pi_{\parens{passengers}}\parens{P \bowtie_{P.passengers = P'.passengers \AND P.model \ne P'.model} P'} \\
+            C(passengers) &:= \Pi_{\parens{passengers}}\parens{\rho_C\parens{\Car} \bowtie_{C.passengers = C'.passengers \AND C.model \ne C'.model} \rho_{C'}\parens{\Car}} \\
+            E(passengers) &:= \Pi_{\parens{passengers}}\parens{\rho_E\parens{\EV} \bowtie_{E.passengers = E'.passengers \AND E.model \ne E'.model} \rho_{E'}\parens{\EV}} \\
+            P(passengers) &:= \Pi_{\parens{passengers}}\parens{\rho_P\parens{\Pickup} \bowtie_{P.passengers = P'.passengers \AND P.model \ne P'.model} \rho_{P'}\parens{\Pickup}} \\
             CE(passengers) &:= \Pi_{\parens{passengers}}\parens{\Car \bowtie_{\Car.passengers = \EV.passengers} \EV} \\
             CP(passengers) &:= \Pi_{\parens{passengers}}\parens{\Car \bowtie_{\Car.passengers = \Pickup.passengers} \Pickup} \\
             PE(passengers) &:= \Pi_{\parens{passengers}}\parens{\Pickup \bowtie_{\Pickup.passengers = \EV.passengers} \EV} \\
-            \Ans(passengers) &:= CC \cup EE \cup PP \cup CE \cup CP \cup PE
+            \Ans(passengers) &:= C \cup E \cup P \cup CE \cup CP \cup PE
           \end{align*}
         \item
           \begin{align*}
-            C(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Car} \\
-            C'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Car} \\
-            C''(city, highway, model) &:= C \bowtie_{C.city * 0.55 + C.highway * 0.45 > C'.city * 0.55 + C'.highway * 0.45} C' \\
-            C'''(city, highway, model) &:= C - C'' \\
-            P(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Pickup} \\
-            P'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Pickup} \\
-            P''(city, highway, model) &:= P \bowtie_{P.city * 0.55 + P.highway * 0.45 > P'.city * 0.55 + P'.highway * 0.45} P' \\
-            P'''(city, highway, model) &:= P - P'' \\
-            Both(model) &:= \Pi_{\parens{model}}\parens{C''' \bowtie_{C'''.city * 0.55 + C'''.highway * 0.45 \ge P'''.city * 0.55 + P'''.highway * 0.45} P'''} \\
-            Both'(model) &:= \Pi_{\parens{model}}\parens{P''' \bowtie_{P'''.city * 0.55 + P'''.highway * 0.45 \ge C'''.city * 0.55 + C'''.highway * 0.45} C'''} \\
+            C(city, highway, model) &:= \rho_C\parens{\Car} \bowtie_{C.city * 0.55 + C.highway * 0.45 > C'.city * 0.55 + C'.highway * 0.45} \rho_{C'}\parens{\Car} \\
+            C'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Car} - C \\
+            P(city, highway, model) &:= \rho_P\parens{\Pickup} \bowtie_{P.city * 0.55 + P.highway * 0.45 > P'.city * 0.55 + P'.highway * 0.45} \rho_{P'}\parens{\Pickup} \\
+            P'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Pickup} - P \\
+            Both(model) &:= \Pi_{\parens{model}}\parens{C' \bowtie_{C'.city * 0.55 + C'.highway * 0.45 \ge P'.city * 0.55 + P'.highway * 0.45} P'} \\
+            Both'(model) &:= \Pi_{\parens{model}}\parens{P' \bowtie_{P'.city * 0.55 + P'.highway * 0.45 \ge C'.city * 0.55 + C'.highway * 0.45} C'} \\
             \Ans(make) &:= \Pi_{\parens{make}}\parens{\parens{Both \cup Both'} \bowtie \Product}
           \end{align*}
         \item
           \begin{align*}
-            C(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Car} \\
-            C'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Car} \\
-            C''(city, highway, model) &:= C \bowtie_{C.city * 0.55 + C.highway * 0.45 > C'.city * 0.55 + C'.highway * 0.45} C' \\
-            C'''(city, highway, model) &:= C - C'' \\
-            E(battery, model, range) &:= \Pi_{\parens{battery, model, range}}\parens{\EV} \\
-            E'(battery, model, range) &:= \Pi_{\parens{battery, model, range}}\parens{\EV} \\
-            E''(battery, model, range) &:= E \bowtie_{\frac{E.range * 33.1}{E.battery} > \frac{E'.range * 33.1}{E'.battery}} E' \\
-            E'''(battery, model, range) &:= E - E'' \\
-            P(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Pickup} \\
-            P'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{\Pickup} \\
-            P''(city, highway, model) &:= P \bowtie_{P.city * 0.55 + P.highway * 0.45 > P'.city * 0.55 + P'.highway * 0.45} P' \\
-            P'''(city, highway, model) &:= P - P'' \\
-            CP(city, highway, model) &:= C''' \bowtie_{C'''.city * 0.55 + C'''.highway * 0.45 \ge P'''.city * 0.55 + P'''.highway * 0.45} P''' \\
-            CP'(city, highway, model) &:= P''' \bowtie_{P'''.city * 0.55 + P'''.highway * 0.45 \ge C'''.city * 0.55 + C'''.highway * 0.45} C''' \\
+            C(city, highway, model) &:= \rho_C\parens{\Car} \bowtie_{C.city * 0.55 + C.highway * 0.45 > C'.city * 0.55 + C'.highway * 0.45} \rho_{C'}\parens{\Car} \\
+            C'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{C} - C \\
+            E(battery, model, range) &:= \rho_E\parens{\EV} \bowtie_{\frac{E.range * 33.1}{E.battery} > \frac{E'.range * 33.1}{E'.battery}} \rho_{E'}\parens{\EV} \\
+            E'(battery, model, range) &:= \Pi_{\parens{battery, model, range}}\parens{E} - E \\
+            P(city, highway, model) &:= \rho_P\parens{\Pickup} \bowtie_{P.city * 0.55 + P.highway * 0.45 > P'.city * 0.55 + P'.highway * 0.45} \rho_{P'}\parens{\Pickup} \\
+            P'(city, highway, model) &:= \Pi_{\parens{city, highway, model}}\parens{P} - P \\
+            CP(city, highway, model) &:= C' \bowtie_{C'.city * 0.55 + C'.highway * 0.45 \ge P'.city * 0.55 + P'.highway * 0.45} P' \\
+            CP'(city, highway, model) &:= P' \bowtie_{P'.city * 0.55 + P'.highway * 0.45 \ge C'.city * 0.55 + C'.highway * 0.45} C' \\
             CP''(city, highway, model) &:= CP \cup CP' \\
-            CEP(model) &:= \Pi_{\parens{model}}\parens{E''' \bowtie_{\frac{E'''.range * 33.1}{E'''.battery} \ge CP''.city * 0.55 + CP''.highway * 0.45} CP''} \\
-            CEP'(model) &:= \Pi_{\parens{model}}\parens{CP'' \bowtie_{CP''.city * 0.55 + CP''.highway * 0.45 \ge \frac{E'''.range * 33.1}{E'''.battery}} E'''} \\
+            CEP(model) &:= \Pi_{\parens{model}}\parens{E' \bowtie_{\frac{E'.range * 33.1}{E'.battery} \ge CP''.city * 0.55 + CP''.highway * 0.45} CP''} \\
+            CEP'(model) &:= \Pi_{\parens{model}}\parens{CP'' \bowtie_{CP''.city * 0.55 + CP''.highway * 0.45 \ge \frac{E'.range * 33.1}{E'.battery}} E'} \\
             \Ans(make) &:= \Pi_{\parens{make}}\parens{\parens{CEP \cup CEP'} \bowtie \Product}
           \end{align*}
         \item
@@ -111,6 +95,14 @@
             P(make) &:= \Pi_{\parens{make}}\parens{\Pickup \bowtie_{city < 10 \AND \Pickup.model = \Product.model} \Product} \\
             E(make) &:= \Pi_{\parens{make}}\parens{\EV \bowtie \Product} \\
             \Ans(make) &:= E \cap P
+          \end{align*}
+        \item
+          \begin{align*}
+            C(make, vol) &:= \rho_{C(make, vol)}\parens{\Pi_{\parens{make, trunk}}\parens{\Car \bowtie \Product}} \\
+            P(make, vol) &:= \rho_{P(make, vol)}\parens{\Pi_{\parens{make, cargo}}\parens{\Pickup \bowtie \Product}} \\
+            CP(make, vol) &:= C \cup P \\
+            CP'(make, vol) &:= \rho_{Left}CP \bowtie_{Left.vol > Right.vol \AND Left.make = Right.make} \rho_{Right}CP \\
+            CP''(make, vol) &:= \rho_{Left}CP' \bowtie_{Left.vol > Right.vol \AND Left.make = Right.make} \rho_{Right}CP' \\
           \end{align*}
       \end{enumerate}
 
