@@ -1,0 +1,87 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{qtree}
+\usepackage{algpseudocode}
+
+\newcommand{\lb}[0]{\text{lg}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 122A Homework 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Gysel\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          \begin{algorithmic}
+            \Function{SET-INTERSECTION}{$X$, $Y$}
+              \State $X' \gets SORT(X)$
+              \State $Y' \gets SORT(Y)$
+              \State $i \gets 0$
+              \State $j \gets 0$
+              \State $intersection \gets$ EMPTY-SET
+
+              \While{$i < LENGTH(X')$ AND $j < LENGTH(Y')$}
+                \If{$X'[i] < Y'[j]$}
+                  \State $i \gets i + 1$
+                \ElsIf{$X'[i] = Y'[j]$}
+                  \State $intersection \gets INSERT(intersection, X'[i])$
+                \ElsIf{$X'[i] > Y'[j]$}
+                  \State $j \gets j + 1$
+                \EndIf
+              \EndWhile
+
+              \Return intersection
+
+            \EndFunction
+          \end{algorithmic}
+
+          Assuming we have a sort function that runs in $O(n \lg n)$ time
+          and an insertion function that runs in $O(1)$ time,
+          this algorithm should take $O(n \lg n)$ time.
+
+          We first sort the two sets in $O(n \lg n)$ time.
+
+          When we're iterating over the two arrays, we take a maximum of $O(n)$ time
+          as each iteration runs in $O(1)$ time.
+          This is less than $O(n \lg n)$ time, so our upper bound has not changed.
+
+          Thus, we have an intersection algorithm that runs in $O(n \lg n)$ time.
+
+        \item
+          \begin{algorithmic}
+            \Function{SET-INTERSECTION}{$X$, $Y$}
+              \State $intersection \gets$ EMPTY-SET
+              \State $table \gets$ HASH-TABLE
+
+              \ForAll{elements in $X$}
+                \State hash each element into $table$
+              \EndFor
+
+              \Return intersection
+
+            \EndFunction
+          \end{algorithmic}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
