@@ -74,14 +74,74 @@
               \State $intersection \gets$ EMPTY-SET
               \State $table \gets$ HASH-TABLE
 
-              \ForAll{elements in $X$}
+              \ForAll{elements in $Y$}
                 \State hash each element into $table$
+              \EndFor
+
+              \ForAll{elements in $X$}
+                \If{SEARCH(table, element)}
+                  \State $intersection \gets$ INSERT(intersection, element)
+                \EndIf
               \EndFor
 
               \Return intersection
 
             \EndFunction
           \end{algorithmic}
+
+          We need a table of size $k$ as this is the number of elements in the set $Y$.
+          We should not need to worry about collision resolution as the set ensures that each element is distinct in $Y$,
+          so no two elements should hash to the same location.
+
+          Assuming we have a hashing function that runs in $O(1)$ time
+          and an insert function that runs in $O(1)$ time,
+          this algorithm should run $O(n+k)$ time.
+
+          We need to iterate each element of $X = O(n)$ time,
+          and each element of $Y = O(k)$.
+          This combines to $O(n + k)$ time.
       \end{enumerate}
+
+    \item
+      Using the IRV defined in Theorem 11.2 $X_{ij} = I\{h(k_i) = h(k_j)\}$.
+
+      We have $Pr\{h(k_i) = h(k_j)\} = \frac{1}{m}$,
+      so $\text{E}[X_{ij}] = \frac{1}{m}$.
+
+      So we have that the expected number of collisions is
+
+      \begin{align*}
+        E\left[\sum_{i=1}^n \sum_{j=1}^n X_{ij}\right] &= \sum_{i=1}^n E \left[\sum_{j=1}^n X_{ij} \right] \\
+        &= \sum_{i=1}^n \sum_{j=1}^n E[X_{ij}] \\
+        &= \sum_{i=1}^n \sum_{j=1}^n \frac{1}{m} \\
+        &= \sum_{i=1}^n \frac{n}{m} \\
+        &= \frac{n^2}{m} \\
+      \end{align*}
+
+      So the expected number of collisions is $\frac{n^2}{m}$.
+
+    \item
+      We can give a counter example with the following values:
+
+      \begin{tabular}{r | c | c | c}
+        $i$             & 1 & 2  & 3 \\
+        \hline
+        $p_i$           & 5 & 22 & 36 \\
+        \hline
+        $\frac{p_i}{i}$ & 5 & 11 & 12
+      \end{tabular}
+
+      If we wanted to maximize the profit on a rod that is $4$ inches long,
+      the new algorithm would choose to cut the rod into two pieces:
+      one of length $3$ inches, and one of length $1$ inch.
+
+      This gives us $36 + 5 = 41$.
+
+      However, the optimal solution is to cut the $4$ inch rod into two equal length pieces $2$ inches long.
+
+      This gives us $22 + 22 = 44$.
+
+      Since $44 > 41$, the new algorithm does not provide an optimal solution.
+
   \end{enumerate}
 \end{document}
