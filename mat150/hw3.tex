@@ -224,7 +224,8 @@
     \item
       \begin{enumerate}
         \item
-          We need to show that $gHg^{-1}$ is closed, has an identity and has inverses.
+          We need to show that $gHg^{-1}$ is closed,
+          has an identity and has inverses.
 
           \begin{proof}
             \begin{itemize}
@@ -265,7 +266,7 @@
         \item
           We want to prove:
 
-          $H \le G$ is normal $\iff$ $\forall g \in G, \ghg{H} = H$
+          $H \triangleleft G$ is normal $\iff$ $\forall g \in G, \ghg{H} = H$
 
           \begin{proof}
 
@@ -273,7 +274,8 @@
 
             \begin{itemize}
               \item[$(\Rightarrow)$]
-                Choose $h \in H$, we know that $\forall g \in G, gH = Hg$, since $H \le G$ is normal.
+                Choose $h \in H$, we know that $\forall g \in G, gH = Hg$,
+                since $H \triangleleft G$ is normal.
 
                 So, choose $g \in G$, we have:
                 \begin{align*}
@@ -283,7 +285,8 @@
                   ghg^{-1} &= h \\
                 \end{align*}
 
-                Since our choices for $g, h$ were arbitrary, we have that this result holds for all $g \in G, h \in H$.
+                Since our choices for $g, h$ were arbitrary,
+                we have that this result holds for all $g \in G, h \in H$.
 
                 Thus we have that $\ghg{H} = H$.
 
@@ -301,11 +304,143 @@
                   gh &= hg \\
                 \end{align*}
 
-                Since our choices for $g, h$ were arbitrary, we have that this result holds for all $g \in G, h \in H$.
+                Since our choices for $g, h$ were arbitrary,
+                we have that this result holds for all $g \in G, h \in H$.
 
-                Thus we have that $gH = Hg$, in other words, $H \le G$ is normal.
+                Thus we have that $gH = Hg$, in other words, $H \triangleleft G$ is normal.
             \end{itemize}
           \end{proof}
+      \end{enumerate}
+
+    \item
+      We need to show two things:
+      \begin{itemize}
+        \item The center of a group is a subgroup.
+
+          For this we need to show three things.
+          \begin{itemize}
+            \item The subgroup is closed.
+            \item The subgroup has an identity.
+            \item the subgroup has inverses.
+          \end{itemize}
+        \item The center of a group is normal.
+      \end{itemize}
+
+      \begin{proof}
+        \begin{itemize}
+          \item We show that $Z(G) \le G$ is a subgroup.
+
+            \begin{itemize}
+              \item \textbf{Closure}
+
+                Choose $z, z' \in Z(G)$.
+
+                Since $Z(G)$ is the center of $G$, we know that $z, z' \in G$.
+
+                So, we know that $zz' = z'z$.
+
+                Thus, $Z(G)$ is closed.
+
+              \item \textbf{Identity}
+
+                Choose $e \in G$.
+
+                Since $eg = g = ge \forall g \in G, e \in Z(G)$.
+
+                Thus, $Z(G)$ has an identity.
+
+              \item \textbf{Inverse}
+
+                Choose $g \in G$.
+
+                Since $G$ is a group,
+                $\forall g \in G, \exists g^{-1} \in G \text{ s.t. } g^{-1}g = e = gg^{-1}$.
+
+                So, $\forall g \in G, g^{-1} \in Z(G)$.
+
+                Thus, $Z(G)$ has inverses.
+            \end{itemize}
+
+            From these results, we see that $Z(G) \le G$ is a subgroup.
+
+          \item
+
+            We show that $Z(G) \triangleleft G$ is normal.
+            Equivalently, $\forall g \in G, gZ(G) = Z(G)g$.
+
+            By definition of $Z(G) = \{z \in G | \forall g \in G, zg = gz\}$.
+
+            This is exactly the definition of the normal.
+
+            Thus, $Z(G) \triangleleft G$ is normal by construction.
+        \end{itemize}
+
+        From these two results,
+        we have shown that the center of a group is a normal subgroup.
+      \end{proof}
+
+    \item
+      We need to consider four cases here.
+
+      \begin{enumerate}
+        \item $|G|$ is infinite, $|H|$ is infinite.
+
+          In this case, since the two sets are infinite,
+          they have infinite order.
+
+          Thus, $\forall x \in G, x \ne e_G, |\varphi(x)| = |x|$.
+
+        \item $|G|$ is infinite, $|H|$ is finite.
+
+          The two sets cannot have the same order,
+          as $\forall x \in G, x \ne e_G, |x| = \infty$,
+
+          While $\forall x \in H, |x| \le |H|$
+
+        \item $|G|$ is finite, $|H|$ is infinite.
+
+          A similar argument holds here as before.
+
+        \item $|G|$ is finite, $|H|$ is finite.
+
+          \begin{itemize}
+            \item
+              Since $G$ is finite, $\forall x \in G \text{ of order } n \in \mathbb{Z^+}$,
+              we have $x^n = e_G$.
+
+              So, we have:
+              \begin{align*}
+                \varphi(x^n) &= \varphi(x)^n \\
+                \varphi(e_G) &= \varphi(x)^n \\
+                e_H &= \varphi(x)^n \\
+              \end{align*}
+
+              Thus $\forall x \in G \text{ of order } n \in \mathbb{Z^+}, |\varphi(x)| = |x|$
+
+            \item
+              Since $\varphi : G \rightarrow H$ is an isomorphism,
+              every element in $G$ maps to exactly one element in $H$ and vice versa.
+
+              We know that $|x| = |\varphi(x)|$,
+              so $H$ has exactly the same number of elements of order $n$ for each $n \in \mathbb{Z^+}$.
+              Since our $G$ and $H$ are arbitrary groups,
+              the result holds for all isomorphic groups.
+
+            \item
+
+              No, for instance, choose the homomorphism
+              \[
+                h : (\{-1, 0, 1\}, +) \rightarrow (\{0\}, +)
+              \]
+              \[
+                n \mapsto 0
+              \]
+
+              The domain has two elements of order 2 and one element of order 1,
+              and the co-domain has just one element of order 1.
+
+              This cannot be an isomorphism, and the map is not bijective.
+          \end{itemize}
       \end{enumerate}
   \end{enumerate}
 \end{document}
