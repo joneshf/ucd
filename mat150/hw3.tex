@@ -1,0 +1,223 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
+\usepackage{titling}
+
+% From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
+% Using brackets instead of parens.
+
+%-------------bmat
+% For matrices with arguments.
+% Usage: \begin{bmat}{c|c|c} 1 &2 &3 \end{bmat}
+\newenvironment{bmat}[1]{
+  \left[\begin{array}{@{}#1@{}}
+}{\end{array}\right]
+}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\GLNR}[0]{GL_n(\mathbb{R})}
+\newcommand{\KER}[1]{\text{ker }#1}
+\newcommand{\IM}[1]{\text{im }#1}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 150A Homework 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Schilling\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      To show that $f$ is an automorphism,
+      we need to show that $f$ is an isomorphism from $\GLNR \rightarrow \GLNR$.
+      To show that $f$ is an isomorphism,
+      we need to show that $f$ is a homomorphism and bijective.
+      To show that $f$ is a homomorphism,
+      we need to show that $f$ is closed, and that it preserves the group operation.
+
+      \[
+        \GLNR := \{A_n | A \text{ is an } n \times n \text{ matrix}, |A| \ne 0\}
+      \]
+
+      \begin{proof}
+        We begin by showing that $f$ is a homomorphism.
+
+        \begin{itemize}
+          \item
+            We first show closure.
+
+            Choose any $A \in \GLNR$.
+            $f(A) = (A^T)^{-1}$.
+
+            The size of $f(A)$ has not changed.
+            We know $|A^T| = |A|$ and $|A^{-1}| = |A|^{-1}$,
+            so $|f(A)| = |(A^T)^{-1}| = |(A^T)|^{-1} = |A|^{-1} \ne 0$.
+
+            So, $f$ maps $\GLNR \mapsto \GLNR$
+
+            Thus, $f$ is closed.
+
+          \item
+            Now we show that $f$ preserves the group operation.
+
+            Choose any $A, B \in \GLNR$.
+
+            \[
+              f(AB) = ((AB)^T)^{-1} = (B^TA^T)^{-1} = (A^T)^{-1}(B^T)^{-1} = f(A)f(B)
+            \]
+
+            So, $f$ preserves the group operation.
+
+            Thus, $f : \GLNR \rightarrow \GLNR$ is a homomorphism.
+        \end{itemize}
+
+        Now we need to show that $f$ is bijective.
+
+        \begin{itemize}
+          \item
+            We first show that $\text{ker } f = \{I_n\}$
+
+            So we want to find all $A \in \GLNR$ such that $f(A) = (A^T)^{-1} = I_n$.
+
+            But we know that for any group the identity is its own inverse, so $A^T = I_n$.
+
+            We also know that $I_n^T = I_n$, so $A = I_n$.
+
+            And since we know that the identity is unique,
+            we have that $\text{ker } f = \{I_n\}$.
+
+          \item
+            Now we show that $\text{im } f = \GLNR$
+
+            It suffices to show that $f$ has an inverse.
+            Namely, $f^{-1}(A) = A^T$.
+        \end{itemize}
+
+        So, we have shown that $f : \GLNR \rightarrow \GLNR$ is an isomorphism.
+        And since $f$'s domain is its co-domain, $f$ is an automorphism.
+      \end{proof}
+
+    \item
+      We want to show that $\forall \varphi : G -> G'$ that are group homomorphisms,
+      $\KER{\varphi} \le G$ and $\IM{\varphi} \le G$.
+
+      For both of these possible subgroups, it suffices to show two things:
+        \begin{enumerate}
+          \item The possible subgroup is non-empty.
+          \item For all $a, b$ in the possible subgroup, $ab^{-1}$ is also in the subgroup.
+        \end{enumerate}
+
+      \begin{itemize}
+        \item $\KER{\varphi} \le G$
+
+          \begin{proof}
+            We need to show the two conditions above.
+
+            \begin{enumerate}
+              \item
+                Since $\varphi$ is a homomorphism, $\varphi(e_G) = e_{G'}$,
+                so $\KER{\varphi}$ is non-empty (as $e_G \in \KER{\varphi}$).
+              \item
+                Choose $a, b \in \KER{\varphi}$.
+
+                So we have, $\varphi(a) = e_{G'}$ and $\varphi(b) = e_{G'}$,
+                and since $\varphi$ is a homomorphism.
+                \begin{align*}
+                  \varphi(ab^{-1}) &= \varphi(a)\varphi(b^{-1}) \\
+                  &= \varphi(a)\varphi(b)^{-1} \\
+                  &= e_{G'}\varphi(b)^{-1} \\
+                  &= e_{G'}e_{G'}^{-1} \\
+                  &= e_{G'}e_{G'} \\
+                  &= e_{G'}
+                \end{align*}
+            \end{enumerate}
+
+            Thus, $\KER{\varphi} \le G$.
+          \end{proof}
+
+        \item $\IM{\varphi} \le G$
+
+          \begin{proof}
+            We need to show the two conditions above.
+
+            \begin{enumerate}
+              \item
+                Since $\varphi$ is a homomorphism, $\varphi(e_G) = e_{G'}$,
+                so $\IM{\varphi}$ is non-empty (as $e_G \in \IM{\varphi}$).
+              \item
+                Choose $a, b \in \IM{\varphi}$.
+
+                This means $\exists a', b' \in G \text{ s.t. } \varphi(a') = a, \varphi(b') = b$.
+
+                Since $\varphi$ is a homomorphism and $a'b'^{-1} \in G$.
+                \begin{align*}
+                  \varphi(a'b'^{-1}) &= \varphi(a')\varphi(b'^{-1}) \\
+                  &= \varphi(a')\varphi(b')^{-1} \\
+                  &= a\varphi(b)^{-1} \\
+                  &= ab^{-1} \in \IM{\varphi} \\
+                \end{align*}
+            \end{enumerate}
+
+            Thus, $\IM{\varphi} \le G$.
+          \end{proof}
+      \end{itemize}
+
+    \item
+      The subgroups of $S_3$ are:
+      \begin{align*}
+        & \{id\} \\
+        & \{id, (1,2)\}, \{id, (1,3)\}, \{id, (2,3)\} \\
+        & \{id, (1,2,3)\}, \{id, (1,3,2)\} \\
+        & \{id, (1,2), (1,3), (2,3), (1,2,3), (1,3,2)\}
+      \end{align*}
+
+      The trivial subgroup and the group itself are normal.
+
+    \item
+      Want to show $\varphi(x) = \varphi(y) \iff xy^{-1} \in \KER{\varphi}$
+
+      \begin{proof}
+        \begin{itemize}
+          \item ($\Rightarrow$)
+
+            Since $\varphi$ is a homomorphism and $\varphi(x) = \varphi(y)$.
+            \[
+              \varphi(xy^{-1}) = \varphi(x)\varphi(y^{-1}) = \varphi(x)\varphi(y)^{-1} = \varphi(x)\varphi(x)^{-1} = \varphi(x)\varphi(x^{-1}) = \varphi(xx^{-1}) = \varphi(e_G) = e_{G'}
+            \]
+
+            By the definition of the kernel, $xy^{-1} \in \KER{\varphi}$.
+
+          \item ($\Leftarrow$)
+
+            Since $\varphi$ is a homomorphism and $xy^{-1} \in \KER{\varphi}$.
+
+            \begin{align*}
+              \varphi(xy^{-1}) &= e_{G'} \\
+              \varphi(x)\varphi(y^{-1}) &= e_{G'} \\
+              \varphi(x)\varphi(y)^{-1} &= e_{G'} \\
+              \varphi(x)\varphi(y)^{-1}\varphi(y) &= e_{G'}\varphi(y) \\
+              \varphi(x)e_{G'} &= e_{G'}\varphi(y) \\
+              \varphi(x) &= e_{G'}\varphi(y) \\
+              \varphi(x) &= \varphi(y) \\
+            \end{align*}
+
+            So, $\varphi(x) = \varphi(y)$
+        \end{itemize}
+
+        Thus, we have shown both directions and $\varphi(x) = \varphi(y) \iff xy^{-1} \in \KER{\varphi}$.
+      \end{proof}
+  \end{enumerate}
+\end{document}
