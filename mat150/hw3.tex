@@ -22,6 +22,7 @@
 \newcommand{\GLNR}[0]{GL_n(\mathbb{R})}
 \newcommand{\KER}[1]{\text{ker }#1}
 \newcommand{\IM}[1]{\text{im }#1}
+\newcommand{\ghg}[1]{g#1g^{-1}}
 
 \setlength{\droptitle}{-10ex}
 
@@ -219,5 +220,92 @@
 
         Thus, we have shown both directions and $\varphi(x) = \varphi(y) \iff xy^{-1} \in \KER{\varphi}$.
       \end{proof}
+
+    \item
+      \begin{enumerate}
+        \item
+          We need to show that $gHg^{-1}$ is closed, has an identity and has inverses.
+
+          \begin{proof}
+            \begin{itemize}
+              \item
+
+                Choose $x = \ghg{h}, y = \ghg{h'} \in \ghg{h}$.
+                \[
+                  xy = (\ghg{h})(\ghg{h'}) = \ghg{h(g^{-1}g)h'} = \ghg{heh'} = \ghg{hh'}
+                \]
+                Now, since $hh' \in H$, we have that $\ghg{hh'} = xy \in H$.
+
+                Thus, $\ghg{H}$ is closed.
+
+              \item
+
+                Choose $e \in G$ as the identity.
+
+                \[
+                  \ghg{h}e = \ghg{h} = e\ghg{h}
+                \]
+
+                Thus, $\ghg{H}$ has an identity.
+
+              \item
+
+                $\forall x = \ghg{h} in \ghg{H}$, choose $x^{-1} = \ghg{h^{-1}}$
+
+                \[
+                  (\ghg{h})(\ghg{h^{-1}}) = \ghg{h(g^{-1}g)h^{-1}} = \ghg{heh^{-1}} = \ghg{(hh^{-1})} = \ghg{e} = \ghg{} = e
+                \]
+
+                Thus, $\ghg{H}$ has inverses.
+            \end{itemize}
+
+            From the three results shown, $\ghg{H} \le G$ is a subgroup.
+          \end{proof}
+
+        \item
+          We want to prove:
+
+          $H \le G$ is normal $\iff$ $\forall g \in G, \ghg{H} = H$
+
+          \begin{proof}
+
+            We need to show both sides of this equivalence.
+
+            \begin{itemize}
+              \item[$(\Rightarrow)$]
+                Choose $h \in H$, we know that $\forall g \in G, gH = Hg$, since $H \le G$ is normal.
+
+                So, choose $g \in G$, we have:
+                \begin{align*}
+                  gh &= hg \\
+                  ghg^{-1} &= hgg^{-1} \\
+                  ghg^{-1} &= he \\
+                  ghg^{-1} &= h \\
+                \end{align*}
+
+                Since our choices for $g, h$ were arbitrary, we have that this result holds for all $g \in G, h \in H$.
+
+                Thus we have that $\ghg{H} = H$.
+
+              \item[$(\Leftarrow)$]
+
+                Choose $g \in G$, we know $\forall g \in G, \ghg{H} = H$.
+
+                So, choose $h \in H$, we have:
+                \begin{align*}
+                  \ghg{h} &= h \\
+                  \ghg{h}g &= hg \\
+                  \ghg{h}g &= hg \\
+                  gh(g^{-1}g) &= hg \\
+                  ghe &= hg \\
+                  gh &= hg \\
+                \end{align*}
+
+                Since our choices for $g, h$ were arbitrary, we have that this result holds for all $g \in G, h \in H$.
+
+                Thus we have that $gH = Hg$, in other words, $H \le G$ is normal.
+            \end{itemize}
+          \end{proof}
+      \end{enumerate}
   \end{enumerate}
 \end{document}
