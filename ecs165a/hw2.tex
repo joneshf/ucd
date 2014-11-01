@@ -126,7 +126,7 @@
             \item $B \rightarrow E$
 
               \begin{tabular}{c | c | c |}
-                FD                    & Closure             & Violates \\
+                FD                    & Closure             & Violates BCNF \\
                 \hline
                 $BD \rightarrow E$    & $\{B, D, E\}$       & VIOLATES \\
                 \hline
@@ -139,7 +139,7 @@
             \item $CE \rightarrow A$
 
               \begin{tabular}{c | c | c |}
-                FD                    & Closure             & Violates \\
+                FD                    & Closure             & Violates BCNF \\
                 \hline
                 $ACE \rightarrow A$   & $\{A, C, D, E\}$    & VIOLATES \\
                 \hline
@@ -152,7 +152,7 @@
             \item $AC \rightarrow D$
 
               \begin{tabular}{c | c | c |}
-                FD                    & Closure             & Violates \\
+                FD                    & Closure             & Violates BCNF \\
                 \hline
                 $ACD \rightarrow D$   & $\{A, C, D\}$       & VIOLATES \\
                 \hline
@@ -163,7 +163,118 @@
               \end{tabular}
           \end{itemize}
 
-        So, we have listed all of the FD's that follow which violate BCNF
+          So, we have listed all of the FD's that follow which violate BCNF
+
+        \item
+          Given the violators above, we can decompose $R$ to BCNF relations.
+
+          Start with $B \rightarrow E$.
+
+          \[R_1(A, B, C, D), R_2(B, E)\]
+          We have that $R_2$ is in BCNF as it is a 2-attribute relation with the key $\{B\}$.
+
+          For $R_1$, we still have the FD's $AB \rightarrow C, AC \rightarrow D$,
+          and only one of our previous keys---$\{A, B\}$---still holds.
+
+          We check the closure of our FD's.
+
+          \[\closure{AB} = \{A, B, C, D\}\]
+          \[\closure{AC} = \{A, C, D\}\]
+
+          So, our old violator---$AC \rightarrow D$---still exists.
+
+          We decompose $R_1$ into
+          \[R_3(A, B, C), R_4(C, D)\]
+          We have that $R_4$ is in BCNF as it is a 2-attribute relation with the key $\{C\}$.
+
+          For $R_3$, we still have the FD $AB \rightarrow C$, and our key is $\{A, B\}$.
+
+          The closure can be computed to show this is in BCNF.
+          \[\closure{AB} = \{A, B, C\}\]
+
+          Thus, we have decomposed $R(A, B, C, D, E)$ into the BCNF relations:
+          \[R_2(B, E), R_3(A, B, C), R_4(C, D)\]
+
+        \item
+          Using the charts generated before:
+
+          \begin{itemize}
+            \item $B \rightarrow E$
+
+              \begin{tabular}{c | c | c |}
+                FD                    & Closure             & Violates BCNF \\
+                \hline
+                $BD \rightarrow E$    & $\{B, D, E\}$       & VIOLATES \\
+                \hline
+                $BE \rightarrow E$    & $\{B, E\}$          & VIOLATES \\
+                \hline
+                $BDE \rightarrow E$   & $\{B, D, E\}$       & VIOLATES \\
+                \hline
+              \end{tabular}
+
+            \item $CE \rightarrow A$
+
+              \begin{tabular}{c | c | c |}
+                FD                    & Closure             & Violates BCNF \\
+                \hline
+                $ACE \rightarrow A$   & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+                $CDE \rightarrow A$   & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+                $ACDE \rightarrow A$  & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+              \end{tabular}
+
+            \item $AC \rightarrow D$
+
+              \begin{tabular}{c | c | c |}
+                FD                    & Closure             & Violates BCNF \\
+                \hline
+                $ACD \rightarrow D$   & $\{A, C, D\}$       & VIOLATES \\
+                \hline
+                $ACE \rightarrow D$   & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+                $ACDE \rightarrow D$  & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+              \end{tabular}
+          \end{itemize}
+
+          We can see that the violators of 3NF are the ones whose right sides are not prime.
+
+          Since the FD $CE \rightarrow A$ and each of its followers that violates BCNF contain a prime right side ($A$),
+          we have the rest as violators of 3NF.
+
+          That is:
+
+          \begin{itemize}
+            \item $B \rightarrow E$
+
+              \begin{tabular}{c | c | c |}
+                FD                    & Closure             & Violates 3NF \\
+                \hline
+                $BD \rightarrow E$    & $\{B, D, E\}$       & VIOLATES \\
+                \hline
+                $BE \rightarrow E$    & $\{B, E\}$          & VIOLATES \\
+                \hline
+                $BDE \rightarrow E$   & $\{B, D, E\}$       & VIOLATES \\
+                \hline
+              \end{tabular}
+
+            \item $AC \rightarrow D$
+
+              \begin{tabular}{c | c | c |}
+                FD                    & Closure             & Violates 3NF \\
+                \hline
+                $ACD \rightarrow D$   & $\{A, C, D\}$       & VIOLATES \\
+                \hline
+                $ACE \rightarrow D$   & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+                $ACDE \rightarrow D$  & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+              \end{tabular}
+          \end{itemize}
+
+
       \end{enumerate}
   \end{enumerate}
 \end{document}
