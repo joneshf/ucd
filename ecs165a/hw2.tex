@@ -121,6 +121,7 @@
           We now check each FD that follows from the above.
           N.B. If a FD that follows contains a superkey,
           we needn't compute the closure, as it will not violate BCNF.
+          We also needn't compute the closure of trivial FD's
 
           \begin{itemize}
             \item $B \rightarrow E$
@@ -130,10 +131,6 @@
                 \hline
                 $BD \rightarrow E$    & $\{B, D, E\}$       & VIOLATES \\
                 \hline
-                $BE \rightarrow E$    & $\{B, E\}$          & VIOLATES \\
-                \hline
-                $BDE \rightarrow E$   & $\{B, D, E\}$       & VIOLATES \\
-                \hline
               \end{tabular}
 
             \item $CE \rightarrow A$
@@ -141,11 +138,7 @@
               \begin{tabular}{c | c | c |}
                 FD                    & Closure             & Violates BCNF \\
                 \hline
-                $ACE \rightarrow A$   & $\{A, C, D, E\}$    & VIOLATES \\
-                \hline
                 $CDE \rightarrow A$   & $\{A, C, D, E\}$    & VIOLATES \\
-                \hline
-                $ACDE \rightarrow A$  & $\{A, C, D, E\}$    & VIOLATES \\
                 \hline
               \end{tabular}
 
@@ -154,16 +147,12 @@
               \begin{tabular}{c | c | c |}
                 FD                    & Closure             & Violates BCNF \\
                 \hline
-                $ACD \rightarrow D$   & $\{A, C, D\}$       & VIOLATES \\
-                \hline
                 $ACE \rightarrow D$   & $\{A, C, D, E\}$    & VIOLATES \\
-                \hline
-                $ACDE \rightarrow D$  & $\{A, C, D, E\}$    & VIOLATES \\
                 \hline
               \end{tabular}
           \end{itemize}
 
-          So, we have listed all of the FD's that follow which violate BCNF
+          So, we have listed all of the FD's that follow which violate BCNF and are not trivial.
 
         \item
           Given the violators above, we can decompose $R$ to BCNF relations.
@@ -206,10 +195,6 @@
                 \hline
                 $BD \rightarrow E$    & $\{B, D, E\}$       & VIOLATES \\
                 \hline
-                $BE \rightarrow E$    & $\{B, E\}$          & VIOLATES \\
-                \hline
-                $BDE \rightarrow E$   & $\{B, D, E\}$       & VIOLATES \\
-                \hline
               \end{tabular}
 
             \item $CE \rightarrow A$
@@ -217,11 +202,7 @@
               \begin{tabular}{c | c | c |}
                 FD                    & Closure             & Violates BCNF \\
                 \hline
-                $ACE \rightarrow A$   & $\{A, C, D, E\}$    & VIOLATES \\
-                \hline
                 $CDE \rightarrow A$   & $\{A, C, D, E\}$    & VIOLATES \\
-                \hline
-                $ACDE \rightarrow A$  & $\{A, C, D, E\}$    & VIOLATES \\
                 \hline
               \end{tabular}
 
@@ -230,11 +211,7 @@
               \begin{tabular}{c | c | c |}
                 FD                    & Closure             & Violates BCNF \\
                 \hline
-                $ACD \rightarrow D$   & $\{A, C, D\}$       & VIOLATES \\
-                \hline
                 $ACE \rightarrow D$   & $\{A, C, D, E\}$    & VIOLATES \\
-                \hline
-                $ACDE \rightarrow D$  & $\{A, C, D, E\}$    & VIOLATES \\
                 \hline
               \end{tabular}
           \end{itemize}
@@ -254,10 +231,6 @@
                 \hline
                 $BD \rightarrow E$    & $\{B, D, E\}$       & VIOLATES \\
                 \hline
-                $BE \rightarrow E$    & $\{B, E\}$          & VIOLATES \\
-                \hline
-                $BDE \rightarrow E$   & $\{B, D, E\}$       & VIOLATES \\
-                \hline
               \end{tabular}
 
             \item $AC \rightarrow D$
@@ -265,11 +238,7 @@
               \begin{tabular}{c | c | c |}
                 FD                    & Closure             & Violates 3NF \\
                 \hline
-                $ACD \rightarrow D$   & $\{A, C, D\}$       & VIOLATES \\
-                \hline
                 $ACE \rightarrow D$   & $\{A, C, D, E\}$    & VIOLATES \\
-                \hline
-                $ACDE \rightarrow D$  & $\{A, C, D, E\}$    & VIOLATES \\
                 \hline
               \end{tabular}
           \end{itemize}
@@ -296,6 +265,68 @@
 
           Thus, we have decomposed $R$ into 3NF.
 
+        \item
+          We start with all of the FD's that violated BCNF and promote them to MVD's
+
+          \[B \rightarrow E\]
+          \[BD \rightarrow E\]
+          \[CE \rightarrow A\]
+          \[CDE \rightarrow A\]
+          \[AC \rightarrow D\]
+          \[ACE \rightarrow D\]
+
+          becomes
+
+          \[B \twoheadrightarrow E\]
+          \[BD \twoheadrightarrow E\]
+          \[CE \twoheadrightarrow A\]
+          \[CDE \twoheadrightarrow A\]
+          \[AC \twoheadrightarrow D\]
+          \[ACE \twoheadrightarrow D\]
+
+          And, we complement these to obtain all of the violators of 4NF.
+
+          \[B \twoheadrightarrow E\]
+          \[B \twoheadrightarrow ACD\]
+          \[BD \twoheadrightarrow E\]
+          \[BD \twoheadrightarrow AC\]
+          \[CE \twoheadrightarrow A\]
+          \[CE \twoheadrightarrow BD\]
+          \[CDE \twoheadrightarrow A\]
+          \[CDE \twoheadrightarrow B\]
+          \[AC \twoheadrightarrow D\]
+          \[AC \twoheadrightarrow BE\]
+          \[ACE \twoheadrightarrow D\]
+          \[ACE \twoheadrightarrow B\]
+
+        \item
+          We can decompose $R$ using the violators found above.
+
+          \[R_1(B,E), R_2(A,B,C,D)\]
+
+          Since $R_1$ is a 2-attribute schema,
+          it is in 4NF with the key $\{B\}$, FD $B \rightarrow E$, and MVD $B \twoheadrightarrow E$.
+
+          $R_2$ has the key $\{A,B\}$, FD's $AB \rightarrow C, AC \rightarrow D$
+          , and MVD's $AB \twoheadrightarrow C, AC \twoheadrightarrow D, AB \twoheadrightarrow D, AC \twoheadrightarrow B$.
+
+          The only violator is $AC \twoheadrightarrow D$ as $\closure{AC} = \{A, C, D\}$.
+          The other MVD's either have a superkey on the left or their closure is $\{A, B, C, D\}$.
+
+          So, we decompose $R_2$ further.
+
+          \[R_3(A, C, D), R_4(A, B)\]
+
+          Since $R_4$ is a 2-attribute schema,
+          it is in 4NF with the key $\{A,B\}$, and only the trivial FD's and MVD's.
+
+          $R_3$ has the key $\{A, C\}$, FD $AC \rightarrow D$, and MVD $AC \twoheadrightarrow D$.
+
+          Since $R_3$ has no violators, we have finished our decomposition.
+
+          That is:
+
+          \[R_1(B,E), R_3(A, C, D), R_4(A, B)\]
       \end{enumerate}
   \end{enumerate}
 \end{document}
