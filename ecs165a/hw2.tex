@@ -1,0 +1,169 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[bottom=1in,left=0.4in,right=1in,top=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{algorithm2e}
+\usepackage{wasysym}
+\usepackage{qtree}
+
+\newcommand{\lb}[0]{\text{lg}}
+\newcommand{\parens}[1]{\left(#1\right)}
+\newcommand{\closure}[1]{\{#1\}^+}
+\newcommand{\Ans}[0]{\text{Ans}}
+\newcommand{\AND}[0]{\text{ AND }}
+\newcommand{\OR}[0]{\text{ OR }}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 165A Homework 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Nitta\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item The keys are $\{A,B\}$ and $\{B,C\}$.
+
+          We can see this by computing $\closure{A,B}$ and $\closure{B,C}$,
+          seeing that no other combinations of attributes can be keys,
+          and seeing that these are minimal.
+
+          \[
+            \closure{A,B} = \closure{A,B,C} = \closure{A,B,C,D} = \{A,B,C,D,E\}
+          \]
+          \[
+            \closure{B,C} = \closure{B,C,E} = \closure{B,C,E,A} = \{B,C,E,A,D\}
+          \]
+        \item This is a minimal basis.
+
+          \begin{proof}
+            \begin{itemize}
+              \item Each right hand side is a singleton.
+
+              \item
+                We have three FD's with 2 attributes on the left.
+                We check to see if we can remove one of them by computing the closure of each in turn.
+
+                \begin{itemize}
+                  \item $AB \rightarrow C$
+                    \[\closure{A} = \{A\}\]
+                    \[\closure{B} = \{B,E\}\]
+
+                    Since neither of these closed over $C$ we cannot remove either from the left.
+                  \item $CE \rightarrow A$
+                    \[\closure{C} = \{C\}\]
+                    \[\closure{E} = \{E\}\]
+
+                    Since neither of these closed over $A$ we cannot remove either from the left.
+                  \item $AC \rightarrow D$
+                    \[\closure{A} = \{A\}\]
+                    \[\closure{C} = \{C\}\]
+
+                    Since neither of these closed over $D$ we cannot remove either from the left.
+                \end{itemize}
+
+                So, we cannot simplify the left sides of any of our FD's.
+
+              \item
+                We check to see if we can remove any FD's from the set by computing the closure of the left with the rest of the set.
+
+                \begin{itemize}
+                  \item $AB \rightarrow C$
+                    \[\closure{A, B} = \{A, B, E\}\]
+
+                    Since this did not close over $C$, we cannot remove this FD.
+                  \item $B \rightarrow E$
+                    \[\closure{B} = \{B\}\]
+
+                    Since this did not close over $E$, we cannot remove this FD.
+                  \item $CE \rightarrow A$
+                    \[\closure{C, E} = \{C, E\}\]
+
+                    Since this did not close over $A$, we cannot remove this FD.
+                  \item $AC \rightarrow D$
+                    \[\closure{A, C} = \{A, C\}\]
+
+                    Since this did not close over $D$, we cannot remove this FD.
+                \end{itemize}
+
+                So, we cannot remove any FD's from the set.
+            \end{itemize}
+
+            Since we already have every right side being singleton,
+            we cannot simplify the left sides of any of the FD's,
+            and we cannot remove any FD's,
+            this is a minimal basis.
+          \end{proof}
+        \item
+          We start by looking at which of the FD's given violate BCNF.
+          Since we know the keys are $\{\{A,B\}, \{B,C\}\}$,
+          we know that $AB \rightarrow C$ and anything that follows from it will not violate BCNF,
+          as these are all superkeys.
+
+          This leaves the other FD's as violators of BCNF.
+          These are $B \rightarrow E, CE \rightarrow A, AC \rightarrow D$.
+
+          We now check each FD that follows from the above.
+          N.B. If a FD that follows contains a superkey,
+          we needn't compute the closure, as it will not violate BCNF.
+
+          \begin{itemize}
+            \item $B \rightarrow E$
+
+              \begin{tabular}{c | c | c |}
+                FD                    & Closure             & Violates \\
+                \hline
+                $BD \rightarrow E$    & $\{B, D, E\}$       & VIOLATES \\
+                \hline
+                $BE \rightarrow E$    & $\{B, E\}$          & VIOLATES \\
+                \hline
+                $BDE \rightarrow E$   & $\{B, D, E\}$       & VIOLATES \\
+                \hline
+              \end{tabular}
+
+            \item $CE \rightarrow A$
+
+              \begin{tabular}{c | c | c |}
+                FD                    & Closure             & Violates \\
+                \hline
+                $ACE \rightarrow A$   & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+                $CDE \rightarrow A$   & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+                $ACDE \rightarrow A$  & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+              \end{tabular}
+
+            \item $AC \rightarrow D$
+
+              \begin{tabular}{c | c | c |}
+                FD                    & Closure             & Violates \\
+                \hline
+                $ACD \rightarrow D$   & $\{A, C, D\}$       & VIOLATES \\
+                \hline
+                $ACE \rightarrow D$   & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+                $ACDE \rightarrow D$  & $\{A, C, D, E\}$    & VIOLATES \\
+                \hline
+              \end{tabular}
+          \end{itemize}
+
+        So, we have listed all of the FD's that follow which violate BCNF
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
