@@ -274,6 +274,27 @@
               \end{tabular}
           \end{itemize}
 
+        \item
+          We decompose $R$ by first creating relations of all the FD's:
+
+          \[R_1(A, B, C), R_2(B, E), R_3(A, C, E), R_4(A, C, D)\]
+
+          By definition these all have a minimal basis of the FD used to construct them.
+          The keys of each relation is the left side of each FD.
+
+          \begin{tabular}{c | c}
+            Relation & Key \\
+            \hline
+            $R_1$    & $\{A, B\}$ \\
+            $R_2$    & $\{B\}$ \\
+            $R_3$    & $\{C, E\}$ \\
+            $R_4$    & $\{A, C\}$ \\
+          \end{tabular}
+
+          None of these relations is a subset of another, so we needn't remove any.
+          Furthermore, $R_1$ is a superkey for $R$, so we needn't add any more relations.
+
+          Thus, we have decomposed $R$ into 3NF.
 
       \end{enumerate}
   \end{enumerate}
