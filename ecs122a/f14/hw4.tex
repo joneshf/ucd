@@ -32,13 +32,27 @@
 
   \begin{enumerate}
     \item
+
+      We can find a possible augmenting path if we modify both of the given algorithms.
+
+      For DFS, we do not need to look at each vertex when starting the algorithm.
+      We already know we want to find a path from $s$ to $t$, so we just need to check for paths from $s$.
+
+      For DFS-VISIT, we should check if the current vertex is $t$.
+      If it is, then we've constructed an $st$-path, and we can just return it.
+      Otherwise, we continue as in the original algorithm.
+      Each time we visit a new vertex, we add it to the end of the current path.
+      If what was returned from our visitation is not an empty list,
+      then we have an $st$-path, so we can return it.
+      Otherwise, we continue searching for paths.
+      If at the end of the search, we didn't find $t$, we return the empty list.
+
       \begin{algorithm}
         \begin{algorithmic}
           \Function{AUGMENTING-PATH}{$G_f$}
             \For{each $v \in G_f$}
               \State $v$.visited $\gets$ \textsc{False}
             \EndFor
-
             \State \Return ST-PATH($G_f$, $G_f.s$, APPEND(\textsc{Nil}, $G_f.s$))
           \EndFunction
         \end{algorithmic}
