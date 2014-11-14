@@ -1,0 +1,158 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
+\usepackage{titling}
+
+% From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
+% Using brackets instead of parens.
+
+%-------------bmat
+% For matrices with arguments.
+% Usage: \begin{bmat}{c|c|c} 1 &2 &3 \end{bmat}
+\newenvironment{bmat}[1]{
+  \left[\begin{array}{@{}#1@{}}
+}{\end{array}\right]
+}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\GLNR}[0]{GL_n(\mathbb{R})}
+\newcommand{\KER}[1]{\text{ker }#1}
+\newcommand{\IM}[1]{\text{im }#1}
+\newcommand{\ghg}[1]{g#1g^{-1}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 150A Homework 5\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Schilling\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Since $G$ has subgroups of order 3 and 5, we know that we can reconstruct at least part of $G$ by taking the composition of each element from the subgroups.
+
+    \item
+    \item
+      \begin{enumerate}
+        \item We can show this by enumerating the table.
+
+          \begin{tabular}{c | c | c | c | c | c | c |}
+            $\cdot$ & 0 & 1 & 2 & 3 & 4 & 5 \\
+            \hline
+            0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            \hline
+            1 & 0 & 1 & 2 & 3 & 4 & 5 \\
+            \hline
+            2 & 0 & 2 & 4 & 0 & 2 & 4 \\
+            \hline
+            3 & 0 & 3 & 0 & 3 & 0 & 3 \\
+            \hline
+            4 & 0 & 4 & 2 & 0 & 4 & 2 \\
+            \hline
+            5 & 0 & 5 & 4 & 3 & 2 & 1 \\
+            \hline
+          \end{tabular}
+
+          As we see, there is not a 1 in either the row for 2 or the column for 2.
+          So, there is no inverse for 2.
+        \item
+          2 has an inverse modulo $n$ for all odd $n > 1$. In particular, the inverse is $\frac{n + 1}{2}$
+
+          Choose some odd $n > 1$.
+
+          \begin{align*}
+            2\left(\frac{n + 1}{2}\right) \text{ mod } n &= (n + 1) \text{ mod } n \\
+            &= 1
+          \end{align*}
+
+          For even $n$, there is no such $n$ as we can generalize the result above.
+
+          So, for each odd $n > 1$, 2 mod $n$ has an inverse.
+      \end{enumerate}
+    \item
+      We need to show Closure, Identity, and Inverse
+      \begin{enumerate}
+        \item \textbf{Closure}
+
+          Choose $h, h' \in H$, then we just need to show the determinate is positive.
+
+          $|hh'| = |h||h'| > 0$ as multiplying two positive numbers is always positive.
+
+          So $H$ is closed.
+
+        \item \textbf{Identity}
+
+          $|I_n| = 1$, so $H$ has an identity.
+
+        \item \textbf{Inverse}
+
+          Since each element has a positive determinate, each element is invertible.
+
+          Choose $h \in H$, then there exists some $h^{-1} \in H$ such that:
+
+          \[hh^{-1} = I_n = h^{-1}h\]
+
+          And the determinate is:
+
+          \begin{align*}
+            |hh^{-1}| &= |I_n| \\
+            |h||h^{-1}| &= 1 \\
+            |h^{-1}| &= \frac{1}{|h|} > 0 \\
+          \end{align*}
+
+          So, $h^{-1}$ is an element of $H$.
+
+          Thus, $H$ has inverses.
+      \end{enumerate}
+
+      So we know that $H$ is a subgroup.
+
+      Now we just need to show normalcy.
+
+      Choose $g \in \GLNR, h \in H$,
+      then we want to show $\ghg{h} \in H$
+
+      \[
+        |\ghg{h}| = |g||h||g^{-1}| = |g||g^{-1}||h| = |gg^{-1}||h| = |I_n||h| = |h| > 0
+      \]
+
+      So, we know that $\ghg{h} \in H$.
+
+      Thus $H \trianglelefteq \GLNR$.
+
+      The quotient group would be one left coset where $|g| \mapsto \text{abs}(|g|)$.
+
+      The other would be a left coset where $|g| \mapsto -\text{abs}(|g|)$.
+    \item
+    \item
+
+      For every group of even order, there are an odd number of elements with order $\ge 1$--as the identity is the only element of order 1.
+
+      Since each element has exactly one inverse, this means there must be some element which is its own inverse. In other words, it has order 2.
+
+    \item
+
+      From Lagrange's theorem, we know that \[H \le G \implies [G : H] = \frac{|G|}{|H|}\]
+
+      So, we can substitute,
+
+      \begin{align*}
+        [G : H][H : K] &= \frac{|G|}{|H|} \frac{|H|}{|K|} \\
+        &= \frac{|G|}{|K|} \\
+        &= [G : K]
+      \end{align*}
+  \end{enumerate}
+\end{document}
