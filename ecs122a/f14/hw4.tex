@@ -77,5 +77,21 @@
           \EndFunction
         \end{algorithmic}
       \end{algorithm}
+
+    \item
+    \item
+      \begin{enumerate}
+        \item True
+          \[
+            v(f) = f_{OUT}(s) - f_{IN}(s) = f_{OUT}(s) = f_{IN}(u_1) = f_{OUT}(u_1) = f_{IN}(u_2) = \dots = f_{IN}(t)
+          \]
+        \item False
+          Minimum cuts are equivalent to maximum flow
+          by the Max-flow min-cut theorem.
+        \item False
+          The while loop in FORD-FULKERSON has complexity $O(|E|)$ since the path can be found with either BFS or DFS, both of which have complexity $O(|E|)$.
+        \item True
+          This satisfies both the capacity and the conservation constraints.
+      \end{enumerate}
   \end{enumerate}
 \end{document}
