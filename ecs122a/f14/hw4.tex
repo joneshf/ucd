@@ -11,6 +11,8 @@
 \usepackage{qtree}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
 
 \newcommand{\lb}[0]{\text{lg}}
 
@@ -79,18 +81,81 @@
       \end{algorithm}
 
     \item
+      We can solve this following the maximum bipartite matching problem and modifying it a bit.
+
+      We create the two sets, $L = \{d_1, d_2, \dots, d_n\}, R = \{p_1, p_2, \dots, p_m\}$.
+      Create the edges $E = \{(d_i, p_j) \ | \ i \in 1, 2, \dots, n; j \in 1, 2, \dots, m; p_j \in S_i\}$.
+      Give each edge in $E$ a weight of 1 to show that each doctor can treat one patient.
+
+      Then, tack on two more vertices, $s, t$ as the source and sink.
+      Construct an edge from $s$ to each $d_i \in L$ with weight $\infty$.
+      Also construct an edge from each $p_j \in R$ to $t$ with weight $\infty$.
+
+      This is exactly the construction for the maximum bipartite matching problem. However, we have an additional constraint. Each doctor can treat at most $k_i > 0$ patients.
+
+      We can modify our graph to encode this information by taking each edge $(s, d_i) \forall d_i \in L$ and creating an additional vertex and edge between them. Give this new edge a weight of $k_i$.
+
+      Now, we can run FORD-FULKERSON over our newly constructed graph,
+      and we shall have a maximum flow which represents the most number of treated patients.
+
+      An example is shown below:
+
+      \begin{tikzpicture}[shorten >=1pt,node distance=2.25cm,on grid,auto]
+         \node[state] (s)   {$s$};
+         \node[state] (k_3) [below right=of s] {};
+         \node[state] (k_2) [above=of k_3] {};
+         \node[state] (k_4) [below=of k_3] {};
+         \node[state] (k_1) [above=of k_2] {};
+         \node[state] (d_1) [right=of k_1] {$d_1$};
+         \node[state] (d_2) [right=of k_2] {$d_2$};
+         \node[state] (d_3) [right=of k_3] {$d_3$};
+         \node[state] (d_4) [right=of k_4] {$d_4$};
+         \node[state] (p_1) [right=of d_1, xshift=2cm, yshift=2cm] {$p_1$};
+         \node[state] (p_2) [below=2.75cm of p_1] {$p_2$};
+         \node[state] (p_3) [below=2.25cm of p_2] {$p_3$};
+         \node[state] (p_4) [below=2.25cm of p_3] {$p_4$};
+         \node[state] (p_5) [below=2.25cm of p_4] {$p_5$};
+         \node[state](t) [right=of p_3] {$t$};
+          \path[->]
+          (s) edge  node {$\infty$} (k_1)
+              edge  node {$\infty$} (k_2)
+              edge  node {$\infty$} (k_3)
+              edge [below] node {$\infty$} (k_4)
+          (k_1) edge  node {$k_1$} (d_1)
+          (k_2) edge  node {$k_2$} (d_2)
+          (k_3) edge  node {$k_3$} (d_3)
+          (k_4) edge  node {$k_4$} (d_4)
+          (d_1) edge  node {$1$} (p_1)
+                edge  node {$1$} (p_3)
+          (d_2) edge  node {$1$} (p_1)
+                edge  node {$1$} (p_2)
+                edge  node {$1$} (p_3)
+                edge  node {$1$} (p_4)
+          (d_3) edge  node {$1$} (p_1)
+                edge  node {$1$} (p_3)
+                edge  node {$1$} (p_5)
+          (d_4) edge  node {$1$} (p_5)
+          (p_1) edge  node {$\infty$} (t)
+          (p_2) edge  node {$\infty$} (t)
+          (p_3) edge  node {$\infty$} (t)
+          (p_4) edge  node {$\infty$} (t)
+          (p_5) edge [below] node {$\infty$} (t);
+      \end{tikzpicture}
+
+    \pagebreak
+
     \item
       \begin{enumerate}
-        \item True
+        \item True.
           \[
             v(f) = f_{OUT}(s) - f_{IN}(s) = f_{OUT}(s) = f_{IN}(u_1) = f_{OUT}(u_1) = f_{IN}(u_2) = \dots = f_{IN}(t)
           \]
-        \item False
+        \item False.
           Minimum cuts are equivalent to maximum flow
           by the Max-flow min-cut theorem.
-        \item False
+        \item False.
           The while loop in FORD-FULKERSON has complexity $O(|E|)$ since the path can be found with either BFS or DFS, both of which have complexity $O(|E|)$.
-        \item True
+        \item True.
           This satisfies both the capacity and the conservation constraints.
       \end{enumerate}
   \end{enumerate}
