@@ -1,0 +1,67 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{qtree}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand{\lb}[0]{\text{lg}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 122A Homework 4\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Gysel\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      \begin{algorithm}
+        \begin{algorithmic}
+          \Function{AUGMENTING-PATH}{$G_f$}
+            \For{each $v \in G_f$}
+              \State $v$.visited $\gets$ \textsc{False}
+            \EndFor
+
+            \State \Return ST-PATH($G_f$, $G_f.s$, APPEND(\textsc{Nil}, $G_f.s$))
+          \EndFunction
+        \end{algorithmic}
+      \end{algorithm}
+
+      \begin{algorithm}
+        \begin{algorithmic}
+          \Function{ST-PATH}{$G$, $v$, $l$}
+            \State $v$.visited $\gets$ \textsc{True}
+            \If{$v == G.t$}
+              \State \Return $l$
+            \EndIf
+            \For{each $u \in G.$Adj($v$)}
+              \If{$u$.visited $==$ \textsc{False}}
+                \State $path? \gets$ ST-PATH($G$, $u$, APPEND($l$, $u$))
+                \If{$path? \ne $ \textsc{Nil}}
+                  \State \Return $path?$
+                \EndIf
+              \EndIf
+            \EndFor
+            \State \Return \textsc{Nil}
+          \EndFunction
+        \end{algorithmic}
+      \end{algorithm}
+  \end{enumerate}
+\end{document}
