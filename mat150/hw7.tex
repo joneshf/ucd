@@ -42,6 +42,32 @@
 
   \begin{enumerate}
     \item
+      \begin{proof}
+        Assume $O_n \trianglelefteq M_n$ is a normal subgroup.
+
+        Choose $g = t_a \rho_\theta r, g^{-1} = t_{-a} \rho_{-\theta} r \in M_n, h = \rho_\psi r \in O_n$.
+
+        Then we should have $\ghg{h} \in O_n$.
+
+        \begin{align*}
+          \ghg{h} &= t_a \rho_\theta (r \rho_\psi) t_{-a} \rho_{-\theta} r \\
+          &= t_a \rho_\theta \rho_{-\psi} (r t_{-a}) \rho_{-\theta} r \\
+          &= t_a \rho_\theta \rho_{-\psi} t_{-a'} (r \rho_{-\theta}) r \\
+          &= t_a \rho_\theta \rho_{-\psi} t_{-a'} \rho_\theta r^2 \\
+          &= t_a \rho_\theta (\rho_{-\psi} t_{-a'}) \rho_\theta \\
+          &= t_a (\rho_\theta t_{-a''}) \rho_{-\psi} \rho_\theta \\
+          &= (t_a t_{-a'''}) (\rho_\theta \rho_{-\psi} \rho_\theta) \\
+          &= t_{a - a'''} \rho_{\theta - \psi + \theta} \\
+        \end{align*}
+
+        However, there's no guarantee that $a - a''' = 0$,
+        so this may be a translation, which is not an orthogonal matrix.
+
+        So, $\ghg{h} \notin O_n$, and our assumption is wrong.
+
+        Thus,  $O_n$ is not a normal subgroup of $M_n$.
+      \end{proof}
+
     \item
       \begin{proof}
         Let $m = t_a \rho_\theta r$
@@ -64,7 +90,157 @@
         where $a'' = \rho(r(a))$
       \end{proof}
     \item
+      To show this, we need to show first that $SM \le M$ is a subgroup, and then $SM \trianglelefteq M$ is normal.
+
+      Where $SM = \{t_a \rho_\theta r | \left| \rho_\theta r \right| = 1\}, M = \{t_a \rho_\theta r | \left| \rho_\theta r \right| = \pm 1\}$.
+
+      And
+      \[
+        \rho_\theta(x) =
+        \begin{bmatrix}
+          \cos{\theta} & -\sin{\theta} \\
+          \sin{\theta} & \cos{\theta}
+        \end{bmatrix}
+        \begin{bmatrix}
+          x_1 \\
+          x_2
+        \end{bmatrix}
+      \]
+
+      \begin{proof}
+
+        We first note that $\forall a = t_a \rho_\theta r \in SM, |r| = 1$ implies that there is no reflection.
+        So for the sake of brevity, it is not included unless necessary.
+
+        This also implies that $|\rho_\theta| = 1$ for all elements of $SM$.
+        \begin{itemize}
+          \item \textbf{Closure}
+
+            Choose $a = t_a \rho_\theta, b = t_b \rho_\psi \in SM$
+
+            \[
+              ab = t_a \rho_\theta t_b \rho_\psi = t_a t_b \rho_\theta \rho_\psi = t_{a + b} \rho_{\theta + \psi}
+            \]
+
+            So we want to find
+            \[
+              \begin{vmatrix}
+                \cos{\theta + \psi} & -\sin{\theta + \psi}
+                \sin{\theta + \psi} & \cos{\theta + \psi}
+              \end{vmatrix}
+              = \cos^2(\theta + \psi) + \sin^2(\theta + \psi)
+              = 1
+            \]
+
+            Thus $SM$ has closure.
+
+          \item \textbf{Identity}
+
+            Choose $a = 0 \in \mathbb{R}^n, \theta = 0 \in \mathbb{R}$,
+            so $e = t_0 \rho_0$ and
+
+            \[
+              \begin{vmatrix}
+                \cos{0} & -\sin{0} \\
+                \sin{0} & \cos{0}
+              \end{vmatrix}
+              =
+              \begin{vmatrix}
+                1 & 0 \\
+                0 & 1
+              \end{vmatrix}
+              = 1
+            \]
+
+            Now, choose $b = t_b \rho_\psi \in SM$.
+
+            \[
+              be = t_b \rho_\psi t_0 \rho_0 = t_b t_0 \rho_\psi \rho_0 = t_{b + 0} \rho_{\psi + 0} = t_b \rho_\psi = t_{0 + b} \rho_{0 + \psi} = t_0 t_b \rho_0 \rho_\psi = t_0 \rho_0 t_b \rho_\psi = eb
+            \]
+
+            Thus, $SM$ has the identity.
+
+          \item \textbf{Inverse}
+
+            Choose $a = t_a \rho_\theta \in SM$.
+            Since $-a \in \mathbb{R}^n, -\theta \in \mathbb{R}$ exist,
+            $a^{-1} = t_{-a} \rho_{-\theta} \in SM$.
+
+            \[
+              \begin{bmatrix}
+                \cos{-\theta} & -\sin{-\theta} \\
+                \sin{-\theta} & \cos{-\theta}
+              \end{bmatrix}
+              =
+              \begin{bmatrix}
+                \cos{\theta} & \sin{\theta} \\
+                -\sin{\theta} & \cos{\theta}
+              \end{bmatrix}
+            \]
+
+            \begin{align*}
+              aa^{-1} &= t_a \rho_\theta t_{-a} \rho_{-\theta} \\
+              &= t_a t_{-a} \rho_\theta \rho_{-\theta}  \\
+              &= t_{a - a} \rho_{\theta - \theta}  \\
+              &= t_0 \rho_0  \\
+              &= e  \\
+              &= t_{(- a) + a} \rho_{(-\theta) + \theta}  \\
+              &= t_{-a} t_a \rho_{-\theta} \rho_\theta  \\
+              &= t_{-a} \rho_{-\theta} t_a \rho_\theta  \\
+              &= a^{-1}a \\
+            \end{align*}
+        \end{itemize}
+
+        So, $SM \le M$ is a subgroup.
+
+        Now we need to show that $SM \trianglelefteq M$ is normal.
+
+        Choose an arbitrary $g = t_g \rho_\theta \in SM, h = t_h \rho_\psi r \in M$.
+
+        \begin{align*}
+          \ghg{h} &= t_g \rho_\theta (t_h \rho_\psi r) t_{-g} \rho_{-\theta} \\
+          &= t_g (\rho_\theta t_h) \rho_\psi r t_{-g} \rho_{-\theta} \\
+          &= t_g (t_h' \rho_\theta) \rho_\psi r t_{-g} \rho_{-\theta} \\
+          &= (t_g t_h') (\rho_\theta \rho_\psi) r t_{-g} \rho_{-\theta} \\
+          &= t_{g + h'} \rho_{\theta + \psi} r t_{-g} \rho_{-\theta} \\
+          &= t_{g + h'} \rho_{\theta + \psi} (t_{-g'} r) \rho_{-\theta} \\
+          &= t_{g + h'} \rho_{\theta + \psi} t_{-g'} (\rho_\theta r) \\
+          &= t_{g + h'} \rho_{\theta + \psi} t_{-g'} (\rho_\theta r) \\
+        \end{align*}
+      \end{proof}
     \item
+      We choose a homomorphism
+      \[
+        \varphi : SM \rightarrow GL_2(\mathbb{C})
+      \]
+      \[
+        \varphi(t_a\rho_\theta) \mapsto
+        \begin{bmatrix}
+          e^{i \theta} & a_1 + i a_2 \\
+          0 & 1
+        \end{bmatrix}
+      \]
+
+      We need to show that $\varphi$ preserves the group operation.
+
+      Choose $a = t_a \rho_\theta, b = t_b \rho_\psi \in SM$.
+
+      \begin{align*}
+        \varphi(a)\varphi(b) &=
+        \begin{bmatrix}
+          e^{i \theta} & a_1 + i a_2 \\
+          0 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+          e^{i \psi} & b_1 + i b_2 \\
+          0 & 1
+        \end{bmatrix} \\
+        &=
+        \begin{bmatrix}
+          e^{i \theta} & a_1 + i a_2 \\
+          0 & 1
+        \end{bmatrix}
+      \end{align*}
     \item
     \item
       \begin{enumerate}
