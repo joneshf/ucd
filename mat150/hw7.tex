@@ -1,0 +1,76 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
+\usepackage{titling}
+
+% From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
+% Using brackets instead of parens.
+
+%-------------bmat
+% For matrices with arguments.
+% Usage: \begin{bmat}{c|c|c} 1 &2 &3 \end{bmat}
+\newenvironment{bmat}[1]{
+  \left[\begin{array}{@{}#1@{}}
+}{\end{array}\right]
+}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\GLNR}[0]{GL_n(\mathbb{R})}
+\newcommand{\KER}[1]{\text{ker }#1}
+\newcommand{\IM}[1]{\text{im }#1}
+\newcommand{\ghg}[1]{g#1g^{-1}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 150A Homework 7\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Schilling\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+    \item
+      \begin{proof}
+        Let $m = t_a \rho_\theta r$
+        \begin{align*}
+          m^2 &= (t_a \rho_\theta r)(t_a \rho_\theta r) \\
+          &= t_a \rho_\theta (rt_a) \rho_\theta r \\
+          &= t_a \rho_\theta (t_{a'}r) \rho_\theta r \\
+          &= t_a \rho_\theta t_{a'}(r \rho_\theta) r \\
+          &= t_a \rho_\theta t_{a'}( \rho_{-\theta} r) r \\
+          &= t_a \rho_\theta t_{a'} \rho_{-\theta} r^2 \\
+          &= t_a (\rho_\theta t_{a'}) \rho_{-\theta} \\
+          &= t_a (t_{a''} \rho_\theta) \rho_{-\theta} \\
+          &= t_a t_{a''} (\rho_\theta \rho_{-\theta}) \\
+          &= t_a t_{a''} (\rho_{\theta - \theta}) \\
+          &= t_a t_{a''} \\
+          &= t_{a + a''} \\
+        \end{align*}
+
+        So $m^2$ is just a translation by $a + a''$,
+        where $a'' = \rho(r(a))$
+      \end{proof}
+    \item
+    \item
+    \item
+    \item
+      \begin{enumerate}
+        \item
+        \item
+        \item
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
