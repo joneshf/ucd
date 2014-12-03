@@ -1,0 +1,96 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{qtree}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usetikzlibrary{automata,positioning}
+
+\newcommand{\lb}[0]{\text{lg}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 122A Homework \vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Gysel\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      We can use the Floyd-Warshall algorithm to do the brunt of the work here.
+      We just need to modify some parts of it, and perform some post computation.
+
+      Given a graph $G$ where
+      \[
+        G.V = \{C_1, C_2, \dots, C_n\}
+      \]
+      \[
+        G.E = \{H_{i, j} \ | \ C_i \text{ is connected to } C_j \text{ by a highway}\}
+      \]
+
+      We can construct most of the algorithm the same,
+      and just change the final case in the recursive formula.
+
+
+      \[
+        D^{(k)}[i, j] =
+        \begin{dcases*}
+          0           & if $k = 0$ and $i = j$ \\
+          t(H_{i, j}) & if $k = 0$ and $H_{i, j} \in G.E$ \\
+          \infty      & if $k = 0$ and $i \ne j$ and $H_{i, j} \notin G.E$ \\
+          min(D^{(k-1)}[i, j], D^{(k-1)}[i, k] + t(C_k) + D^{(k-1)}[k, j]) & if $k \ge 1$
+        \end{dcases*}
+      \]
+
+      Using this formulation, we construct FLOYD-WARSHALL-MODIFIED similar to the method for constructing FLOYD-WARSHALL in class -- taking care to use the modified cases where appropriate.
+
+      % \begin{algorithm}
+      %   \begin{algorithmic}
+      %     \Function{FLOYD-WARSHALL-MODIFIED}{$G, t$}
+      %     \EndFunction
+      %   \end{algorithmic}
+      % \end{algorithm}
+
+      Since this gives us back an $n \times n$ array with just the times from one city to another (including travel times between cities), we still need to add on the time necessary to travel from each depot to the highway.
+
+      For each $i, j$ entry in the array, where $i \ne j$, we need the time from the depot to the highway in $C_i$ and the time from the highway to the depot in $C_j$.
+      Then we can just return the array.
+
+      Our completed algorithm is:
+
+      \begin{algorithm}
+        \begin{algorithmic}
+          \Function{MOVE-FREIGHT}{G, t, d}
+            \State $n \gets |G.E|$
+            \State $D \gets$ FLOYD-WARSHALL-MODIFIED(G, t)
+            \For{$i \gets 1$ to $n$}
+              \For{$j \gets 1$ to $n$}
+                \If{$i \ne j$}
+                  \State $D[i, j] = D[i, j] + d(C_i) + d(C_j)$
+                \EndIf
+              \EndFor
+            \EndFor
+          \State \Return $D$
+          \EndFunction
+        \end{algorithmic}
+      \end{algorithm}
+  \end{enumerate}
+\end{document}
