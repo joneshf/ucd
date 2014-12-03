@@ -61,25 +61,54 @@
       \]
 
       Using this formulation, we construct FLOYD-WARSHALL-MODIFIED similar to the method for constructing FLOYD-WARSHALL in class -- taking care to use the modified cases where appropriate.
+      The runtime of this algorithm has not changed, as the nested update function is still $O(1)$.
+      So the complexity is still $\Theta(n^3)$
 
-      % \begin{algorithm}
-      %   \begin{algorithmic}
-      %     \Function{FLOYD-WARSHALL-MODIFIED}{$G, t$}
-      %     \EndFunction
-      %   \end{algorithmic}
-      % \end{algorithm}
+      \pagebreak
+
+      \begin{algorithm}
+        \begin{algorithmic}
+          \Function{FLOYD-WARSHALL-MODIFIED}{$G, t$}
+            \State $n \gets |G.V|$
+            \State Create $n \times n$ array $D^{(0)}$
+            \For{$i \gets 1$ to $n$}
+              \For{$j \gets 1$ to $n$}
+                \If{$i = j$}
+                  \State $D^{(0)}[i, j] = 0$
+                \ElsIf{$H_{i, j} \in G.E$}
+                  \State $D^{(0)}[i, j] = t(H_{i, j})$
+                \Else
+                  \State $D^{(0)}[i, j] = \infty$
+                \EndIf
+              \EndFor
+            \EndFor
+
+            \For{$k \gets 1$ to $n$}
+              \State Create $n \times n$ array $D^{(k)}$
+              \For{$i \gets 1$ to $n$}
+                \For{$j \gets 1$ to $n$}
+                  \State $D^{(k)}[i, j] = min(D^{(k-1)}[i, j], D^{(k-1)}[i, k] + t(C_k) + D^{(k-1)}[k, j])$
+                \EndFor
+              \EndFor
+            \EndFor
+            \State \Return $D^{(n)}$
+          \EndFunction
+        \end{algorithmic}
+      \end{algorithm}
 
       Since this gives us back an $n \times n$ array with just the times from one city to another (including travel times between cities), we still need to add on the time necessary to travel from each depot to the highway.
 
       For each $i, j$ entry in the array, where $i \ne j$, we need the time from the depot to the highway in $C_i$ and the time from the highway to the depot in $C_j$.
       Then we can just return the array.
 
+      \pagebreak
+
       Our completed algorithm is:
 
       \begin{algorithm}
         \begin{algorithmic}
           \Function{MOVE-FREIGHT}{G, t, d}
-            \State $n \gets |G.E|$
+            \State $n \gets |G.V|$
             \State $D \gets$ FLOYD-WARSHALL-MODIFIED(G, t)
             \For{$i \gets 1$ to $n$}
               \For{$j \gets 1$ to $n$}
@@ -92,5 +121,62 @@
           \EndFunction
         \end{algorithmic}
       \end{algorithm}
+
+      Since the added loops only contribute $\Theta(n^2)$ time to the algorithm, the runtime of MOVE-FREIGHT is governed by the call to FLOYD-WARSHALL-MODIFIED.
+      Thus, the runtime of this algorithm is $\Theta(n^3)$.
+
+    \item
+      \begin{enumerate}
+        \item
+          Given a graph $G$, a size $k$ and a certificate $S \subseteq G.V$,
+          we need to check two things:
+          \begin{enumerate}
+            \item $|S| = k$ \label{vcd1}
+            \item $\forall (i, j) \in G.E; i \in S, j \in S$, or $\{i, j\} \subseteq S$ \label{vcd2}
+          \end{enumerate}
+
+          \ref{vcd1} can be checked in $O(|S|)$ time by counting the size of $S$.
+
+          \ref{vcd2} can be checked in $O(|G.E|)$ time by iterating over $G.E$ and checking each vertex for membership in $S$.
+
+          These are both linear times, so our verification algorithm runs in polynomial time.
+          Thus VERTEX-COVER-DEC $\in$ \textbf{NP}.
+        \item
+          Given a graph $G$, a size $k$ and a certificate $M \subseteq G.E$,
+          we need to check two things:
+          \begin{enumerate}
+            \item $|M| = k$ \label{bmd1}
+            \item $\forall v \in G.V$ at most one edge is incident to $v$ \label{bmd2}
+          \end{enumerate}
+
+          \ref{bmd1} can be checked in $O(|M|)$ time by counting the size of $M$.
+
+          \ref{bmd2} can be checked in $O(|G.V|)$ time by creating a new set to keep track of the incident edges.
+
+          These are both linear times, so our verification algorithm runs in polynomial time.
+          Thus BIPARTITE-MATCHING-DEC $\in$ \textbf{NP}.
+      \end{enumerate}
+
+    \item
+      \begin{enumerate}
+        \item True
+
+          Assuming that the decision problem can verify in polynomial time,
+          it can be used to verify possible solutions when computing sub problems.
+        \item True
+
+          Take a problem instance in $A$,
+          reduce it to $B$ in polynomial time,
+          then run the polynomial algorithm in $B$.
+        \item False
+
+          Since
+          $\forall x \in \textbf{NP}, x \le_{P} 3SAT$,
+          $3SAT \in \textbf{NP-Complete}$,
+          $\forall x, y, z \in \textbf{NP}, x \le_{P} y \text{ and } y \le_{P} z \implies x \le_{P} z$ and
+          $\textbf{P} \subseteq \textbf{NP}$ that conjecture would imply that
+          any problem in \textbf{P} has no polynomial time algorithm.
+          But this is clearly false, as $\textbf{P} \ne \emptyset$.
+      \end{enumerate}
   \end{enumerate}
 \end{document}
