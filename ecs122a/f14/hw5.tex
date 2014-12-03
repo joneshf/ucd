@@ -24,7 +24,7 @@
 \predate{\begin{flushright}\large}
 \postdate{\par\end{flushright}}
 
-\title{ECS 122A Homework \vspace{-2ex}}
+\title{ECS 122A Homework 5\vspace{-2ex}}
 \author{Hardy Jones\\
         999397426\\
         Professor Gysel\vspace{-2ex}}
@@ -141,20 +141,63 @@
 
           These are both linear times, so our verification algorithm runs in polynomial time.
           Thus VERTEX-COVER-DEC $\in$ \textbf{NP}.
+
+          \begin{algorithm}
+            \begin{algorithmic}
+              \Function{VERIFY-VERTEX-COVER}{G, k, S}
+                \State $result \gets \textsc{True}$
+                \If{$|S| \ne k$}
+                  \State $result \gets$ \textsc{False}
+                \Else
+                  \ForAll{$(i, j) \in G.E$}
+                    \If{$i \notin S$ or $j \notin S$}
+                      \State $result \gets$ \textsc{False}
+                    \EndIf
+                  \EndFor
+                \EndIf
+                \State \Return $result$
+              \EndFunction
+            \end{algorithmic}
+          \end{algorithm}
+
         \item
           Given a graph $G$, a size $k$ and a certificate $M \subseteq G.E$,
           we need to check two things:
           \begin{enumerate}
             \item $|M| = k$ \label{bmd1}
-            \item $\forall v \in G.V$ at most one edge is incident to $v$ \label{bmd2}
+            \item $\forall v \in G.V$ at most one edge of $M$ is incident to $v$ \label{bmd2}
           \end{enumerate}
 
           \ref{bmd1} can be checked in $O(|M|)$ time by counting the size of $M$.
 
-          \ref{bmd2} can be checked in $O(|G.V|)$ time by creating a new set to keep track of the incident edges.
+          \ref{bmd2} can be checked in $O(|M||G.V|)$ time by keeping track of the incident edges.
 
           These are both linear times, so our verification algorithm runs in polynomial time.
           Thus BIPARTITE-MATCHING-DEC $\in$ \textbf{NP}.
+
+          \begin{algorithm}
+            \begin{algorithmic}
+              \Function{VERIFY-BIPARTITE-MATCHING}{G, k, M}
+                \State $result \gets \textsc{True}$
+                \If{$|M| \ne k$}
+                  \State $result \gets$ \textsc{False}
+                \Else
+                  \ForAll{$v \in G.V$}
+                    \State $incident \gets$ \textsc{False}
+                    \ForAll{$(i, j) \in M$}
+                      \If{($v = i$ or $v = j$) and $incident$}
+                        \State $result \gets$ \textsc{False}
+                      \ElsIf{$v = i$ or $v = j$}
+                        \State $incident \gets$ \textsc{True}
+                      \EndIf
+                    \EndFor
+                  \EndFor
+                \EndIf
+                \State \Return $result$
+              \EndFunction
+            \end{algorithmic}
+          \end{algorithm}
+
       \end{enumerate}
 
     \item
