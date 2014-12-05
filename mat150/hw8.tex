@@ -1,0 +1,57 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
+\usepackage{titling}
+
+% From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
+% Using brackets instead of parens.
+
+%-------------bmat
+% For matrices with arguments.
+% Usage: \begin{bmat}{c|c|c} 1 &2 &3 \end{bmat}
+\newenvironment{bmat}[1]{
+  \left[\begin{array}{@{}#1@{}}
+}{\end{array}\right]
+}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\GLNR}[0]{GL_n(\mathbb{R})}
+\newcommand{\KER}[1]{\text{ker }#1}
+\newcommand{\IM}[1]{\text{im }#1}
+\newcommand{\ghg}[1]{g#1g^{-1}}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 150A Homework 8\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Schilling\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Choose a subgroup $H \le G$.
+
+      Then $\exists \varepsilon > 0$ s.t.:
+      \begin{enumerate}
+        \item $\forall t_a \in H, \norm{a} \ge \varepsilon$ as $t_a \in G$
+        \item $\forall \rho_\theta \in H, \abs{\theta} \ge \varepsilon$ as $\rho_\theta \in G$
+      \end{enumerate}
+      Since our choice of $H$ was arbitrary,
+      any subgroup $H \le G$ is discrete.
+  \end{enumerate}
+\end{document}
