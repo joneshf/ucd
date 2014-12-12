@@ -35,7 +35,38 @@
 
   \begin{enumerate}
     \item
+
     \item
+      \begin{enumerate}
+        \item
+          Using the following graph:
+
+          \begin{tikzpicture}[shorten >=1pt,node distance=3cm,on grid,auto]
+            \node[state] (a)   {$a$};
+            \node[state] (b) [right=of a] {$b$};
+            \node[state] (c) [below=of a] {$c$};
+            \node[state] (d) [right=of c] {$d$};
+            \path[-]
+              (a) edge node {$12$} (b)
+                  edge node {$1$} (c)
+                  edge [pos=0.25] node {$1$} (d)
+              (b) edge [pos=0.25] node {$1$} (c)
+                  edge node {$1$} (d)
+              (c) edge node {$1$} (d)
+              ;
+          \end{tikzpicture}
+
+          You can construct a tour starting at node $a$ using the greedy approach: $a, c, d, b, a$.
+          This tour has a cost of $1 + 1 + 1 + 12 = 15$.
+          Whereas an optimal tour is $a, d, b, c, a$ with a cost of $1 + 1 + 1 + 1 = 4$.
+
+          So the greedy approach did not find an optimal tour.
+
+        \item
+          We can use the above graph and change the edge between $a$ and $b$ to have a value of $k + 1$.
+          Now, the greedy approach will always find a tour of cost $1 + 1 + 1 + (k + 1) = k + 4$.
+          This tour is exactly $k$ greater than the optimal tour.
+      \end{enumerate}
     \item
       \begin{enumerate}
         \item
