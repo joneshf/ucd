@@ -204,19 +204,23 @@
       \begin{enumerate}
         \item True
 
-          Assuming that the decision problem can verify in polynomial time,
-          it can be used to verify possible solutions when computing sub problems.
+          We can look through each of the subproblems that are possible,
+          find an optimal one of the subproblems by testing each with the decision problem
+          and only exploring the optimal subproblem we chose.
+
         \item True
 
           Take a problem instance in $A$,
           reduce it to $B$ in polynomial time,
           then run the polynomial algorithm in $B$.
+          The overall runtime is still polynomial
+
         \item False
 
           Since
-          $\forall x \in \textbf{NP}, x \le_{P} 3SAT$,
-          $3SAT \in \textbf{NP-Complete}$,
-          $\forall x, y, z \in \textbf{NP}, x \le_{P} y \text{ and } y \le_{P} z \implies x \le_{P} z$ and
+          $\forall x \in \textbf{NP}, x \le_{P} 3SAT$;
+          $3SAT \in \textbf{NP-Complete}$;
+          $\forall x, y, z \in \textbf{NP}, x \le_{P} y \text{ and } y \le_{P} z \implies x \le_{P} z$; and
           $\textbf{P} \subseteq \textbf{NP}$ that conjecture would imply that
           any problem in \textbf{P} has no polynomial time algorithm.
           But this is clearly false, as $\textbf{P} \ne \emptyset$.
