@@ -35,7 +35,50 @@
 
   \begin{enumerate}
     \item
+      We need to state our variables, constants and constraints.
+      \begin{itemize}
+        \item Variables:
+          $p_i \in \{0, 1\}$ for $i \in [1, n]$
 
+          Where $p_i = 1$ when $p_i \in P'$ and $p_i = 0$ when $p_i \notin P'$
+          We want:
+
+          \[
+            min \sum_{i = 1}^{n}p_i
+          \]
+        \item Constraints:
+
+          We need to look at cases where the issue passed and where the issue failed.
+
+          For passed issues:
+          \begin{align*}
+            v_{11}(p_1 - 1) + v_{21}(p_2 - 1) + \dots + v_{n1}(p_n - 1) &\ge 1 \\
+            v_{12}(p_1 - 1) + v_{22}(p_2 - 1) + \dots + v_{n2}(p_n - 1) &\ge 1 \\
+            \vdots \\
+            v_{1m}(p_1 - 1) + v_{2m}(p_2 - 1) + \dots + v_{nm}(p_n - 1) &\ge 1 \\
+          \end{align*}
+
+          For failed issues:
+          \begin{align*}
+            v_{11}(p_1 + 1) + v_{21}(p_2 + 1) + \dots + v_{n1}(p_n + 1) &\le -1 \\
+            v_{12}(p_1 + 1) + v_{22}(p_2 + 1) + \dots + v_{n2}(p_n + 1) &\le -1 \\
+            \vdots \\
+            v_{1m}(p_1 + 1) + v_{2m}(p_2 + 1) + \dots + v_{nm}(p_n + 1) &\le -1 \\
+          \end{align*}
+
+          Where $v_{ij}$ represents how person $p_i$ voted on issue $I_j$.
+          That is:
+
+          $v_{ij} = 1$ if $p_i$ voted yes.
+
+          $v_{ij} = 0$ if $p_i$ abstained.
+
+          $v_{ij} = -1$ if $p_i$ voted no.
+      \end{itemize}
+
+      We get back from our 01-IP formulation a set of $p$ values $P'$.
+      We need to check that $|P'| = k$.
+      If so, then we have found an optimal solution.
     \item
       \begin{enumerate}
         \item
@@ -63,8 +106,15 @@
           So the greedy approach did not find an optimal tour.
 
         \item
-          We can use the above graph and change the edge between $a$ and $b$ to have a value of $k + 1$.
-          Now, the greedy approach will always find a tour of cost $1 + 1 + 1 + (k + 1) = k + 4$.
+          We can use the above graph and change the edge between $a$ and $b$ to have a value of
+          \[
+            k + \text{cost of optimal tour} - \text{cost of greedy tour excluding edge } k
+          \].
+          Now, the greedy approach will always find a tour of cost
+
+          \[
+            k + \text{cost of optimal tour}
+          \].
           This tour is exactly $k$ greater than the optimal tour.
       \end{enumerate}
     \item
