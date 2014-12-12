@@ -1,0 +1,64 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
+\usepackage{titling}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{qtree}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usetikzlibrary{automata,positioning}
+
+\newcommand{\lb}[0]{\text{lg}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 122A Homework 6\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Gysel\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+    \item
+    \item
+      \begin{enumerate}
+        \item
+          One benefit of linear programming is that
+          you can describe any problem in \textbf{P} and solve it,
+          even if you do not explicitly know an algorithm for the problem.
+          One drawback of linear programming is that
+          you have no control over the runtime of the algorithm;
+          you may be able to solve the problem,
+          but the LP solver may take $O(n^5)$ time when an $O(n)$ solution is possible.
+        \item
+          One benefit of 01-integer programming is that
+          you can solve problems in \textbf{NP} now,
+          even without an explicit algorithm for the original problem.
+          One drawback of 01-integer programming is that
+          the solver now does not run in polynomial time for sure.
+        \item
+          One benefit of linear programming relaxation is that
+          you can take a problem in \textbf{NP} and
+          find ``some'' local optimal solution in polynomial time.
+          One drawback of linear programming relaxation is that
+          you have to interpret the results of the output in order to use the solution;
+          this interpretation may not be trivial.
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
