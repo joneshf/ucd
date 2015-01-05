@@ -8,6 +8,7 @@
 \usepackage{titling}
 \usepackage{fp}
 \usepackage{enumitem}
+\usepackage[super]{nth}
 
 % From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
 % Using brackets instead of parens.
@@ -84,8 +85,76 @@
               \end{align*}
 
               So of the sample, the mean number of children had was $1.56$.
+
+            \item
+              \begin{align*}
+                \sigma &= \sqrt{\frac{27(-1.56)^2 + 22(-0.56)^2 + 30(0.44)^2 + 12(1.44)^2 + 7(2.44)^2 + 2(3.44)^2}{99}} \\
+                &=\sqrt{\frac{27(2.4336) + 22(0.3136) + 30(0.1936) + 12(2.0736) + 7(5.9536) + 2(11.8336)}{99}} \\
+                &=\sqrt{\frac{65.7072 + 6.8992 + 5.8080 + 24.8832 + 41.6752 + 23.6672}{99}} \\
+                &=\sqrt{\frac{168.64}{99}} \\
+                &=\sqrt{1.70\overline{34}} \\
+                &\approx 1.31 \\
+              \end{align*}
+
+              So of the sample, the standard deviation is $\approx 1.31$
+
+            \item
+              Since there are 100 samples,
+              we want to find the average of the \nth{50} and \nth{51} samples in ascending order.
+              There are 27 samples of value 0 and 22 samples of value 1.
+              Since there are 30 samples of value 2,
+              the \nth{50} and \nth{51} samples are both 2.
+
+              So the median value is $\frac{2 + 2}{2} = 2$
+
+            \item
+
+              Since there are 100 samples,
+              the first quartile is the \nth{25} sample in ascending order.
+              As there are 27 samples of value 0,
+              the first quartile is 0.
+
+            \item
+              The mean in $1.56$,
+              so the number of women that had more children than the mean
+              is the total of samples with values 2, 3, 4, and 5 = $30 + 12 + 7 + 2 = 51$.
+
+              So 51 of the 100 women had more children than the mean.
+
+            \item
+              The standard deviation is $\approx 1.31$,
+              so we want all samples where the value is greater than the mean plus the standard deviation.
+              In other words we want all samples with value $> 1.56 + 1.31 = 2.87$.
+              We want to total the number of samples with values 3, 4, and 5 = $12 + 7 + 2 = 21$
+
+              So 21 of the 100 women had more than one standard deviation's worth more children.
+
+            \item
+              WAT!!
           \end{enumerate}
         \item [14]
+          \begin{enumerate}[label=\arabic* )]
+            \item
+              We can calculate the total from the information given,
+              and use that total to calculate the change.
+
+              \begin{align*}
+                \text{total} &= \$70,000 \cdot 10 = \$700,000 \\
+                \text{new total} &= \frac{\text{total} - \$100,000 + \$1,000,000}{10} \\
+                &= \frac{\text{total} + \$900,000}{10} \\
+                &= \frac{\$700,000 + \$900,000}{10} \\
+                &= \frac{\$16,000,000}{10} \\
+                &= \$1,600,000 \\
+              \end{align*}
+
+              The new mean is \$1,600,000.
+
+            \item
+              Since only the largest datum was changed,
+              the value of the median does not change.
+
+              The median is still \$55,000.
+          \end{enumerate}
       \end{enumerate}
   \end{enumerate}
 \end{document}
