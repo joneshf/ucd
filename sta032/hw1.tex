@@ -1,0 +1,91 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+
+% From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
+% Using brackets instead of parens.
+
+%-------------bmat
+% For matrices with arguments.
+% Usage: \begin{bmat}{c|c|c} 1 &2 &3 \end{bmat}
+\newenvironment{bmat}[1]{
+  \left[\begin{array}{@{}#1@{}}
+}{\end{array}\right]
+}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{STA 032 Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Melcon\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [$\S$ 1.1]
+      \begin{enumerate}
+        \item [3]
+          \begin{enumerate}
+            \item False
+            \item True
+          \end{enumerate}
+        \item [8]
+          \begin{enumerate}
+            \item This interview is an observational study.
+            \item
+              No, the conclusion is not well-justified given the information presented.
+              It does not state how many were in each category.
+              If there was only one person in the low exercise category,
+              then that category is underrepresented.
+          \end{enumerate}
+      \end{enumerate}
+
+    \item [$\S$ 1.2]
+      \begin{enumerate}
+        \item [4]
+          No, the sample median can differ from one of the values in the sample.
+          For instance, the sample median of the following data,
+          $D = \{1, 9\}$
+          is $\frac{1 + 9}{2} = \frac{10}{2} = 5 \notin D$.
+        \item [6]
+          Yes, it is possible for the standard deviation to be more than the mean for positive data.
+          For instance:
+
+          \begin{tabular}{c | c | c}
+            $x$        & $\overline{x}$        & $\sigma$ \\
+            \hline
+            $\{1, 9\}$ & $\frac{1 + 9}{2} = 5$ & $\sqrt{\frac{(1-5)^2 + (9 - 5)^2}{1}} = \sqrt{(-4)^2 + 4^2} = \sqrt{16 + 16} = \sqrt{32}$
+          \end{tabular}
+
+          And $\sqrt{32} > 5$.
+        \item [10]
+          \begin{enumerate}[label=\arabic* )]
+            \item
+              \begin{align*}
+                \overline{x} &= \frac{0(27) + 1(22) + 2(30) + 3(12) + 4(7) + 5(2)}{27 + 22 + 30 + 12 + 7 + 2} \\
+                &= \frac{22 + 60 + 36 + 28 + 10}{100} \\
+                &= \frac{156}{100} \\
+                &= 1.56
+              \end{align*}
+
+              So of the sample, the mean number of children had was $1.56$.
+          \end{enumerate}
+        \item [14]
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
