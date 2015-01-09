@@ -9,17 +9,9 @@
 \usepackage{fp}
 \usepackage{enumitem}
 \usepackage[super]{nth}
-
-% From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
-% Using brackets instead of parens.
-
-%-------------bmat
-% For matrices with arguments.
-% Usage: \begin{bmat}{c|c|c} 1 &2 &3 \end{bmat}
-\newenvironment{bmat}[1]{
-  \left[\begin{array}{@{}#1@{}}
-}{\end{array}\right]
-}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
 
 \setlength{\droptitle}{-10ex}
 
@@ -41,12 +33,12 @@
     \item [$\S$ 1.1]
       \begin{enumerate}
         \item [3]
-          \begin{enumerate}
+          \begin{enumerate}[label=(\arabic*)]
             \item False
             \item True
           \end{enumerate}
         \item [8]
-          \begin{enumerate}
+          \begin{enumerate}[label=(\arabic*)]
             \item This interview is an observational study.
             \item
               No, the conclusion is not well-justified given the information presented.
@@ -75,7 +67,7 @@
 
           And $\sqrt{32} > 5$.
         \item [10]
-          \begin{enumerate}[label=\arabic* )]
+          \begin{enumerate}[label=(\arabic*)]
             \item
               \begin{align*}
                 \overline{x} &= \frac{0(27) + 1(22) + 2(30) + 3(12) + 4(7) + 5(2)}{27 + 22 + 30 + 12 + 7 + 2} \\
@@ -133,7 +125,7 @@
               WAT!!
           \end{enumerate}
         \item [14]
-          \begin{enumerate}[label=\arabic* )]
+          \begin{enumerate}[label=(\arabic*)]
             \item
               We can calculate the total from the information given,
               and use that total to calculate the change.
@@ -197,6 +189,102 @@
               So, the new standard deviation $\sigma_0 \approx \$295,634.91$
 
           \end{enumerate}
+      \end{enumerate}
+
+    \item [$\S$ 1.3]
+
+      \begin{enumerate}
+        \item [11]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+
+              It will help to sort this data initially.
+              \[
+                x = \{41, 42, 42, 44, 44, 45, 45, 46, 49, 49, 51, 51, 53, 56, 57, 59, 59, 65, 67, 71, 77, 100\}
+              \]
+
+              We have $n = 22$ samples.
+
+              In order to construct a box plot,
+              we need the median, \nth{1} quartile, \nth{3} quartile and IQR.
+
+              \begin{itemize}
+                \item
+                  $\text{median} = \frac{x_{11} + x_{12}}{2} = \frac{51 + 51}{2} = 51$
+                \item
+                  $\text{\nth{1} quartile} = \frac{x_{5} + x_{6}}{2} = \frac{44 + 45}{2} = 44.5$
+                \item
+                  $\text{\nth{3} quartile} = \frac{x_{16} + x_{17}}{2} = \frac{59 + 59}{2} = 59$
+                \item
+                  $\text{IQR} = \text{\nth{3} quartile} - \text{\nth{1} quartile} = 59 - 44.5 = 14.5$
+              \end{itemize}
+              From the IQR, we calculate $1.5 \text{IQR} = 21.75$.
+              Now, we can label the outliers as anything below $\text{\nth{1} quartile} - 1.5\text{IQR} = 44.5 - 21.75 = 22.75$,
+              and anything above $\text{\nth{3} quartile} + 1.5\text{IQR} = 59 + 22.75 = 81.75$.
+
+              This gives the following plot:
+
+              \begin{tikzpicture}
+                \begin{axis}
+                  [ xtick={1}
+                  , xticklabels={Absent}
+                  , boxplot/draw direction=y
+                  ]
+                  \addplot+[boxplot]
+                    table[row sep=\\,y index=0] {
+                      data\\
+                      41 \\ 42 \\ 42 \\ 44 \\ 44 \\ 45 \\ 45 \\ 46 \\ 49 \\ 49 \\ 51 \\ 51 \\ 53 \\ 56 \\ 57 \\ 59 \\ 59 \\ 65 \\ 67 \\ 71 \\ 77 \\ 100 \\
+                    };
+                \end{axis}
+              \end{tikzpicture}
+            \item
+
+              Yes. Since $100 > \text{\nth{3} quartile} + 1.5\text{IQR} = 81.75$,
+              the number of absences on January 28 was an outlier.
+          \end{enumerate}
+        \item [12]
+          The mean cannot be determined from a box plot.
+          All of the other statistics can be determined from a box plot.
+        \item [15]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+              The IQR for A is $6.02 - 1.42 = 4.60$.
+
+              The IQR for B is $9.13 - 5.27 = 3.86$
+            \item
+              Since the $\text{minimum} > \text{\nth{1} quartile} - 1.5 \text{IQR} = 1.42 - 1.5(4.6) = -5.48$,
+              and the $\text{maximum} < \text{\nth{3} quartile} + 1.5 \text{IQR} = 6.02 + 1.5(4.6) = 12.92$,
+              we have enough information to construct the box plot:
+
+              \begin{tikzpicture}
+                \begin{axis}
+                  [ xtick={1}
+                  , xticklabels={A}
+                  , boxplot/draw direction=y
+                  ]
+                  \addplot+[boxplot prepared={
+                    lower whisker=0.066,
+                    lower quartile=1.42,
+                    median=2.60,
+                    upper quartile=6.02,
+                    upper whisker=10.08,
+                  }]
+                  coordinates {};
+                \end{axis}
+              \end{tikzpicture}
+
+            \item
+
+              Since the $\text{minimum} < \text{\nth{1} quartile} - 1.5 \text{IQR} = 5.27 - 1.5(3.86) = -0.52$,
+              We do not know how many outliers actually exist in order to properly construct the box plot.
+          \end{enumerate}
+        \item [16]
+          Since histogram $a$ is skewed to the right, and box plot $(4)$ has a long upper whisker, we pair these together.
+          Since histogram $d$ is nearly symmetric, and box plot $(3)$ has near symmetry, we pair these together.
+          Since histogram $b$ has mostly large values and what looks like a small outlier, we pair it with box plot $(2)$.
+          Then, we pair the last two together.
+
+          Our final pairing is: a - 4, b - 2, c - 1, d - 3
       \end{enumerate}
   \end{enumerate}
 \end{document}
