@@ -140,20 +140,62 @@
 
               \begin{align*}
                 \text{total} &= \$70,000 \cdot 10 = \$700,000 \\
-                \text{new total} &= \frac{\text{total} - \$100,000 + \$1,000,000}{10} \\
+                \overline{x_0} &= \frac{\text{total} - \$100,000 + \$1,000,000}{10} \\
                 &= \frac{\text{total} + \$900,000}{10} \\
                 &= \frac{\$700,000 + \$900,000}{10} \\
-                &= \frac{\$16,000,000}{10} \\
-                &= \$1,600,000 \\
+                &= \frac{\$1,600,000}{10} \\
+                &= \$160,000 \\
               \end{align*}
 
-              The new mean is \$1,600,000.
+              The new mean is \$160,000.
 
             \item
               Since only the largest datum was changed,
               the value of the median does not change.
 
               The median is still \$55,000.
+
+            \item
+              We can calculate the variance from the given information,
+              and use that variance to calculate the change.
+
+              \[
+                \sigma^2 = \frac{1}{n - 1} \left[\left(\sum_{i} x_i^2\right) - n \overline{x}^2\right]
+              \]
+
+              We want to initially find this term: $\sum_{i} x_i^2$, as the rest we already know.
+
+              \begin{align*}
+                \sigma^2 &= \frac{1}{n - 1} \left[\left(\sum_{i} x_i^2\right) - n \overline{x}^2\right] \\
+                (n - 1) \sigma^2 &= \left(\sum_{i} x_i^2\right) - n \overline{x}^2 \\
+                (n - 1) \sigma^2 + n \overline{x}^2 &= \sum_{i} x_i^2 \\
+                9 (20,000)^2 + 10 (70,000)^2 &= \sum_{i} x_i^2 \\
+                9 (400,000,000) + 10 (4,900,000,000) &= \sum_{i} x_i^2 \\
+                3,600,000,000 + 49,000,000,000 &= \sum_{i} x_i^2 \\
+                52,600,000,000 &= \sum_{i} x_i^2 \\
+              \end{align*}
+
+              Now that we have this value,
+              we can perform the adjustment.
+
+              \begin{align*}
+                \text{new sum} &= \sum_i x_i^2 - 100,000^2 + 1,000,000^2 \\
+                &= 52,600,000,000 - 10,000,000,000 + 1,000,000,000,000 \\
+                &= 1,042,600,000,000
+              \end{align*}
+
+              Finally, we calculate our new standard deviation $\sigma_0$
+
+              \begin{align*}
+                \sigma_0 &= \sqrt{\frac{1}{9} \left(\text{new sum} - 10 \overline{x_0}^2\right)} \\
+                &= \sqrt{\frac{1}{9} \left(1,042,600,000,000 - 10 (160,000)^2\right)} \\
+                &= \sqrt{\frac{1}{9} \left(1,042,600,000,000 - 256,000,000,000 \right)} \\
+                &= \sqrt{87,400,000,000} \\
+                &\approx 295,634.91 \\
+              \end{align*}
+
+              So, the new standard deviation $\sigma_0 \approx \$295,634.91$
+
           \end{enumerate}
       \end{enumerate}
   \end{enumerate}
