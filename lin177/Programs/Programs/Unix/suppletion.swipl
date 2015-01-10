@@ -1,0 +1,19 @@
+
+
+english([b,i],[stem]).
+english([ae,m],[present,first,singular]):-
+	english([b,i],[stem]).
+english([a,r],[present,second,singular]):-
+	english([b,i],[stem]).
+english([i,z],[present,third,singular]):-
+	english([b,i],[stem]).
+english([a,r],[present,_,plural]):-
+	english([b,i],[stem]).
+english([w,a,z],[past,first,singular]):-
+	english([b,i],[stem]).
+english([w,e,r],[past,second,singular]):-
+	english([b,i],[stem]).
+english([w,a,z],[past,third,singular]):-
+	english([b,i],[stem]).
+english([w,e,r],[past,_,plural]):-
+	english([b,i],[stem]).

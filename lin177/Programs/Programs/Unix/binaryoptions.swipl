@@ -1,0 +1,24 @@
+/**
+ * @author				Oleg Lokhvitsky
+ * @file				binaryoptions.swipl
+ * @implementation		SWI-Prolog 5.8.2
+ * @version				1.0
+ */
+
+/**
+ * binaryOptions(Code, Option)
+ * Checks to see if Option is enabled in Code using a binary encoding.
+ * Adding together various Options (all are power of 2), produces a Code.
+ * @param	Code	Code to be analyzed.
+ * @param	Option	Option to be found.
+ * @example	binaryOptions(5, 1). % true
+ * @example	binaryOptions(5, 2). % false
+ * @example	binaryOptions(5, 4). % true
+ * @example	binaryOptions(10, 1). % false
+ * @example	binaryOptions(10, 2). % true
+ * @example	binaryOptions(10, 4). % false
+ * @example	binaryOptions(10, 8). % true
+ */
+binaryOptions(Bin, Opt) :-
+	Result is Bin mod (Opt * 2) - Bin mod Opt,
+	Result > 0.

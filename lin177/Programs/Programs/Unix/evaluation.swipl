@@ -1,0 +1,5 @@
+evaluation(Sentence,truth):-
+     Sentence,!.
+
+evaluation(Sentence,falsity):-
+     not(Sentence).

@@ -1,0 +1,25 @@
+:- ['syllable.swipl'].
+
+
+underenglish([P1,n,t,P4,P1,n,s,P1,k]):-
+	phone(P1), hih(P1), not(bck(P1)), not(tns(P1)),
+	phone(P4), pal(P4), alv(P4),
+	phone(P9), not(cns(P9)), not(str(P9)).
+
+underenglish([P1,n,t,P4,P5,v,i,n,P5,s]):-
+	phone(P1), hih(P1), not(bck(P1)), not(tns(P1)),
+	phone(P4), pal(P4), alv(P4),
+	phone(P5), not(cns(P5)), not(str(P5)).
+
+english(E):-
+	underenglish(U),
+	syllabifies(E,U).
+
+syllabifies([], []).
+syllabifies(A, B):-
+	A = [A1 | A2],
+	syllable(A1),
+	append(A1, B2, B),
+	syllabifies(A2, B2), 
+	!.	
+

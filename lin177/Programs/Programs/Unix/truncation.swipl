@@ -1,0 +1,76 @@
+
+?- ['syllable.swipl'].
+
+
+english([[P1,P2,P3],[P4,P5]], [name,formal]):-
+	name(P1,[496]),
+	name(P2,[101]),
+	name(P3,[633]),
+	name(P4,[633]),
+	name(P5,[105]).
+english([[P1,P2,P3],[P4,P5]], [name,formal]):-
+	name(P1,[112]),
+	name(P2,[105]),
+	name(P3,[116]),
+	name(P4,[116]),
+	name(P5,[633]).
+english([[P1,P2,P3,P4],[P5,P6]], [name,formal]):-
+	name(P1,[109]),
+	name(P2,[097]),
+	name(P3,[106]),
+	name(P4,[107]),
+	name(P5,[107]),
+	name(P6,[108]).
+english([[P1,P2],[P3,P4]], [name,formal]):-
+	name(P1,[115]),
+	name(P2,[117]),
+	name(P3,[122]),
+	name(P4,[110]).
+english([[P1,P2,P3],[P4,P5,P6],[P7,P8]], [name,formal]):-
+	name(P1,[496]),
+	name(P2,[101]),
+	name(P3,[110]),
+	name(P4,[110]),
+	name(P5,[618]),
+	name(P6,[102]),
+	name(P7,[102]),
+	name(P8,[633]).
+english([[P1,P2,P3]], [name,formal]):-
+	name(P1,[496]),
+	name(P2,[230]),
+	name(P3,[110]).
+
+english([A],[name,familiar]):-
+	english([A|_],[name,formal]).
+
+
+
+papago([h,i,n,k],[durative,single]).
+papago([h,i,h,i,n,k],[durative,multiple]).
+papago([g,a,t,w,i,d],[durative,single]).
+papago([g,a,g,t,w,i,d],[durative,multiple]).
+papago([?,e,l,p,i,g],[durative,single]).
+papago([?,e,?,e,l,p,i,g],[durative,multiple]).
+papago([h,u,k,s,a,n],[durative,single]).
+papago([h,u,h,u,k,s,a,n],[durative,multiple]).
+papago([h,e,h,e,m],[durative,_]).
+papago([c,i,c,w,i],[_,_]).
+
+papago(A,[momentary|B]):-
+	papago(C,[durative|B]),
+	append(A,[D],C),
+	cns(D).
+
+koasati([[l,a],[s,a,p]],[single]).
+koasati([[l,a],[t,a,f]],[single]).
+koasati([[p,i],[t,a,f]],[single]).
+koasati([[a],[t,a],[k,a,a]],[single]).
+koasati([[a],[c,o,k],[c,a],[n,a]],[single]).
+koasati([[o],[b,a,k],[h,i],[t,i,p]],[single]).
+koasati(A,[multiple]):-
+	koasati(B,[single]),
+	append(C,[D],B),
+	append(E,_,D),
+	onset(E),
+	not(E = []),
+	append(C,[E],A).

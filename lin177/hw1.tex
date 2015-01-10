@@ -1,0 +1,61 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{listings}
+\usepackage{minted}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{LIN 177 Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Ojeda\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[prolog]{prolog}{ fontsize=\footnotesize
+                                , frame=single
+                                }
+
+  \begin{enumerate}
+    \item
+      \prolog{hah.pl}
+
+    \item
+      \prolog{blather.txt}
+
+    \item
+      \begin{itemize}
+        \item
+          Two options are the phrases, ``Get the Led out.'' and ``Get the lead out.''
+
+          The first means to listen to the band \textit{Led Zeppelin}.
+          The second means to remove the metal ``lead'' from something.
+
+        \item
+          Two options are the phrases, ``Susan's mother is Carol.'' and ``The mother of Susan is Carol.''
+
+          These two sound different, but have the same meaning of identifying Susan's mother.
+      \end{itemize}
+
+    \pagebreak
+
+    \item
+      \prolog{japanese.pl}
+
+    \item
+      \prolog{spanishjapanese.pl}
+  \end{enumerate}
+\end{document}

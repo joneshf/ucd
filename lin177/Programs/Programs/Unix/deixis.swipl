@@ -1,0 +1,62 @@
+
+
+place(p000).
+place(p001).
+place(p002).
+place(p003).
+
+time(t000).
+time(t001).
+time(t002).
+time(t003).
+
+here(p000).
+now(t000).
+
+there(P):-
+	place(P),					
+	not(here(P)).
+				
+then(T):-
+	time(T),
+	not(now(T)).
+
+direction(P1,P2):-			
+	place(P1),					
+	place(P2).					
+
+direction(T1,T2):-
+	time(T1),
+	time(T2).
+
+hither(P1,P2):-
+	direction(P1,P2),			
+	here(P2).
+
+hitherto(T1,T2):-
+	direction(T1,T2),
+	now(T2).
+
+thither(P1,P2):- 
+	direction(P1,P2),			
+	there(P2).
+
+thereto(T1,T2):-
+	direction(T1,T2),
+	then(T2).
+				
+hence(P1,P2):-
+	direction(P1,P2),			
+	here(P1).
+				
+hence(T1,T2):-
+	direction(T1,T2),
+	now(T1).
+
+thence([P1,P2]):-
+	direction([P1,P2]),			
+	there(P1).
+				
+thence(T1,T2):-
+	direction(T1,T2),
+	then(T1).

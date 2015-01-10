@@ -1,0 +1,46 @@
+english([bart ],[nom,cls]).
+english([homer],[nom,cls]).
+english([lisa ],[nom,cls]).
+english([marge],[nom,cls]).
+
+english([boasts  ], [vbl,wrd,trn,001]).
+english([compares], [vbl,wrd,dtr,002]).
+english([insists ], [vbl,wrd,trn,003]).
+english([prefers ], [vbl,wrd,dtr,004]).
+
+english([about], [prp,wrd,001]).
+english([on   ], [prp,wrd,028]).
+english([to   ], [prp,wrd,041]).
+english([with ], [prp,wrd,048]).
+
+english(SO,[nom,cls,SUBCAT]):-
+		english(SO1,[prp,wrd,SUBCAT]),
+		english(SO2,[nom,cls]),
+		append(SO1, SO2, SO).
+
+english(SO,[vbl,phr]):-
+		english(SO1,[vbl,wrd,trn,001]),
+		english(SO2,[nom,cls,001]),
+		append(SO1,SO2,SO).
+
+english(SO,[vbl,phr]):-
+		english(SO1,[vbl,wrd,dtr,002]),
+		english(SO2,[nom,cls]),
+		english(SO3,[nom,cls,048]),
+		append([SO1,SO2,SO3],SO).
+
+english(SO,[vbl,phr]):-
+		english(SO1,[vbl,wrd,trn,003]),
+		english(SO2,[nom,cls,028]),
+		append(SO1,SO2,SO).
+
+english(SO,[vbl,phr]):-
+		english(SO1,[vbl,wrd,dtr,004]),
+		english(SO2,[nom,cls]),
+		english(SO3,[nom,cls,041]),
+		append([SO1,SO2,SO3],SO).
+
+
+
+
+

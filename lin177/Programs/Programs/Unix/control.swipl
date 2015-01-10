@@ -1,0 +1,45 @@
+:- ['simpsons.ii.swipl'].
+:- ['sets.swipl'].
+:- ['allsuch.swipl'].
+:- ['evaluation.swipl'].
+:- ['doublecolon.swipl'].
+:- ['fulldisplay.swipl'].
+
+
+english([homer    ], [nom,wrd,prp    ], [R :: bearer(R,[homer])]).
+english([marge    ], [nom,wrd,prp    ], [R :: bearer(R,[marge])]).
+
+english([to       ], [prp,wrd,dat    ], [R :: allsuch([X,Y],to(X,Y),R)]).
+
+english([drive    ], [vbl,wrd,001,bse], [R :: allsuch(X,drive(X),R)]).
+
+english([promises ], [vbl,wrd,002,fin], [R::allsuch([X,Y,Z],promise( X,Y,Z),R)]).
+english([persuades], [vbl,wrd,002,fin], [R::allsuch([X,Y,Z],persuade(X,Y,Z),R)]).
+
+english(SO, [nom,phr,prp], [R :: allsuch(X,Y,R)]):-
+	english(SO, [nom,wrd,prp], [X :: Y]).
+
+english(SO, [nom,cls], [R :: allsuch(X,(Y,includes(X,Z)), R)]):-
+	english(SO, [nom,phr,prp], [Z :: Y]).
+
+english(SO, [vbl,phr,SUBCAT], ME):-
+	english(SO,[vbl,wrd,001,SUBCAT], ME).
+
+english(SO,[vbl,phr,inf],ME):-
+		english(SO1,[prp,wrd,dat],_),
+		english(SO2,[vbl,phr,bse],ME),
+		append(SO1,SO2,SO).
+
+english(SO, [vbl,phr,INFL], [R :: 
+	allsuch(X,(S1,S2,member([X,_,_],R1), 
+	allsuch(Y,member([X,Y,_],R1),Z),member(Z,R2),
+	member([X,Y,W],R1)),R)]):-
+		english(SO1, [vbl,wrd,002,INFL], [R1 :: S1]),
+		english(SO2, [nom,cls         ], [R2 :: S2]),
+		english(SO3, [vbl,phr,inf     ], [R3 :: allsuch(_,W,R3)]),
+		append([SO1,  SO2, SO3], SO).
+
+english(SO, [vbl,cls], [R :: evaluation((S1,S2,member(R2,R1)),R)]):-
+	english(SO1, [nom,cls    ], [R1 :: S1]),
+	english(SO2, [vbl,phr,fin], [R2 :: S2]),
+	append(SO1,  SO2,  SO).

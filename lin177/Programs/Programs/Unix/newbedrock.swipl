@@ -1,0 +1,59 @@
+
+:- ['evaluation.swipl'].
+
+human(fred).
+human(wilma).
+human(pebbles).
+human(barney). 
+human(betty).
+human(bambam).
+
+male(fred).
+male(barney).
+male(bambam).
+
+mature(fred).
+mature(wilma).
+mature(barney). 
+mature(betty).
+
+spouse(fred,wilma).
+spouse(wilma,fred).
+spouse(barney,betty).
+spouse(betty,barney).
+
+female(A):-
+	human(A),
+	not(male(A)).
+
+immature(A):-
+	human(A),
+	not(mature(A)).
+
+man(A):-
+	male(A),
+	mature(A).
+
+woman(A):-
+	female(A),
+	mature(A).
+
+child(A):-
+	human(A),
+	immature(A).
+
+boy(A):-
+	male(A),
+	child(A).
+
+girl(A):-
+	female(A),
+	child(A).
+
+husband(A,B):-
+	male(A),
+	spouse(A,B).
+
+wife(A,B):-
+	female(A),
+	spouse(A,B).

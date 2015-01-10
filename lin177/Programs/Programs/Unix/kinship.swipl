@@ -1,0 +1,294 @@
+/***********************************************************
+
+Title: kinship.swipl
+
+Author: Almerindo E. Ojeda
+
+Type: Prolog
+
+Implementation: SWI Prolog 5.6.49
+
+Comments: This program is a procedure that is rich enough to d
+efine the notions involved in all of the kinterms of English .  
+The facts of this program define the basic kin notions of Engl
+ish (the ones defined independently of the others),  while the
+rules define the derived kin notions of English (the ones that 
+are defined in terms of others). 
+
+The facts of the program are also variable,  as they represent 
+what some speaker or another may assume is true (about the wor
+ld of kinship). It is that speaker's personal model of the wor
+ld (of kinship). The rules, on the other hand,  hold no matter
+what any speaker assumes is true (about the world of kinship).
+
+It might seem that it is a shortcoming of this program that it 
+invokes four abstract kin notions  (= kin notions that are not 
+expressed overtly in English). They are 'linealuncleoraunt', ' affinaluncleoraunt', 'uncleoraunt' and 'nepheworniece'. But th
+ese are just accidental gaps of English, and may be overt in s
+ome other language. Indeed,'uncleoraunt' and 'nepheworniece' a
+re overt, for example in Spanish.  Since this program is but a 
+portion of the procedure to generate all the kin notions of al
+l the kinterms of all languages, this is not really a shortcom
+ing. All it shows is that languages do not pick their kinterms
+in a logical order (not all the preliminaries to a kinterm are
+acquired before the kinterm is).
+
+This program also defines two terms disjunctively. They are 's
+iblinginlaw' and 'uncleoraunt'. This too may seem a shortcomin
+g, because it suggests that we are missing a generalization ab
+out these terms.  Bear in mind, though, that the procedures of  
+this model are not the kin terms of any particular language. M
+oreover, these disjunctions express patterns about the notions
+they define. For 'siblinginlaw' is defined here as 'either spo
+use of a sibling or sibling of a spouse'. And 'uncleoraunt' me
+ans 'either lineal or affinal uncleoraunt'.
+
+************************************************************/
+
+individual(maeg).
+individual(fa).
+individual(br).
+individual(fabr).
+individual(mobr).
+individual(fafa).
+individual(mofa).
+individual(fasihu).
+individual(fabrso).
+individual(fasiso).
+individual(mosihu).
+individual(mobrso).
+individual(mosiso).
+individual(feeg).
+individual(mo). 
+individual(si). 
+individual(fasi). 
+individual(mosi). 
+individual(famo). 
+individual(momo).
+individual(fabrwi). 
+individual(fabrda). 
+individual(fasida).
+individual(mobrwi). 
+individual(mobrda). 
+individual(mosida).
+
+male(maeg).
+male(fa).
+male(br).
+male(fabr).
+male(mobr).
+male(fafa).
+male(mofa).
+male(fasihu).
+male(fabrso).
+male(fasiso).
+male(mosihu).
+male(mobrso).
+male(mosiso).
+
+parent(fa,maeg).
+parent(mo,maeg).
+parent(fa,feeg).
+parent(mo,feeg).
+parent(fa,br).
+parent(mo,br).
+parent(fa,si).
+parent(mo,si).
+parent(fafa,fa).
+parent(famo,fa).
+parent(fafa,fabr).
+parent(famo,fabr).
+parent(fafa,fasi).
+parent(famo,fasi).
+parent(mofa,mo).
+parent(momo,mo).
+parent(mofa,mobr).
+parent(momo,mobr).
+parent(mofa,mosi).
+parent(momo,mosi).
+parent(fabr,fabrso).
+parent(fabrwi,fabrso).
+parent(fabr,fabrda).
+parent(fabrwi,fabrda).
+parent(fasi,fasiso).
+parent(fasihu,fasiso).
+parent(fasi,fasida).
+parent(fasihu,fasida).
+parent(mobr,mobrso).
+parent(mobrwi,mobrso).
+parent(mobr,mobrda).
+parent(mobrwi,mobrda).
+parent(mosi,mosiso).
+parent(mosihu,mosiso).
+parent(mosi,mosida).
+parent(mosihu,mosida).
+
+spouse(fa,mo).
+spouse(mo,fa).
+spouse(fafa,famo).
+spouse(famo,fafa).
+spouse(fabr,fabrwi).
+spouse(fabrwi,fabr).
+spouse(fasi,fasihu).
+spouse(fasihu,fasi).
+spouse(mofa,momo).
+spouse(momo,mofa).
+spouse(mobr,mobrwi).
+spouse(mobrwi,mobr).
+spouse(mosi,mosihu).
+spouse(mosihu,mosi).
+
+female(A):-
+	individual(A),
+	not(male(A)).
+
+father(A,B):-
+	male(A),
+	parent(A,B).
+
+mother(A,B):-
+	female(A),
+	parent(A,B).
+
+child(A,B):-
+	parent(B,A).
+
+son(A,B):-
+	male(A),
+	child(A,B).
+
+daughter(A,B):-
+	female(A),
+	child(A,B).
+
+grandparent(A,B):-
+	parent(A,C),
+	parent(C,B).
+
+grandfather(A,B):-			
+	father(A,C),
+	parent(C,B).
+
+grandmother(A,B):-			
+	mother(A,C),
+	parent(C,B).
+
+grandchild(A,B):-
+	child(A,C),
+	child(C,B).
+
+grandson(A,B):-			
+	son(A,C),
+	child(C,B).
+
+granddaughter(A,B):-		
+	daughter(A,C),
+	child(C,B).
+
+paternalsibling(A,B):-		
+	father(C,A),
+	father(C,B),
+	not(A = B).
+
+maternalsibling(A,B):-		
+	mother(C,A),
+	mother(C,B),
+	not(A = B).
+
+sibling(A,B):-
+	paternalsibling(A,B),
+	maternalsibling(A,B).
+
+brother(A,B):-
+	male(A),
+	sibling(A,B).
+
+sister(A,B):-
+	female(A),
+	sibling(A,B).
+
+husband(A,B):-
+	male(A),
+	spouse(A,B).
+
+wife(A,B):-
+	female(A),
+	spouse(A,B).
+
+parentinlaw(A,B):-
+	parent(A,C),
+	spouse(C,B).
+
+fatherinlaw(A,B):-			
+	father(A,C),
+	spouse(C,B).
+
+motherinlaw(A,B):-			
+	mother(A,C),
+	spouse(C,B).
+
+childinlaw(A,B):-
+	spouse(A,C),
+	child(C,B).
+
+soninlaw(A,B):-			
+	husband(A,C),
+	child(C,B).
+
+daughterinlaw(A,B):-		
+	wife(A,C),
+	child(C,B).
+
+siblinginlaw(A,B):-				
+	spouse(A,C),
+	sibling(C,B).
+
+siblinginlaw(A,B):-			
+	sibling(A,C),
+	spouse(C,B).
+
+brotherinlaw(A,B):-			
+	male(A),
+	siblinginlaw(A,B).
+
+sisterinlaw(A,B):-			
+	female(A),
+	siblinginlaw(A,B).
+
+linealuncleoraunt(A,B):-		
+	sibling(A,C),
+	parent(C,B).
+
+affinaluncleoraunt(A,B):- 	
+	siblinginlaw(A,C),
+	parent(C,B),
+	not(linealuncleoraunt(A,B)).
+
+uncleoraunt(A,B):-			
+	linealuncleoraunt(A,B).
+
+uncleoraunt(A,B):-			
+	affinaluncleoraunt(A,B).
+
+uncle(A,B):-
+	male(A),
+	uncleoraunt(A,B).
+
+aunt(A,B):-
+	female(A),
+	uncleoraunt(A,B).
+
+nepheworniece(A,B):-		
+	uncleoraunt(B,A). 
+
+nephew(A,B):-
+	male(A),
+	nepheworniece(A,B).
+
+niece(A,B):-
+	female(A),
+	nepheworniece(A,B).
+
+cousin(A,B):-
+	child(A,C),
+	uncleoraunt(C,B).

@@ -1,0 +1,77 @@
+:- ['fulldisplay.swipl'].
+
+english([bart ], [nom,cls]).
+english([homer], [nom,cls]).
+english([lisa ], [nom,cls]).
+english([marge], [nom,cls]).
+
+english([can     ], [vbl,wrd,aux,mod,fin]).
+english([could   ], [vbl,wrd,aux,mod,fin]).
+english([may     ], [vbl,wrd,aux,mod,fin]).
+english([might   ], [vbl,wrd,aux,mod,fin]).
+english([must    ], [vbl,wrd,aux,mod,fin]).
+english([shall   ], [vbl,wrd,aux,mod,fin]).
+english([should  ], [vbl,wrd,aux,mod,fin]).
+english([will    ], [vbl,wrd,aux,mod,fin]).
+english([would   ], [vbl,wrd,aux,mod,fin]).
+
+english([has     ], [vbl,wrd,aux,pfc,fin]).
+english([had     ], [vbl,wrd,aux,pfc,fin]).
+english([have    ], [vbl,wrd,aux,pfc,bse]).
+english([having  ], [vbl,wrd,aux,pfc,prp]).
+english([had     ], [vbl,wrd,aux,pfc,pap]).
+
+english([is      ], [vbl,wrd,aux,prg,fin]).
+english([was     ], [vbl,wrd,aux,prg,fin]).
+english([be      ], [vbl,wrd,aux,prg,bse]).
+english([being   ], [vbl,wrd,aux,prg,prp]).
+english([been    ], [vbl,wrd,aux,prg,pap]).
+
+english([laughs  ], [vbl,wrd,non,fin]).
+english([laughed ], [vbl,wrd,non,fin]).
+english([laugh   ], [vbl,wrd,non,bse]).
+english([laughing], [vbl,wrd,non,prp]).
+english([laughed ], [vbl,wrd,non,pap]).
+
+english(SO, [vbl,phr,non,INFL]):-
+	english(SO, [vbl,wrd,non,INFL]).
+
+english(SO, [vbl,phr,aux,mod,fin]):-
+	english(SO1, [vbl,wrd,aux,mod,fin]),
+	english(SO2, [vbl,phr,non,bse]),
+	append(SO1, SO2, SO).
+
+ english(SO, [vbl,phr,aux,prg,FLX]):-
+	english(SO1, [vbl,wrd,aux,prg,FLX]),
+	english(SO2, [vbl,phr,non,prp]),
+	append(SO1, SO2, SO).
+
+english(SO, [vbl,phr,aux,pfc,INFL]):-
+	english(SO1, [vbl,wrd,aux,pfc,INFL]),
+	english(SO2, [vbl,phr,non,pap]),
+	append(SO1, SO2, SO).
+
+english(SO, [vbl,phr,aux,mod,fin]):-
+	english(SO1, [vbl,wrd,aux,mod,fin]),
+	english(SO2, [vbl,phr,aux,prg,bse]),
+	append(SO1, SO2, SO).
+
+english(SO, [vbl,phr,aux,pfc,INFL]):-
+	english(SO1, [vbl,wrd,aux,pfc,INFL]),
+	english(SO2, [vbl,phr,aux,prg,pap]),
+	append(SO1, SO2, SO).
+
+english(SO, [vbl,phr,aux,mod,fin]):-
+	english(SO1, [vbl,wrd,aux,mod,fin]),
+	english(SO2, [vbl,phr,aux,pfc,bse]),
+	append(SO1, SO2, SO).
+
+english(SO, [vbl,cls]):-
+	english(SO1, [nom,cls        ]),
+	english(SO2, [vbl,phr,_,_,fin]),
+	append( SO1,  SO2,  SO).
+
+english(SO, [vbl,cls,inv]):-
+	english([A|C], [vbl,phr,aux,_,fin]),
+	english(B,[nom,cls]),
+	append([[A],B,C],SO).

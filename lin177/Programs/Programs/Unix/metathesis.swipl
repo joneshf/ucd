@@ -1,0 +1,6 @@
+
+saanich([t,l,e,k],[verb,root],[pinch]).
+saanich([l,p,e,x],[verb,root],[scatter]).
+saanich([th,l,e,q],[verb,root],[pierce]).
+saanich([A,B,C,D],[verb,progressive],[E,ing]):-
+	saanich([A,C,B,D],[verb,root],[E]).

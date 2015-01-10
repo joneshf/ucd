@@ -1,0 +1,23 @@
+
+	mandarin([yi ],numeral,1, [number,unit,first]).
+	mandarin([er ],numeral,2, [number,unit,nonfirst]).
+	mandarin([san],numeral,3, [number,unit,nonfirst]).
+	mandarin([si ],numeral,4, [number,unit,nonfirst]).
+	mandarin([wu ],numeral,5, [number,unit,nonfirst]).
+	mandarin([liu],numeral,6, [number,unit,nonfirst]).
+	mandarin([qi ],numeral,7, [number,unit,nonfirst]).
+	mandarin([ba ],numeral,8, [number,unit,nonfirst]).
+	mandarin([jiu],numeral,9, [number,unit,nonfirst]).
+	mandarin([shi],numeral,10,[number,ten,first]).
+
+	mandarin(A,numeral,B,[number,ten,nonfirst]):-
+		mandarin(C,numeral,D,[number,unit,nonfirst]),
+		mandarin(E,numeral,F,[number,ten,first]),
+		append(C,E,A),
+		B is D * F.
+
+	mandarin(A,numeral,B,[number]):-
+		mandarin(C,numeral,D,[_,ten,_]),
+		mandarin(E,numeral,F,[_,unit,_]),
+		append(C,E,A),
+		B is D + F.

@@ -1,0 +1,24 @@
+
+
+    :- ['entailment.swipl'].
+    :- ['properties.swipl'].
+    
+    spanish([b,o,k],[stem]).
+    spanish([b,o,t],[stem]).
+    spanish([b,o,l],[stem]).
+    
+    spanish([P1,P2],[diminutive]):-
+    	phone(P1), hih(P1), tns(P1), not(bck(P1)),
+    	phone(P2), not(voi(P2)), not(cnt(P2)), not(lab(P2)), not(pal(P2)).
+    
+    spanish(A,[stem]):-
+    	spanish(B,[stem]),
+    	spanish(C,[diminutive]),
+    	last(B,D),last(C,E),
+    	not((alv(D),not(cnt(D)),not(voi(D))) <=> 						(alv(E),not(cnt(E)),not(voi(E)))),
+    	append(B,C,A).
+    
+    spanish(A,[noun]):-
+    	spanish(B,[stem]),
+    	append(B,[a],A).
+

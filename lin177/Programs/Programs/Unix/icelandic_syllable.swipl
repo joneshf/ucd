@@ -1,0 +1,33 @@
+
+syllable(A):-
+	onset(B),
+	rhyme(C),
+	append(B,C,A).
+
+
+rhyme(C):-								
+	nucleus(A),
+	coda(B),
+	append(A,B,C).
+
+
+onset([b]).
+onset([r]).
+onset([s,t,r]).
+onset([b,r]).
+onset([f]).
+
+
+nucleus([ii]).
+nucleus([j,oo]).
+nucleus([j,uu]).
+nucleus([e]).
+nucleus([i]).
+
+
+coda([t]).
+coda([f]).
+coda([dh]).
+coda([k]).
+coda([s,t]).
+coda([n,n]).

@@ -1,0 +1,39 @@
+:- ['simpsons.swipl'].
+:- ['sets.swipl'].
+:- ['doublecolon.swipl'].
+:- ['fulldisplay.swipl'].
+
+english([homer], [nom,wrd,prp], [R :: bearer(R,[homer])], [0]).
+english([marge], [nom,wrd,prp], [R :: bearer(R,[marge])], [0]).
+english([ bart], [nom,wrd,prp], [R :: bearer(R,[ bart])], [0]).
+english([ lisa], [nom,wrd,prp], [R :: bearer(R,[ lisa])], [0]).
+
+english([every], [det,wrd], [R :: findall([X,Y],   includes(X,Y), R)],   [2,2]).
+english([some ], [det,wrd], [R :: findall([X,Y],   overlaps(X,Y), R)],   [2,2]).
+english([no   ], [det,wrd], [R :: findall([X,Y],   excludes(X,Y), R)],   [2,2]).
+english([the  ], [det,wrd], [R :: findall([X,[Y]], includes(X,[Y]), R)], [2,2]).
+
+english([parent], [nom,wrd,com], [R :: findall(X,parent(X),R)], [1,1]).
+english([child ], [nom,wrd,com], [R :: findall(X,child(X),R) ], [1,1]).
+
+english([male  ], [adj,wrd], [R :: findall(X,  male(X),R)], [1,1]).
+english([female], [adj,wrd], [R :: findall(X,female(X),R)], [1,1]).
+
+english(SO, [nom,phr,com], ME, MC) :-
+	english(SO, [nom,wrd,com], ME, MC).
+
+english(SO, [nom,phr,com], [R :: findall(X,(Y1,Y2),R)], [1,1]):-
+	english(SO1, [adj,wrd    ], [R1 :: findall(X,Y1,R1)], [1,1]),
+	english(SO2, [nom,wrd,com], [R2 :: findall(X,Y2,R2)], [1,1]),
+	append(SO1, SO2, SO).
+
+english(SO, [nom, phr, prp], [R :: findall(X,Y,R)], [1,0]):-
+	english(SO, [nom, wrd, prp], [X :: Y], [0]).
+
+english(SO, [nom,cls,com], [R :: findall(X,(Z1,Z2),R)], [2,1]):-
+	english(SO1, [det,wrd], [R1 :: findall([X,R2],Z1,R1)], [2,2]),
+	english(SO2, [nom, phr,com], [R2 :: Z2], [1,1]),
+	append(SO1, SO2, SO).
+
+english(SO, [nom,cls,prp], [R :: findall(X,(Y,includes(X,Z)), R)], [2,1]):-
+	english(SO, [nom,phr,prp], [Z :: Y], [1,0]).

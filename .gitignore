@@ -7,3 +7,4 @@
 octave_core
 *.class
 octave-workspace
+*.pyg

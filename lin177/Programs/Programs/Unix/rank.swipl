@@ -1,0 +1,236 @@
+/**
+ * @author				Oleg Lokhvitsky
+ * @file				rank.swipl
+ * @implementation		SWI-Prolog 5.8.2
+ * @version				6.5
+ */
+ 
+/**
+ * Included files.
+ */
+:- ['binaryoptions.swipl'].
+:- ['listoperations.swipl'].
+:- ['errorhandler.swipl'].
+
+/**
+ * removeOutputtxt()
+ * @internal
+ * Removes 'output.txt' file if it exists (with user consent).
+ */
+removeOutputtxt :-
+	(exists_file('output.txt'),
+	print('File output.txt already exists.\nDelete file before continuing?\n'),
+	repeat,
+	print('\ty/n: '),
+	get_char(A),
+	(
+		(A=y,!,print('Deleting...\n'),
+			ignore((current_stream('output.txt',_,Stream),close(Stream))),
+			ignore(access_file('output.txt', write)),
+			ignore(delete_file('output.txt')),
+			!);
+		(A=n,!,skip('\n'),!);
+		(skip('\n'),false)
+	)) ; true.
+
+/**
+ * calculateInferences(Function, Parameters, Inferences)
+ * Calculates the number of inferences required to prove Function on Parameters.
+ * @param	Function	Name of the relation/predicate that you wish to check.
+ * @param	Parameters 	List of parameters to be applied to Function.
+ * @param	Inferences	Number of inferences required to prove Function on Parameters.
+ * @example	calculateInferences(append, [[a,b,c],[d,e],_], I).	% I = 3
+ */
+calculateInferences_noCut(F, P, I) :-
+	statistics(inferences, I1),
+	apply(F, P),
+	statistics(inferences, I2),
+	I is I2 - I1 - 7.
+calculateInferences(F, P, I) :-
+	calculateInferences_noCut(F, P, I),
+	!.
+
+/**
+ * getNthResult(Function/Arity, Rank, Expression, Restricts=[])
+ * Find the the relationship between a Rank and an Expression in
+ * a given Function with certain Restrictions.
+ * @param	Function	Name of the relation/predicate that you wish you check.
+ * @param	Arity		Arity (number of parameters) of Function.
+ * @param	Rank		Rank of the Expression.
+ * @param	Expression	List of bindings that satisfy the Function.
+ * @param	Restricts	List of restrictions placed upon the Expression.
+ *			@see		listMatch/2 in listoperations.swipl
+ * @example	getNthResult(parent/2, R, X).
+ */
+getNthResult(C, R, X) :- getNthResult(C, R, X, []).
+getNthResult(C, R, X, E) :-
+	C =.. [/, F, A],
+	findall(T, (length(T, A), apply(F, T), listMatch(T, E)), L), !,
+	nth1(R, L, X).
+
+/**
+ * rank(Function/Arity, Rank, Inferences, Expression=_, Restricts=[])
+ * Used to find a relationship between the rank and number of inferences.
+ * @param	Function	Name of the relation/predicate that you wish to check.
+ * @param	Arity		Arity (number of parameters) of Function.
+ * @param	Rank		Rank of the Expression.
+ * @param	Inferences	Number of inferences to obtain that result.
+ * @param	Expression	List of bindings that satisfy the Function.
+ * @param	Restricts	List of restrictions placed upon the Expression.
+ *			@see		listMatch/2 in listoperations.swipl
+ * @example	rank(syllable/1, 1000, Inferences, Syllable).
+ * @example	rank(syllable/1, Rank, Inferences, [p,i]).
+ * @example	rank(syllable/1, Rank, 417, Syllable).
+ * @example	rank(syllable/1, Rank, Inferences, Syllable, [_,i]).
+ */
+rank(C, R, I) :- rank(C, R, I, _).
+rank(C, R, I, X) :- rank(C, R, I, X, []).
+rank(C, R, I, RX, E) :-
+	C =.. [/, F, A],
+	length(X, A),
+	getNthResult(C, R, X, E),
+	(A = 1 -> [RX] = X ; RX = X),
+	once(calculateInferences(F, X, I)).
+
+/**
+ * '$ranksDepthLimitDefault'(Depth)
+ * @internal
+ * Default value for recursive depth limit used by exception handling in ranks predicate.
+ */
+:- abolish('$ranksDepthLimitDefault'/1).
+'$ranksDepthLimitDefault'(30).
+
+/**
+ * '$ranksDepthLimit'(Depth)
+ * @internal
+ * Current value for recursive depth limit used by exception handling in ranks predicate.
+ */
+:- abolish('$ranksDepthLimit'/1).
+'$ranksDepthLimit'(X) :- '$ranksDepthLimitDefault'(X).
+
+/**
+ * ranksDepthLimit(NewDepth, Type)
+ * Sets the value of recursive depth limit used by exception handling in ranks predicate to NewDepth.
+ * If Type = 1, sets both the current and default value (permanent).
+ * Otherwise, only sets current value (temporary).
+ * @param	NewDepth	The new recursive depth limit.
+ * @param	Type		How permanent the change should be. See above.
+ */
+ranksDepthLimit(D) :- ranksDepthLimit(D, 1).
+ranksDepthLimit(D, P) :-
+	(\+ unifiable(D, '0', _)),
+	abolish('$ranksDepthLimit'/1),
+	asserta('$ranksDepthLimit'(D)),
+	((P = 1) -> (
+		abolish('$ranksDepthLimitDefault'/1),
+		asserta('$ranksDepthLimitDefault'(D))
+	) ; (true)).
+
+/**
+ * '$ranksExceptionHandler'(Function/Arity, [Ranks, Inferences, Expressions], Restricts, ErrorName, ErrorDescription)
+ * @internal
+ * Handles 'resource_error' exception thrown by ranks predicate.
+ */
+'$ranksExceptionHandler'(C, [R, I, X], E, _, _) :-
+	print('Ran out of stack space. Possible infinite loop.\n'),
+	'$ranksDepthLimit'(D),
+	print('Current recursive depth limit is '), print(D), print('.\n'),
+	current_stream('user://1',_,S),
+	repeat,
+	print('Please specify a recursive depth limit [0 to abort]: '),
+	ignore(read_line_to_codes(S,U)),
+	ignore(read_from_chars(U,T)),
+	integer(T), !,
+	((T = 0, '$ranksDepthLimitDefault'(DD), ranksDepthLimit(DD), !, fail) ;
+	(ranksDepthLimit(T), '$ranks'(C, [R, I, X], E), !)).
+
+/**
+ * ranks(Function/Arity, [Ranks, Inferences, Expressions], Restricts=[])
+ * Used to find a relationship between the rank and number of inferences
+ * for all expressions of a Function.
+ * @param	Function	Name of the relation/predicate that you wish to check.
+ * @param	Arity		Arity (number of parameters) of Function.
+ * @param	Ranks		List of ranks.
+ * @param	Inferences	List of inferences.
+ * @param	Expressions	List of lists of bindings that satisfy the Function.
+ * @param	Restricts	List of restrictions placed upon the Expression.
+ *			@see		listMatch/2 in listoperations.swipl
+ * @example	ranks(syllable/1, [Ranks, Inferences, Syllables]).
+ * @example	ranks(syllable/1, [Ranks, Inferences, Syllables], [_,i]).
+ * @example	ranks(syllable/1, List), printData(List).
+ */
+ranks(C, L) :- ranks(C, L, []).
+ranks(C, [R, I, X], E) :-
+	C =.. [/, F, A],
+	errorHandler:handle(
+		findall(TX, (length(TX, A), listMatch(TX, E), apply(F, TX)), L),
+		[[resource_error, '$ranksExceptionHandler'(C, [R,I,X], E)]]),
+	'$ranks'(C, L, R, I, X, 1), !.
+'$ranks'(C, [R, I, X], E) :-
+	C =.. [/, F, A],
+	'$ranksDepthLimit'(D),
+	errorHandler:handle(
+		call_with_depth_limit(
+			findall(TX, (length(TX, A), listMatch(TX, E), apply(F, TX)), L),
+		D, _),
+		[[resource_error, '$ranksExceptionHandler'(C, [R,I,X], E)]]),
+	'$ranksDepthLimitDefault'(DD),
+	ranksDepthLimit(DD), !,
+	'$ranks'(C, L, R, I, X, 1), !.
+'$ranks'(_, [], [], [], [], _).
+'$ranks'(C, [TX|L], [R|RT], [I|IT], [X|XT], OR) :-
+	R = OR,
+	NR is OR + 1,
+	C =.. [/, F, A],
+	(A = 1 -> [X] = TX ; X = TX),
+	statistics(inferences, I1), apply(F, TX), statistics(inferences, I2), I is I2 - I1 - 7,
+	(('$ranks'(C, L, RT, IT, XT, NR)) ; (RT = [], IT = [], XT = [])),
+	!.
+'$ranks'(C, [_|L], [R|RT], [I|IT], [X|XT], OR) :-
+	NR is OR + 1,
+	'$ranks'(C, L, [R|RT], [I|IT], [X|XT], NR).
+
+/**
+ * printData(List, Increment=1, FirstRank=1, LastRank=0, PrintType=3)
+ * Prints a List of values and inference-counts to the screen and/or 'output.txt' file.
+ * Format is "Rank, Inference-Count, Value".
+ * @param	List		List of values and inference-counts generated by the ranks predicate.
+ * @param	Increment	How often to print the data. I.E. 1 represents every Rank, 2 represents every other Rank, etc...
+ * @param	FirstRank	Rank to start printing at.
+ * @param	LastRank	Last Rank to print. 0 means print everything.
+ * @param	PrintType	Sum number specifying which printing options are enabled.
+ *						To enable more than one option, add their numbers together.
+ *						I.E. Print to screen and 'output.txt' is PrintType = 3.
+ *						1 : Print to screen
+ *						2 : Print to 'output.txt'
+ * @example	printData([[1,2,3],[34,56,93],[Value1,Value2,Value3]], 2, 1, 0, 1).
+ * @example	printData([[1,2,3],[34,56,93],[Value1,Value2,Value3]], 1, 2, 0, 3).
+ * @example	ranks(foo/2, _L), printData(_L).
+ */
+printData(List) :- printData(List, 1).
+printData(List, Increment) :- printData(List, Increment, 1).
+printData(List, Increment, FirstRank) :-
+	printData(List, Increment, FirstRank, 0).
+printData(List, Increment, FirstRank, LastRank) :-
+	printData(List, Increment, FirstRank, LastRank, 3).
+printData(List, Increment, FirstRank, LastRank, PrintType) :-
+	removeOutputtxt,
+	ignore((binaryOptions(PrintType, 2), open('output.txt', append, Stream, [encoding(utf8)]))),
+	'$printData'(List, Increment, FirstRank, LastRank, PrintType, Stream),
+	ignore((binaryOptions(PrintType, 2), close(Stream))).
+'$printData'([LR,_,_], _, FirstRank, LastRank, _, _) :-
+	((FirstRank > LastRank,	\+ LastRank = 0) ;
+	(length(LR, MaxRank), FirstRank > MaxRank)), !.
+'$printData'([LR,LI,LX], Increment, FirstRank, LastRank, PrintType, Stream) :-
+	nth1(FirstRank, LR, R),
+	nth1(FirstRank, LI, I),
+	nth1(FirstRank, LX, X),
+	ignore((binaryOptions(PrintType, 1), write((R, I, X, '\n')))),
+	ignore((binaryOptions(PrintType, 2), write(Stream, (R, I, X, '\n')))),
+	NextRank is FirstRank + Increment,
+	'$printData'([LR,LI,LX], Increment, NextRank, LastRank, PrintType, Stream).
+
+/**
+ * Loading-time operations.
+ */
+:- removeOutputtxt.

@@ -1,0 +1,109 @@
+
+
+:- ['phoneplus.swipl'].
+:- ['kinship.swipl'].
+:- ['doublecolon.swipl'].
+:- ['fulldisplay.swipl'].
+
+spanish([P1,P2], [morph], [R :: findall([S,T], child(S,T), R)]):-
+	name(P1,[105]),
+	name(P2,[120]).
+
+spanish([P1,P2,P3,P4,P5], [morph], [R :: findall([S,T], grandparent(S,T), R)]):-
+	name(P1,[097]),
+	name(P2,[946]),
+	name(P3,[119]),
+	name(P4,[101]),
+	name(P5,[108]).
+
+spanish([P1,P2,P3,P4], [morph], [R :: findall([S,T], grandchild(S,T), R)]):-
+	name(P1,[110]),
+	name(P2,[106]),
+	name(P3,[101]),
+	name(P4,[116]).
+
+spanish([P1,P2,P3,P4,P5], [morph], [R :: findall([S,T], sibling(S,T), R)]):-
+	name(P1,[101]),
+	name(P2,[638]),
+	name(P3,[109]),
+	name(P4,[097]),
+	name(P5,[110]).
+
+spanish([P1,P2,P3,P4,P5], [morph], [R :: findall([S,T], spouse(S,T), R)]):-
+	name(P1,[101]),
+	name(P2,[115]),
+	name(P3,[112]),
+	name(P4,[111]),
+	name(P5,[115]).
+
+spanish([P1,P2,P3,P4,P5], [morph], [R :: findall([S,T], parentinlaw(S,T), R)]):-
+	name(P1,[115]),
+	name(P2,[119]),
+	name(P3,[101]),
+	name(P4,[611]),
+	name(P5,[638]).
+
+spanish([P1,P2,P3,P4,P5], [morph], [R :: findall([S,T], siblinginlaw(S,T), R)]):-
+	name(P1,[107]),
+	name(P2,[117]),
+	name(P3,[626]),
+	name(P4,[097]),
+	name(P5,[240]).
+
+spanish([P1,P2], [morph], [R :: findall([S,T], uncleoraunt(S,T), R)]):-
+	name(P1,[116]),
+	name(P2,[105]).
+
+spanish([P1,P2,P3,P4,P5,P6],[morph], [R :: findall([S,T], nepheworniece(S,T), R)]):-
+	name(P1,[115]),
+	name(P2,[111]),
+	name(P3,[946]),
+	name(P4,[638]),
+	name(P5,[105]),
+	name(P6,[110]).
+
+spanish([P1,P2,P3,P4],[morph], [R :: findall([S,T], cousin(S,T), R)]):-
+	name(P1,[112]),
+	name(P2,[638]),
+	name(P3,[105]),
+	name(P4,[109]).
+
+
+spanish([P1,P2,P3,P4,P5], [word], [R :: findall([S,T], parent(S,T), R)]):-
+	name(P1,[112]),
+	name(P2,[097]),
+	name(P3,[240]),
+	name(P4,[638]),
+	name(P5,[101]).
+
+
+spanish([P1,P2,P3,P4,P5], [word], [R :: findall([S,T], mother(S,T), R)]):-
+	name(P1,[109]),
+	name(P2,[097]),
+	name(P3,[240]),
+	name(P4,[638]),
+	name(P5,[101]).
+
+spanish([P1,P2,P3,P4,P5], [word], [R :: findall([S,T], soninlaw(S,T), R)]):-
+	name(P1,[106]),
+	name(P2,[101]),
+	name(P3,[638]),
+	name(P4,[110]),
+	name(P5,[111]).
+
+spanish([P1,P2,P3,P4,P5], [word], [R :: findall([S,T], daughterinlaw(S,T), R)]):-
+	name(P1,[110]),
+	name(P2,[119]),
+	name(P3,[101]),
+	name(P4,[638]),
+	name(P5,[097]).
+
+
+spanish(A,[word],B):-
+	spanish(C,[morph],B),
+	append(C,[o],A).
+
+
+spanish(A,[word],[R :: findall([S,T],(U,female(S)),R)]):-
+	spanish(B,[morph],[R :: findall([S,T],U,R)]),
+	append(B,[a],A).

@@ -1,0 +1,120 @@
+
+:- ['icelandic_syllable.swipl'].
+
+
+english([r,i,th],noun).
+english([h,a,w,s],noun).
+english([b,i,l,i,f],noun).
+english([r,a,j,s],noun).
+english(A,verb):-
+	english(B,noun),
+	append(C,[D],B),
+	append(C,[E],A),
+	voicing(D,E).
+
+
+irish([b,r,i,s],stem).
+irish([c,u,i,r],stem).
+irish([d,o,i,r,t],stem).
+irish([g,l,a,n],stem).
+irish([m,o,l],stem).
+irish([p,i,l,l],stem).
+irish([s,e,a,n],stem).
+irish([t,a,i,r,g],stem).
+irish([A|B],past):-
+	irish([C|B],stem),
+	aspiration(C,A).
+
+
+icelandic([b,ii,t],[stem,1]).
+icelandic([r,ii,f],[stem,1]).
+icelandic([b,j,oo,dh],[stem,2]).
+icelandic([s,t,r,j,uu,k],[stem,2]).
+icelandic([b,r,e,s,t],[stem,3]).
+icelandic([f,i,n,n],[stem,4]).
+
+icelandic(A,[past,singular]):-
+	icelandic(B,[stem,1]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[e,i],E],A).
+
+icelandic(A,[past,singular]):-
+	icelandic(B,[stem,2]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[oe,i],E],A).
+
+icelandic(A,[past,singular]):-
+	icelandic(B,[stem,3]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[a],E],A).
+
+icelandic(A,[past,singular]):-
+	icelandic(B,[stem,4]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[a],E],A).
+
+icelandic(A,[past,plural]):-
+	icelandic(B,[stem,1]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[i],E],A).
+
+icelandic(A,[past,plural]):-
+	icelandic(B,[stem,2]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[j,u],E],A).
+
+icelandic(A,[past,plural]):-
+	icelandic(B,[stem,3]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[u],E],A).
+
+icelandic(A,[past,plural]):-
+	icelandic(B,[stem,4]),
+	append(C,D,B),
+	onset(C),rhyme(D),
+	append(C,[y,n,d],A).
+
+icelandic(A,[past,participial]):-
+	icelandic(B,[stem,1]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[i],E],A).
+
+icelandic(A,[past,participial]):-
+	icelandic(B,[stem,2]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[o],E],A).
+
+icelandic(A,[past,participial]):-
+	icelandic(B,[stem,3]),
+	append([C,D,E],B),
+	onset(C),nucleus(D),coda(E),
+	append([C,[o],E],A).
+
+icelandic(A,[past,participial]):-
+	icelandic(B,[stem,4]),
+	append(C,D,B),
+	onset(C),rhyme(D),
+	append(C,[u,n,d],A).
+
+
+voicing(th,dh).
+voicing(s,z).
+voicing(f,v).
+
+aspiration(b,bh).
+aspiration(c,ch).
+aspiration(d,dh).
+aspiration(g,gh).
+aspiration(m,mh).
+aspiration(p,ph).
+aspiration(s,sh).
+aspiration(t,th).

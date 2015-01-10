@@ -1,0 +1,11 @@
+?- ['blather.swipl'].
+% blather.swipl compiled 0.00 sec, 1 clauses
+true.
+
+?- word(X).
+X = blah ;
+X = blah-blah ;
+X = blah-blah-blah ;
+X = blah-blah-blah-blah ;
+X = blah-blah-blah-blah-blah ;
+X = blah-blah-blah-blah-blah-blah .

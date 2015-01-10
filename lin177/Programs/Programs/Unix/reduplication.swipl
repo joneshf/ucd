@@ -1,0 +1,39 @@
+
+indonesian([r,u,m,a,h],singular).
+indonesian([i,b,u],singular).
+indonesian([l,a,l,a,t],singular).
+indonesian(B,plural):-
+	indonesian(A,singular),
+	append(A,A,B).
+
+
+tagalog([[b,i],[l,i]],verb).
+tagalog([[k,a],[i,n]],verb).
+tagalog([[p,a],[s,o,k]],verb).
+tagalog(C,future):-
+	tagalog([A|B],verb),
+	append([A],[A|B],C).
+
+
+yidiny([[[m,u],[l,a]],[[r,i]]],singular).
+yidiny([[[g,i,n],[d,a,l]],[[b,a]]],singular).
+yidiny(C,plural):-
+	yidiny([A|B],singular),
+	append([A],[A|B],C).
+
+
+bambara([[w,u],[l,u]],[noun],[dog]).
+bambara([[m,a],[l,o]],[noun],[rice]).
+bambara([[f,i],[l,e]],[verb],[watch]).
+bambara([[n,i],[n,i]],[verb],[search]).
+bambara(A,[noun,agentive],[B,er]):-
+	bambara([C|[[D,E]]],[verb],[B]),
+	append([C|[[D,E]]],[[D,a]],A).
+bambara(E,[noun],F):-
+	bambara(A,[noun],B),
+	bambara(C,[noun,agentive],D),
+	append(A,C,E),
+	append([B],[D],F).
+bambara(A,[noun,quantified],[any,C]):-
+	bambara(B,[noun],C),
+	append([B,[o],B],A).

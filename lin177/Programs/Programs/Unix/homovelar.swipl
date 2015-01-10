@@ -1,0 +1,15 @@
+	:- ['entailment.swipl'].
+
+	cns(P) :- name(P,[120]).
+	cns(P) :- name(P,[231]).
+
+	vel(P) :- name(P,[120]).
+	vel(P) :- name(P,[097]).
+
+	undergerman([i, P]):- cns(P).
+	undergerman([a, P]):- cns(P).
+
+	german(A):-
+		undergerman(A),
+		(cns(C), member(C,A)) => 
+		(vel(C) <=> (vel(V), not(cns(V)), nextto(V,C,A))).

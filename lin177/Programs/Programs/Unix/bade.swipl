@@ -1,0 +1,23 @@
+:- ['entailment.swipl'].
+:- ['properties.swipl'].
+
+bade([k,W,t,u],[stem]):- name(W,[695]).
+bade([k,A,r,u],[stem]):- name(A,[601]).
+bade([l,a,g,u],[stem]).
+bade([n,a,j,u],[stem]).
+bade([b,d,u],[stem]).
+bade([v,A,r,u],[stem]):- name(A,[601]).
+bade([d,A,k,W,u],[stem]):- name(A,[601]), name(W,[695]).
+bade([g,a,f,o],[stem]).
+
+bade([P1,P2],[affix]):-
+	vel(P1),not(snt(P1)),
+	phone(P2),not(cns(P2)), not(str(P2)).
+
+bade(A,[verb]):-
+	bade([B1|B2],[affix]),
+	bade([C1|C2],[stem]),
+	not((voi(B1),not(snt(B1))) <=> (voi(C1),not(snt(C1)))),
+	append([B1|B2],[C1|C2],A).
+
+

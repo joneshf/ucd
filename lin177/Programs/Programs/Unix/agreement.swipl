@@ -1,0 +1,20 @@
+spanish([ nino], [nom,wrd,msc,sng]).
+spanish([ nina], [nom,wrd,fmn,sng]).
+spanish([ninos], [nom,wrd,msc,plr]).
+spanish([ninas], [nom,wrd,fmn,plr]).
+
+spanish([ alto], [adj,wrd,msc,sng]).
+spanish([ alta], [adj,wrd,fmn,sng]).
+spanish([altos], [adj,wrd,msc,plr]).
+spanish([altas], [adj,wrd,fmn,plr]).
+
+spanish(A, [nom,phr,B,C]):-
+	spanish(D, [nom,wrd,B,C]),
+	spanish(E, [adj,wrd,B,C]),
+	append(D, E, A).
+
+	
+
+
+
+

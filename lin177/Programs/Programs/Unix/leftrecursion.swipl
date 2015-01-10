@@ -1,0 +1,13 @@
+	
+
+english([homer], [nom, wrd]).
+english([marge], [nom, wrd]).
+
+english([  and], [conjunction]).
+english([   or], [conjunction]).
+
+english(SO,SC):-
+	english(SO1, SC),
+	english(SO2, [conjunction]),
+	english(SO3, SC),
+	append([SO1, SO2, SO3], SO).

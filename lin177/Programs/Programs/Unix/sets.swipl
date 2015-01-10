@@ -1,0 +1,19 @@
+:- use_module(library(dialect/hprolog)).
+
+includes(A,B):-
+	universe(C),
+	sublist(A,C),
+	sublist(B,C),
+	sublist(B,A).
+
+overlaps(A,B):-
+	universe(C),
+	sublist(A,C),
+	sublist(B,C),
+	intersection(A,B,[_|_]).
+
+excludes(A,B):-
+	universe(C),
+	sublist(A,C),
+	sublist(B,C),
+	intersection(A,B,[ ]).

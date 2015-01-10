@@ -1,0 +1,35 @@
+	:- ['properties.swipl'].
+	:- ['entailment.swipl'].
+	:- ['diacriticsdisquoted.swipl'].
+
+	:- multifile phone/1, nas/1.
+
+
+	phone(A):- name(A,[105,771]).
+	phone(A):- name(A,[618,771]).	
+	phone(A):- name(A,[101,771]).
+	phone(A):- name(A,[230,771]).
+	phone(A):- name(A,[601,771]).
+	phone(A):- name(A,[117,771]).
+	phone(A):- name(A,[650,771]).
+	phone(A):- name(A,[111,771]).
+	phone(A):- name(A,[097,771]).
+	phone(A):- name(A,[652,771]).
+
+	nas(A):- name(A,[105,771]).
+	nas(A):- name(A,[618,771]).	
+	nas(A):- name(A,[101,771]).
+	nas(A):- name(A,[230,771]).
+	nas(A):- name(A,[601,771]).
+	nas(A):- name(A,[117,771]).
+	nas(A):- name(A,[650,771]).
+	nas(A):- name(A,[111,771]).
+	nas(A):- name(A,[097,771]).
+	nas(A):- name(A,[652,771]).
+
+
+	english(A):-
+		underenglish(A),
+		(phone(B), not(cns(B)), cns(C), nextto(B,C,A)) =>
+		(nas(B) <=> nas(C)). 	
+

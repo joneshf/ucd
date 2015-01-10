@@ -1,0 +1,20 @@
+
+:- ['syllable.swipl'].
+
+sound([A]):-
+	syllable(A).
+
+	/** A syllable is a sound **/
+
+
+sound(A):-
+	append([B],C,A),
+	syllable(B),
+	sound(C).
+
+	/** Appending a syllable to a sound yields a sound **/
+
+
+sound(A,B):-
+	length(A,B),
+	sound(A).

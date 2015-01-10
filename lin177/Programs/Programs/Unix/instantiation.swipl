@@ -1,0 +1,59 @@
+:- ['entailment.swipl'].
+:- ['properties.swipl'].
+
+underenglish([P1,P2,P3,P4]):-
+	phone(P1),low(P1),not(bck(P1)),
+	phone(P2),nas(P2),
+	phone(P3),lab(P3),not(cnt(P3)),not(voi(P3)),
+	phone(P4),snt(P4),not(nas(P4)),alv(P4),not(pal(P4)).
+	
+underenglish([P1,P2,P3,P4]):-
+	phone(P1),low(P1),not(bck(P1)),
+	phone(P2),nas(P2),
+	phone(P3),not(snt(P3)),lab(P3),not(cnt(P3)),voi(P3),
+	phone(P4),snt(P4),not(nas(P4)),alv(P4),not(pal(P4)).
+	
+underenglish([P1,P2,P3,P4]):-
+	phone(P1),low(P1),not(bck(P1)),
+	phone(P2),nas(P2),
+	phone(P3),alv(P3),not(cnt(P3)),not(voi(P3)),
+	phone(P4),snt(P4),not(nas(P4)),alv(P4),not(pal(P4)).
+
+underenglish([P1,P2,P3,P4]):-
+	phone(P1),low(P1),not(bck(P1)),
+	phone(P2),nas(P2),
+	phone(P3),not(snt(P3)),voi(P3),not(cnt(P3)),alv(P3),
+	phone(P4),snt(P4),not(nas(P4)),alv(P4),not(pal(P4)).
+
+underenglish([P1,P2,P3,P4]):-
+	phone(P1),low(P1),not(bck(P1)),
+	phone(P2),nas(P2),
+	phone(P3),not(voi(P3)),vel(P3),
+	phone(P4),snt(P4),not(nas(P4)),alv(P4),not(pal(P4)).
+
+underenglish([P1,P2,P3,P4]):-
+	phone(P1),low(P1),not(bck(P1)),
+	phone(P2),nas(P2),
+	phone(P3),not(snt(P3)),voi(P3),vel(P3),
+	phone(P4),snt(P4),not(nas(P4)),alv(P4),not(pal(P4)).
+
+underenglish([P1,P2,P3,P4,P5,P6,P7,P8]):-
+	phone(P1),low(P1),not(bck(P1)),
+	phone(P2),nas(P2),
+	phone(P3),lab(P3),not(cnt(P3)),not(voi(P3)),
+	phone(P4),snt(P4),not(nas(P4)),alv(P4),not(pal(P4)),
+	phone(P5),low(P5),not(bck(P5)),
+	phone(P6),nas(P6),
+	phone(P7),not(snt(P7)),voi(P7),vel(P7),
+	phone(P8),snt(P8),not(nas(P8)),alv(P8),not(pal(P8)).
+
+
+english(A):-
+	underenglish(A),
+	(nas(N), cns(C), nextto(N,C,A)) => homorganic(N,C).
+
+
+homorganic(A,B):-
+	alv(A) <=> alv(B),
+	lab(A) <=> lab(B).
+

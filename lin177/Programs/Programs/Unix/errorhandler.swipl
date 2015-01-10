@@ -1,0 +1,53 @@
+/**
+ * @author				Oleg Lokhvitsky
+ * @file				errorhandler.swipl
+ * @implementation		SWI-Prolog 5.8.2
+ * @version				1.0
+ */
+
+/**
+ * errorHandler:handle(Callable, HandlerList)
+ * Attempts a Callable operation, and if the attempt results in an error/exception,
+ * tries to handle it with a corresponding error handler from HandlerList.
+ * @param	Callable	A callable operation to attempt.
+ * @param	HandlerList	A list of error handlers in the format of:
+ *						[[<error_type>, <handler>],
+ *						 [<error_type>, <handler>],
+ *						 ...]
+ *						For example:
+ *						[[resource_error, resourceErrorHandler('Argument')],
+ *						 [other_error, otherErrorHandler('Something', 213)]]
+ *						The handler call will be automatically appended with two
+ *						additional arguments, ErrorName which is the name of the
+ *						error and ErrorDescription which is a list of additional
+ *						descriptions of the error. The handler function must account
+ *						for these two additional arguments.
+ *						Use other_error as the default handler for errors not handled
+ *						by other handlers.
+ * @error	resource_error
+ * @error	existence_error
+ * @error	domain_error
+ * @error	instantiation_error
+ * @error	permission_error
+ * @error	representation_error
+ * @error	syntax_error
+ * @error	type_error
+ * @error	other_error
+ */
+errorHandler:handle(Callable, HandlerList) :-
+	callable(Callable),
+	catch(Callable,Error,(
+		Error=..ErrorList,
+		ErrorList=[_,ErrorType|_],
+		ErrorType=..ErrorTypeList,
+		ErrorTypeList=[ErrorName|ErrorDescription],
+		((
+			member([ErrorName,ErrorHandler],HandlerList), !,
+			call(ErrorHandler, ErrorName, ErrorDescription)
+		) ; (
+			member(['other_error',ErrorHandler],HandlerList), !,
+			call(ErrorHandler, ErrorName, ErrorDescription)
+		) ; (
+			throw(Error)
+		))
+	)).

@@ -1,0 +1,25 @@
+
+english(ink,[noun,verbalizable]).
+english(butter,[noun,verbalizable]).
+english(ship,[noun,verbalizable]).
+english(nail,[noun,verbalizable]).
+english(button,[noun,verbalizable]).
+english(run,[verb,nominalizable]).
+english(drink,[verb,nominalizable]).
+english(drive,[verb,nominalizable]).
+english(report,[verb,nominalizable]).
+english(call,[verb,nominalizable]).
+english(empty,[adjective,verbalizable]).
+english(better,[adjective,verbalizable]).
+english(right,[adjective,verbalizable]).
+english(total,[adjective,verbalizable]).
+english(clear,[adjective,verbalizable]).
+
+english(A,[verb, denominal]):-
+	english(A,[noun, verbalizable]).
+
+english(A,[noun, deverbal]):-
+	english(A,[verb, nominalizable]).
+
+english(A,[verb, deadjectival]):-
+	english(A,[adjective, verbalizable]).

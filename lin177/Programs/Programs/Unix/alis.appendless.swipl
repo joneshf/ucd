@@ -1,0 +1,17 @@
+:- ['entailment.swipl'].
+
+liq(l).
+liq(r).
+
+lat(l).
+
+latin([m,o,r],[noun]).
+latin([m,o,l],[noun]).
+
+latin([a,L,i,s],[affix]):-
+	liq(L).
+
+latin([A,B,C,a,L,i,s],[adjective]):-
+	latin([A,B,C],[noun]),
+	latin([a,L,i,s],[affix]),
+	not(lat(C) <=> lat(L)).

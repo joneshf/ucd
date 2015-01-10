@@ -1,0 +1,7 @@
+	np --> [homer].
+	np --> [marge].
+	v --> [likes].
+
+	s --> np, vp.
+	vp --> v, np.
+

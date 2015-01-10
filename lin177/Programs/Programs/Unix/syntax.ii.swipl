@@ -1,0 +1,82 @@
+
+:- ['simpsons.swipl'].
+:- ['sets.swipl'].
+:- ['allsuch.swipl'].
+:- ['evaluation.swipl'].
+:- ['doublecolon.swipl'].
+:- ['fulldisplay.swipl'].
+
+
+english([ bart], [nom,wrd,prp], [R :: bearer(R,[ bart])]).
+english([homer], [nom,wrd,prp], [R :: bearer(R,[homer])]).
+english([ lisa], [nom,wrd,prp], [R :: bearer(R,[ lisa])]).
+english([marge], [nom,wrd,prp], [R :: bearer(R,[marge])]).
+
+english([every], [det,wrd], [    R :: allsuch([X,Y],includes(X,Y), R)]).
+english([ some], [det,wrd], [    R :: allsuch([X,Y],overlaps(X,Y), R)]).
+english([   no], [det,wrd], [    R :: allsuch([X,Y],excludes(X,Y), R)]).
+english([  the], [det,wrd], [R :: allsuch([X,[Y]],includes(X,[Y]), R)]).
+
+english([parent], [nom,wrd,com], [R :: allsuch(X,parent(X),R)]).
+english([ child], [nom,wrd,com], [R :: allsuch(X, child(X),R)]).
+
+english([  male], [adj,wrd], [R :: allsuch(X,  male(X),R)]).
+english([female], [adj,wrd], [R :: allsuch(X,female(X),R)]).
+
+english([rocks], [vbl,wrd,int], [R :: allsuch(X,rocks(X),R)]).
+english([sucks], [vbl,wrd,int], [R :: allsuch(X,sucks(X),R)]).
+
+english([loves], [vbl,wrd,trn], [R :: allsuch([X,Y],loves(X,Y),R)]).
+english([hates], [vbl,wrd,trn], [R :: allsuch([X,Y],hates(X,Y),R)]).
+
+english([prefers], [vbl,wrd,dtr], [R :: allsuch([X,Y,Z],prefers(X,Y,Z),R)]).
+
+english([to],[prp,wrd,dat],[R :: allsuch([X,Y],to(X,Y),R)]).
+
+english(SO, [nom,phr,com], ME):-
+	english(SO, [nom,wrd,com], ME).
+
+english(SO, [nom,phr,com], [R :: allsuch(X,(Y1,Y2),R)]):-
+	english(SO1, [adj,wrd    ], [R1 :: allsuch(X,Y1,R1)]),
+	english(SO2, [nom,wrd,com], [R2 :: allsuch(X,Y2,R2)]),
+	append( SO1,  SO2,  SO).
+
+english(SO, [nom, phr, prp], [R :: allsuch(X,Y,R)]):-
+	english(SO, [nom, wrd, prp], [X :: Y]).
+
+english(SO, [nom,cls], [R :: allsuch(X,(Z1,Z2),R)]):-
+	english(SO1, [det,wrd], [R1 :: allsuch([X,R2],Z1,R1)]),
+	english(SO2, [nom, phr,com], [R2 :: Z2]),
+	append(SO1, SO2, SO).
+
+english(SO, [nom,cls], [R :: allsuch(X,(Y,includes(X,Z)), R)]):-
+	english(SO, [nom,phr,prp], [Z :: Y]).
+
+english(SO,[nom,cls,dat],ME):-
+		english(SO1,[prp,wrd,dat],_),
+		english(SO2,[nom,cls],ME),
+		append(SO1,SO2,SO).
+
+english(SO, [vbl, phr], ME):-
+	english(SO,[vbl,wrd,int], ME).
+
+english(SO, [vbl,phr], [R :: 
+	allsuch(X,(S1,S2,member([X,_],R1), 
+	allsuch(Y,member([X,Y],R1),Z),member(Z,R2)),R)]):-
+		english(SO1, [vbl,wrd,trn], [R1 :: S1]),
+		english(SO2, [nom,cls    ], [R2 :: S2]),
+		append(SO1,   SO2, SO).
+
+english(SO, [vbl,phr], [R :: 
+	allsuch(X,(S1,S2,S3,member([X,_,_],R1),
+	allsuch(Y,member([X,Y,W],R1),Z),member(Z,R2),
+	allsuch(W,member([X,Y,W],R1),V),member(V,R3)),R)]):-
+		english(SO1, [vbl,wrd,dtr], [R1 :: S1]),
+		english(SO2, [nom,cls    ], [R2 :: S2]),
+		english(SO3, [nom,cls,dat], [R3 :: S3]),
+		append([SO1,  SO2, SO3], SO).
+
+english(SO, [vbl,cls], [R :: evaluation((S1,S2,member(R2,R1)),R)]):-
+	english(SO1, [nom,cls], [R1 :: S1]),
+	english(SO2, [vbl,phr], [R2 :: S2]),
+	append( SO1,  SO2,           SO).

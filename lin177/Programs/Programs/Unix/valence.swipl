@@ -1,0 +1,63 @@
+:- ['fulldisplay.swipl'].
+
+english([ bart], [nom,wrd,prp]).
+english([homer], [nom,wrd,prp]).
+english([ lisa], [nom,wrd,prp]).
+english([marge], [nom,wrd,prp]).
+
+english([every], [det,wrd]).
+english([ some], [det,wrd]).
+english([   no], [det,wrd]).
+english([  the], [det,wrd]).
+
+english([parent], [nom,wrd,com]).
+english([ child], [nom,wrd,com]).
+
+english([  male], [adj,wrd]).
+english([female], [adj,wrd]).
+
+english([rocks], [vbl,wrd,int]).
+english([sucks], [vbl,wrd,int]).
+
+english([loves], [vbl,wrd,trn]).
+english([hates], [vbl,wrd,trn]).
+
+english([prefers], [vbl,wrd,dtr]).
+
+english(SO, [nom,phr,com]) :-
+	english(SO, [nom,wrd,com]).
+
+english(SO, [nom,phr,com]):-
+	english(SO1, [adj,wrd]),
+	english(SO2, [nom,wrd,com]),
+	append( SO1,  SO2,  SO).
+
+english(SO, [nom,phr,prp]):-
+	english(SO, [nom,wrd,prp]).
+
+english(SO, [nom,cls,com]):-
+	english(SO1, [det,wrd]),
+	english(SO2, [nom,phr,com]),
+	append(SO1, SO2, SO).
+
+english(SO, [nom,cls,prp]):-
+	english(SO, [nom,phr,prp]).
+
+english(SO, [vbl,phr]):-
+	english(SO,[vbl,wrd,int]).
+
+english(SO, [vbl,phr]):-
+	english(SO1, [vbl,wrd,trn]),
+	english(SO2, [nom,cls,  _]),
+	append( SO1,  SO2, SO).
+
+english(SO,[vbl,phr]):-
+	english(SO1, [vbl,wrd,dtr]),
+	english(SO2, [nom,cls,_]),
+	english(SO3, [nom,cls,_]),
+	append([SO1,  SO2,  [to],  SO3], SO).
+
+english(SO, [vbl,cls]):-
+	english(SO1, [nom,cls,_]),
+	english(SO2, [vbl,phr  ]),
+	append( SO1,  SO2,  SO).

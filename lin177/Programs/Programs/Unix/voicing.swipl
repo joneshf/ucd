@@ -1,0 +1,20 @@
+	:- ['properties.swipl'].
+	:- ['entailment.swipl'].
+
+	english([k,a,p],[stem]).
+	english([k,a,b],[stem]).
+	english([k,a,t],[stem]).
+	english([k,a,d],[stem]).
+	english([k,a,k],[stem]).
+	english([k,a,g],[stem]).
+
+	english([A],[affix]):-
+		sib(A),
+		alv(A).
+
+	english(A,[plural]):-
+		english(B,[stem]),
+		english([C],[affix]),
+		append(_,[D],B),
+		append(B,[C],A),
+		voi(C) <=> voi(D).

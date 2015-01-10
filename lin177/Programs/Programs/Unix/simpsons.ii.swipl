@@ -1,0 +1,51 @@
+entity(bart).
+entity(homer).
+entity(lisa).
+entity(marge).
+
+male(bart).
+male(homer).
+
+female(lisa).
+female(marge).
+
+parent(homer).
+parent(marge).
+
+child(bart).
+child(lisa).
+
+
+bearer( bart, [ bart]).
+bearer(homer, [homer]).
+bearer( lisa, [ lisa]).
+bearer(marge, [marge]).
+
+rocks(bart).
+rocks(lisa).
+
+sucks(homer).
+sucks(marge).
+
+loves(X,X):- entity(X).
+hates(X,Y):- entity(X), entity(Y), not(X = Y).
+
+prefers(X,Y,Z):-
+	loves(X,Y),
+	hates(X,Z).
+
+promise(X,Y,Z):-
+	assure(X,Y,Z),
+	arg(1,Z,X).
+
+persuade(X,Y,Z):-
+	convince(X,Y,Z),
+	arg(1,Z,Y).
+
+assure(homer,marge,drive(homer)).
+convince(homer,marge,drive(marge)).
+
+drive(_):- false.
+to(_,_):- false.
+
+universe(A):- findall(B, entity(B), A).

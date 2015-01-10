@@ -1,0 +1,19 @@
+english([fact   ], [nom,wrd,snt]).
+english([believe], [vbl,wrd,snt]).
+english([aware  ], [adj,wrd,snt]).
+english([in     ], [prp,wrd,snt]).
+english([so     ], [adv,wrd,snt]).
+
+english([that],[cmp]).
+
+english([the,world,is,round],[vbl,cls]).
+
+english(SO,[vbl,cls,sub]):- 
+		english(SO1,[cmp]),
+		english(SO2,[vbl,cls]),
+		append(SO1, SO2, SO).
+
+english(SO,[CAT,phr]):-
+		english(SO1,[CAT,wrd,snt]),
+		english(SO2,[vbl,cls,sub]),
+		append(SO1,SO2,SO).

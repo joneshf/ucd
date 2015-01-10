@@ -1,0 +1,2 @@
+word(blah).
+word(X-blah):- word(X).

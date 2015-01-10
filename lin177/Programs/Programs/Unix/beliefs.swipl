@@ -1,0 +1,8 @@
+:- ['entailment.swipl'].
+	
+rains.	
+
+believe(homer, not(rains, not(rains))).
+believe(marge, (rains;not(rains))).
+
+

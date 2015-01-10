@@ -1,0 +1,42 @@
+/**
+ * @author				Oleg Lokhvitsky
+ * @file				listoperations.swipl
+ * @implementation		SWI-Prolog 5.8.2
+ * @version				1.0
+ */
+
+/**
+ * listMatch(List, Match)
+ * Find out if members in List match their defined counterparts in Match.
+ * @param	List	List that is being tested.
+ * @param	Match	List with some defined terms which specifies the accepted form for List.
+ * @example	listMatch([1,2,3],[]).		% true
+ * @example	listMatch([1,2,3],[1]).		% true
+ * @example	listMatch([1,a,9],[1]).		% true
+ * @example	listMatch([4,2,3],[1]).		% false
+ * @example	listMatch([1,2,3],[1,_,3]).	% true
+ * @example	listMatch([1,b,3],[1,_,3]).	% true
+ * @example	listMatch([6,5,3],[1,_,3]).	% false
+ * @example	listMatch([1,2,2],[1,_,3]).	% false
+ * @example	listMatch([1,2,_],[1,_,3]).	% true
+ * @example	listMatch([g,2,_],[1,_,3]).	% false
+ */
+listMatch(_, []) :- !.
+listMatch([List|ListT], [Match|MatchT]) :-
+	((\+ unifiable(Match, '\0', _)) ->
+		(List = Match) ;
+		(true)),
+	listMatch(ListT, MatchT).
+
+/**
+ * interfixLists(A, B, C)
+ * Interfixes elements of lists A and B to produce C.
+ * @param	A	First list to be interfixed.
+ * @param	B	Second list to be interfixed.
+ * @param	C	Resulting list.
+ * @example	interfixLists([a,b],[1,2],[a,1,b,2]).
+ */
+interfixLists(A,[],A) :- !.
+interfixLists([],B,B) :- !.
+interfixLists([AH|AT], [BH|BT], [AH,BH|L]) :-
+	interfixLists(AT, BT, L).

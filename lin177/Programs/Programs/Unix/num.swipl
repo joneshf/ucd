@@ -1,0 +1,7 @@
+
+num(0).
+
+num(N):-
+	num(M),
+	N is M + 1.
+

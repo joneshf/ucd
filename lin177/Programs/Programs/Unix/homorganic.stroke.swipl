@@ -1,0 +1,73 @@
+:- ['entailment.swipl'].
+:- ['fullproperties.swipl'].
+							
+underenglish([P1,P2,P3,P4],[adjective]):-
+	phone(P1), not(voi(P1)), not(dnt(P1)), lab(P1),
+	phone(P2), mid(P2), not(bck(P2)), not(ctr(P2)),
+	phone(P3), snt(P3), not(nas(P3)), not(alv(P3)), pal(P3),
+	phone(P4), not(snt(P4)), voi(P4), not(cnt(P4)), alv(P4).
+
+underenglish([P1,P2,P3],[adjective]):-
+	phone(P1), not(voi(P1)), dnt(P1), lab(P1),
+	phone(P2), mid(P2), not(bck(P2)), not(ctr(P2)),
+	phone(P3), not(nas(P3)), alv(P3), pal(P3).
+
+underenglish([P1,P2,P3,P4,P5,P6,P7],[adjective]):-
+	phone(P1), not(voi(P1)), cnt(P1), cor(P1), not(sib(P1)),
+	phone(P2), hih(P2), not(bck(P2)), not(tns(P2)), 
+	phone(P3), nas(P3),
+	phone(P4), not(voi(P4)), vel(P4),
+	phone(P5), not(cns(P5)), not(str(P5)),
+	phone(P6), not(snt(P6)), voi(P6), not(cnt(P6)), lab(P6),
+	phone(P7), snt(P7), not(nas(P7)), alv(P7), not(pal(P7)).
+
+underenglish([P1,P2,P3,P4,P5,P6],[adjective]):-
+	phone(P1), not(voi(P1)), not(cnt(P1)), alv(P1),
+	phone(P2), hih(P2), not(bck(P2)), not(tns(P2)),
+	phone(P3), not(voi(P3)), not(dnt(P3)), lab(P3),
+	phone(P4), hih(P4), not(bck(P4)), not(tns(P4)),
+	phone(P5), not(voi(P5)), vel(P5),
+	phone(P6), snt(P6), not(nas(P6)), alv(P6), not(pal(P6)).
+
+underenglish([P1,P2,P3,P4,P5,P6,P7,P8], [adjective]):-
+	phone(P1), not(nas(P1)), alv(P1), pal(P1),
+	phone(P2), not(bck(P2)), tns(P2),
+	phone(P3), snt(P3), not(nas(P3)), alv(P3), not(pal(P3)),
+	phone(P4), mid(P4), not(bck(P4)), not(ctr(P4)),
+	phone(P5), snt(P5), not(nas(P5)), not(alv(P5)), pal(P5),
+	phone(P6), not(voi(P6)), not(cnt(P6)), alv(P6),
+	phone(P7), hih(P7), not(bck(P7)), not(tns(P7)),
+	phone(P8), not(snt(P8)), voi(P8), not(cnt(P8)), alv(P8).
+
+underenglish([P1,P2,P3,P4,P5,P6],[adjective]):-
+	phone(P1), not(voi(P1)), not(cnt(P1)), pal(P1),
+	phone(P2), mid(P2), not(bck(P2)), not(ctr(P2)),
+	phone(P3), snt(P3), not(nas(P3)), not(alv(P3)), pal(P3),
+	phone(P4), nas(P4),
+	phone(P5), not(snt(P5)), voi(P5), cnt(P5), pal(P5),
+	phone(P6), not(snt(P6)), voi(P6), not(cnt(P6)), alv(P6).
+
+underenglish([P1,P2,P3,P4],[adjective]):-
+	phone(P1), not(voi(P1)), vel(P1),
+	phone(P2), snt(P2), not(nas(P2)), alv(P2), not(pal(P2)),
+	phone(P3), not(bck(P3)), tns(P3),
+	phone(P4), not(nas(P4)), alv(P4), pal(P4).
+
+underenglish([P1,P2],[affix,negative]):-
+	phone(P1),ctr(P1),str(P1),
+	phone(P2),nas(P2).
+
+underenglish([A,B|C], [adjective,negative]):-
+	underenglish([A,B],[affix,negative]),
+	underenglish(C,[adjective]).
+	
+english(A,B):-
+	underenglish(A,B),
+	(nas(N), cns(C), nextto(N,C,A)) => homorganic(N,C).
+
+homorganic(A,B):-
+	lab(A) <=> lab(B),
+	dnt(A) <=> dnt(B),
+	alv(A) <=> alv(B),
+	pal(A) <=> pal(B),
+	vel(A) <=> vel(B).

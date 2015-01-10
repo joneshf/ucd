@@ -1,0 +1,10 @@
+	s --> np(nom), vp.
+	vp --> v, np(acc).
+	v --> [likes].
+	np(_) --> [homer].
+	np(_) --> [marge].
+	np(nom) --> [he].
+	np(nom) --> [she].
+	np(acc) --> [him].
+	np(acc) --> [her].
+

@@ -1,0 +1,29 @@
+english([dresses], [vbl,phr]).
+
+english([loud    ], [adj,wrd]).
+english([soft    ], [adj,wrd]).
+english([happi   ], [adj,wrd]).
+english([sad     ], [adj,wrd]).
+
+english([ly], [affix]).
+
+english(SO,[adv,wrd]):-
+	english(SO1,[adj,wrd]),
+	english([ly],[affix]),
+	append(SO1,[ly],SO).
+
+english(SO,[adv,phr]):-
+		english(SO,[adv,wrd]).
+
+english([rather  ], [int,wrd]).
+english([somewhat], [int,wrd]).
+
+english(SO, [adv,phr]):-
+	english(SO1, [int,wrd]),
+	english(SO2, [adv,wrd]),
+	append(SO1, SO2, SO).
+
+english(SO,[vbl,phr]):-
+		english(SO1,[vbl,phr]),
+		english(SO2,[adv,phr]),
+		append(SO1,SO2,SO).

@@ -1,0 +1,36 @@
+
+
+english([homer], [nom, wrd]).
+english([marge], [nom, wrd]).
+
+english([  and], [conjunction]).
+english([   or], [conjunction]).
+
+english(SO, [crd, nom, wrd]) :-
+	english(SO1, [nom, wrd]),
+	english(SO2, [conjunction]),
+	english(SO3, [nom, wrd]),
+	append([SO1,SO2,SO3], SO).
+
+english(SO, [crd, nom, wrd]) :-
+	english(SO1, [nom, wrd]),
+	english(SO2, [conjunction]),
+	append([SO1,SO2,SO3], SO),
+	english(SO3, [crd, nom, wrd]).
+
+english(SO, [crd, nom, wrd]) :-
+	english(SO3, [nom, wrd]),
+	english(SO2, [conjunction]),
+	append([SO1,SO2,SO3],SO),
+	english(SO1, [crd, nom, wrd]).
+
+english(SO, [crd, crd, nom, wrd]) :-
+	english(SO1, [crd, nom, wrd]),
+	english(SO2, [conjunction]),
+	english(SO3, [crd, nom, wrd]),
+	append([SO1,SO2,SO3], SO).
+
+
+english(SO,SC,LE):-
+	length(SO,LE),
+	english(SO,SC).

@@ -1,0 +1,3 @@
+allsuch(A,B,C):-
+	findall(A,B,D),
+	sort(D,C).
