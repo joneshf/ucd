@@ -1,0 +1,149 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage{minted}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{STA 032 Homework 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Melcon\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[rData]{r}{ fontsize=\footnotesize
+                          , frame=single
+                          }
+
+  We start by loading the data into R.
+  \rData{R_hw1/preamble.R}
+
+  \begin{enumerate}[label=(\alph*)]
+    \item
+      We can simply call the \textit{summary} function to create the summary.
+
+      \rData{R_hw1/a.R}
+      \begin{tabular}{ | l | d | l | r | l | r | }
+        \hline
+        \multicolumn{2}{| c |}{GPA} & \multicolumn{2}{ c |}{Semester} & \multicolumn{2}{ c |}{Year} \\
+        \hline
+        Min.    & 1.000 & Fall   & 156             & Min.    & 2007 \\
+        1st Qu. & 2.967 & Spring & 352             & 1st Qu. & 2007 \\
+        \cline{3-4}
+        Median  & 3.250 & \multicolumn{2}{ c |}{} & Median  & 2007 \\
+        Mean    & 3.191 & \multicolumn{2}{ c |}{} & Mean    & 2007 \\
+        3rd Qu. & 3.500 & \multicolumn{2}{ c |}{} & 3rd Qu. & 2008 \\
+        Max.    & 4.000 & \multicolumn{2}{ c |}{} & Max.    & 2008 \\
+        \hline
+      \end{tabular}
+
+    \item
+      We can get the mean and standard deviation with the functions \textit{mean} and \textit{sd}
+
+      \rData{R_hw1/b.R}
+
+    \item
+      The \textit{table} function summarizes the data as categorical.
+      In this case, it categorizes \textit{data\$Semester} into \textit{Fall} and \textit{Spring}
+
+      \rData{R_hw1/c.R}
+
+      \begin{tabular}{ | r | r | }
+        \hline
+        Fall & Spring \\
+        \hline
+        156 & 352 \\
+        \hline
+      \end{tabular}
+
+    \item
+      The \textit{nrow} function counts the number of rows in the data set.
+
+      \rData{R_hw1/d.R}
+
+    \item
+
+      \rData{R_hw1/e.R}
+
+      \includegraphics{R_hw1/e.png}
+
+    \item
+
+      \rData{R_hw1/f.R}
+
+      \includegraphics{R_hw1/f.png}
+
+    \item
+
+      We can use the \textit{quantile} function to compute these values.
+
+      \begin{tabular}{| l | l | l | l | l |}
+        \hline
+            & $Q_1$  & $Q_2$  & $Q_3$  & \nth{90} percentile \\
+        \hline
+        GPA & 2.9675 & 3.2500 & 3.5000 & 3.7500 \\
+        \hline
+      \end{tabular}
+
+      \rData{R_hw1/g.R}
+
+    \item
+
+      We can use the \textit{quantile} function to compute these values.
+
+      \begin{tabular}{| l | l | l |}
+        \hline
+            & \nth{5} percentile & \nth{95} percentile \\
+        \hline
+        GPA & 2.4675             & 3.8725 \\
+        \hline
+      \end{tabular}
+
+      \rData{R_hw1/h.R}
+
+    \item
+
+      We can use the \textit{quantile} function to compute these values.
+
+      \begin{tabular}{| l | l | l |}
+        \hline
+            & \nth{5} percentile & \nth{95} percentile \\
+        \hline
+        GPA & 2.25               & 3.84  \\
+        \hline
+      \end{tabular}
+
+      \rData{R_hw1/i.R}
+
+    \item
+      Based on the data, it would appear that students have a higher GPA in the fall than they do in the spring.
+      This result comes from the fact that the all of the quartiles in fall are higher than they are in the spring,
+      and that there are fewer outliers in the fall than there are in the spring.
+
+      However, since this is a sample of 508 students from one college over the course of four semesters,
+      this is not indicative one way or the other of the population of students taking introductory statistics.
+      More conclusive results could be found by including data from other schools and for more years.
+  \end{enumerate}
+\end{document}

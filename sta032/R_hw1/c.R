@@ -1,0 +1,1 @@
+> table(data$Semester)
