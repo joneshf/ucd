@@ -11,6 +11,7 @@
 \usepackage[super]{nth}
 \usepackage{dcolumn}
 \usepackage{minted}
+\usepackage[title]{appendix}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.8}
 \usepgfplotslibrary{statistics}
@@ -37,14 +38,8 @@
                           , frame=single
                           }
 
-  We start by loading the data into R.
-  \rData{R_hw1/preamble.R}
-
   \begin{enumerate}[label=(\alph*)]
     \item
-      We can simply call the \textit{summary} function to create the summary.
-
-      \rData{R_hw1/a.R}
       \begin{tabular}{ | l | d | l | r | l | r | }
         \hline
         \multicolumn{2}{| c |}{GPA} & \multicolumn{2}{ c |}{Semester} & \multicolumn{2}{ c |}{Year} \\
@@ -60,16 +55,15 @@
       \end{tabular}
 
     \item
-      We can get the mean and standard deviation with the functions \textit{mean} and \textit{sd}
-
-      \rData{R_hw1/b.R}
+      \begin{tabular}{ | d | d | }
+        \hline
+        \text{mean} & \text{standard deviation} \\
+        \hline
+        3.190807 & 0.4716277 \\
+        \hline
+      \end{tabular}
 
     \item
-      The \textit{table} function summarizes the data as categorical.
-      In this case, it categorizes \textit{data\$Semester} into \textit{Fall} and \textit{Spring}
-
-      \rData{R_hw1/c.R}
-
       \begin{tabular}{ | r | r | }
         \hline
         Fall & Spring \\
@@ -79,25 +73,17 @@
       \end{tabular}
 
     \item
-      The \textit{nrow} function counts the number of rows in the data set.
-
-      \rData{R_hw1/d.R}
+      There are 508 rows of data.
 
     \item
 
-      \rData{R_hw1/e.R}
-
-      \includegraphics{R_hw1/e.png}
+      \includegraphics{e.png}
 
     \item
 
-      \rData{R_hw1/f.R}
-
-      \includegraphics{R_hw1/f.png}
+      \includegraphics{f.png}
 
     \item
-
-      We can use the \textit{quantile} function to compute these values.
 
       \begin{tabular}{| l | l | l | l | l |}
         \hline
@@ -107,11 +93,7 @@
         \hline
       \end{tabular}
 
-      \rData{R_hw1/g.R}
-
     \item
-
-      We can use the \textit{quantile} function to compute these values.
 
       \begin{tabular}{| l | l | l |}
         \hline
@@ -121,11 +103,7 @@
         \hline
       \end{tabular}
 
-      \rData{R_hw1/h.R}
-
     \item
-
-      We can use the \textit{quantile} function to compute these values.
 
       \begin{tabular}{| l | l | l |}
         \hline
@@ -134,8 +112,6 @@
         GPA & 2.25               & 3.84  \\
         \hline
       \end{tabular}
-
-      \rData{R_hw1/i.R}
 
     \item
       Based on the data, it would appear that students have a higher GPA in the fall than they do in the spring.
@@ -146,4 +122,6 @@
       this is not indicative one way or the other of the population of students taking introductory statistics.
       More conclusive results could be found by including data from other schools and for more years.
   \end{enumerate}
+
+  \include{appendix}
 \end{document}
