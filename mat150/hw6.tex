@@ -1,0 +1,129 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[bottom=1in,left=0.5in,right=1in,top=1in]{geometry}
+\usepackage{titling}
+
+% From https://code.google.com/p/linear-algebra/source/browse/linalgjh.sty#80
+% Using brackets instead of parens.
+
+%-------------bmat
+% For matrices with arguments.
+% Usage: \begin{bmat}{c|c|c} 1 &2 &3 \end{bmat}
+\newenvironment{bmat}[1]{
+  \left[\begin{array}{@{}#1@{}}
+}{\end{array}\right]
+}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\GLNR}[0]{GL_n(\mathbb{R})}
+\newcommand{\KER}[1]{\text{ker }#1}
+\newcommand{\IM}[1]{\text{im }#1}
+\newcommand{\ghg}[1]{g#1g^{-1}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 150A Homework 6\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Schilling\vspace{-2ex}}
+\date{Fall 2014}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      The matrix is:
+      \[
+        \begin{bmatrix}
+          \cos(\theta)  & 0 & \sin(\theta) \\
+          0             & 1 & 0            \\
+          -\sin(\theta) & 0 & \cos(\theta) \\
+        \end{bmatrix}
+      \]
+
+    \item
+      \begin{enumerate}
+        \item
+          To show that $\mathcal{O}_n \le GL_n(\mathbb{R})$ is a subgroup, we need to show that it is closed, has the identity and has inverses.
+
+          \begin{proof}
+            \begin{enumerate}
+              \item \textbf{Closure}
+
+                Choose $A, B \in \mathcal{O}_n$.
+
+                $AB$ is in $\mathcal{O}_n$ if $A^TAB^TB = I_n$.
+                \[
+                  A^TAB^TB = (A^TA)(B^TB) = I_nI_n = I_n
+                \]
+                So $\mathcal{O}_n$ has closure.
+
+              \item \textbf{Identity}
+
+                \[
+                  I_n^TI_n = I_nI_n = I_n
+                \]
+
+                So $\mathcal{O}_n$ has the identity.
+
+              \item \textbf{Inverse}
+
+                Choose $A \in \mathcal{O}_n$.
+
+                Since $A^TA = I_n$ $A^T = A^{-1}$,
+                so $\mathcal{O}_n$ has inverses.
+            \end{enumerate}
+
+            From these three, $\mathcal{O}_n \le GL_n(\mathbb{R})$ is a subgroup.
+          \end{proof}
+
+        \item
+          If we show that $\mathcal{SO}_n \le \mathcal{O}_n$,
+          then from above $\mathcal{SO}_n \le GL_n(\mathbb{R})$.
+
+          Again we need to show it's closed, has the identity and has inverses.
+
+          \begin{proof}
+            \begin{enumerate}
+              \item \textbf{Closure}
+
+                Choose $A, B \in \mathcal{SO}_n$.
+
+                $AB$ is in $\mathcal{SO}_n$ if $|AB| = 1$
+                \[
+                  |AB| = |A||B| = 1 \cdot 1 = 1
+                \]
+
+                So, $\mathcal{SO}_n$ is closed.
+
+              \item \textbf{Identity}
+
+                \[
+                  |I_n| = 1
+                \]
+
+                So, $\mathcal{SO}_n$ has the identity.
+              \item \textbf{Inverse}
+
+                Choose $A \in \mathcal{SO}_n$.
+
+                Since $|A| \ne 0$, we know that $A$ is invertible.
+                So, $A^{-1} \in \mathcal{SO}_n$.
+                Thus, $\mathcal{SO}_n$ has inverses.
+            \end{enumerate}
+
+            From these three, $\mathcal{O}_n \le \mathcal{O}_n$ is a subgroup.
+          \end{proof}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}

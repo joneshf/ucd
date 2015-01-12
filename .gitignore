@@ -8,3 +8,16 @@ octave_core
 *.class
 octave-workspace
 *.pyg
+.psci*
+.*
+*.zip
+*.pdf
+!hw[[:digit:]].pdf
+czt
+*~
+ecs122a/gusfield
+ecs150/Kinetic
+ecs165a/hw4/**/*.csv
+ecs165a/hw4/**/*.CSV
+ecs171/proj
+dist

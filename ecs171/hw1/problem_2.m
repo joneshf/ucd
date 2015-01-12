@@ -10,12 +10,15 @@ origin = D(:, 8);
 
 figure();
 
-for i = 2:8
-  for j = 2:8
-    subplot(7, 7, (j-1)+((i-2) * 7));
-    scatter(D(:, i), D(:, j));
+%% plotall: Creates 49 scatter plots
+function plotall(D, n)
+  for i = 1:n
+    subplot(n-1, n-1, i);
+    scatter(D(:, i+1), D(:, i+1));
   end
-end
+endfunction
+
+plotall(D, 4);
 
 % for dim=1:4
 %   subplot(2,2,dim)

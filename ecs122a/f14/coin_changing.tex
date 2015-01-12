@@ -1,0 +1,280 @@
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage{algpseudocode,algorithm}
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{wasysym} % for \cent symbol - seems to be incompatible with some other packages
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+\newtheorem{exercise}{Exercise} % use as \begin{exercise} ... \end{exercise}
+\newtheorem{solution}{Solution} % use as \begin{solution} ... \end{solution}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{ECS122A Dept. of Computer Science, University of California, Davis} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge The Coin Changing Problem \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Instructor: Rob Gysel} % Your name
+
+\date{Fall Quarter, 2014} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle
+
+\section{Motivation}
+Everyone calculates change in their head (I'm sure you've done this yourself many times). There's about 1.24 trillion US federal reserve notes (bills) in circulation as of 7/2/2014 according to the Federal Reserve. If it's easier for everyone to give change using the minimum possible number of coins (e.g. giving one dime for ten cents instead of ten pennies), then we require fewer overall coins or notes in circulation.
+
+Intuitively, we'd think about solving this by picking the largest denomination coin (ex. a quarter), subtracting it from the change amount, and repeating this process until all of the change has been accounted for. This general approach of taking what is currently the best choice without thinking beyond about the next step is known as a \emph{greedy approach}. As we'll see, the success of the greedy approach is dependent on the denomination of the coins used, and will not always work.
+
+\section{Coin Changing (Greedy Approach)}
+\begin{description}
+\item[Problem Statement:] Find the fewest \# coins required to give $x$ change using quarters (25\cent), dimes (10\cent), nickels (5\cent), and pennies (1\cent).
+\item[Example:] Find change for 16\cent.
+    \begin{description}
+    \item[Optimal solution:] 1 dime, 1 nickel and 1 penny (10 + 5 + 1). Three total coins.
+    \item[Sub-optimal solution:] 3 nickels, 1 penny (5 + 5 + 5 + 1). Four total coins.
+    \end{description}
+\end{description}
+
+\subsection{Greedy Algorithm}
+Let's formalize the intuition for the greedy approach.
+We will use quarters (Q) until the remainder is less than 25\cent, dimes (D) until the remainder is less than 10\cent, and so on.
+For example, given a value $x$ to make change for, we are using a dime exactly when $10 \leq x < 25$: we must have $10 \leq x$ in order to use a dime (otherwise we give too much change), and we have to have $x < 25$, otherwise it would make sense to use a quarter.
+Continuing this line of reasoning, if we use $\mathrm{Change}(x)$ to denote the coins used in the optimal way to make change for $x$, we can describe this function as
+\begin{equation}\label{ChangeEq}
+\mathrm{Change}(x) = \begin{cases} 
+\textsc{Q} \hspace{.05in} \& \hspace{.05in} \mathrm{Change(x-25)}, & \mbox{if } 25 \leq x \\
+\textsc{D} \hspace{.05in} \& \hspace{.05in} \mathrm{Change(x-10)}, & \mbox{if } 10 \leq x < 25 \\
+\textsc{N} \hspace{.05in} \& \hspace{.05in} \mathrm{Change(x-5)}, & \mbox{if } 5 \leq x < 10 \\
+\textsc{P} \hspace{.05in} \& \hspace{.05in} \mathrm{Change(x-1)}, & \mbox{if } 1 \leq x < 5 \\
+\emptyset & \mbox{if } x = 0
+\end{cases} \enspace .
+\end{equation}
+Note the terminating case: we must return nothing when $x = 0$ (think about what happens if we call $\mathrm{Change}(1)$).
+
+\subsection{Correctness}
+Suppose that $\mathrm{Change}(x)$ returns coins with values (or denominations) $y_1, y_2, \ldots, y_n$.
+Then $\mathrm{Change}(x)$ is \emph{correct} if the coin values returned sum to $x$, that is, $\sum_{i=1}^n y_i = x$.
+An example: calling $\mathrm{Change}(37)$ returns $Q, D, P, P$, so the coin values are $25, 10, 1, 1$ and $25 + 10 + 1 + 1 = 37$, so $\mathrm{Change}(x)$ is correct at least when $x = 37$.
+
+Lets prove that $\mathrm{Change}(x)$ is correct in general, as a reminder about writing inductive proofs.
+Normally in this class, we won't always be this detailed.
+
+\begin{proof}
+\textbf{Base case:} If $x = 0$, then no coins are returned, so the sum is $0$ and correct change is given.
+
+\textbf{Inductive step:} Assume that for $0 \leq x \leq k$, $\mathrm{Change}(x)$ gives correct change.
+To complete the proof, we need to show that $\mathrm{Change}(k + 1)$ returns the correct change.
+
+Suppose that when we call $\mathrm{Change}(k + 1)$, we first get a quarter back and then call $\mathrm{Change}(k + 1 - 25)$.
+If that happens, then $25 \leq k + 1$ according to Equation \ref{ChangeEq}.
+Also, observe that $k + 1 - 25 = k - 24$ and $0 \leq k - 24 \leq k$ \footnote{Why is the first inequality true? Hint: remember that $25 \leq k + 1$.}.
+By our inductive hypothesis $\mathrm{Change}(k - 24)$ returns the correct change.
+That is, $\mathrm{Change}(k - 24)$ returns coin values $y_1, y_2, \ldots, y_n$ and $\sum_{i=1}^n y_i = k - 24$.
+But remember we also have a quarter from calling $\mathrm{Change}(k + 1)$.
+Taking into account this quarter, the coin values returned from $\mathrm{Change}(k + 1)$ are
+\begin{equation*}
+    25 + \sum_{i=1}^n y_i = 25 + k - 24 = k + 1 \enspace ,
+\end{equation*}
+so $\mathrm{Change}(k + 1)$ is correct.
+
+\begin{exercise}
+Repeat the above analysis for $\mathrm{Change}(k + 1)$, for the cases where a dime, nickel, or penny is the first coin chosen instead of a quarter.
+\end{exercise}
+
+This proves the inductive step, so $\mathrm{Change}(k + 1)$ is correct for all non-negative integers.
+\end{proof}
+
+\subsection{Optimality}
+How can we prove that the greedy approach is optimal in this case (i.e. with pennies, nickels, dimes, and quarters)?
+The first critical observation here is that optimal solutions have at most 2 dimes, 1 nickel, 4 pennies.
+That is, I can exchange 3 dimes for just two coins: 1 quarter and 1 nickel.
+It's always strictly better to pick the 1 quarter and 1 nickel, so no optimal solution has 3 or more dimes.
+
+\begin{exercise}
+Using a similar line of reasoning, argue that there is at most 1 nickel in an optimal solution. Then argue that there are at most 4 pennies in an optimal solution.
+\end{exercise}
+
+Let's use this observation to prove that the greedy strategy always finds the best solution when $1 \leq x < 10$.
+\begin{proof}
+First let $1 \leq x < 5$.
+Then $\mathrm{Change}(x)$ returns $x$ pennies, the optimal solution.
+
+Now let $5 \leq x < 10$.
+As we have observed, an optimal solution has at most 1 nickel and 4 pennies.
+We can't use dimes or quarters, so the optimal solution has 1 nickel.
+The only choice for the remaining change is $x - 5$ pennies, because $0 \leq x - 5 < 5$.
+But $\mathrm{Change}(x)$ returns a nickel and $\mathrm{Change}(x-5)$, which we just argued will be $x-5$ pennies, so $\mathrm{Change}(x)$ returns the optimal solution.
+\end{proof}
+
+\begin{exercise}
+Show that the greedy strategy is optimal in the case where $10 \leq x < 25$.
+\end{exercise}
+% Here's a proof.
+% By above, there are at most 9 cents in pennies and nickels in an optimal solution. We can't use quarters, so there must be at least one dime. If we have 10 \leq x < 19, then the result is now Change(x-10) where 0 \leq x - 10 < 9, and we know that an opt sol to Change(x-10) is returned. An argument similar to below shows that this results in an opt sol for Change(x). We can repeat this argument for the case where 19 \leq x < 24.
+
+The next important observation is that the penny, nickel, and dime portion of an optimal solution is at most 24 \cent.
+This is because the number of dimes restricts the number of nickels in an optimal solution: if there are two dimes, there can not be a nickel (because you get 25 cents and a quarter is better).
+In this case, the penny, nickel, and dime portion is at most 24 \cent.
+Otherwise, there is at most one dime, so the penny, nickel, and dime portion is at most 19 \cent.
+So in every possible scenario\footnote{We had two cases: two dimes, or less than two dimes. Earlier we argued that there were at most two dimes in an optimal solution, so we have covered every possible case when optimal change is made.} the penny, nickel, and dime portion of an optimal solution is at most 24 \cent.
+Let's use this to show that the greedy strategy is optimal when $25 \leq x$.
+
+\begin{proof}
+If $25 \leq x$, by the above argument, the penny, nickel, and dime portion of an optimal solution is at most 24 \cent.
+Therefore the optimal solution for making change for $x$ has at least one quarter.
+To complete the proof, we claim that a quarter and an optimal solution to making change for $x - 25$ is an optimal solution to making change for $x$.
+
+Let $y_1, y_2, \ldots, y_n$ be the values of the coins in an optimal solution to making change for $x - 25$.
+Consider any collection of coins $25, y'_1, y'_2, \ldots, y'_m$ such that $x = 25 + \sum_{i=1}^m y'_i$ (i.e. it is change for $x$).
+Remember that any optimal way of making change for $x$ has this form, because it contains at least one quarter.
+Then $\sum_{i=1}^m y'_i = x - 25$, so $y'_1, y'_2, \ldots, y'_m$ makes change for $x - 25$.
+But $y_1, y_2, \ldots, y_n$ is an optimal way to make change for $x - 25$, so this means that $n \leq m$.
+Therefore the solution $25, y'_1, y'_2, \ldots, y'_m$ has at least as many coins as $25, y_1, y_2, \ldots, y_n$.
+Because we did this analysis for any potential optimal way of making change for $x$, we conclude that $25, y_1, y_2, \ldots, y_n$ is an optimal way of making change for $x$.
+
+Remembering that the greedy algorithm returns $Q$ and $\mathrm{Change}(x-25)$ when $25 \leq x$, and our previous results that show that $\mathrm{Change}(x')$ when $1 \leq x' < 25$, we conclude that the greedy algorithm is optimal when $25 \leq x$.
+\end{proof}
+
+\subsection{Analysis}
+Suppose we are making change for $x$.
+Each function call is $O(1)$, and the number of function calls is equal to the number of coins returned plus one.
+Let the coins returned have values $y_1, y_2, \ldots, y_n$.
+Then $\sum_{i=1}^n y_i = x$, and because $1 \leq y_i$ for each $1 \leq i \leq n$, it must be that $n \leq x$.
+Therefore there are at most $x$ function calls, so the total running time is $O(x)$ (linear).\\
+
+\textit{Remark.} This type of Big-O analysis would be a good answer for your homeworks.\\
+
+\textit{Remark.} Consider how you would write $\mathrm{Coins}(x)$ as a program. If we assume arithmetic operations are $O(1)$, it is possible to write an $O(1)$ implementation of this program. (It's a little bit unrealistic to assume arithmetic operations are $O(1)$, but we won't worry about those details in this course)
+
+\section{Coin Changing Without Nickels}
+Now let's suppose we no longer have nickels.
+
+\begin{description}
+\item[Problem Statement:] Find the fewest \# coins required to give $x$ change using quarters (25\cent), dimes (10\cent), and pennies (1\cent).
+\item[Example:] The greedy solution no longer works. Consider 40 \cent.
+    \begin{description}
+    \item[Greedy solution:] 1 quarter, 1 dime, 5 pennies.
+    \item[Optimal solution:] 4 dimes.
+    \end{description}
+\end{description}
+
+\subsection{Recursive Solution}
+We can think of finding an optimal solution to give $x$ change the following way: first I'll try using a quarter, and then make change for $x - 25$ and see how well I can do. Then I'll try using a dime, make change for $x - 10$, and see how well I can do. I'll do the same for a penny, and then compare all three solutions and pick the best.
+
+We'll use $\mathrm{NChange}(x)$ to denote the minimum number of coins needed to make change for $x$.
+We won't worry about the actual coins returned this time.
+Our function is
+
+\begin{equation}\label{NChangeEq}
+\mathrm{NChange}(x) = 1 + \min\{\mathrm{NChange}(x-25), \mathrm{NChange}(x-10), \mathrm{NChange}(x-1)\} \enspace .
+\end{equation}
+
+There's a few things wrong here.
+Think about what happens if we call $\mathrm{NChange}(23)$.
+Then we also call $\mathrm{NChange}(23-25) = \mathrm{NChange}(-2)$, and this doesn't make sense (nor would it terminate).
+There are two ways to fix this.
+First, we could use if statements to check the range of $x$ and act accordingly.
+That is, if $25 \leq x$, we take the minimum of three function calls, if $10 \leq x < 25$ we take the minimum of two function calls, and so on.
+An alternative is to simply define $\mathrm{NChange}(x) = \infty$ when $x < 0$.
+We'll do the latter.
+
+There's a second a problem: we have no base case.
+We should always be returning $0$ if $x = 0$.
+Let's fix $\mathrm{NChange}(x)$:
+
+\begin{equation}
+\mathrm{NChange}(x) = 
+\begin{cases}
+1 + \min\{\mathrm{NChange}(x-25), \mathrm{NChange}(x-10), \mathrm{NChange}(x-1)\} & \mbox{if } 0 \leq x\\
+0 & \mbox{if } x = 0\\
+\infty & \mbox{if } x < 0 
+\end{cases}\enspace .
+\end{equation}
+
+Great: now we have a working solution (we won't discuss correctness the way we did for the greedy algorithm; the high-level discussion above suffices).
+But how well does our solution work?
+It turns out that the call-tree is exponential in $x$, and at $x = 70$ there are about 350,000 function calls involved\footnote{This should remind you of the poor way of computing the $n$\textsuperscript{th} Fibonacci number via recursion.}.
+
+\subsection*{Dynamic Programming Solution}
+
+A smarter approach is to save the values of previous function calls instead of re-computing them each time (this is called \emph{memoization}).
+Our approach will be cleaner if we range-check $x$.
+We will use an array $\mbox{OptSol}[i]$ to store optimal solutions for making change for $0 \leq i \leq x$.
+We want to compute $\mbox{OptSol}[i]$ bottom-up, that is, starting at 1 and ending at $x$.
+This ensures that solutions are ready when they are needed.
+For example, $\mbox{OptSol}[28]$ requires $\mbox{OptSol}[27]$, $\mbox{OptSol}[18]$ and $\mbox{OptSol}[3]$ to have been computed beforehand.
+
+\begin{algorithm}
+\caption{NChange$(x)$}
+\begin{algorithmic}
+\State Create array $\mbox{OptSol}[0, 1, \ldots x]$ of 0's
+\For{$i = 1$ to $x$}
+\If{$1 \leq i < 10$}
+\State $\mbox{OptSol}[i] \gets 1 + \mbox{OptSol}[i - 1]$
+\ElsIf{$10 \leq i < 25$}
+\State $\mbox{OptSol}[i] \gets 1 + \min\{ \mbox{OptSol}[i - 1], \mbox{OptSol}[i - 10]\}$
+\Else
+\State $\mbox{OptSol}[i] \gets 1 + \min\{ \mbox{OptSol}[i - 1], \mbox{OptSol}[i - 10], \mbox{OptSol}[i - 25] \}$
+\EndIf
+\EndFor
+\State \Return $\mbox{OptSol}[x]$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection*{Analysis}
+The for loop in the dynamic programming solution has $x$ iterations, and each iteration requires a constant amount of work.
+Therefore its running time is $O(x)$ (linear).
+Note that it also uses $O(x)$ space.
+
+\end{document}

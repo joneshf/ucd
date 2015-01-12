@@ -327,6 +327,151 @@
           That is:
 
           \[R_1(B,E), R_3(A, C, D), R_4(A, B)\]
+
+        \item
+          We need to check the closure of the following sets:
+
+          \[\{B\}, \{C\}, \{D\}, \{B, C\}, \{B, D\}, \{C, D\}\]
+
+          We do not need to check $\{\}, \{B, C, D\}$ as they only have trivial FD.
+          \[\closure{B} = \{B, E\}\]
+          So, we have no new FD's.
+          \[\closure{C} = \{C\}\]
+          So, we have no new FD's.
+          \[\closure{D} = \{D\}\]
+          So, we have no new FD's.
+          \[\closure{B,C} = \{A, B, C, D, E\}\]
+          So, we have the FD's $BC \rightarrow D$.
+          \[\closure{B,D} = \{B, D, E\}\]
+          So, we have no new FD's.
+          \[\closure{C,D} = \{C, D\}\]
+          So, we have no new FD's.
+
+          So, the FD that holds in $S$ is $BC \rightarrow D$.
+
+          From these we can promote to an MVD to get $BC \twoheadrightarrow D$
+
+          Thus, the dependencies that hold are $BC \rightarrow D, BC \twoheadrightarrow D$.
+      \end{enumerate}
+
+    \item
+      \begin{enumerate}
+        \item
+          We have the tableau
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $c_1$   & $t_1$ & $H$   & $r_1$ & $S$   & $g_1$   \\
+            $c_2$   & $t_2$ & $H$   & $r_2$ & $S$   & $g_2$   \\
+          \end{tabular}
+
+          Using $HS \rightarrow R$, we infer $r_1 = r_2$
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $c_1$   & $t_1$ & $H$   & $r_1$ & $S$   & $g_1$   \\
+            $c_2$   & $t_2$ & $H$   & $r_1$ & $S$   & $g_2$   \\
+          \end{tabular}
+
+          Using $HR \rightarrow C$, we infer $c_1 = c_2$
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $c_1$   & $t_1$ & $H$   & $r_1$ & $S$   & $g_1$   \\
+            $c_1$   & $t_2$ & $H$   & $r_1$ & $S$   & $g_2$   \\
+          \end{tabular}
+
+          Using $C \rightarrow T$, we infer $t_1 = t_2$
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $c_1$   & $t_1$ & $H$   & $r_1$ & $S$   & $g_1$   \\
+            $c_1$   & $t_1$ & $H$   & $r_1$ & $S$   & $g_2$   \\
+          \end{tabular}
+
+          Since both tuples agree in the $T$ column,
+          we conclude that $HS \rightarrow T$ holds.
+
+        \item
+          We have the tableau
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $c_1$   & $T$   & $H$   & $R$   & $s_1$   & $g_1$   \\
+            $c_2$   & $T$   & $H$   & $R$   & $s_2$   & $g_2$   \\
+          \end{tabular}
+
+          Using $HR \rightarrow C$, we infer $c_1 = c_2$
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $c_1$   & $T$   & $H$   & $R$   & $s_1$   & $g_1$   \\
+            $c_1$   & $T$   & $H$   & $R$   & $s_2$   & $g_2$   \\
+          \end{tabular}
+
+          Since we can apply no more FD's,
+          we conclude that $THR \rightarrow G$ does not hold.
+
+        \item
+          We have the tableau
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $C$     & $T$   & $H$   & $r_1$ & $s_1$ & $g_1$ \\
+            $C$     & $t_2$ & $H$   & $R$   & $s_2$ & $G$   \\
+            $C$     & $t_3$ & $h_3$ & $R$   & $S$   & $g_3$ \\
+          \end{tabular}
+
+          Using $C \rightarrow T$, we infer $T = t_2$
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $C$     & $T$   & $H$   & $r_1$ & $s_1$ & $g_1$ \\
+            $C$     & $T$   & $H$   & $R$   & $s_2$ & $G$   \\
+            $C$     & $t_3$ & $h_3$ & $R$   & $S$   & $g_3$ \\
+          \end{tabular}
+
+          Using $C \rightarrow T$, we infer $T = t_3$
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $C$     & $T$   & $H$   & $r_1$ & $s_1$ & $g_1$ \\
+            $C$     & $T$   & $H$   & $R$   & $s_2$ & $G$   \\
+            $C$     & $T$   & $h_3$ & $R$   & $S$   & $g_3$ \\
+          \end{tabular}
+
+          Using $HT \rightarrow R$, we infer $R = r_1$
+
+          \begin{tabular}{c | c | c | c | c | c}
+            C & T & H & R & S & G \\
+            \hline
+            \hline
+            $C$     & $T$   & $H$   & $R$   & $s_1$ & $g_1$ \\
+            $C$     & $T$   & $H$   & $R$   & $s_2$ & $G$   \\
+            $C$     & $T$   & $h_3$ & $R$   & $S$   & $g_3$ \\
+          \end{tabular}
+
+          Since we can apply no more FD's,
+          we conclude that the decomposition is not a lossless join.
+
       \end{enumerate}
   \end{enumerate}
 \end{document}

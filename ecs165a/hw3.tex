@@ -17,6 +17,13 @@
 \newcommand{\Ans}[0]{\text{Ans}}
 \newcommand{\AND}[0]{\text{ AND }}
 \newcommand{\OR}[0]{\text{ OR }}
+\newcommand{\NOT}[0]{\text{ NOT }}
+
+\def\ojoin{\setbox0=\hbox{$\bowtie$}%
+  \rule[-.02ex]{.25em}{.4pt}\llap{\rule[\ht0]{.25em}{.4pt}}}
+\def\leftouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie}}
+\def\rightouterjoin{\mathbin{\bowtie\mkern-5.8mu\ojoin}}
+\def\fullouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie\mkern-5.8mu\ojoin}}
 
 \setlength{\droptitle}{-10ex}
 
@@ -80,6 +87,137 @@
           \[
             \frac{33 + 38 + 30 + 33 + 40 + 30 + 33}{7} = \frac{237}{7} = 33.\overline{857142}
           \]
+      \end{enumerate}
+
+    \item
+      Car $\fullouterjoin$ Product:
+
+      \begin{tabular}{c | c | c | c | c | c | c}
+         model & city & highway & price & maker & model & type \\
+        \hline
+        \hline
+          1001 & 33   & 37      & 25000 & A     & 1001  & Car    \\
+          1002 & 38   & 43      & 27000 & A     & 1002  & Car    \\
+          null & null & null    & null  & A     & 1101  & Pickup \\
+          2001 & 30   & 32      & 22500 & B     & 2001  & Car    \\
+          2002 & 33   & 38      & 26000 & B     & 2002  & Car    \\
+          2003 & 40   & 46      & 31000 & null  & null  & null   \\
+          null & null & null    & null  & B     & 2101  & Pickup \\
+          null & null & null    & null  & B     & 2201  & EV     \\
+          3001 & 30   & 33      & 23000 & null  & null  & null   \\
+          3002 & 33   & 36      & 26500 & C     & 3002  & Car    \\
+          null & null & null    & null  & C     & 3201  & EV     \\
+      \end{tabular}
+
+    \item
+      \begin{enumerate}
+        \item
+          \[
+            Answer(m) \leftarrow Car(m, c, \_, \_, \_, \_, \_) \AND c < 32
+          \]
+
+        \item
+          \[
+            Answer(m) \leftarrow Pickup(m, \_, h, \_, c, \_, \_) \AND c \ge 75 \AND h > 20
+          \]
+        \item
+          \begin{align*}
+            Less(model) &\leftarrow (Car(model, \_, \_, \_, \_, \_, price) \AND price < 20000) \\
+            &\OR (Pickup(model, \_, \_, \_, \_, \_, price) \AND price < 20000) \\
+            &\OR (EV(model, \_, \_, \_, price) \AND price < 20000) \\
+            More(model) &\leftarrow (Car(model, \_, \_, \_, \_, \_, price) \AND price > 50000) \\
+            &\OR (Pickup(model, \_, \_, \_, \_, \_, price) \AND price > 50000) \\
+            &\OR (EV(model, \_, \_, \_, price) \AND price > 50000) \\
+            Answer(m) &\leftarrow Product(m, model, \_) \AND Product(m, model1, t) \\
+            &\AND Less(model) \AND More(model1)
+          \end{align*}
+
+        \item
+          \begin{align*}
+            Answer(city) &\leftarrow (Car(m, city, \_, \_, \_, \_, \_) \AND Car(m1, city, \_, \_, \_, \_, \_) \AND m \ne m1) \\
+            &\OR (Car(\_, city, \_, \_, \_, \_, \_) \AND Pickup(\_, city, \_, \_, \_, \_, \_)) \\
+            &\OR (Pickup(m, city, \_, \_, \_, \_, \_) \AND Pickup(m1, city, \_, \_, \_, \_, \_) \AND m \ne m1)
+          \end{align*}
+
+        \item
+          \begin{align*}
+            C(c, h, m) &\leftarrow Car(m, c, h, \_, \_, \_, \_) \AND \NOT ( \\
+            &Car(m, c, h, \_, \_, \_, \_) \AND Car(m1, c1, h1, \_, \_, \_, \_) \\
+            &\AND c * 0.55 + h * 0.45 > c1 * 0.55 + h1 * 0.45) \\
+            P(c, h, m) &\leftarrow Pickup(m, c, h, \_, \_, \_, \_) \AND \NOT ( \\
+            &Pickup(m, c, h, \_, \_, \_, \_) \AND Pickup(m1, c1, h1, \_, \_, \_, \_) \\
+            &\AND c * 0.55 + h * 0.45 > c1 * 0.55 + h1 * 0.45) \\
+            Both(m) &\leftarrow (C(c, h, m) \AND P(c1, h1, m1) \\
+            &\AND c * 0.55 + h * 0.45 \le c1 * 0.55 + h1 * 0.45) \\
+            &\OR (P(c, h, m) \AND C(c1, h1, m1) \\
+            &\AND c * 0.55 + h * 0.45 \le c1 * 0.55 + h1 * 0.45) \\
+            Answer(maker) &\leftarrow Product(maker, model, \_) \AND Both(model)
+          \end{align*}
+      \end{enumerate}
+
+    \item
+      \begin{enumerate}
+        \item
+          \begin{verbatim}
+            SELECT model
+            FROM Car
+            WHERE city < 32
+          \end{verbatim}
+        \item
+          \begin{verbatim}
+            SELECT model
+            FROM Pickup
+            WHERE cargo >= 75 AND highway > 20
+          \end{verbatim}
+        \item
+          \begin{verbatim}
+            SELECT maker
+            FROM Product P
+            JOIN (
+                SELECT model
+                FROM Car
+                WHERE price < 20000
+                UNION
+                SELECT model
+                FROM Pickup
+                WHERE price < 20000
+                UNION
+                SELECT model
+                FROM EV
+                WHERE price < 20000
+            ) L ON P.model = L.model
+
+            INTERSECT
+
+            SELECT maker
+            FROM Product P
+            JOIN (
+                SELECT model
+                FROM Car
+                WHERE price > 50000
+                UNION
+                SELECT model
+                FROM Pickup
+                WHERE price > 50000
+                UNION
+                SELECT model
+                FROM EV
+                WHERE price > 50000
+            ) M on P.model = M.model
+          \end{verbatim}
+
+        \item
+          \begin{verbatim}
+            SELECT DISTINCT C1.city
+            FROM Car C1, Car C2
+            WHERE C1.city = C2.city AND C1.model <> C2.model
+
+            UNION
+
+            SELECT DISTINCT P1.city
+            FROM Pickup P1, Pickup P2
+            WHERE P1.city = P2.city AND P1.model <> P2.model
+          \end{verbatim}
       \end{enumerate}
   \end{enumerate}
 \end{document}
