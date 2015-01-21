@@ -35,30 +35,121 @@
         \item [3]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              The possible outcomes are:
+
+              \begin{tabular}{| c | c | c | c |}
+                \hline
+                Q1 & Q2 & Q3 & Q4 \\
+                \hline
+                T & T & T & T \\
+                T & T & T & F \\
+                T & T & F & T \\
+                T & T & F & F \\
+                T & F & T & T \\
+                T & F & T & F \\
+                T & F & F & T \\
+                T & F & F & F \\
+                F & T & T & T \\
+                F & T & T & F \\
+                F & T & F & T \\
+                F & T & F & F \\
+                F & F & T & T \\
+                F & F & T & F \\
+                F & F & F & T \\
+                F & F & F & F \\
+                \hline
+              \end{tabular}
             \item
+              The answers are all the same only twice.
+              Once when the answers are all True,
+              and once when the answers are all False.
+
+              So the probability of this event is $\frac{2}{16} = \frac{1}{8} = 0.125 = 12.5\%$
             \item
+              Exactly one answer is True occurs four times.
+
+              So the probability of this event is $\frac{4}{16} = \frac{1}{4} = 0.25 = 25\%$
             \item
+              At most one answer is True occurs five times.
+
+              So the probability of this event is $\frac{5}{16} = 0.3125 = 31.25\%$
           \end{enumerate}
         \item [5]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              The possible outcomes are:
+              $\{1, 2, 31, 32, 41, 42, 341, 342, 431, 432\}$
             \item
+              If we interview exactly one candidate $A = \{1, 2\}$
             \item
+              If we interview exactly three candidates $B = \{341, 342, 431, 432\}$
             \item
+              If we interview candidate 3 $C = \{31, 32, 341, 342, 431, 432\}$
             \item
+              If we do not interview candidate 2 $D = \{1, 31, 41, 341, 431\}$
             \item
+              If we interview candidate 4 $E = \{41, 42, 341, 342, 431, 432\}$.
+
+              $A$ and $E$ are mutually exclusive as $A \cap E = \{\}$
+
+              $B$ and $E$ are not mutually exclusive as $B \cap E = \{341, 342, 431, 432\}$
+
+              $C$ and $E$ are not mutually exclusive as $C \cap E = \{341, 342, 431, 432\}$
+
+              $D$ and $E$ are not mutually exclusive as $D \cap E = \{41, 341, 431\}$
           \end{enumerate}
         \item [6]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              The equally likely outcomes are $\{\{1, 2\}, \{1, 3\}, \{1, 4\}, \{2, 3\}, \{2, 4\}, \{3, 4\}\}$
             \item
+              There are six equally likely outcomes.
+              Candidate 1 and candidate 2 have to be in the same outcome.
+              This only occurs once.
+
+              So the probability that both candidates are qualified is
+              $\frac{1}{6} = 0.1\overline{6} = 16.\overline{6}\%$
             \item
+              There are six equally likely outcomes.
+              One of (but not both) candidate 1 and candidate 2 have to be in the outcome
+              This occurs four times.
+
+              So the probability that exactly one candidate is qualified is
+              $\frac{4}{6} = 0.\overline{6} = 66.\overline{6}\%$
           \end{enumerate}
         \item [15]
+          We have our probabilities.
+
+          $P(R) = 0.85, P(M) = 0.78, P(R \cap M) = 0.65$
+
+          These imply
+
+          $P(R^C) = 0.15, P(M^C) = 0.22, P(R \cup M) = P(R) + P(M) - P(R \cap M) = 0.98$
           \begin{enumerate}[label=(\arabic*)]
             \item
+              We want to find $P(M \cap R^C)$
+
+              \[
+                P(M \cap R^C) = P(M) - P(M \cap R) = 0.78 - 0.65 = 0.13
+              \]
+
+              So the probability that a student is proficient in mathematics but not reading is $13\%$.
             \item
+              We want to find $P(R \cap M^C)$
+
+              \[
+                P(R \cap M^C) = P(R) - P(R \cap M) = 0.85 - 0.65 = 0.2
+              \]
+
+              So the probability that a student is proficient in reading but not mathematics is $20\%$.
             \item
+              We want to find $P((R \cup M)^C)$
+
+              \[
+                P((R \cup M)^C) = 1 - P(R \cup M) = 1 - 0.98 = 0.02
+              \]
+
+              So the probability that a student is proficient in neither reading nor mathematics is $2\%$.
           \end{enumerate}
       \end{enumerate}
 
