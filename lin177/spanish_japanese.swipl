@@ -1,0 +1,5 @@
+spanish_japanese(Spanish, SpanishMeaning,
+                 Japanese, JapaneseMeaning,
+                 English, EnglishMeaning) :-
+    spanish(Spanish, SpanishMeaning, English, EnglishMeaning),
+    japanese(Japanese, JapaneseMeaning, English, EnglishMeaning).
