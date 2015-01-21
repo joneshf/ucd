@@ -120,33 +120,33 @@
         \item [15]
           We have our probabilities.
 
-          $P(R) = 0.85, P(M) = 0.78, P(R \cap M) = 0.65$
+          $P\left(R\right) = 0.85, P\left(M\right) = 0.78, P\left(R \cap M\right) = 0.65$
 
           These imply
 
-          $P(R^C) = 0.15, P(M^C) = 0.22, P(R \cup M) = P(R) + P(M) - P(R \cap M) = 0.98$
+          $P\left(R^C\right) = 0.15, P\left(M^C\right) = 0.22, P\left(R \cup M\right) = P\left(R\right) + P\left(M\right) - P\left(R \cap M\right) = 0.98$
           \begin{enumerate}[label=(\arabic*)]
             \item
-              We want to find $P(M \cap R^C)$
+              We want to find $P\left(M \cap R^C\right)$
 
               \[
-                P(M \cap R^C) = P(M) - P(M \cap R) = 0.78 - 0.65 = 0.13
+                P\left(M \cap R^C\right) = P\left(M\right) - P\left(M \cap R\right) = 0.78 - 0.65 = 0.13
               \]
 
               So the probability that a student is proficient in mathematics but not reading is $13\%$.
             \item
-              We want to find $P(R \cap M^C)$
+              We want to find $P\left(R \cap M^C\right)$
 
               \[
-                P(R \cap M^C) = P(R) - P(R \cap M) = 0.85 - 0.65 = 0.2
+                P\left(R \cap M^C\right) = P\left(R\right) - P\left(R \cap M\right) = 0.85 - 0.65 = 0.2
               \]
 
               So the probability that a student is proficient in reading but not mathematics is $20\%$.
             \item
-              We want to find $P((R \cup M)^C)$
+              We want to find $P\left(\left(R \cup M\right)^C\right)$
 
               \[
-                P((R \cup M)^C) = 1 - P(R \cup M) = 1 - 0.98 = 0.02
+                P\left(\left(R \cup M\right)^C\right) = 1 - P\left(R \cup M\right) = 1 - 0.98 = 0.02
               \]
 
               So the probability that a student is proficient in neither reading nor mathematics is $2\%$.
@@ -194,21 +194,140 @@
 
       \begin{enumerate}
         \item [10]
+          We have our probabilities
+
+          $P\left(A \cap N^C\right) = 0.2, P\left(N \cap A^C\right) = 0.7, P\left(A \cap N\right) = 0.1$
           \begin{enumerate}[label=(\arabic*)]
             \item
+              We want to find
+
+              \[
+                P\left(A\right) = P\left(A \cap N^C\right) + P\left(A \cap N\right) = 0.2 + 0.1 = 0.3
+              \]
+
+              So the probability that the allocation sector is damaged is $30\%$.
             \item
+              We want to find
+
+              \[
+                P\left(N\right) = P\left(N \cap A^C\right) + P\left(A \cap N\right) = 0.7 + 0.1 = 0.8
+              \]
+
+              So the probability that a nonessential sector is damaged is $80\%$.
             \item
+              We want to find
+
+              \[
+                P\left(N | A\right) = \frac{P\left(N \cap A\right)}{P\left(A\right)} = \frac{0.1}{0.3} = 0.\overline{3}
+              \]
+
+              So the probability that a nonessential sector is damaged given the drive has a damaged allocation sector is $33.\overline{3}\%$.
             \item
+              We want to find
+
+              \[
+                P\left(A | N\right) = \frac{P\left(A \cap N\right)}{P\left(N\right)} = \frac{0.1}{0.8} = 0.125
+              \]
+
+              So the probability that an allocation sector is damaged given the drive has a damaged nonessential sector is $12.5\%$.
             \item
+              We want to find
+
+              \[
+                P\left(N^C | A\right) = \frac{P\left(N^C \cap A\right)}{P\left(A\right)} = \frac{0.2}{0.3} = 0.\overline{6}
+              \]
+
+              So the probability that no nonessential sector is damaged given the drive has a damaged allocation sector is $66.\overline{6}\%$.
+            \item
+              We want to find
+
+              \[
+                P\left(A^C | N\right) = \frac{P\left(A^C \cap N\right)}{P\left(N\right)} = \frac{0.7}{0.8} = 0.875
+              \]
+
+              So the probability that no allocation sector is damaged given the drive has a damaged nonessential sector is $87.5\%$.
           \end{enumerate}
         \item [17]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              We want to find $P\left(G1\right)$.
+
+              There are $56 + 24 = 80$ samples with gene 1 dominant.
+
+              So the probability that a randomly sampled individual has gene 1 dominant is $\frac{80}{100} = 80\%$
             \item
+              We want to find $P\left(G2\right)$.
+
+              There are $56 + 14 = 70$ samples with gene 2 dominant.
+
+              So the probability that a randomly sampled individual has gene 2 dominant is $\frac{70}{100} = 70\%$
             \item
+              We need to know
+
+              \[
+                P\left(G1 \cap G2\right) = \frac{56}{100} = 0.56
+              \]
+
+              With $P\left(G1 \cap G2\right)$ we can find
+
+              \[
+                P\left(G2 | G1\right) = \frac{P\left(G2 \cap G1\right)}{P\left(G1\right)} = \frac{0.56}{0.8} = 0.7
+              \]
+
+              So the probability that gene 2 id dominant given that gene 1 is dominant is $70\%$.
             \item
+              Since $P\left(G2 | G1\right) = P\left(G2\right)$ we know that these two events are independent of each other.
+
+              So these genes are in linkage equilibrium.
           \end{enumerate}
         \item [38]
+          \begin{proof}
+            We need to prove each independence.
+            \begin{itemize}
+              \item
+                $A^C$ is independent of $B$
+                \begin{align*}
+                  P\left(A^C \cap B\right) &= P\left(B\right) - P\left(A \cap B\right) \\
+                  &= P\left(B\right) - P\left(B \cap A\right) \\
+                  &= P\left(B\right) - P\left(B\right)P\left(A\right) \\
+                  &= P\left(B\right) - P\left(B\right)\left(1 - P\left(A^C\right)\right) \\
+                  &= P\left(B\right) - P\left(B\right) + P\left(B\right)P\left(A^C\right) \\
+                  &= P\left(B\right)P\left(A^C\right) \\
+                  &= P\left(A^C\right)P\left(B\right) \\
+                \end{align*}
+                Since $P\left(A^C \cap B\right) = P\left(A^C\right)P\left(B\right)$, $A^C$ is independent of $B$
+              \item
+                $A$ is independent of $B^C$
+                \begin{align*}
+                  P\left(A \cap B^C\right) &= P\left(A\right) - P\left(A \cap B\right) \\
+                  &= P\left(A\right) - P\left(A \cap B\right) \\
+                  &= P\left(A\right) - P\left(A\right)P\left(B\right) \\
+                  &= P\left(A\right) - P\left(A\right)\left(1 - P\left(B^C\right)\right) \\
+                  &= P\left(A\right) - P\left(A\right) + P\left(A\right)P\left(B^C\right) \\
+                  &= P\left(A\right)P\left(B^C\right) \\
+                \end{align*}
+                Since $P\left(A \cap B^C\right) = P\left(A\right)P\left(B^C\right)$, $A$ is independent of $B^C$
+              \item
+                $A^C$ is independent of $B^C$
+                \begin{align*}
+                  P\left(A^C \cap B^C\right) &= P\left(\left(A \cup B\right)^C\right) \\
+                  &= 1 - P\left(A \cup B\right) \\
+                  &= 1 - \left(P\left(A\right) + P\left(B\right) - P\left(A \cap B\right)\right) \\
+                  &= 1 - \left(P\left(A\right) + P\left(B\right) - P\left(A\right)P\left(B\right)\right) \\
+                  &= 1 - \left(P\left(A\right) + \left(1 - P\left(A\right)\right)P\left(B\right)\right) \\
+                  &= 1 - \left(P\left(A\right) + P\left(A^C\right)P\left(B\right)\right) \\
+                  &= \left(1 - P\left(A\right)\right) - P\left(A^C\right)P\left(B\right) \\
+                  &= P\left(A^C\right) - P\left(A^C\right)P\left(B\right) \\
+                  &= P\left(A^C\right)\left(1 - P\left(B\right)\right) \\
+                  &= P\left(A^C\right)P\left(B^C\right) \\
+                \end{align*}
+                Since $P\left(A^C \cap B^C\right) = P\left(A^C\right)P\left(B^C\right)$, $A^C$ is independent of $B^C$
+            \end{itemize}
+
+            From these three, we have shown that
+            if $A$ and $B$ are independent events,
+            then $A^C$ and $B$, $A$ and $B^C$, and $A^C$ and $B^C$ are also independent events.
+          \end{proof}
       \end{enumerate}
   \end{enumerate}
 \end{document}
