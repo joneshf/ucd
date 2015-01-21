@@ -156,8 +156,38 @@
     \item [$\S$ 2.2]
       \begin{enumerate}
         \item [6]
+          Since we know nothing of the requirements for the positions,
+          we assume each faculty member has an equally likely chance for each position,
+          and also that each faculty member can hold only one position.
+
+          We want to find
+
+          \[
+            \binom{10}{3} = \frac{10!}{3!(10 - 3)!} = \frac{10!}{3! \cdot 7!} = \frac{10 \cdot 9 \cdot 8}{3!} = \frac{10 \cdot 9 \cdot 8}{3 \cdot 2} = 10 \cdot 3 \cdot 4 = 120
+          \]
+
+          So there are 120 ways we can choose these positions.
         \item [7]
+          Each True-False question has two possibilities, and there are 10 of those questions.
+          Each multiple choice question has four possibilities, and there are five of those questions.
+
+          This means there are $2^{10} \cdot 4^5 = 2^{10} \cdot (2^2)^5 = 2^{10} \cdot 2^{10} = 2^{20} = 1,048,576$ ways a student can fill out the test.
         \item [10]
+          Assuming each employee is equally likely to work each shift,
+          we want to find
+
+          \begin{align*}
+            \binom{15}{6}\binom{9}{5}\binom{4}{4} &= \frac{15!}{6!(15-6)!} \frac{9!}{5!(9-5)!} \frac{4!}{4!(4-4)!} \\
+            &= \frac{15!}{6! \cdot 9!} \frac{9!}{5! \cdot 4!} \frac{4!}{4! \cdot 0!} \\
+            &= \frac{15! \cdot 9! \cdot 4!}{6! \cdot 9! \cdot 5! \cdot 4! \cdot 4! \cdot 0!} \\
+            &= \frac{15!}{6! \cdot 5! \cdot 4!} \\
+            &= \frac{15 \cdot 14 \cdot 13 \cdot 12 \cdot 11 \cdot 10 \cdot 9 \cdot 8 \cdot 7}{5 \cdot 4 \cdot 3 \cdot 2 \cdot 4 \cdot 3 \cdot 2} \\
+            &= \frac{14 \cdot 13 \cdot 11 \cdot 10 \cdot 9 \cdot 7}{2} \\
+            &= 14 \cdot 13 \cdot 11 \cdot 9 \cdot 7 \cdot 5 \\
+            &= 630630 \\
+          \end{align*}
+
+          So there are $630,630$ possible ways to make the shift assignment.
       \end{enumerate}
 
     \item [$\S$ 2.3]
