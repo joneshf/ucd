@@ -1,0 +1,19 @@
+speaks(anne,    english).
+speaks(anne,    french).
+speaks(anne,    german).
+speaks(carol,   english).
+speaks(david,   english).
+speaks(david,   spanish).
+speaks(jacques, english).
+speaks(jacques, french).
+speaks(nguyen,  english).
+speaks(nguyen,  french).
+speaks(nguyen,  spanish).
+speaks(nguyen,  vietnamese).
+
+trilingual(Person, [Lang1, Lang2, Lang3]) :-
+    speaks(Person, Lang1),
+    speaks(Person, Lang2),
+    speaks(Person, Lang3),
+    Lang1 @< Lang2,
+    Lang2 @< Lang3.

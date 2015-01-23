@@ -1,0 +1,48 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{minted}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{LIN 177 Homework 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Ojeda\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[prolog]{prolog}{ fontsize=\footnotesize
+                                , frame=single
+                                }
+
+  \begin{enumerate}
+    \item
+    \item
+      \prolog{trilingual.swipl}
+    \item
+      \begin{enumerate}
+        \item This fact is ill-formed as the second argument is two atoms separated by a space.
+        \item This fact is ill-formed as the functor name starts with an uppercase letter.
+        \item This fact is ill-formed as the fact lacks a period.
+        \item This fact is ill-formed as the functor name starts with a number.
+        \item This fact is ill-formed as the functor name starts with a number.
+      \end{enumerate}
+    \item
+      \prolog{english.swipl}
+    \item
+      \prolog{spanish-hw2.swipl}
+  \end{enumerate}
+\end{document}

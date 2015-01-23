@@ -1,0 +1,8 @@
+spanish([nino],  [noun],      [boy],   [masculine, singular]).
+spanish([nina],  [noun],      [girl],  [feminine, singular]).
+spanish([ninos], [noun],      [boys],  [masculine, singular]).
+spanish([ninas], [noun],      [girls], [feminine, singular]).
+spanish([alto],  [adjective], [tall],  [masculine, singular]).
+spanish([alta],  [adjective], [tall],  [feminine, singular]).
+spanish([altos], [adjective], [tall],  [masculine, singular]).
+spanish([altas], [adjective], [tall],  [feminine, singular]).
