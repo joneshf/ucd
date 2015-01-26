@@ -11,6 +11,9 @@ insert_final_newline = true
 [.py]
 indent_size = 4
 
+[*.c]
+indent_size = 4
+
 [Makefile]
 indent_size = 4
 indent_style = tab

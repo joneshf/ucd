@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-g -Wall -Werror
-ALL=Odds_then-evens
+ALL=Odds_then-evens AlrmTest
 
 .PHONY: all clean
 
