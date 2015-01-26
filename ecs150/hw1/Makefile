@@ -1,6 +1,7 @@
 CC=gcc
 CFLAGS=-g -Wall -Werror
-ALL=Odds_then-evens connect Fork-variable-test File-descriptor-test AlrmTest directory_traverse_depth_first
+ALL=Odds_then-evens connect Fork-variable-test File-descriptor-test AlrmTest \
+	directory_traverse_depth_first process_tree
 
 .PHONY: all clean
 
@@ -22,6 +23,9 @@ AlrmTest: p4.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 directory_traverse_depth_first: p5.c
+	$(CC) $(CFLAGS) -o $@ $^
+
+process_tree: p6.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean: clean-targets clean-objs
