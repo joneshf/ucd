@@ -167,6 +167,7 @@ int main(int argc, char const *argv[])
             // Wait for the first child's response.
             ssize_t readLen = read(twoOne[0], buf13, 8192);
             if (readLen > 0) {
+                close(twoOne[0]);
                 // Compare strings.
                 printf("Comparing \"%s\" with \"%s\": %d\n",
                     sanitized12, buf13, strcmp(sanitized12, buf13)
@@ -180,15 +181,18 @@ int main(int argc, char const *argv[])
         // Wait for the string from the parent.
         ssize_t readLen = read(oneTwo[0], buf12, 4096);
         if (readLen > 0) {
+            close(oneTwo[0]);
             // Reverse the string.
             const char * reversed = strrev(buf12);
             // Print the reversed string.
             printf("Reversed string: %s\n", reversed);
             // Send it to child2.
             write(twoThree[1], reversed, readLen);
+            close(twoThree[1]);
             // Wait for child2's response.
             readLen = read(threeTwo[0], buf23, 4096);
             if (readLen > 0) {
+                close(threeTwo[0]);
                 // Concat strings together.
                 strcat(buf13, buf12);
                 strcat(buf13, buf23);
@@ -196,6 +200,7 @@ int main(int argc, char const *argv[])
                 printf("Concatenated strings: %s\n", buf13);
                 // Send it to the parent.
                 write(twoOne[1], buf13, 8192);
+                close(twoOne[1]);
 
                 // Bid adieu.
                 printf("Second process saying good bye\n");
@@ -205,15 +210,16 @@ int main(int argc, char const *argv[])
         // Wait for the string from the child1.
         ssize_t readLen = read(twoThree[0], buf12, 4096);
         if (readLen > 0) {
+            close(twoThree[0]);
             // Uppercase the string.
             const char * upped = upper(buf12);
             // Print the new string.
             printf("Uppercased string: %s\n", upped);
             // Send it to child1.
             write(threeTwo[1], upped, readLen);
+            close(threeTwo[1]);
             // Au revoir.
             printf("Third process saying good bye\n");
-
         }
     }
 
