@@ -1,12 +1,15 @@
 CC=gcc
 CFLAGS=-g -Wall -Werror
-ALL=Odds_then-evens Fork-variable-test File-descriptor-test AlrmTest
+ALL=Odds_then-evens connect Fork-variable-test File-descriptor-test AlrmTest
 
 .PHONY: all clean
 
 all: $(ALL)
 
 Odds_then-evens: p1.c
+	$(CC) $(CFLAGS) -o $@ $^
+
+connect: p2.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 Fork-variable-test: p3a.c
