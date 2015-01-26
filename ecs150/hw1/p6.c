@@ -1,96 +1,58 @@
 #include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-typedef enum Boolean {false, true} Boolean;
-
-// Create a tree ADT, akin to Haskell version of:
-// data Tree = Leaf Int Int | Branch Int Int Tree Tree
-typedef enum TreeTy {LeafTy, BranchTy} TreeTy;
-
-typedef struct {
-    TreeTy ty;
-    union {
-        struct Leaf * leaf;
-        struct Branch * branch;
-    } tree;
+typedef struct tree {
+    pid_t pid;
+    int proc;
+    struct tree * left;
+    struct tree * right;
 } Tree;
 
-typedef struct Leaf {
-    pid_t pid;
-    int proc;
-} Leaf;
-
-typedef struct Branch {
-    pid_t pid;
-    int proc;
-    Tree * left;
-    Tree * right;
-} Branch;
-
-Tree mkLeaf(pid_t pid, int proc)
+Tree * treealloc()
 {
-    struct Leaf l = {pid, proc};
-    Tree t;
-    t.tree.leaf = &l;
-    t.ty = LeafTy;
-    return t;
+    return (Tree *) malloc(sizeof(Tree));
 }
 
-Tree mkBranch(pid_t pid, int proc, Tree * left, Tree * right)
+Tree * addLeaf(Tree * t, pid_t pid, int proc)
 {
-    struct Branch b = {pid, proc, left, right};
-    Tree t;
-    t.tree.branch = &b;
-    t.ty = BranchTy;
-    return t;
-}
-
-Tree mkTree(int depth, int level, int proc)
-{
-    if (1 < depth - level) {
-        Tree left = mkTree(depth, level + 1, 2 * proc);
-        Tree right = mkTree(depth, level + 1, 2 * proc + 1);
-        return mkBranch(getpid(), proc, &left, &right);
-    } else {
-        return mkLeaf(getpid(), proc);
+    if (NULL == t) {
+        t = treealloc();
+        t->pid = pid;
+        t->proc = proc;
+        t->left = NULL;
+        t->right = NULL;
+    } else if (proc < t->proc) {
+        t->left = addLeaf(t->left, pid, proc);
+    } else if (proc > t->proc) {
+        t->right = addLeaf(t->right, pid, proc);
     }
+
+    return t;
 }
 
-Boolean isLeaf(Tree t)
+Tree * mkTree(int depth)
 {
-    return t.ty == LeafTy ? true : false;
+    Tree * t = treealloc();
+    int i = 0;
+    for (; i < (1 << depth); ++i) {
+        t = addLeaf(t, getpid(), i);
+    }
+
+    return t;
 }
 
-Boolean isBranch(Tree t)
+void printTree(Tree * t)
 {
-    return t.ty == BranchTy ? true : false;
-}
-
-void printPidProc(pid_t pid, int proc)
-{
-    printf("I am process %d, my process identifier is %d.\n", proc, (int)pid);
-}
-
-void printLeaf(Leaf l)
-{
-    printPidProc(l.pid, l.proc);
-}
-
-void printBranch(Branch b)
-{
-    printPidProc(b.pid, b.proc);
-}
-
-void printTree(Tree t)
-{
-    if (isLeaf(t) == true) {
-        printf("pid is: %d, proc is: %d\n", (int) (t.tree.leaf->pid), t.tree.leaf->proc);
-        printf("printing leaf\n");
-        printPidProc(t.tree.leaf->pid, t.tree.leaf->proc);
-    } else {
-        printf("printing branch\n");
-        printBranch(*t.tree.branch);
+    int proc = t->proc;
+    pid_t pid = t->pid;
+    printf("I am process %d, my process identifier is %d.\n", proc, pid);
+    if (NULL != t->left) {
+        printTree(t->left);
+    }
+    if (NULL != t->right) {
+        printTree(t->right);
     }
 }
 
@@ -123,9 +85,7 @@ int main(int argc, char const *argv[])
     }
 
     if (depth > 0) {
-        Tree procTree = mkTree(1, 0, 1);
-        printf("pid is: %d, proc is: %d\n", (int) (procTree.tree.leaf->pid), procTree.tree.leaf->proc);
-        printPidProc((procTree.tree.leaf->pid), procTree.tree.leaf->proc);
+        Tree * procTree = mkTree(depth);
         printTree(procTree);
     }
 
