@@ -1,12 +1,15 @@
 CC=gcc
 CFLAGS=-g -Wall -Werror
-ALL=odds-then-evens
+ALL=Odds_then-evens
 
 .PHONY: all clean
 
 all: $(ALL)
 
-odds-then-evens: p1.c
+Odds_then-evens: p1.c
+	$(CC) $(CFLAGS) -o $@ $^
+
+AlrmTest: p4.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean: clean-targets clean-objs
