@@ -30,6 +30,124 @@
 
   \begin{enumerate}
     \item
+      Given the query
+
+      \texttt{?- spanish([eva, mira, a, adan], SM, ES, EM).}
+
+      Prolog attempts to match against the first rule with a variable as none of the facts match.
+      It finds this rule:
+      \prolog[firstline=13, lastline=14]{Programs/Programs/Unix/spanish.swipl}
+      It attempts to unify \texttt{A = [eva, mira, a, adan]}.
+      To unify it needs to prove the body.
+      So prolog searches for
+
+      \texttt{spanish([eva, mira, a, adan], [verb, intransitive], ES, [property])}
+
+      There are no facts or rules for this, so it backtracks and tries the next rule.
+      \prolog[firstline=16, lastline=18]{Programs/Programs/Unix/spanish.swipl}
+      Again, it attempts to unify \texttt{A = [eva, mira, a, adan]}.
+      To unify it needs to prove the body.
+      So prolog searches for
+
+      \texttt{spanish(C, [nounphrase], ES, [entity]), append([a], C, [eva, mira, a, adan])}
+
+      There are no facts or rules for this, so it backtracks and tries the next rule.
+      \prolog[firstline=20, lastline=24]{Programs/Programs/Unix/spanish.swipl}
+      Again, it attempts to unify \texttt{A = [eva, mira, a, adan]}.
+      To unify it needs to prove the body.
+      The important searches are
+
+      \texttt{spanish(C, [verb, transitive], D, [relation]), spanish(E, [nounphrase, accusative], F, [entity])}
+
+      It is also constrained by
+
+      \texttt{append(C, E, A)}
+
+      There are no facts or rules that satisfy all constraints, so it backtracks and tries the next rule.
+      \prolog[firstline=26, lastline=31]{Programs/Programs/Unix/spanish.swipl}
+      Again, it attempts to unify \texttt{A = [eva, mira, a, adan]}.
+      To unify it needs to prove the body.
+
+      So prolog searches for
+
+      \texttt{spanish(C, [nounphrase], D, [entity]), spanish(E, [verbphrase], F, [property])}
+
+      These are constrained also by
+
+      \texttt{append(C, E, A)}
+
+      The fact
+      \prolog[firstline=3, lastline=3]{Programs/Programs/Unix/spanish.swipl}
+      matches the first part of the body,
+      so prolog unifys \texttt{C = [eva], D = [eve]}.
+
+      This means prolog is trying to solve the constraint
+
+      \texttt{append([eva], E, [eva, mira, a, adan])}
+
+      So it attempts to unify \texttt{E = [mira, a, adan]}.
+      Now prolog just needs to find a fact or rule satisfying
+
+      \texttt{spanish([mira, a, adan], [verbphrase], F, [property])}
+
+      It finds this rule:
+      \prolog[firstline=13, lastline=14]{Programs/Programs/Unix/spanish.swipl}
+      It attempts to unify \texttt{A = [mira, a, adan]}.
+      To unify it needs to prove the body.
+      So prolog searches for
+
+      \texttt{spanish([mira, a, adan], [verb, intransitive], F, [property])}
+
+      There are no facts or rules for this, so it backtracks and tries the next rule that matches.
+      \prolog[firstline=20, lastline=24]{Programs/Programs/Unix/spanish.swipl}
+      Again, it attempts to unify \texttt{A = [mira, a, adan]}.
+      To unify it needs to prove the body.
+      The important searches are
+
+      \texttt{spanish(C, [verb, transitive], D, [relation]), spanish(E, [nounphrase, accusative], F, [entity])}
+
+      It is also constrained by
+
+      \texttt{append(C, E, A)}
+
+      The fact
+      \prolog[firstline=9, lastline=9]{Programs/Programs/Unix/spanish.swipl}
+      matches the first part of the body,
+      so prolog unifies \texttt{C = [mira], D = [watches]}.
+
+      Given the append constraint,
+      prolog then needs to solve
+
+      \texttt{append([mira], E, [mira, a, adan])}
+
+      So it attempts to unify \texttt{E = [a, adan]}
+      which means it needs to solve
+
+      \texttt{spanish([a, adan], [nounphrase, accusative], F, [entity])}
+
+      The only matching rule is
+      \prolog[firstline=16, lastline=18]{Programs/Programs/Unix/spanish.swipl}
+      So it attempts to unify \texttt{A = [a, adan]}.
+      To unify it needs to prove the body.
+      So prolog searches for
+
+      \texttt{spanish(C, [nounphrase], F, [entity]), append([a], C, [a, adan])}
+
+      Prolog can instantiate \texttt{C = [adan]} assuming it can solve
+
+      \texttt{spanish([adan], [nounphrase], F, [entity])}
+
+      This is a fact
+      \prolog[firstline=1, lastline=1]{Programs/Programs/Unix/spanish.swipl}
+      So prolog unifies \texttt{F = [adam]}
+
+      And we can start filling in the blanks.
+
+      When prolog makes to back to the toplevel, we have unified the query with the rule
+      \prolog[firstline=26, lastline=30]{Programs/Programs/Unix/spanish.swipl}
+      And the unifications are
+
+      \prolog{hw2prob1.swipl}
     \item
       \prolog{trilingual.swipl}
     \item
@@ -40,6 +158,9 @@
         \item This fact is ill-formed as the functor name starts with a number.
         \item This fact is ill-formed as the functor name starts with a number.
       \end{enumerate}
+
+    \pagebreak
+
     \item
       \prolog{english.swipl}
     \item
