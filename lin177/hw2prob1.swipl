@@ -1,0 +1,5 @@
+spanish([eva, mira, a, adan], [sentence], [eve, watches, adam], [proposition]) :-
+    spanish([eva], [nounphrase], [eve], [entity]),
+    spanish([mira, a, adan], [verbphrase], [watches, adam], [property]),
+    append([eva], [mira, a, adan], [eva, mira, a, adan]),
+    append([eve], [watches, adam], [eve, watches, adam]).
