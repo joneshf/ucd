@@ -1,12 +1,5 @@
 #include <errno.h>
-#include <fcntl.h>
 #include <stdio.h>
-#include <unistd.h>
-
-// Since we can only use `close`, `lseek`, `open`, and `read`,
-// we have to get tricky to keep this thing understandable.
-
-const int BUF_SIZE = 4096;
 
 void printUsage()
 {
@@ -14,85 +7,50 @@ void printUsage()
     printf("Prints the odd lines in a file followed by the even lines.\n");
 }
 
-int printLine(char str[], int const start)
+void printLine(FILE * fp)
 {
-    int i = start;
-    for (; i < BUF_SIZE && '\n' != str[i]; ++i) {
-        printf("%c", str[i]);
+    char c = fgetc(fp);
+    while ('\n' != c) {
+        printf("%c", c);
+        c = fgetc(fp);
     }
     printf("\n");
-    return i + 1;
 }
 
-int nextLine(char str[], int const start)
+void nextLine(FILE * fp)
 {
-    int i = start;
-    for (; i < BUF_SIZE && '\n' != str[i]; ++i) {}
-
-    return i + 1;
+    char c = fgetc(fp);
+    while ('\n' != c && EOF != c) {
+        c = fgetc(fp);
+    }
 }
 
-int printEveryOther(int fd)
+void printEveryOther(FILE * fp)
 {
-    char str[BUF_SIZE];
-    ssize_t pos = read(fd, str, BUF_SIZE);
-    int curPos = 0;
-    printf("read: %d bytes\n", (int)pos);
-    printf("str is: \n%s\n", str);
-    curPos = printLine(str, curPos);
-    curPos = nextLine(str, curPos);
-    curPos = printLine(str, curPos);
-    curPos = nextLine(str, curPos);
-    curPos = printLine(str, curPos);
-    curPos = nextLine(str, curPos);
-    curPos = printLine(str, curPos);
-    curPos = nextLine(str, curPos);
-    curPos = printLine(str, curPos);
-    curPos = nextLine(str, curPos);
-    curPos = printLine(str, curPos);
-    curPos = nextLine(str, curPos);
-    // do {
-    //     if (-1 == pos) {
-    //         printf("Error reading file");
-    //         return errno;
-    //     } else {
-    //         // printLine(str);
-    //         // nextLine(str);
-    //     }
-    //     curPos = lseek(fd, 0, SEEK_CUR);
-    //     if (curPos >= BUF_SIZE) {
-    //         lseek(fd, 0, SEEK_SET);
-    //         pos = read(fd, str, BUF_SIZE);
-    //     }
-    // } while (pos != 0);
-    return 0;
-    // fseek(fd, -1, SEEK_CUR);
-    // while (EOF != c) {
-    //     printLine(fd);
-    //     nextLine(fd);
-    //     c = fgetc(fd);
-    //     fseek(fd, -1, SEEK_CUR);
-    // }
+    char c = fgetc(fp);
+    fseek(fp, -1, SEEK_CUR);
+    while (EOF != c) {
+        printLine(fp);
+        nextLine(fp);
+        c = fgetc(fp);
+        fseek(fp, -1, SEEK_CUR);
+    }
 }
 
 int oddsThenEvens(char const * path)
 {
-    int fd = open(path, O_RDONLY);
-    if (-1 == fd) {
+    FILE * fp = fopen(path, "r");
+    if (fp == NULL) {
         printf("Error opening %s\n", path);
         return errno;
     } else {
-        printEveryOther(fd);
-        // rewind(fd);
-        // nextLine(fd);
-        // printEveryOther(fd);
-        if (-1 == close(fd)) {
-            printf("Error closing %s\n", path);
-            return errno;
-        } else {
-            return 0;
-        }
+        printEveryOther(fp);
+        rewind(fp);
+        nextLine(fp);
+        printEveryOther(fp);
+        fclose(fp);
     }
+    return 0;
 }
 
 int main(int argc, char const *argv[])
