@@ -16,6 +16,8 @@
 
 \newcolumntype{d}{D{.}{.}{-1}}
 
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+
 \setlength{\droptitle}{-10ex}
 
 \preauthor{\begin{flushright}\large \lineskip 0.5em}
@@ -76,17 +78,112 @@
         \item [8]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              We want to find
+              \[
+                P(X \le 2) = F(2) = 0.83
+              \]
             \item
+              We want to find
+              \[
+                P(X > 3) = F(4) - F(3) = 1.00 - 0.95 = 0.05
+              \]
             \item
+              We want to find
+              \[
+                P(X = 1) = F(1) - F(0) = 0.72 - 0.41 = 0.31
+              \]
             \item
+              We want to find
+              \[
+                P(X = 0) = F(0) = 0.41
+              \]
             \item
+              If we look at the probability of each number of error,
+              we can answer this.
+              \begin{align*}
+                P(X = 0) &= 0.41 \\
+                P(X = 1) &= 0.31 \\
+                P(X = 2) &= F(2) - F(1) = 0.83 - 0.72 = 0.11 \\
+                P(X = 3) &= F(3) - F(2) = 0.95 - 0.83 = 0.12 \\
+                P(X = 4) &= 0.05 \\
+              \end{align*}
+              Since $P(X = 0)$ has the largest probability,
+              it is most probable that 0 errors will be detected.
           \end{enumerate}
         \item [15]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              \begin{align*}
+                \mu_t &= \int_{-\infty}^{\infty} \! t f(t) \, \dif t \\
+                &= 0.1 \int_{0}^{\infty} \! t e^{-0.1 t} \, \dif t
+              \end{align*}
+
+              Using the tabular method for integration by parts
+
+              \begin{tabular}{| c | c |}
+                \hline
+                $u$ & $\dif v$ \\
+                \hline
+                $t$ & $e^{-0.1 t}$    \\
+                $1$ & $-10e^{-0.1 t}$ \\
+                $0$ & $100e^{-0.1 t}$ \\
+                \hline
+              \end{tabular}
+
+              So we have
+              \begin{align*}
+                \mu_t &= 0.1 \left(t (-10e^{-0.1 t}) - 1 (100e^{-0.1 t}) \right) \Big|_0^{\infty} \\
+                &= 0.1 \left(-(10t + 100) (e^{-0.1 t}) \right) \Big|_0^{\infty} \\
+                &= -\frac{t + 10}{e^{0.1 t}} \Big|_0^{\infty} \\
+                &= 0 - (-10) \\
+                &= 10
+              \end{align*}
             \item
+              \begin{align*}
+                \sigma_t &= \sqrt{\int_0^\infty \! t^2 f(t) \, \dif t - \mu_t^2} \\
+                &= \sqrt{0.1 \int_0^\infty \! t^2 e^{-0.1 t} \, \dif t - 10^2} \\
+                &= \sqrt{0.1 \int_0^\infty \! t^2 e^{-0.1 t} \, \dif t - 100} \\
+              \end{align*}
+              Using the tabular method for integration by parts
+
+              \begin{tabular}{| c | c |}
+                \hline
+                $u$ & $\dif v$ \\
+                \hline
+                $t^2$ & $e^{-0.1 t}$    \\
+                $2t$  & $-10e^{-0.1 t}$ \\
+                $2$   & $100e^{-0.1 t}$ \\
+                $0$   & $-1000e^{-0.1 t}$ \\
+                \hline
+              \end{tabular}
+
+              So we have
+              \begin{align*}
+                \sigma_t &= \sqrt{0.1 \left( t^2(-10e^{-0.1 t}) - 2t (100e^{-0.1 t}) + 2 (-1000e^{-0.1 t}) \right) \Big|_0^\infty - 100} \\
+                &= \sqrt{0.1 \left( (-10t^2 - 200t - 2000) e^{-0.1 t} \right) \Big|_0^\infty - 100} \\
+                &= \sqrt{\frac{-t^2 - 20t - 200}{e^{0.1 t}} \Big|_0^\infty - 100} \\
+                &= \sqrt{(0 - (-200)) - 100} \\
+                &= \sqrt{100} \\
+                &= 10 \\
+              \end{align*}
             \item
+              \begin{align*}
+                F(x) &= \int_0^x \! f(t) \, \dif t \\
+                &= 0.1 \int_0^x \! e^{-0.1 t} \, \dif t \\
+                &= - e^{-0.1 t} \Big|_0^x \\
+                &= - \frac{1}{e^{0.1 t}} \Big|_0^x \\
+                &= - \frac{1}{e^{0.1 x}} - (- 1) \\
+                &= 1 - \frac{1}{e^{0.1 x}} \\
+              \end{align*}
             \item
+              We want to find $P(X < 12) = F(11)$,
+              since we are dealing with discrete random variables.
+
+              \[
+                F(11) = 1 - \frac{1}{e^{0.1 (11)}} \approx 0.6671
+              \]
+
+              So the probability that the lifetime will be less than 12 months is approximately $66.71\%$.
           \end{enumerate}
         \item [24]
           \begin{enumerate}[label=(\arabic*)]
