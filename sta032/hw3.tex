@@ -260,17 +260,51 @@
     \item [$\S$ 2.5]
       \begin{enumerate}
         \item [8]
+          We call the original fill volume mean $\mu_x = 20.01$,
+          and the standard deviation $\sigma_x = 0.02$.
           \begin{enumerate}[label=(\arabic*)]
             \item
+              \[
+                \mu_y = 24(\mu_x) = 24(20.01) = 480.24
+              \]
+              So the mean of the total volume of the case is $480.24$ oz.
             \item
+              \[
+                \sigma_y = 24(\sigma_x) = 24(0.02) = 0.48
+              \]
+              So the standard deviation of the total volume of the case is $0.48$ oz.
             \item
+              \[
+                \mu_z = \frac{\mu_y}{24} = \frac{480.24}{24} = 20.01
+              \]
+              So the mean of the average volume per bottle of the case is $20.01$ oz.
             \item
+              \[
+                \sigma_z = \frac{\sigma_x}{\sqrt{24}} = \frac{0.02}{\sqrt{24}} \approx 0.004082
+              \]
+              So the standard deviation of the average volume per bottle of the case is $0.0041$ oz.
             \item
+              We want to solve the following equation:
+              \begin{align*}
+                \frac{0.02}{\sqrt{x}} &= 0.0025 \\
+                \frac{0.02}{0.0025} &= \sqrt{x} \\
+                \frac{0.02}{0.0025}^2 &= x \\
+                64 &= x \\
+              \end{align*}
+              So 64 bottles are needed in each case for the standard deviation of the average volume per bottle in each case is $0.0025$ oz.
           \end{enumerate}
         \item [10]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              \[
+                \mu_{daily} = 2.60(1500) + 2.75(500) + 2.90(300) = 3900 + 1375 + 870 = 6145
+              \]
+              So the mean daily revenue is $\$6145.00$.
             \item
+              \[
+                \sigma_{daily} = \sqrt{180^2 + 90^2 + 40^2} = \sqrt{32400 + 8100 + 1600} = 205.1828
+              \]
+              So the standard deviation of the daily revenue is $\$205.18$.
           \end{enumerate}
       \end{enumerate}
   \end{enumerate}
