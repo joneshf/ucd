@@ -10,6 +10,7 @@
 \usepackage{enumitem}
 \usepackage[super]{nth}
 \usepackage{dcolumn}
+\usepackage{siunitx}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.8}
 \usepgfplotslibrary{statistics}
@@ -188,12 +189,72 @@
         \item [24]
           \begin{enumerate}[label=(\arabic*)]
             \item
+
+              We want to solve the following equation for $c$:
+
+              \begin{align*}
+                \int_1^\infty \! \frac{c}{x^3} \, \dif x &= 1 \\
+                \int_1^\infty \! c x^{-3} \, \dif x &= \\
+                -\frac{c x^{-2}}{2} \Big|_1^\infty &= \\
+                -\frac{c}{2x^2} \Big|_1^\infty &= \\
+                0 - (-\frac{c}{2}) &= \\
+                \frac{c}{2} &= \\
+                c &= 2\\
+              \end{align*}
+
+              So $f(x)$ is a valid probability density function when $c = 2$.
             \item
+              \begin{align*}
+                \int_1^\infty \! x f(x) \, \dif x &= \int_1^\infty \! \frac{2x}{x^3} \, \dif x \\
+                &= \int_1^\infty \! 2x^{-2} \, \dif x \\
+                &= -2x^{-1} \Big|_1^\infty \\
+                &= -\frac{2}{x} \Big|_1^\infty \\
+                &= 0 - (-2) \\
+                &= 2 \\
+              \end{align*}
             \item
+              \begin{align*}
+                F(x) &= \int_1^x \! f(t) \, \dif t \\
+                &= \int_1^x \! \frac{2}{t^3} \, \dif t \\
+                &= -\frac{1}{t^2} \Big|_1^x \\
+                &= -\frac{1}{x^2} - (-1) \\
+                &= 1 - \frac{1}{x^2} \\
+              \end{align*}
             \item
+              The median is the \nth{50} percentile,
+              so we can find:
+
+              \begin{align*}
+                P(X = x_{50}) &= \frac{1}{2} \\
+                F(x_{50}) &= \\
+                1 - \frac{1}{x_{50}} &= \\
+                \frac{1}{2} &= \frac{1}{x_{50}} \\
+                x_{50} &= 2
+              \end{align*}
+
+              So the median particle size is \SI{2}{\micro\meter}.
             \item
+              We can plug in this value in our cumulative density function.
+
+              \[
+                F(10) = 1 - \frac{1}{10^2} = 1 - \frac{1}{100} = \frac{99}{100}
+              \]
+
+              So $99\%$ of the contaminating particles are smaller than \SI{10}{\micro\meter}.
             \item
+              We can plug in this value in our cumulative density function.
+
+              \[
+                F(2.5) = 1 - \frac{1}{2.5^2} = 1 - \frac{1}{6.25} = 1 - \frac{4}{25} = \frac{84}{100}
+              \]
+
+              So $84\%$ of the contaminating particles are smaller than \SI{2.5}{\micro\meter}.
             \item
+              The proportion $PM_{2.5}$ of $PM_{10}$ is
+              \[
+                \frac{\frac{84}{100}}{\frac{99}{100}} = \frac{84}{99} = 0.\overline{84}
+              \]
+              or $84.85\%$.
           \end{enumerate}
       \end{enumerate}
     \item [$\S$ 2.5]
