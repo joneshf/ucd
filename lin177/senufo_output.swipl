@@ -1,0 +1,2 @@
+?- findall(X, syllable(X), Y).
+Y = [[k, a], [k, e], [k, i], [k, o], [k, u], [p, a], [p, e], [p|...], [...|...]|...].

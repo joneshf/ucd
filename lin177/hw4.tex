@@ -1,0 +1,112 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{minted}
+\usepackage[tone]{tipa}
+\usepackage{qtree}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{LIN 177 Homework 4\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Ojeda\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[prologfile]{prolog}{ fontsize=\footnotesize
+                                    , frame=single
+                                    }
+  \newmint[prolog]{prolog}{ fontsize=\footnotesize
+                          , frame=single
+                          }
+
+  \begin{enumerate}
+    \item
+    \item
+      \begin{enumerate}
+        \item The phones are \begin{IPA}[p,b,t,d,k,g]\end{IPA}
+        \item The phones are \begin{IPA}[\ae,a]\end{IPA}
+        \item The phones are \begin{IPA}[\textturnr]\end{IPA}
+        \item The phones are \begin{IPA}[j,w,i,I,e,\ae,u,U,o,a,@,2]\end{IPA}
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          One minimal property is
+          \prolog @ phone(X), sib(X), not(voi(X)). @
+        \item
+          One minimal property is
+          \prolog @ phone(X), str(X), not(bck(X)), not(ctr(X)). @
+        \item
+          One minimal property is
+          \prolog @ phone(X), lab(X), not(cnt(X)). @
+      \end{enumerate}
+    \item
+      The structure is:
+
+      \Tree [.syllable [.onset [.s ] [.p ] ] [.rhyme [.nucleus [.o ] [.j ] ] [.coda [.l ] ] ] ]
+
+    \item
+      \begin{itemize}
+        \item We can solve this with some combinatorics.
+
+          We want to find how many sequences of 6 phones or less there are.
+          We can break this down to finding the number sequences of 0, 1, 2, 3, 4, 5, and 6 phones and summing them.
+
+          So we need to find the permutations with replacement,
+          as it's possible to have more than one phone in a sequence.
+
+          Since there are 34 possible phones we want to find the following sum:
+
+          \begin{align*}
+            \sum_{i = 0}^6 34^i &= 34^0 + 34^1 + 34^2 + 34^3 + 34^4 + 34^5 + 34^6 \\
+            &= 1 + 34 + 1156 + 39304 + 1336336 + 45435424 + 1544804416 \\
+            &= 1591616671 \\
+          \end{align*}
+
+          So, there are $1591616671$ possible sequences with 6 phones or less.
+
+        \item
+          Using the query:
+
+          \prolog @ findall(X, (syllable(X), length(X, Len), Len =< 6), _Y), length(_Y, YLen). @
+
+          The result is:
+
+          \prolog @ YLen = 20608. @
+
+          So there are $20608$ English syllables according to \texttt{syllable.swipl}.
+
+        \item
+          $20608$ is 0.00129\% of the $1591616671$ possible syllables.
+
+        \item
+          This percentage is important because it means the vast majority of sounds that can be made are not English syllables.
+          It shows that English is a very small language in the scheme of things.
+      \end{itemize}
+
+    \pagebreak
+
+    \item
+      \prologfile{senufo.swipl}
+
+      Some output from running this:
+
+      \prologfile{senufo_output.swipl}
+
+  \end{enumerate}
+\end{document}

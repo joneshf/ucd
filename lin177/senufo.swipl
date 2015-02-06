@@ -1,0 +1,41 @@
+%% Start with some facts.
+
+%% List all of the possible phones in Senufo
+phone(a).
+phone(e).
+phone(i).
+phone(k).
+phone(o).
+phone(p).
+phone(t).
+phone(u).
+
+%% List all the consonants.
+consonant(k).
+consonant(p).
+consonant(t).
+
+%% List all the vowels.
+vowel(a).
+vowel(e).
+vowel(i).
+vowel(o).
+vowel(u).
+
+%% Now the rules
+
+%% A `syllable` is an `onset` followed by a `nucleus`.
+syllable(Syl) :-
+    onset(On),
+    nucleus(Nu),
+    append(On, Nu, Syl).
+
+%% An `onset` is just a `phone` that is a `consonant`.
+onset([X]) :-
+    phone(X),
+    consonant(X).
+
+%% A `nucleus` is just a `phone` that is a `vowel`.
+nucleus([X]) :-
+    phone(X),
+    vowel(X).

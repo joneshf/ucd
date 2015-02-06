@@ -1,0 +1,167 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{minted}
+\usepackage[tone]{tipa}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{LIN 177 Homework 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Ojeda\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[prolog]{prolog}{ fontsize=\footnotesize
+                                , frame=single
+                                }
+
+  \begin{enumerate}
+    \item
+      % \prolog{hw2_phone.pl}
+      \texttt{
+        ?- findall(X, phone(X), Y). \\
+        Y =
+          \begin{IPA}
+            [p,b,m,t,d,n,k,g,N,f,v,T,D,s,z,S,Z,\v{c},\v{j},l,\textturnr,j,w,h,i,I,e,\ae,u,U,o,a,@,2].
+          \end{IPA}
+      }
+
+    \item
+
+      \begin{enumerate}
+        \setcounter {enumii}{1}
+        \item
+          % \texttt{[piro, quechua, german] = [piro, quechua, german | []]}
+
+          Yes.
+
+          The left side can be desugared a bit to read:
+
+          \texttt{[piro, quechua, german | []]}
+        \item
+          % \texttt{[piro, quechua, german, []] = [piro, quechua, german|[]]}
+
+          No.
+
+          The left side is a list with 4 elements and the right side is a list with 3 elements.
+        \item
+          % \texttt{[Head, Head1, Head2] = [french, german, english]}
+
+          Yes.
+
+          It unifies the following variables:
+
+          \texttt{
+            Head = french, Head1 = german, Head2 = english
+          }
+        \item
+          % \texttt{[Head, Head1] =[french, german, english]}
+
+          No.
+
+          The left side is a list with 2 elements and the right side is a list with 3 elements.
+        \item
+          % \texttt{[Head, Head1 | Tail] = [Head | Tail1]}
+
+          Yes.
+
+          Clearly the variable \texttt{Head} unifies with itself.
+          Then the other unification takes place:
+
+          \texttt{[Head1 | Tail] = Tail1}
+        \item
+          % \texttt{[] = [Head | Tail]}
+          No.
+
+          The left side is the empty list,
+          while the right side has at least one element.
+        \item
+          % \texttt{[english] = [english | []]}
+          Yes.
+
+          These are the same lists, the left side has more sugar than the right side.
+        \item
+          % \texttt{[[english]] = [english | []]}
+          No.
+
+          These are different lists.
+          The left side is a list with a single element that is the list containing \texttt{english}.
+          The right side is a list with a single element \texttt{english}
+        \item
+          % \texttt{[[english, french], spanish] = [Head | Tail]}
+          Yes. with the following instantiations:
+
+          \texttt{
+            [english, french] = Head, [spanish] = Tail
+          }
+        \item
+          % \texttt{[[english, Item], piro] = [[Item1,quechua] | Tail]}
+
+          Yes.
+
+          It has the following instantiations:
+
+          \texttt{
+            Item = quechua, Item1 = english, [piro] = Tail
+          }
+        \item
+          % \texttt{[french, [quechua, german]] = [Head | Tail]}
+
+          Yes.
+
+          It has the following instantiations
+
+          \texttt{
+            french = Head, [[quechua, german]] = Tail
+          }
+      \end{enumerate}
+
+    \item
+
+      For the given definition of ``the sublist relation'', this predicate holds.
+      However, this predicate does not properly detect that one list is a sublist of the other in the normal sense of the word, as \texttt{sublist([1,1,1], [1])} should fail.
+      However, that example passes the predicate.
+
+      The \texttt{sublist} fact states that the empty list is a sublist of any list.
+
+      This fact is true, as the empty list is a sublist of itself, and all other lists are made by cons-ing onto another list that is eventually the empty list.
+
+      The \texttt{sublist} rule states that for any cons-ed list, if the first element of the list is an element of some list \texttt{List} and the rest of the list is a sublist of \texttt{List}, then the cons-ed list is a sublist of \texttt{List}.
+
+      This rule is true as it ensures each element of the first list is a member in the second list. The recursive call within the rule is always working with a list containing exactly one less element (in particular the head element) so we are guaranteed to check each and every element of the first list.
+
+    \item
+
+      The \texttt{member} rule states that an \texttt{Element} is a member of a \texttt{List} if we can append some \texttt{List1} to the front of another list where \texttt{Element} is the head, and we get out the \texttt{List}.
+
+      There are three cases we can consider (though the first and third are special cases of the second.)
+
+      \begin{itemize}
+        \item
+          In the case where \texttt{Element} is the head of \texttt{List}, we unify \texttt{List1 = []} and we unify \texttt{Tail} with the tail of \texttt{List}
+
+        \item
+          When \texttt{Element} is in the middle of \texttt{List} at some index $i$, we unify \texttt{List1} with the list consisting of the first $i - 1$ elements of \texttt{List} and \texttt{Tail} with the last $n - i$ elements of \texttt{List}--where $n$ is the length of \texttt{List}.
+
+        \item
+          When \texttt{Element} is the last element of \texttt{List}, we unify \texttt{List1} with the list consisting of all elements of \texttt{List} except the last, and we unify \texttt{List1} with the empty list.
+      \end{itemize}
+
+      From these cases, we can see that the predicate \texttt{member} describes ``the member relation''.
+  \end{enumerate}
+\end{document}
