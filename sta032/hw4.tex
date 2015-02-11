@@ -1,0 +1,187 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage{siunitx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{STA 032 Homework 4\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Melcon\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [$\S$ 4.1]
+      \begin{enumerate}
+        \item [2]
+          \begin{enumerate}[label=(\arabic*)]
+            \item $p_x = P(X = 1) = 0.20$
+            \item $p_y = P(Y = 1) = 0.45$
+            \item $p_z = P(X = 1 \cup Y = 1) = P(X = 1) + P(Y = 1) = 0.20 + 0.45 = 0.65$
+            \item
+              No, this is not possible.
+              Each set is only one color, so $X$ and $Y$ are mutually exclusive.
+            \item
+              Yes, $p_z = p_x + p_y$.
+            \item
+              Yes.
+
+              If a red set is chosen,
+
+              then $X = 1$ and $Y = 0$ so $Z = 1 + 0 = 1 = X + Y$.
+
+              If a white set is chosen,
+
+              then $X = 0$ and $Y = 1$ so $Z = 0 + 1 = 1 = X + Y$.
+
+              If a blue set is chosen,
+
+              then $X = 0$ and $Y = 0$ so $Z = 0 + 0 = 0 = X + Y$.
+
+              These are the only possible choices,
+              so by enumeration, $Z = X + Y$.
+          \end{enumerate}
+      \end{enumerate}
+    \item [$\S$ 4.2]
+      \begin{enumerate}
+        \item [8]
+          We have $X \sim Bin(20, 0.2)$
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+              We want to find $P(X = 4)$.
+              We can use Table A.1 and compute $f(4) - f(3) = 0.630 - 0.411 = 0.219$.
+
+              So the probability that exactly four contracts have overruns is 0.219.
+            \item
+              We want to find $P(X < 3)$.
+
+              Again, we use Table A.1 and find $f(2) = 0.206$
+
+              So the probability that fewer than three contracts have overruns is 0.206.
+            \item
+              We want to find $P(X = 0)$.
+
+              Again, we use Table A.1 and find $f(0) = 0.012$
+
+              So the probability that none of the contracts have overruns is 0.012.
+            \item
+              $\mu_X = 20(0.2) = 4$.
+
+              So the mean number of overruns is 4.
+            \item
+              $\sigma_X = \sqrt{20(0.2)(1 - 0.2)} = \sqrt{4(0.8)} = \sqrt{3.2} \approx 1.789$
+
+              So the standard deviation of the number of overruns is 1.79.
+          \end{enumerate}
+        \item [11]
+          We have $A \sim Bin(100, 04.12)$ and $B \sim Bin(200, 0.05)$
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+
+              $\hat{p}_A = \frac{12}{100} = 0.12$
+              $\sigma_A = \sqrt{\frac{0.12(1 - 0.12)}{100}} \approx 0.03249$
+
+              So the estimated proportion of defective parts is 0.12
+              and uncertainty in this estimate is approximately 0.0325.
+            \item
+
+              $\hat{p}_B = \frac{10}{200} = 0.05$
+              $\sigma_B = \sqrt{\frac{0.05(1 - 0.05)}{200}} \approx 0.01541$
+
+              So the estimated proportion of defective parts is 0.05
+              and uncertainty in this estimate is approximately 0.0154.
+            \item
+
+              The estimated difference is $|\hat{p}_A - \hat{p}_B| = |0.12 - 0.05| = |0.07| = 0.07$.
+              The uncertainty in this difference is $\sqrt{\sigma_A^2 + \sigma_B^2} = \sqrt{0.03249^2 + 0.01541^2} \approx 0.0360$.
+          \end{enumerate}
+        \item [20]
+          We have $X \sim Bin(8, 0.8)$
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+              We want to find $P(X \le 1)$.
+
+              We use Table A.1 and find $f(1) = 0.000$.
+
+              So the probability that no more than one policy holder in the sample has a smoke detector is 0.000.
+            \item
+              Yes, having exactly one policy holder in a sample size of 8 would be next to impossible.
+            \item
+              No, although the chances are small,
+              it is still possible that the claim is true and
+              the sample happened to choose mostly policy holders without a smoke detector.
+            \item
+
+              Again we turn to Table A.1 and find $f(6) = 0.497$.
+            \item
+
+              No, 6 in 8 has a probability of about 0.5.
+              So it's a coin flip as to whether or not the sample would have six policy holders with smoke detectors.
+          \end{enumerate}
+      \end{enumerate}
+    \item [$\S$ 4.3]
+      \begin{enumerate}
+        \item [7]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+          \end{enumerate}
+        \item [8]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+          \end{enumerate}
+        \item [17]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+            \item
+            \item
+          \end{enumerate}
+      \end{enumerate}
+    \item [$\S$ 4.4]
+      \begin{enumerate}
+        \item [4]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+            \item
+          \end{enumerate}
+        \item [8]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+          \end{enumerate}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
