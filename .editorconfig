@@ -11,7 +11,7 @@ insert_final_newline = true
 [.py]
 indent_size = 4
 
-[*.c]
+[*.{c,pl,swipl}]
 indent_size = 4
 
 [Makefile]

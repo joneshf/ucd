@@ -149,38 +149,136 @@
         \item [7]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              We have $X \sim Poisson(4)$.
+
+              So we solve $P(X = 5) = e^{-4}\frac{4^5}{5!} \approx 0.15629$
+
+              Thus, the probability that 5 messages are given a minute is 0.156.
             \item
+              We have $X \sim Poisson(4 \cdot 1.5) = Poisson(6)$.
+
+              So we solve $P(X = 9) = e^{-6}\frac{6^9}{9!} \approx 0.068838$
+
+              Thus, the probability that 9 messages are given in 1.5 minutes is 0.0688.
             \item
+              We have $X \sim Poisson(4 \cdot 0.5) = Poisson(2)$.
+
+              So we solve
+              \begin{align*}
+                P(X < 3) &= P(X = 0) + P(X = 1) + P(X = 2) \\
+                &= e^{-2}\frac{2^0}{0!} + e^{-2}\frac{2^1}{1!} + e^{-2}\frac{2^2}{2!} \\
+                &\approx 0.13533 + 0.27067 + 0.27067 \\
+                &\approx 0.67667
+              \end{align*}
+
+              Thus, the probability that fewer than 3 messages are given in 30 seconds is 0.677.
           \end{enumerate}
         \item [8]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              We have $X \sim Poisson(4)$.
+
+              So we solve $P(X = 3) = e^{-4}\frac{4^3}{3!} \approx 0.19536$
+
+              Thus, the probabiltiy that 3 cars arrive in a given second is 0.195.
             \item
+              We have $X \sim Poisson(4 \cdot 3) = Poisson(12)$.
+
+              So we solve $P(X = 8) = e^{-12}\frac{12^8}{8!} \approx 0.065523$
+
+              Thus, the probabiltiy that 8 cars arrive in a three seconds is 0.0655.
             \item
+              We have $X \sim Poisson(4 \cdot 2) = Poisson(8)$.
+
+              So we solve
+              \begin{align*}
+                P(X > 3) &= 1 - P(X \le 3) \\
+                &= 1 - \left( P(X = 0) + P(X = 1) + P(X = 2) + P(X = 3) \right) \\
+                &= 1 - \left( e^{-8}\frac{8^0}{0!} + e^{-8}\frac{8^1}{1!} + e^{-8}\frac{8^2}{2!} + e^{-8}\frac{8^3}{3!} \right) \\
+                &\approx 1 - \left( 0.00033546 + 0.0026837 + 0.010735 + 0.028626 \right) \\
+                &\approx 0.95761
+              \end{align*}
+
+              Thus, the probability that more than 3 cars arrive in 2 seconds is 0.958.
           \end{enumerate}
         \item [17]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              Since we have two samples,
+              we compute $\lambda_M = \frac{14 + 11}{2} = \frac{25}{2} = 12.5$
+
+              So we estimate Mom's cookies have a mean of 12.5 chips per cookie.
             \item
+              Since we have two samples,
+              we compute $\lambda_G = \frac{6 + 8}{2} = \frac{14}{2} = 7$
+
+              So we estimate Grandma's cookies have a mean of 7 chips per cookie.
             \item
+              We solve $\sigma_{\lambda_M} = \sqrt{\frac{12.5}{2}} = \sqrt{6.25} = 2.5$.
+
+              So the uncertainty in our estimate of Mom's mean is 2.5 chips per cookie.
             \item
+              We solve $\sigma_{\lambda_M} = \sqrt{\frac{7}{2}} = \sqrt{3.5} \approx 1.8708286933869707$.
+
+              So the uncertainty in our estimate of Grandma's mean is approximately 1.87 chips per cookie.
             \item
+              We solve $\lambda_{M - G} = \lambda_M - \lambda_G = 12.5 - 7 = 5.5$
+
+              and $\sigma_{M - G} = \sqrt{\sigma_M^2 + \sigma_G^2} = \sqrt{6.25 + 3.5} = \sqrt{9.75} \approx 3.1225$.
+
+              So on average,
+              we estimate that Mom's cookies have 5.5 more chips than Grandma's
+              with an uncertainty of 3.12 chips per cookie.
           \end{enumerate}
       \end{enumerate}
     \item [$\S$ 4.4]
       \begin{enumerate}
         \item [4]
+          We have $X \sim Geom(0.4)$
           \begin{enumerate}[label=(\arabic*)]
             \item
+              $P(X = 3) = 0.4(1 - 0.4)^{3 - 1} = 0.4(0.6)^2 = 0.144$.
+
+              So the probability that a car goes three days without encountering a red light at the intersection is 0.144.
             \item
+              \begin{align*}
+                P(X \le 3) &= P(X = 0) + P(X = 1) + P(X = 2) + P(X = 3) \\
+                &= 0 + 0.4(1 - 0.4)^{1 - 1} + 0.4(1 - 0.4)^{2 - 1} + 0.4(1 - 0.4)^{3 - 1} \\
+                &= 0 + 0.4(0.6)^0+ 0.4(0.6)^1 + 0.4(0.6)^2 \\
+                &= 0 + 0.4 + 0.24 + 0.144 \\
+                &= 0.784
+              \end{align*}
+
+              So the probability that a car goes fewer than four days without encountering a red light at the intersection is 0.784.
             \item
+              $\mu_X = \frac{1}{0.4} = 2.5$.
+
+              So the mean number of days a car goes without encountering a red light at the intersection is 2.5.
             \item
+              $\sigma_X^2 = \frac{1 - 0.4}{0.4^2} = \frac{0.6}{0.4^2} = 3.75$.
+
+              So the variance is 3.75.
           \end{enumerate}
         \item [8]
+          We have $X \sim Geom(0.01)$
           \begin{enumerate}[label=(\arabic*)]
             \item
+              $\mu_X = \frac{1}{0.01} = 100$.
+
+              So the mean number of packages that will be filled before the process is stopped is 100.
             \item
+              $\sigma_X^2 = \frac{1 - 0.01}{0.01^2} = \frac{0.99}{0.01^2} = 9900$.
+
+              So the variance is 9900.
             \item
+              Now, we have $Y \sim NB(4, 0.01)$.
+
+              $\mu_Y = 4 \cdot \mu_X = 4 \cdot 100 = 400$
+
+              $\sigma_Y = 4 \cdot \mu_X = 4 \cdot 9900 = 39600$
+
+              So the mean number of packages that will be filled before the process is stopped is 400,
+              with a variance of 39600.
           \end{enumerate}
       \end{enumerate}
   \end{enumerate}
