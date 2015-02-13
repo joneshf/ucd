@@ -1,0 +1,151 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage{minted}
+\usepackage[title]{appendix}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{STA 032 R Homework 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Melcon\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[rData]{r}{ fontsize=\footnotesize
+                          , frame=single
+                          }
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          9.845806e-64
+        \item
+          0.02522502
+        \item
+          0.05937067
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          \begin{tabular}{| c | d |}
+            \hline
+            x  & \multicolumn{1}{| c |}{BinomialProb2(10, 0.10, x)} \\
+            \hline
+            0  & 0.3486784401 \\
+            \hline
+            1  & 0.3874204890 \\
+            \hline
+            2  & 0.1937102445 \\
+            \hline
+            3  & 0.0573956280 \\
+            \hline
+            4  & 0.0111602610 \\
+            \hline
+            5  & 0.0014880348 \\
+            \hline
+            6  & 0.0001377810 \\
+            \hline
+            7  & 0.0000087480 \\
+            \hline
+            8  & 0.0000003645 \\
+            \hline
+            9  & 0.0000000090 \\
+            \hline
+            10 &   0.0000000001 \\
+            \hline
+          \end{tabular}
+        \item
+          \begin{tabular}{| c | d |}
+            \hline
+            x & \multicolumn{1}{| c |}{BinomialProb2(6, 0.2, x)} \\
+            \hline
+            0 & 0.262144 \\
+            \hline
+            1 & 0.393216 \\
+            \hline
+            2 & 0.245760 \\
+            \hline
+            3 & 0.081920 \\
+            \hline
+            4 & 0.015360 \\
+            \hline
+            5 & 0.001536 \\
+            \hline
+            6 & 0.000064 \\
+            \hline
+          \end{tabular}
+        \item
+          \begin{tabular}{| c | d |}
+            \hline
+            x & \multicolumn{1}{| c |}{BinomialProb2(3, 0.5, x)} \\
+            \hline
+            0 & 0.125 \\
+            \hline
+            1 & 0.375 \\
+            \hline
+            2 & 0.375 \\
+            \hline
+            3 & 0.125 \\
+            \hline
+          \end{tabular}
+
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          0.5606259
+        \item
+          0.9347622
+        \item
+          0.9960579
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          \begin{enumerate}
+            \item
+              32
+            \item
+              10
+            \item
+              2
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \item
+              0.027032
+            \item
+              0.038524
+            \item
+              0.016892
+          \end{enumerate}
+      \end{enumerate}
+  \end{enumerate}
+
+  \include{appendix}
+
+\end{document}
