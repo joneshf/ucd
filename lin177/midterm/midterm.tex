@@ -11,6 +11,9 @@
 \usepackage[tone]{tipa}
 \usepackage{qtree}
 
+\usepackage{newunicodechar}
+\newunicodechar{ɾ}{\textfishhookr}
+
 \setlength{\droptitle}{-10ex}
 
 \preauthor{\begin{flushright}\large \lineskip 0.5em}
@@ -36,5 +39,19 @@
 
   \begin{enumerate}
     \item
+      The program that follows generates Castilian Spanish syllables.
+
+      It is important to generalize the generation to natural classes for many reasons.
+      \begin{itemize}
+        \item We are explicit in all possible syllables we can create.
+        \item We generate well formed syllables.
+        \item We do not generate incorrect syllables.
+        \item It is easier to reason about which syllables we can generate when we talk abstractly about natural classes.
+        \item We can make a simpler translation from the natural language rules to our program by thinking with natural classes.
+        \item Our program is simpler by not enumerating edge cases.
+        \item Our program is more maintainable and gives more reuse by allowing us to simply change which phones exist, and the properties they satisfy.
+      \end{itemize}
+
+      \prologfile{syllable.swipl}
   \end{enumerate}
 \end{document}

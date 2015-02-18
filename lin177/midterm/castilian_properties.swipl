@@ -29,12 +29,14 @@ consonant(l).
 consonant(m).
 consonant(n).
 consonant(p).
+consonant(r).
 consonant(s).
 consonant(t).
 consonant(w).
 consonant(x).
 consonant(č).
 consonant(ɲ).
+consonant(ɾ).
 consonant(ʎ).
 consonant(θ).
 

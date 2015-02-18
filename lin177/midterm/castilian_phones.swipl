@@ -1,3 +1,5 @@
+%% Defines all the phones available for Castilian Spanish.
+
 castilian_phone(p).
 castilian_phone(b).
 castilian_phone(m).
