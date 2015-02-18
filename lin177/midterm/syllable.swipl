@@ -1,0 +1,42 @@
+castilian_syllable(Syllable) :-
+    onset(Onset),
+    rhyme(Rhyme),
+    append(Onset, Rhyme, Syllable).
+
+%% `onset`s may be empty.
+onset([]).
+
+%% Every `consonant` is an `onset`.
+onset([Consonant]) :-
+    castilian_phone(Consonant),
+    consonant(Consonant).
+
+%% `pl`, `bl`, `kl`, and `gl` are `onset`s.
+onset([Consonant, L]) :-
+    castilian_phone(Consonant),
+    castilian_phone(L),
+    not(snt(X)),
+    not(continuant(X)),
+    not(cor(X)),
+    not(vibrant(X)),
+    alveolar(L),
+    not(nasal(L)),
+    not(sib(L)).
+
+rhyme(Rhyme) :-
+    nucleus(Nucleus),
+    coda(Coda),
+    append(Nucleus, Coda, Rhyme).
+
+%% Every `vowel` is a nucleus
+nucleus([Vowel]) :-
+    castilian_phone(Vowel),
+    not(consonant(Vowel)).
+
+%% `coda`s may be empty.
+coda([]).
+
+%% Every `consonant` is a `coda`.
+coda([Consonant]) :-
+    castilian_phone(Consonant),
+    consonant(Consonant).
