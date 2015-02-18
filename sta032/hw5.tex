@@ -330,13 +330,29 @@
               So the probability that the wait time is less than 5 minutes on exactly 4 of 10 days is approximately 0.1084\%.
           \end{enumerate}
         \item [2]
+          We have $\Omega \sim U(95, 103)$
           \begin{enumerate}[label=(\arabic*)]
             \item
+              The mean resistance is $\frac{103 - 95}{2} = 99 \Omega$.
             \item
+              The standard deviation is $\frac{103 - 95}{\sqrt{12}} \approx 2.3094 \Omega$
             \item
+              We want to find
+
+              \[
+                P(98 < \Omega < 102) = \frac{102 - 98}{103 - 95} = 0.5
+              \]
+
+              So the probability that the resistance is between 98 and 102 $\Omega$ is 50\%.
             \item
+              We want to find
+              \begin{align*}
+                P(\Omega > 100)^3 P(\Omega < 100)^6 &= \left(\frac{103 - 100}{103 - 95}\right)^3 \left(\frac{100 - 95}{103 - 95}\right)^6 = \left(\frac{3}{8}\right)^3 \left(\frac{5}{8}\right)^6 \\
+                &\approx 0.003143
+              \end{align*}
+
+              So the probability that the resistance is greater than 100 $\Omega$ on exactly 3 of 6 resistors is approximately 0.3143\%.
           \end{enumerate}
       \end{enumerate}
-
   \end{enumerate}
 \end{document}
