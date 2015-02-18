@@ -76,9 +76,10 @@
               So the female cat weight on the \nth{80} percentile is 4.61kg.
             \item
               We can find
-              \[
-                P(F > 4.5) = P\left(Z > \frac{4.5 - 4.1}{0.6}\right) \approx P(Z > 0.66) \approx P(Z < -0.66) \approx 0.2546
-              \]
+              \begin{align*}
+                P(F > 4.5) &= P\left(Z > \frac{4.5 - 4.1}{0.6}\right) \approx P(Z > 0.66) \approx P(Z < -0.66) \\
+                &\approx 0.2546
+              \end{align*}
 
               So the probability that a female cat chosen at random weighs more than 4.5kg is approximately 25.46\%.
             \item
@@ -92,17 +93,116 @@
               So the probability that exactly one of six females cats chosen at random weighs more than 4.5 kg is 5.86\%
           \end{enumerate}
         \item [20]
+          We have $X \sim N(200, 100)$
           \begin{enumerate}[label=(\arabic*)]
             \item
+              \[
+                P(X \le 160) = P\left(Z < \frac{160 - 200}{10}\right) = P\left(Z < \frac{-40}{10}\right) = P(Z < -4)
+              \]
+
+              Since the table only goes to -3.69 all we can say is that $P(Z < -4) < 0.0001$
+              So the probability of the strength being less than or equal to 160N is less than 0.01\%.
             \item
+              Yes, a strength of 160N would be unusually small.
+
+              Intuitively this makes sense, 160N is four standard deviations away from the the mean.
+              99.7\% of the strengths are within three standard deviations,
+              so it is natural to expect 160N to be unusually small.
             \item
+              Yes, this would be enough evidence.
+
+              The process is producing adhesive with strength far below the mean.
+              If a measurement is 160N, something is messing the process up.
           \end{enumerate}
         \item [21]
+          We have $R_1 \sim N(100, 25)$ and $R_2 \sim N(120, 100)$.
+
+          It will help to compute $R_2 - R_1 \sim N(120 - 100, 100 + 25) = N(20, 125)$
           \begin{enumerate}[label=(\arabic*)]
             \item
+              We need to solve $P(R_2 > R_1) = P(R_2 - R_1 > 0)$
+
+              \begin{align*}
+                P(R_2 - R_1 > 0) &= P\left(Z > \frac{0 - 20}{\sqrt{125}}\right) \\
+                &\approx P\left(Z > -1.79\right) \\
+                &\approx P\left(Z < 1.79\right) \\
+                &\approx 0.9633 \\
+              \end{align*}
+
+              So the probability that $R_2$ exceeds $R_1$ is approximately 96.33\%.
             \item
+              We need to solve $P(R_2 > R_1 + 30) = P(R_2 - R_1 > 30)$
+
+              \begin{align*}
+                P(R_2 - R_1 > 30) &= P\left(Z > \frac{30 - 20}{\sqrt{125}}\right) \\
+                &\approx P\left(Z > 0.89\right) \\
+                &\approx P\left(Z < -0.89\right) \\
+                &\approx 0.1867 \\
+              \end{align*}
+
+              So the probability that $R_2$ exceeds $R_1$ by 30 $\Omega$ is approximately 18.67\%.
           \end{enumerate}
         \item [26]
+          \begin{enumerate}
+            \item $k = 1$
+
+              \begin{align*}
+                P(|X - \mu| \ge \sigma) &= P(X - \mu < -\sigma \cup X - \mu > \sigma) \\
+                &= P(X - \mu < -\sigma) + P(X - \mu > \sigma) \\
+                &= P(X - \mu < -\sigma) + P(X - \mu > \sigma) \\
+                &= P(X < \mu - \sigma) + P(X > \mu + \sigma) \\
+                &= P\left(Z < \frac{\mu - \sigma - \mu}{\sigma}\right) + P\left(Z > \frac{\mu + \sigma - \mu}{\sigma}\right) \\
+                &= P(Z < -1) + P(Z > 1) \\
+                &= P(Z < -1) + P(Z < -1) \\
+                &= 2P(Z < -1) \\
+                &= 2(0.1587) \\
+                &= 0.3174 \\
+              \end{align*}
+
+              \[
+                \frac{1}{1^2} = 1
+              \]
+
+            \item $k = 2$
+
+              \begin{align*}
+                P(|X - \mu| \ge 2 \sigma) &= P(X - \mu < -2 \sigma \cup X - \mu > 2 \sigma) \\
+                &= P(X - \mu < -2 \sigma) + P(X - \mu > 2 \sigma) \\
+                &= P(X - \mu < -2 \sigma) + P(X - \mu > 2 \sigma) \\
+                &= P(X < \mu - 2 \sigma) + P(X > \mu + 2 \sigma) \\
+                &= P\left(Z < \frac{\mu - 2 \sigma - \mu}{\sigma}\right) + P\left(Z > \frac{\mu + 2 \sigma - \mu}{\sigma}\right) \\
+                &= P(Z < -2) + P(Z > 2) \\
+                &= P(Z < -2) + P(Z < -2) \\
+                &= 2P(Z < -2) \\
+                &= 2(0.0228) \\
+                &= 0.0456 \\
+              \end{align*}
+
+              \[
+                \frac{1}{2^2} = 0.25
+              \]
+
+            \item $k = 3$
+
+              \begin{align*}
+                P(|X - \mu| \ge 3 \sigma) &= P(X - \mu < -3 \sigma \cup X - \mu > 3 \sigma) \\
+                &= P(X - \mu < -3 \sigma) + P(X - \mu > 3 \sigma) \\
+                &= P(X - \mu < -3 \sigma) + P(X - \mu > 3 \sigma) \\
+                &= P(X < \mu - 3 \sigma) + P(X > \mu + 3 \sigma) \\
+                &= P\left(Z < \frac{\mu - 3 \sigma - \mu}{\sigma}\right) + P\left(Z > \frac{\mu + 3 \sigma - \mu}{\sigma}\right) \\
+                &= P(Z < -3) + P(Z > 3) \\
+                &= P(Z < -3) + P(Z < -3) \\
+                &= 2P(Z < -3) \\
+                &= 2(0.0013) \\
+                &= 0.0026 \\
+              \end{align*}
+
+              \[
+                \frac{1}{3^2} = 0.\overline{1}
+              \]
+          \end{enumerate}
+
+          So the actual probabilities are much smaller than Chebyshev's bound.
       \end{enumerate}
 
     \item [$\S$ 4.7]
