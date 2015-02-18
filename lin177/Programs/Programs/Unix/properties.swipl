@@ -2,30 +2,32 @@
 
 :- ['phone.swipl'].
 
-cns(A):- name(A,[112]).
-cns(A):- name(A,[098]).
-cns(A):- name(A,[109]).
-cns(A):- name(A,[116]).
-cns(A):- name(A,[100]).
-cns(A):- name(A,[110]).
-cns(A):- name(A,[107]).
-cns(A):- name(A,[103]).
-cns(A):- name(A,[331]).
-cns(A):- name(A,[102]).
-cns(A):- name(A,[118]).
-cns(A):- name(A,[952]).
-cns(A):- name(A,[240]).
-cns(A):- name(A,[115]).
-cns(A):- name(A,[122]).
-cns(A):- name(A,[643]).
-cns(A):- name(A,[658]).
-cns(A):- name(A,[269]).
-cns(A):- name(A,[496]).
-cns(A):- name(A,[108]).
-cns(A):- name(A,[633]).
-cns(A):- name(A,[106]).
-cns(A):- name(A,[119]).
-cns(A):- name(A,[104]).
+%% Consonant
+
+cns(A):- name(A,[098]). /*  (b,[098])  */
+cns(A):- name(A,[100]). /*  (d,[100])  */
+cns(A):- name(A,[102]). /*  (f,[102])  */
+cns(A):- name(A,[103]). /*  (g,[103])  */
+cns(A):- name(A,[104]). /*  (h,[104])  */
+cns(A):- name(A,[106]). /*  (j,[106])  */
+cns(A):- name(A,[107]). /*  (k,[107])  */
+cns(A):- name(A,[108]). /*  (l,[108])  */
+cns(A):- name(A,[109]). /*  (m,[109])  */
+cns(A):- name(A,[110]). /*  (n,[110])  */
+cns(A):- name(A,[112]). /*  (p,[112])  */
+cns(A):- name(A,[115]). /*  (s,[115])  */
+cns(A):- name(A,[116]). /*  (t,[116])  */
+cns(A):- name(A,[118]). /*  (v,[118])  */
+cns(A):- name(A,[119]). /*  (w,[119])  */
+cns(A):- name(A,[122]). /*  (z,[122])  */
+cns(A):- name(A,[240]). /*  (ð,[240])  */
+cns(A):- name(A,[269]). /*  (č,[269])  */
+cns(A):- name(A,[331]). /*  (ŋ,[331])  */
+cns(A):- name(A,[496]). /*  (ǰ,[496])  */
+cns(A):- name(A,[633]). /*  (ɹ,[633])  */
+cns(A):- name(A,[643]). /*  (ʃ,[643])  */
+cns(A):- name(A,[658]). /*  (ʒ,[658])  */
+cns(A):- name(A,[952]). /*  (θ,[952])  */
 
 
 snt(A):- name(A,[109]).
@@ -78,7 +80,7 @@ voi(A):- name(A,[097]).
 voi(A):- name(A,[601]).
 voi(A):- name(A,[652]).
 
-
+%% Continuant
 cnt(A):- name(A,[102]).
 cnt(A):- name(A,[118]).
 cnt(A):- name(A,[952]).
@@ -103,7 +105,7 @@ cnt(A):- name(A,[097]).
 cnt(A):- name(A,[601]).
 cnt(A):- name(A,[652]).
 
-
+%% Labial
 lab(A):- name(A,[112]).
 lab(A):- name(A,[098]).
 lab(A):- name(A,[109]).
@@ -111,7 +113,7 @@ lab(A):- name(A,[102]).
 lab(A):- name(A,[118]).
 lab(A):- name(A,[119]).
 
-
+%% Alveolar
 alv(A):- name(A,[116]).
 alv(A):- name(A,[100]).
 alv(A):- name(A,[110]).
@@ -120,14 +122,14 @@ alv(A):- name(A,[122]).
 alv(A):- name(A,[108]).
 alv(A):- name(A,[633]).
 
-
+%% Palatal
 pal(A):- name(A,[643]).
 pal(A):- name(A,[658]).
 pal(A):- name(A,[269]).
 pal(A):- name(A,[496]).
 pal(A):- name(A,[633]).
 pal(A):- name(A,[106]).
- 
+
 
 ant(A):- name(A,[112]).
 ant(A):- name(A,[098]).
@@ -205,12 +207,12 @@ tns(A):- name(A,[105]).
 tns(A):- name(A,[117]).
 
 
-str(A):- name(A,[105]).
-str(A):- name(A,[618]).
-str(A):- name(A,[101]).
-str(A):- name(A,[230]).
-str(A):- name(A,[117]).
-str(A):- name(A,[650]).
-str(A):- name(A,[111]).
 str(A):- name(A,[097]).
+str(A):- name(A,[101]).
+str(A):- name(A,[105]).
+str(A):- name(A,[111]).
+str(A):- name(A,[117]).
+str(A):- name(A,[230]).
+str(A):- name(A,[618]).
+str(A):- name(A,[650]).
 str(A):- name(A,[652]).
