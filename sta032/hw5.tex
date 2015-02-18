@@ -1,0 +1,148 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage{siunitx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{STA 032 Homework 5\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Melcon\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [$\S$ 4.5]
+      \begin{enumerate}
+        \item [8]
+          We have $F \sim N(4.1, 0.36)$
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+              We can find
+              \begin{align*}
+                P(3.7 < F < 4.4) &= P(F < 4.4) - P(F > 3.7) \\
+                &= P\left(Z < \frac{4.4 - 4.1}{0.6}\right) -  P\left(Z < \frac{3.7 - 4.1}{0.6}\right) \\
+                &= P\left(Z < \frac{0.3}{0.6}\right) -  P\left(Z < \frac{- 0.4}{0.6}\right) \\
+                &= P\left(Z < \frac{1}{2}\right) -  P\left(Z < \frac{-2}{3}\right) \\
+                &\approx 0.6915 -  0.2546 \\
+                &\approx 0.4369 \\
+              \end{align*}
+
+              So approximately 43.69\% of the female cats are between 3.7 kg and 4.4 kg.
+            \item
+              We just need to find
+              \[
+                P(Z > 0.5) = 1 - P(Z < 0.5) \approx 1 - 0.6915 \approx 0.3085
+              \]
+
+              So approximately 30.85\% of the female cats are heavier than 0.5 standard deviations above the mean.
+            \item
+              We need to first find the closest area to 0.8.
+              The closest area is 0.8023.
+              This area corresponds to a z-score of 0.85.
+
+              Now we just work backwards
+
+              \begin{align*}
+                0.85 &= \frac{x - 4.1}{0.6} \\
+                0.85(0.6) + 4.1 &= x \\
+                4.61 &= x \\
+              \end{align*}
+
+              So the female cat weight on the \nth{80} percentile is 4.61kg.
+            \item
+              We can find
+              \[
+                P(F > 4.5) = P\left(Z > \frac{4.5 - 4.1}{0.6}\right) \approx P(Z > 0.66) \approx P(Z < -0.66) \approx 0.2546
+              \]
+
+              So the probability that a female cat chosen at random weighs more than 4.5kg is approximately 25.46\%.
+            \item
+              We assume that the sample is large enough that each choice is independent.
+
+              We want to find
+              \[
+                P(F > 4.5) P(F < 4.5)^5 \approx 0.2546 (1 - 0.2546)^5 \approx 0.2546 (0.7475)^5 \approx 0.05858
+              \]
+
+              So the probability that exactly one of six females cats chosen at random weighs more than 4.5 kg is 5.86\%
+          \end{enumerate}
+        \item [20]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+          \end{enumerate}
+        \item [21]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+          \end{enumerate}
+        \item [26]
+      \end{enumerate}
+
+    \item [$\S$ 4.7]
+      \begin{enumerate}
+        \item [2]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+            \item
+            \item
+            \item
+          \end{enumerate}
+        \item [4]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+            \item
+            \item
+          \end{enumerate}
+      \end{enumerate}
+
+    \item [$\S$ 4.8]
+      \begin{enumerate}
+        \item [1]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+            \item
+          \end{enumerate}
+        \item [2]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+            \item
+          \end{enumerate}
+      \end{enumerate}
+
+  \end{enumerate}
+\end{document}
