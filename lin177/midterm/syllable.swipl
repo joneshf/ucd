@@ -1,7 +1,8 @@
 castilian_syllable(Syllable) :-
     onset(Onset),
-    rhyme(Rhyme),
-    append(Onset, Rhyme, Syllable).
+    nucleus(Nucleus),
+    coda(Coda),
+    append([Onset, Nucleus, Coda], Syllable).
 
 %% `onset`s may be empty.
 onset([]).
@@ -13,20 +14,25 @@ onset([Consonant]) :-
 
 %% `pl`, `bl`, `kl`, and `gl` are `onset`s.
 onset([Consonant, L]) :-
-    castilian_phone(Consonant),
-    castilian_phone(L),
-    not(snt(X)),
-    not(continuant(X)),
-    not(cor(X)),
-    not(vibrant(X)),
-    alveolar(L),
-    not(nasal(L)),
-    not(sib(L)).
+    nonsnt_noncontinuant_noncor_nonvibrant(Consonant),
+    alveolar_nonnasal_nonsib(L).
 
-rhyme(Rhyme) :-
-    nucleus(Nucleus),
-    coda(Coda),
-    append(Nucleus, Coda, Rhyme).
+%% `pɾ`, `bɾ`, `tɾ`, `dɾ`, `kɾ`, and `gɾ` are `onset`s.
+onset([Consonant, R]) :-
+    castilian_phone(Consonant),
+    not(snt(Consonant)),
+    not(continuant(Consonant)),
+    not(palatal(Consonant)),
+    not(vibrant(Consonant)),
+    nontensed_vibrant(R).
+
+%% `fl` and `fɾ` are `onset`s.
+onset([Consonant, LorR]) :-
+    castilian_phone(Consonant),
+    not(voi(Consonant)),
+    continuant(Consonant),
+    labial(Consonant),
+    (alveolar_nonnasal_nonsib(LorR); nontensed_vibrant(LorR)).
 
 %% Every `vowel` is a nucleus
 nucleus([Vowel]) :-
@@ -40,3 +46,24 @@ coda([]).
 coda([Consonant]) :-
     castilian_phone(Consonant),
     consonant(Consonant).
+
+%% Given the phones, currently matches `p`, `b`, `k`, `g`.
+nonsnt_noncontinuant_noncor_nonvibrant(Consonant) :-
+    castilian_phone(Consonant),
+    not(snt(Consonant)),
+    not(continuant(Consonant)),
+    not(cor(Consonant)),
+    not(vibrant(Consonant)).
+
+%% Given the phones, currently matches `l`.
+alveolar_nonnasal_nonsib(L) :-
+    castilian_phone(L),
+    alveolar(L),
+    not(nasal(L)),
+    not(sib(L)).
+
+%% Given the phones, currently matches `ɾ`.
+nontensed_vibrant(R) :-
+    castilian_phone(R),
+    vibrant(R),
+    not(tense(R)).
