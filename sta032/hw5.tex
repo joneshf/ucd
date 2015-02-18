@@ -208,21 +208,98 @@
     \item [$\S$ 4.7]
       \begin{enumerate}
         \item [2]
+          We have $Req \sim Exp(\lambda)$ and $\mu_{Req} = 0.5$
           \begin{enumerate}[label=(\arabic*)]
             \item
+              \[
+                \lambda = \frac{1}{\mu_{Req}} = 2
+              \]
             \item
+              We want to find
+              \begin{align*}
+                P(Req < x_{50}) &= 0.5 \\
+                1 - e^{-2x_{50}} &= \\
+                0.5 &= e^{-2x_{50}} \\
+                \ln 2 &= 2x_{50} \\
+                \frac{\ln 2}{2} &= x_{50} \\
+                0.3466 &\approx
+              \end{align*}
+
+              So the median time between requests is approximately 0.3466 seconds.
             \item
+              The standard deviation is the same as the mean, 0.5 seconds.
             \item
+              We want to find
+              \begin{align*}
+                P(Req < x_{80}) &= 0.8 \\
+                1 - e^{-2x_{80}} &= \\
+                0.2 &= e^{-2x_{80}} \\
+                1.6094 &\approx 2x_{80} \\
+                \frac{1.6094}{2} &\approx x_{80} \\
+                0.8047 &\approx
+              \end{align*}
+
+              So the \nth{80} percentile time between requests is approximately 0.8047 seconds.
             \item
+              We want to find
+              \[
+                P(Req > 1) = e^{-2(1)} \approx 0.1353
+              \]
+
+              So the probability of more than one second elapsing between requests is 13.53\%.
             \item
+              Since exponential distributions have no concept of memory,
+              we have the same result as the previous question.
+
+              If two seconds have elapsed since the last request,
+              the probability of another second elapsing before the next request is 13.53\%.
           \end{enumerate}
         \item [4]
+          We have $D \sim Exp(\lambda)$ and $\mu_D = 12$.
+
+          Thus, $\lambda = \frac{1}{12} = 0.08\overline{3}$
           \begin{enumerate}[label=(\arabic*)]
             \item
+              We want to find
+
+              \[
+                P(D > 15) = e^{-\frac{15}{12}} \approx 0.2865
+              \]
+
+              So the probability that the distance between two flaws is greater than 15m is approximately 28.65\%.
             \item
+              We want to find
+
+              \[
+                P(8 < D < 20) = P(D < 20) - P(D > 8) = 1 - e^{-\frac{20}{12}} - e^{-\frac{8}{12}} \approx 0.2977
+              \]
+
+              So the probability that the distance between two flaws is between 8m and 20m is approximately 29.77\%.
             \item
+              We want to find
+              \begin{align*}
+                P(D < x_{50}) &= 0.5 \\
+                1 - e^{-\frac{x_{50}}{12}} &= \\
+                0.5 &= e^{-\frac{x_{50}}{12}} \\
+                \ln 2 &= \frac{x_{50}}{12} \\
+                12 \ln 2 &= x_{50} \\
+                8.3178 &\approx
+              \end{align*}
+
+              So the median distance between flaws is approximately 8.3178m.
             \item
+              The standard deviation is the same as the mean 12m.
             \item
+              We want to find
+              \begin{align*}
+                P(Req < x_{65}) &= 0.65 \\
+                1 - e^{-\frac{x_{65}}{12}} &= \\
+                0.35 &= e^{-\frac{x_{65}}{12}} \\
+                1.0498 &\approx \frac{x_{65}}{12} \\
+                12.5979 &\approx x_{65} \\
+              \end{align*}
+
+              So the \nth{65} percentile distance between flaws is approximately 12.5979m.
           \end{enumerate}
       \end{enumerate}
 
