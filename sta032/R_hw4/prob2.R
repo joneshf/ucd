@@ -1,0 +1,1 @@
+LynxData <- as.numeric(lynx)
