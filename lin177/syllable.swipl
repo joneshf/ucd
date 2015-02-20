@@ -1,0 +1,111 @@
+%% Lin 177 Midterm
+%% Hardy Jones
+%% 999397426
+
+%% Generates Castilian Spanish syllables using natural classes.
+
+:- ['castilian_phones.swipl'].
+:- ['castilian_properties.swipl'].
+
+castilian_syllable(Syllable) :-
+    onset(Onset),
+    nucleus(Nucleus),
+    coda(Coda),
+    append([Onset, Nucleus, Coda], Syllable).
+
+%% Rule 2.
+%% Every `consonant` is an `onset`.
+onset([Consonant]) :-
+    castilian_phone(Consonant),
+    consonant(Consonant).
+
+%% Rule 3.
+%% `pl`, `bl`, `kl`, and `gl` are `onset`s.
+onset([Consonant, L]) :-
+    nonsnt_noncontinuant_noncor_nonvibrant(Consonant),
+    alveolar_nonnasal_nonsib(L).
+
+%% Rule 4.
+%% `pɾ`, `bɾ`, `tɾ`, `dɾ`, `kɾ`, and `gɾ` are `onset`s.
+onset([Consonant, R]) :-
+    castilian_phone(Consonant),
+    not(snt(Consonant)),
+    not(continuant(Consonant)),
+    not(palatal(Consonant)),
+    not(vibrant(Consonant)),
+    nontensed_vibrant(R).
+
+%% Rule 5.
+%% `fl` and `fɾ` are `onset`s.
+onset([Consonant, LorR]) :-
+    castilian_phone(Consonant),
+    not(voi(Consonant)),
+    continuant(Consonant),
+    labial(Consonant),
+    (alveolar_nonnasal_nonsib(LorR); nontensed_vibrant(LorR)).
+
+%% Rule 6.
+%% `onset`s may be empty.
+onset([]).
+
+%% Rule 7.
+%% Every `vowel` is a nucleus
+nucleus([Vowel]) :-
+    castilian_phone(Vowel),
+    not(consonant(Vowel)).
+
+%% Rule 8.
+%% `coda`s may be empty.
+coda([]).
+
+%% Rule 9.
+%% Every `consonant` is a `coda`.
+coda([Consonant]) :-
+    castilian_phone(Consonant),
+    consonant(Consonant).
+
+%% Rule 10.
+%% `ps`, `bs`, `ks`, and `gs` are `coda`s.
+coda([Consonant, S]) :-
+    nonsnt_noncontinuant_noncor_nonvibrant(Consonant),
+    nonvoi_continuant_alveolar(S).
+
+%% Rule 11.
+%% `ns` and `ɾs` are `coda`s.
+coda([NorR, S]) :-
+    (alveolar_noncontinuant(NorR); nontensed_vibrant(NorR)),
+    nonvoi_continuant_alveolar(S).
+
+%% Given the phones, currently matches `p`, `b`, `k`, and `g`.
+nonsnt_noncontinuant_noncor_nonvibrant(Consonant) :-
+    castilian_phone(Consonant),
+    not(snt(Consonant)),
+    not(continuant(Consonant)),
+    not(cor(Consonant)),
+    not(vibrant(Consonant)).
+
+%% Given the phones, currently matches `l`.
+alveolar_noncontinuant(N) :-
+    castilian_phone(N),
+    alveolar(N),
+    not(continuant(N)).
+
+%% Given the phones, currently matches `l`.
+alveolar_nonnasal_nonsib(L) :-
+    castilian_phone(L),
+    alveolar(L),
+    not(nasal(L)),
+    not(sib(L)).
+
+%% Given the phones, currently matches `ɾ`.
+nontensed_vibrant(R) :-
+    castilian_phone(R),
+    vibrant(R),
+    not(tense(R)).
+
+%% Given the phones, currently matches `s`.
+nonvoi_continuant_alveolar(S) :-
+    castilian_phone(S),
+    not(voi(S)),
+    continuant(S),
+    alveolar(S).

@@ -10,6 +10,7 @@
 \usepackage{minted}
 \usepackage[tone]{tipa}
 \usepackage{qtree}
+\usepackage[super]{nth}
 
 \usepackage{newunicodechar}
 \newunicodechar{ɾ}{\textfishhookr}
@@ -52,6 +53,63 @@
         \item Our program is more maintainable and gives more reuse by allowing us to simply change which phones exist, and the properties they satisfy.
       \end{itemize}
 
-      \prologfile{syllable.swipl}
+      Some output from the program.
+
+      \prologfile{output.swipl}
+
+
+    \item
+      We first look at how many possible syllables there are
+
+      \prologfile{maximum_syllables.swipl}
+
+      So, there are 4455 possible syllables.
+
+      Now we choose maybe 5 values evenly spread from 0 to 4455 and compute how many iterations it took to compute the specific syllable.
+
+      \prologfile{inferences.swipl}
+
+      We can tabulate these in order to digest the information easier.
+
+      \begin{tabular}{| l | r | r |}
+        \hline
+        syllable & rank & inferences \\
+        \hline
+        \hline
+        [p, a]       & 1    & 630 \\
+        \hline
+        [m, o, g]    & 500  & 941 \\
+        \hline
+        [n, i]       & 1000 & 630 \\
+        \hline
+        [s, a, x]    & 1500 & 941 \\
+        \hline
+        [x, u, p]    & 2000 & 941 \\
+        \hline
+        [r, i, l]    & 2500 & 941 \\
+        \hline
+        [b, l, e, b] & 3000 & 1,252 \\
+        \hline
+        [p, ɾ, u, ʎ] & 3500 & 1,252 \\
+        \hline
+        [k, ɾ, o, m] & 4000 & 1,252 \\
+        \hline
+        [f, ɾ, u, ɾ, s] & 4455 & 1,563 \\
+        \hline
+      \end{tabular}
+
+      What we see is that no matter what syllable we want to compute, it takes very few inferences. Since the number of inferences does not grow with the rank, we assume that there is some upper bound to the computational steps taken to compute each syllable. From the data, it appears to have an upper bound of 1,563 computational steps.
+
+      What this means is that no matter how complex a syllable we want to construct, we can do it in a at most 1,563 steps.
+      This is quite a good result. This means our program is very efficient.
+
+      We could compare this with some other programs that might grow in computational steps with the complexity of the syllable being generated.
+      Some programs grow linearly, meaning if you wanted the \nth{10,000} rank syllable, it would take some constant factor more computational steps than the \nth{5,000} syllable.
+      Our program however, does not care if you want the \nth{1} syllable or the \nth{4,000} syllable, it still will generate it in some constant amount of time.
+
+      This is powerful because we can put an upper bound on the amount of time it will take to compute any number of syllables.
+      More importantly, we can ensure that we actually WILL generate any finite number of syllables. We just have to wait a maximum of 1,563 steps for each syllable we want to generate.
+
+      So, our program is efficient!
   \end{enumerate}
 \end{document}

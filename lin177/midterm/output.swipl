@@ -1,0 +1,2 @@
+?- findall(X, castilian_syllable(X), Syl).
+Syl = [[p, a], [p, a, p], [p, a, b], [p, a, m], [p, a, f], [p, a, t]|...].

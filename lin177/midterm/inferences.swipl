@@ -1,0 +1,49 @@
+?- findall(X, castilian_syllable(X), Syls), nth1(1, Syls, Syl), time(Syl).
+% 630 inferences, 0.001 CPU in 0.001 seconds (100% CPU, 539376 Lips)
+Syls = [[p, a], [p, a, p], [p, a, b], [p, a, m], [p, a, f], [p, a, t]|...],
+Syl = [p, a].
+
+?- findall(X, castilian_syllable(X), Syls), nth1(500, Syls, Syl), time(Syl).
+% 941 inferences, 0.001 CPU in 0.001 seconds (100% CPU, 878635 Lips)
+Syls = [[a], [a, p], [a, b], [a, m], [a, f], [a, t], [a, d], [a|...]|...],
+Syl = [m, o, g].
+
+?- findall(X, castilian_syllable(X), Syls), nth1(1000, Syls, Syl), time(Syl).
+% 630 inferences, 0.002 CPU in 0.002 seconds (95% CPU, 291864 Lips)
+Syls = [[a], [a, p], [a, b], [a, m], [a, f], [a, t], [a, d], [a|...]|...],
+Syl = [n, i].
+
+?- findall(X, castilian_syllable(X), Syls), nth1(1500, Syls, Syl), time(Syl).
+% 941 inferences, 0.001 CPU in 0.001 seconds (100% CPU, 872011 Lips)
+Syls = [[a], [a, p], [a, b], [a, m], [a, f], [a, t], [a, d], [a|...]|...],
+Syl = [s, a, x].
+
+?- findall(X, castilian_syllable(X), Syls), nth1(2000, Syls, Syl), time(Syl).
+% 941 inferences, 0.002 CPU in 0.002 seconds (99% CPU, 500559 Lips)
+Syls = [[a], [a, p], [a, b], [a, m], [a, f], [a, t], [a, d], [a|...]|...],
+Syl = [x, u, p].
+
+?- findall(X, castilian_syllable(X), Syls), nth1(2500, Syls, Syl), time(Syl).
+% 941 inferences, 0.001 CPU in 0.001 seconds (99% CPU, 770898 Lips)
+Syls = [[a], [a, p], [a, b], [a, m], [a, f], [a, t], [a, d], [a|...]|...],
+Syl = [r, i, l].
+
+?- findall(X, castilian_syllable(X), Syls), nth1(3000, Syls, Syl), time(Syl).
+% 1,252 inferences, 0.001 CPU in 0.001 seconds (100% CPU, 981207 Lips)
+Syls = [[a], [a, p], [a, b], [a, m], [a, f], [a, t], [a, d], [a|...]|...],
+Syl = [b, l, e, b].
+
+?- findall(X, castilian_syllable(X), Syls), nth1(3500, Syls, Syl), time(Syl).
+% 1,252 inferences, 0.001 CPU in 0.001 seconds (99% CPU, 969015 Lips)
+Syls = [[a], [a, p], [a, b], [a, m], [a, f], [a, t], [a, d], [a|...]|...],
+Syl = [p, ɾ, u, ʎ].
+
+?- findall(X, castilian_syllable(X), Syls), nth1(4000, Syls, Syl), time(Syl).
+% 1,252 inferences, 0.001 CPU in 0.001 seconds (100% CPU, 1010241 Lips)
+Syls = [[a], [a, p], [a, b], [a, m], [a, f], [a, t], [a, d], [a|...]|...],
+Syl = [k, ɾ, o, m].
+
+?- findall(X, castilian_syllable(X), Syls), nth1(4455, Syls, Syl), time(Syl).
+% 1,563 inferences, 0.001 CPU in 0.001 seconds (98% CPU, 1091157 Lips)
+Syls = [[a], [a, p], [a, b], [a, m], [a, f], [a, t], [a, d], [a|...]|...],
+Syl = [f, ɾ, u, ɾ, s].
