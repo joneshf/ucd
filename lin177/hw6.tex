@@ -1,0 +1,123 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{minted}
+\usepackage[tone]{tipa}
+\usepackage{qtree}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{LIN 177 Homework 6\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Ojeda\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[prologfile]{prolog}{ fontsize=\footnotesize
+                                    , frame=single
+                                    }
+  \newmint[prolog]{prolog}{ fontsize=\footnotesize
+                          , frame=single
+                          }
+
+  \begin{enumerate}
+    \item
+      One such program is as follows:
+
+      \prologfile{counterrevolutionary.swipl}
+
+      The output of this program is:
+
+      \prologfile{counterrevolutionary_output.swipl}
+
+    \pagebreak
+
+    \item
+      One such program is as follows:
+
+      \prologfile{caribbean_suffix.swipl}
+
+      The output of this program is:
+
+      \prologfile{caribbean_suffix_output.swipl}
+
+    \pagebreak
+
+    \item
+      One such program is as follows:
+
+      \prologfile{dutch_noun.swipl}
+
+      The output of this program is:
+
+      \prologfile{dutch_noun_output.swipl}
+
+    \item
+      The states that allow friggin' infixation are:
+      \begin{itemize}
+        \item Ala-friggin'-bama
+        \item Ari-friggin'-zona
+        \item Cali-friggin'-fornia
+        \item Colo-friggin'-rado
+        \item Dela-friggin'-ware
+        \item Flori-friggin'-da
+        \item Ida-friggin'-ho
+        \item Illi-friggin'-nois
+        \item Indi-friggin'-ana
+        \item Ken-friggin'-tucky
+        \item Louisi-friggin'-ana
+        \item Mary-friggin'-land
+        \item Massa-friggin'-chusetts
+        \item Michi-friggin'-gan
+        \item Minne-friggin'-sota
+        \item Missi-friggin'-ssippi
+        \item Mon-friggin'-tana
+        \item Ne-friggin'-braska
+        \item Ne-friggin'-vada
+        \item New-friggin'-hampshire or New Hamp-friggin'-shire
+        \item New-friggin'-Jersey
+        \item New-friggin'-Mexico or New Mexi-friggin'-co
+        \item New-friggin'-York
+        \item North-friggin'-carolina or North Caro-friggin'-lina
+        \item North-friggin'-dakota
+        \item O-friggin'-hio
+        \item Okla-friggin'-homa
+        \item Pennsyl-friggin'-vania
+        \item Rhode-friggin'-Island
+        \item South-friggin'-Carolina or South Caro-friggin'-lina
+        \item South-friggin'-Dakota
+        \item Tenne-friggin'-ssee
+        \item Ver-friggin'-mont
+        \item Vir-friggin'-ginia
+        \item Washing-friggin'-ton
+        \item West-friggin'-Virginia or West Vir-friggin'-ginia
+        \item Wis-friggin'-consin
+        \item Wy-friggin'-oming
+      \end{itemize}
+
+      \pagebreak
+
+      One such program for this is as follows:
+
+      \prologfile{friggin_states.swipl}
+
+      The output of this program is:
+
+      \prologfile{friggin_states_output.swipl}
+
+  \end{enumerate}
+\end{document}

@@ -1,0 +1,26 @@
+carribean([m, o, m, e, n, t], [stem]).
+carribean([p, o, k], [stem]).
+
+carribean([i, t], [affix, diminutive]).
+carribean([i, k], [affix, diminutive]).
+
+carribean([o], [affix, masculine]).
+
+carribean(Carribean, [stem]):-
+    append(Stem, Dim, Carribean),
+    last(Dim, t),
+    last(Stem, k),
+    carribean(Dim, [affix, diminutive]),
+    carribean(Stem, [stem]).
+
+carribean(Carribean, [stem]):-
+    append(Stem, Dim, Carribean),
+    last(Dim, k),
+    last(Stem, t),
+    carribean(Dim, [affix, diminutive]),
+    carribean(Stem, [stem]).
+
+carribean(Carribean, [noun, masculine]):-
+    append(Stem, Affix, Carribean),
+    carribean(Stem, [stem]),
+    carribean(Affix, [affix, masculine]).

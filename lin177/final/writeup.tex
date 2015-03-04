@@ -1,0 +1,70 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{minted}
+\usepackage[tone]{tipa}
+\usepackage{qtree}
+\usepackage[super]{nth}
+
+\usepackage{newunicodechar}
+\newunicodechar{ɾ}{\textfishhookr}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{LIN 177 Term Project Proposal\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Ojeda\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  For my term project I would like to create a program that translates between ASL and English.
+  This seems like an interesting project for a few reasons:
+
+  \begin{itemize}
+    \item ASL is not actually a written language. More on that below.
+    \item I will learn how to implement a language from first principles.
+    \item I get a chance to learn two additional languages.
+  \end{itemize}
+
+  To implement this program in Prolog, I need a textual representation of ASL.
+  Unfortunately, no standard language exists.
+  However, there are at least two choices that should work.
+
+  \begin{description}
+    \item [Stokoe Notation] \
+
+      \begin{itemize}
+        \item This is considered the original ASL language.
+        \item It has the benefit of being well documented and lots of material is available.
+      \end{itemize}
+
+    \item [SLIPA] \
+
+      \begin{itemize}
+        \item This is the sign language equivalent of IPA.
+        \item This seems more fundamental, and could later be extended to work with other sign languages
+      \end{itemize}
+  \end{description}
+
+  Both of these options have ASCII formats,
+  so it should be possible to use them in prolog.
+
+  For the program, I would like it to translate at least simple sentences.
+  In the same style as \texttt{spanish.swipl},
+  I plan to associate a sign and category with an english sound and meaning.
+
+\end{document}

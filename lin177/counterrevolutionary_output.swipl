@@ -1,0 +1,3 @@
+?- counterrevolutionary(X).
+X = counterrevolutionary ;
+X = counterrevolutionary.

@@ -6,16 +6,16 @@
 :- ['fulldisplay.swipl'].
 
 
-english([bart ], [nom,cls], 
+english([bart ], [nom,cls],
 	[R :: allsuch(X,(allsuch(Y,bearer(Y,[bart]),Z),includes(X,Z)),R)]).
 
-english([homer], [nom,cls], 
+english([homer], [nom,cls],
 	[R :: allsuch(X,(allsuch(Y,bearer(Y,[homer]),Z),includes(X,Z)),R)]).
 
-english([lisa ], [nom,cls], 
+english([lisa ], [nom,cls],
 	[R :: allsuch(X,(allsuch(Y,bearer(Y,[lisa]),Z),includes(X,Z)),R)]).
 
-english([marge], [nom,cls], 
+english([marge], [nom,cls],
 	[R :: allsuch(X,(allsuch(Y,bearer(Y,[marge]),Z),includes(X,Z)),R)]).
 
 english([is], [vbl,wrd,cop,fin], _).
@@ -32,15 +32,15 @@ english(SO,[nom,cls,SUBCAT], ME):-
 	english(SO2,[nom,cls       ], ME),
 	append(SO1,SO2,SO).
 
-english(SO, [vbl,phr,act,INF], [R :: 
-	allsuch(X,(S1,S2,member([X,_],R1), 
+english(SO, [vbl,phr,act,INF], [R ::
+	allsuch(X,(S1,S2,member([X,_],R1),
 	allsuch(Y,member([X,Y],R1),Z),member(Z,R2)),R)]):-
 		english(SO1, [vbl,wrd,act,INF], [R1 :: S1]),
 		english(SO2, [nom,cls        ], [R2 :: S2]),
 		append(SO1,   SO2, SO).
 
-english(SO, [vbl,phr,pas,pap], [R :: 
-	allsuch(X,(S1,S2,member([X,_],R1), 
+english(SO, [vbl,phr,pas,pap], [R ::
+	allsuch(X,(S1,S2,member([X,_],R1),
 	allsuch(Y,member([X,Y],R1),Z),member(Z,R2)),R)]):-
 		english(SO1, [vbl,wrd,pas,pap], [R1 :: S1]),
 		english(SO2, [nom,cls,015    ], [R2 :: S2]),

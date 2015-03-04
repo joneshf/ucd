@@ -1,0 +1,62 @@
+feet(alabama, [ala, bama]).
+feet(alaska, [alaska]).
+feet(arizona, [ari, zona]).
+feet(arkansas, [arkansas]).
+feet(california, [cali, fornia]).
+feet(colorado, [colo, rado]).
+feet(connecticut, [connecticut]).
+feet(delaware, [dela, ware]).
+feet(florida, [flori, da]).
+feet(georgia, [georgia]).
+feet(hawaii, [hawaii]).
+feet(idaho, [ida, ho]).
+feet(illinois, [illi, nois]).
+feet(indiana, [indi, ana]).
+feet(iowa, [iowa]).
+feet(kansas, [kansas]).
+feet(kentucky, [ken, tucky]).
+feet(louisiana, [louisi, ana]).
+feet(maine, [maine]).
+feet(maryland, [mary, land]).
+feet(massachusetts, [massa, chusetts]).
+feet(michigan, [michi, gan]).
+feet(minnesota, [minne, sota]).
+feet(mississippi, [missi, ssippi]).
+feet(missouri, [missouri]).
+feet(montana, [mon, tana]).
+feet(nebraska, [ne, braska]).
+feet(nevada, [ne, vada]).
+feet(new-hampshire, [new, hamp, shire]).
+feet(new-jersey, [new, jersey]).
+feet(new-mexico, [new, mexi, co]).
+feet(new-york, [new, york]).
+feet(north-carolina, [north, caro, lina]).
+feet(north-dakota, [north, dakota]).
+feet(ohio, [o, hio]).
+feet(oklahoma, [okla, homa]).
+feet(oregon, [oregon]).
+feet(pennsylvania, [pennsyl, vania]).
+feet(rhode-island, [rhode, island]).
+feet(south-carolina, [south, caro, lina]).
+feet(south-dakota, [south, dakota]).
+feet(tennessee, [tenne, ssee]).
+feet(texas, [texas]).
+feet(utah, [utah]).
+feet(vermont, [ver, mont]).
+feet(virginia, [vir, ginia]).
+feet(washington, [washing, ton]).
+feet(west-virginia, [west, vir, ginia]).
+feet(wisconsin, [wis, consin]).
+feet(wyoming, [wy, oming]).
+
+friggin(State, FrigginState) :-
+    %% Get all the states with more than one foot.
+    feet(State, [FirstFoot|Feet1]),
+    %% Get a list of just the middle sections.
+    append(Feet2, [LastFoot], Feet1),
+    %% Try different `-friggin-` in different positions.
+    select('-friggin\'-', Frigged, Feet2),
+    %% Shove everything into a list.
+    append([[FirstFoot], Frigged, [LastFoot]], Atoms),
+    %% Concat it back together into a single atom.
+    atomic_list_concat(Atoms, FrigginState).

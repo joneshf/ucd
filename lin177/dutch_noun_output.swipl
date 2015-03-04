@@ -1,0 +1,18 @@
+?- dutch(X, Y).
+X = [b,e,e,n],
+Y = [noun,individual] ;
+X = [b,e,r,g],
+Y = [noun,individual] ;
+X = [s,t,e,e,n],
+Y = [noun,individual] ;
+X = [d,i,e,r],
+Y = [noun,individual] ;
+X = [g,e,b,e,e,n,t,e],
+Y = [noun,collective] ;
+X = [g,e,b,e,r,g,t,e],
+Y = [noun,collective] ;
+X = [g,e,s,t,e,e,n,t,e],
+Y = [noun,collective] ;
+X = [g,e,d,i,e,r,t,e],
+Y = [noun,collective] ;
+false.

@@ -1,0 +1,8 @@
+?- carribean(X, [noun, masculine]).
+X = [p,o,k,o] ;
+X = [p,o,k,i,t,o] ;
+X = [m,o,m,e,n,t,o] ;
+X = [p,o,k,i,t,i,k,o] ;
+X = [m,o,m,e,n,t,i,k,o] ;
+X = [p,o,k,i,t,i,k,i,t,o] ;
+X = [m,o,m,e,n,t,i,k,i,t,o]

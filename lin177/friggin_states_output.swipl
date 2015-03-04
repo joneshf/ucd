@@ -1,0 +1,45 @@
+?- findall(X, friggin(Y, X), Z).
+Z = [ ala-friggin'-bama
+    , ari-friggin'-zona
+    , cali-friggin'-fornia
+    , colo-friggin'-rado
+    , dela-friggin'-ware
+    , flori-friggin'-da
+    , ida-friggin'-ho
+    , illi-friggin'-nois
+    , indi-friggin'-ana
+    , ken-friggin'-tucky
+    , louisi-friggin'-ana
+    , mary-friggin'-land
+    , massa-friggin'-chusetts
+    , michi-friggin'-gan
+    , minne-friggin'-sota
+    , missi-friggin'-ssippi
+    , mon-friggin'-tana
+    , ne-friggin'-braska
+    , ne-friggin'-vada
+    , new-friggin'-hampshire
+    , newhamp-friggin'-shire
+    , new-friggin'-jersey
+    , new-friggin'-mexico
+    , newmexi-friggin'-co
+    , new-friggin'-york
+    , north-friggin'-carolina
+    , northcaro-friggin'-lina
+    , north-friggin'-dakota
+    , o-friggin'-hio
+    , okla-friggin'-homa
+    , pennsyl-friggin'-vania
+    , rhode-friggin'-island
+    , south-friggin'-carolina
+    , southcaro-friggin'-lina
+    , south-friggin'-dakota
+    , tenne-friggin'-ssee
+    , ver-friggin'-mont
+    , vir-friggin'-ginia
+    , washing-friggin'-ton
+    , west-friggin'-virginia
+    , westvir-friggin'-ginia
+    , wis-friggin'-consin
+    , wy-friggin'-oming
+    ].

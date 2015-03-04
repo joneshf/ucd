@@ -1,0 +1,16 @@
+morph(revolution).
+
+abides(Morph, Morphary) :-
+    atom_concat(Morph, ary, Morphary).
+
+counter(Morph, Countermorph) :-
+    atom_concat(counter, Morph, Countermorph).
+
+counterrevolutionary(Morph) :-
+    morph(X),
+    counter(X, Y),
+    abides(Y, Morph).
+counterrevolutionary(Morph) :-
+    morph(X),
+    abides(X, Y),
+    counter(Y, Morph).
