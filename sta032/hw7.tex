@@ -217,7 +217,33 @@
     \item [$\S$ 5.4]
       \begin{enumerate}
         \item [3]
+          We have $n_X = 1559, \overline{X} = 30.4, \sigma_X = 0.6$
+
+          and $n_Y = 1924, \overline{Y} = 31.1, \sigma_Y = 0.2$
+
+          We can find a 99\% confidence interval as follows:
+
+          \[
+            \overline{X} - \overline{Y} \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y}} =
+            30.4 - 31.1 \pm 2.576 \sqrt{\frac{0.6^2}{1559} + \frac{0.2}{1924}} =
+            (-0.741, -0.659)
+          \]
+
+          So we can say with 99\% confidence that men have between -0.741 and -0.659 lower BMI than women.
         \item [4]
+          We have $n_X = 296, \overline{X} = 54.1, \sigma_X = 4.4$
+
+          and $n_Y = 296, \overline{Y} = 72.7, \sigma_Y = 4.7$
+
+          We can find a 99\% confidence interval as follows:
+
+          \[
+            \overline{X} - \overline{Y} \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y}} =
+            54.1 - 72.7 \pm 1.960 \sqrt{\frac{4.4^2}{296} + \frac{4.7}{296}} =
+            (-19.333, -14.867)
+          \]
+
+          So we can say with 95\% confidence that 27 week-old hens lay eggs that weight between -19.333\si{\g} and -14.867\si{\g} lower than 59 week-old hens.
       \end{enumerate}
     \item [$\S$ 5.5]
       \begin{enumerate}
