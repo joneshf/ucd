@@ -1,0 +1,214 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage{siunitx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+\newcommand\numberthis{\refstepcounter{equation}\tag{\theequation}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{STA 032 Homework 7\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Melcon\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [$\S$ 5.2]
+      \begin{enumerate}
+        \item [1]
+          We have $n = 70$ independent Bernoulli trials with $X = 28$ successes.
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+              $\frac{28}{70} = 0.4 = 40\%$ of the sampled automobiles had emission levels that exceeded the standard.
+            \item
+              Taking $p = 0.4$ we have a $X \sim Bin(70, 0.4)$.
+
+              We take $\tilde{n} = 70 + 4 = 74$,
+              $\tilde{p} = \frac{28 + 2}{74} = 0.\overline{405}$.
+
+              A 95\% confidence interval can now be found.
+
+              \begin{align*}
+                \tilde{p} \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{\tilde{n}}}
+                &\approx 0.405 \pm z_{0.025} \sqrt{\frac{0.405(1 - 0.405)}{74}} \\
+                &\approx 0.405 \pm 1.96 \sqrt{0.00326}\\
+                &\approx 0.405 \pm 0.112
+              \end{align*}
+
+              So the interval is (0.293, 0.517).
+            \item
+              Using the values calculated before,
+              a 98\% confidence interval can be found.
+
+              \begin{align*}
+                \tilde{p} \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{\tilde{n}}}
+                &\approx 0.405 \pm z_{0.01} \sqrt{\frac{0.405(1 - 0.405)}{74}} \\
+                &\approx 0.405 \pm 2.33 \sqrt{0.00326}\\
+                &\approx 0.405 \pm 0.133
+              \end{align*}
+
+              So the interval is (0.272, 0.538).
+            \item
+              Since we're going to be solving more than one of these similar questions,
+              let's find a closed form to calculate this easily.
+
+              For each problem we need to know $\alpha, \tilde{p}$ and the range $r$.
+
+              We want to solve the following equation for $n$:
+
+              \begin{align*}
+                r &= z_{\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{\tilde{n}}} \\
+                &= z_{\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{n + 4}} \\
+                \frac{r}{z_{\frac{\alpha}{2}}} &= \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{n + 4}} \\
+                \left(\frac{r}{z_{\frac{\alpha}{2}}}\right)^2 &= \frac{\tilde{p}(1 - \tilde{p})}{n + 4} \\
+                n + 4 &= \frac{\tilde{p}(1 - \tilde{p})}{\left(\frac{r}{z_{\frac{\alpha}{2}}}\right)^2} \\
+                n &= \frac{\tilde{p}(1 - \tilde{p})}{\left(\frac{r}{z_{\frac{\alpha}{2}}}\right)^2} - 4 \\
+                n &= z_{\frac{\alpha}{2}}^2 \frac{\tilde{p}(1 - \tilde{p})}{r^2} - 4 \numberthis \label{eq:within} \\
+              \end{align*}
+
+              Now with equation \ref{eq:within} we can solve with plug and chug.
+
+              \[
+                n = 1.96^2 \frac{0.405(1 - 0.405)}{0.10^2} - 4 = 88.573
+              \]
+
+              So 89 samples are needed for the proportion to exceed the standard to within $\pm$ 0.10 with 95\% confidence.
+            \item
+              Using equation \ref{eq:within} we can solve with plug and chug.
+
+              \[
+                n = 2.33^2 \frac{0.405(1 - 0.405)}{0.10^2} - 4 = 126.823
+              \]
+
+              So 127 samples are needed for the proportion to exceed the standard to within $\pm$ 0.10 with 98\% confidence.
+            \item
+              We would do well to also find a closed form for this question.
+
+              We need the $\tilde{n}, \tilde{p}$ and the upper bound $u$.
+
+              Then we can solve the following equation for $z_\alpha$:
+
+              \begin{align*}
+                u &= \tilde{p} + z_\alpha \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{\tilde{n}}} \\
+                u - \tilde{p} &= z_\alpha \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{\tilde{n}}} \\
+                \frac{u - \tilde{p}}{\sqrt{\frac{\tilde{p}(1 - \tilde{p})}{\tilde{n}}}} &= z_\alpha \\
+                z_\alpha &= \frac{u - \tilde{p}}{\sqrt{\frac{\tilde{p}(1 - \tilde{p})}{\tilde{n}}}} \\
+                z_\alpha &= (u - \tilde{p})\sqrt{\frac{\tilde{n}}{\tilde{p}(1 - \tilde{p})}} \numberthis \label{eq:upper} \\
+              \end{align*}
+
+              Now, using equation \ref{eq:upper} we can solve for an upper bound of 0.50:
+
+              \begin{align*}
+                z_\alpha &= (0.50 - 0.405)\sqrt{\frac{74}{0.405(1 - 0.405)}} \\
+                &= 1.66 \\
+              \end{align*}
+
+              So the z score corresponds to $0.9515 = 95.15\%$.
+
+              Thus we can say with 95.15\% confidence that less than half of the vehicles in the state exceed the standard.
+          \end{enumerate}
+        \item [4]
+          We have $n = 444$ independent Bernoulli trials with $X = 170$ successes.
+
+          $\frac{170}{444} = 0.382\overline{882}$ of the sampled smokers used the patch.
+
+          So we have $X \sim Bin(444, 0.383)$.
+
+          We also calculate $\tilde{n} = 444 + 4 = 448$ and
+          $\tilde{p} = \frac{170 + 2}{448} = 0.384$
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+              A 95\% confidence interval can be found:
+
+              \begin{align*}
+                \tilde{p} \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{\tilde{n}}}
+                &= 0.384 \pm 1.96 \sqrt{\frac{0.384(1 - 0.384)}{448}} \\
+                &= 0.384 \pm 0.0450 \\
+              \end{align*}
+
+              So the interval is (0.339, 0.429).
+            \item
+              A 98\% confidence interval can be found:
+
+              \begin{align*}
+                \tilde{p} \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}(1 - \tilde{p})}{\tilde{n}}}
+                &= 0.384 \pm 2.58 \sqrt{\frac{0.384(1 - 0.384)}{448}} \\
+                &= 0.384 \pm 0.0592 \\
+              \end{align*}
+
+              So the interval is (0.325, 0.443).
+            \item
+              Using equation \ref{eq:upper} we can solve for an upper bound of 0.40:
+
+              \begin{align*}
+                z_\alpha &= (0.40 - 0.384)\sqrt{\frac{448}{0.384(1 - 0.384)}} \\
+                &= 0.70 \\
+              \end{align*}
+
+              So the z score corresponds to $0.7580 = 75.80\%$.
+
+              Thus we can say with 75.80\% confidence that proportion is less than 0.40.
+            \item
+              Using equation \ref{eq:within} we can solve with plug and chug.
+
+              \[
+                n = 1.96^2 \frac{0.384(1 - 0.384)}{0.03^2} - 4 = 1005.675
+              \]
+
+              So 1006 samples are needed for a 95\% confidence to specify the proportion within $\pm$ 0.03.
+            \item
+              Using equation \ref{eq:within} we can solve with plug and chug.
+
+              \[
+                n = 2.58^2 \frac{0.384(1 - 0.384)}{0.03^2} - 4 = 1749.479
+              \]
+
+              So 1750 samples are needed for a 99\% confidence to specify the proportion within $\pm$ 0.03.
+          \end{enumerate}
+      \end{enumerate}
+    \item [$\S$ 5.3]
+      \begin{enumerate}
+        \item [10]
+        \item [11]
+      \end{enumerate}
+    \item [$\S$ 5.4]
+      \begin{enumerate}
+        \item [3]
+        \item [4]
+      \end{enumerate}
+    \item [$\S$ 5.5]
+      \begin{enumerate}
+        \item [4]
+        \item [5]
+      \end{enumerate}
+    \item [$\S$ 5.6]
+      \begin{enumerate}
+        \item [8]
+        \item [9]
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
