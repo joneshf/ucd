@@ -20,6 +20,8 @@
 \newcommand*\dif{\mathop{}\!\mathrm{d}}
 \newcommand\numberthis{\refstepcounter{equation}\tag{\theequation}}
 
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
 \setlength{\droptitle}{-10ex}
 
 \preauthor{\begin{flushright}\large \lineskip 0.5em}
@@ -235,7 +237,7 @@
 
           and $n_Y = 296, \overline{Y} = 72.7, \sigma_Y = 4.7$
 
-          We can find a 99\% confidence interval as follows:
+          We can find a 95\% confidence interval as follows:
 
           \[
             \overline{X} - \overline{Y} \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y}} =
@@ -248,12 +250,79 @@
     \item [$\S$ 5.5]
       \begin{enumerate}
         \item [4]
+          We have $X = 43, n_X = 50, p_X = \frac{43}{50} = 0.86, \tilde{n}_X = 50 + 2 = 52, \tilde{p}_X = \frac{43 + 1}{50 + 2} = 0.846$
+
+          and $Y = 25, n_Y = 40, p_Y = \frac{25}{40} = 0.625, \tilde{n}_Y = 40 + 2 = 42, \tilde{p}_Y = \frac{25 + 1}{40 + 2} = 0.619$
+
+          We can find a 99\% confidence interval as follows:
+
+          \begin{align*}
+            & \tilde{p}_X - \tilde{p}_Y \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}_X(1 - \tilde{p}_X)}{\tilde{n}_X} + \frac{\tilde{p}_Y(1 - \tilde{p}_Y)}{\tilde{n}_Y}} \\
+            &= 0.846 - 0.619 \pm 2.576 \sqrt{\frac{0.846(1 - 0.846)}{52} + \frac{0.619(1 - 0.619)}{42}} \\
+            &= 0.227 \pm 0.232
+          \end{align*}
+
+          So we can say with 99\% confidence that 22.7\% $\pm$ 23.2\% students felt more confident learning from a GUI.
         \item [5]
+          We have $X = 8, n_X = 12, p_X = \frac{8}{12} = 0.\overline{6}, \tilde{n}_X = 12 + 2 = 14, \tilde{p}_X = \frac{8 + 1}{12 + 2} = 0.643$
+
+          and $Y = 5, n_Y = 15, p_Y = \frac{5}{15} = 0.\overline{3}, \tilde{n}_Y = 15 + 2 = 17, \tilde{p}_Y = \frac{5 + 1}{15 + 2} = 0.353$
+
+          We can find a 95\% confidence interval as follows:
+
+          \begin{align*}
+            & \tilde{p}_X - \tilde{p}_Y \pm z_{\frac{\alpha}{2}} \sqrt{\frac{\tilde{p}_X(1 - \tilde{p}_X)}{\tilde{n}_X} + \frac{\tilde{p}_Y(1 - \tilde{p}_Y)}{\tilde{n}_Y}} \\
+            &= 0.643 - 0.353 \pm 1.960 \sqrt{\frac{0.643(1 - 0.643)}{14} + \frac{0.353(1 - 0.353)}{17}} \\
+            &= 0.290 \pm 0.339
+          \end{align*}
+
+          So we can say with 95\% confidence that 29.0\% $\pm$ 33.9\% more small cars were totaled than large cars.
       \end{enumerate}
     \item [$\S$ 5.6]
       \begin{enumerate}
         \item [8]
+          We have $n_X = 10, \overline{X} = 3.4,  s_X = 0.6$
+
+          and $n_Y = 15, \overline{Y} = 7.9, s_Y = 0.6$.
+
+          We calculate $\nu$ as follows:
+
+          \[
+            \nu = \floor*{\frac{\left(\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}\right)^2}{\frac{\left(\frac{s_X^2}{n_X}\right)^2}{n_X - 1} + \frac{\left(\frac{s_Y^2}{n_Y}\right)^2}{n_Y - 1}}} =
+            \floor*{\frac{\left(\frac{0.6^2}{10} + \frac{0.6^2}{15}\right)^2}{\frac{\left(\frac{0.6^2}{10}\right)^2}{10 - 1} + \frac{\left(\frac{0.6^2}{15}\right)^2}{15 - 1}}} =
+            \floor*{19.\overline{4}} = 19
+          \]
+
+          We can find a 98\% confidence interval as follows:
+
+          \begin{align*}
+            & \overline{X} - \overline{Y} \pm t_{\nu, \frac{\alpha}{2}} \sqrt{\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}} =
+            3.4 - 7.9 \pm 2.539 \sqrt{\frac{0.6^2}{10} + \frac{0.6^2}{15}} = -4.5 \pm 0.622
+          \end{align*}
+
+          So we can say with 98\% confidence that patients with higher blood pressure had lower levels of insulin with a mean of 4.5 $\pm$ 0.622 $10^{-5}$ min$^{-1}$pmol$^{-1}$ than patients with normal blood pressure.
         \item [9]
+          We have $n_X = 24, \overline{X} = 4.8,  s_X = 1.9$
+
+          and $n_Y = 24, \overline{Y} = 2.8, s_Y = 1.0$.
+
+          We calculate $\nu$ as follows:
+
+          \[
+            \nu = \floor*{\frac{\left(\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}\right)^2}{\frac{\left(\frac{s_X^2}{n_X}\right)^2}{n_X - 1} + \frac{\left(\frac{s_Y^2}{n_Y}\right)^2}{n_Y - 1}}} =
+            \floor*{\frac{\left(\frac{1.9^2}{24} + \frac{1.0^2}{24}\right)^2}{\frac{\left(\frac{1.9^2}{24}\right)^2}{24 - 1} + \frac{\left(\frac{1.0^2}{24}\right)^2}{24 - 1}}} =
+            \floor*{34.834} = 34
+          \]
+
+          Using 35 as the $t$ value (as 34 is not in the table),
+          we can find a 95\% confidence interval as follows:
+
+          \begin{align*}
+            & \overline{X} - \overline{Y} \pm t_{\nu, \frac{\alpha}{2}} \sqrt{\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}} =
+            4.8 - 2.8 \pm 2.030 \sqrt{\frac{1.9^2}{24} + \frac{1.0^2}{24}} = 2 \pm 0.890
+          \end{align*}
+
+          So we can say with 95\% confidence that undergraduate students read a passage slower with a mean of 2 $\pm$ 0.89 seconds than graduate students.
       \end{enumerate}
   \end{enumerate}
 \end{document}
