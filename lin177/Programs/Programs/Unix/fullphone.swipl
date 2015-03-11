@@ -1,6 +1,6 @@
 
 :- ['fulldisplay.swipl'].
-:- ['diacriticsdisquoted.swipl'].
+%% :- ['diacriticsdisquoted.swipl'].
 
 
 phone(A):-
@@ -36,18 +36,18 @@ phone(A):-
 phone(A):-
 	name(A,[118]).
 
-phone(A):- 
+phone(A):-
 	name(A,[625]).
 
 phone(A):-
 	name(A,[952]).
- 
+
 phone(A):-
 	name(A,[240]).
 
-phone(A):- 
+phone(A):-
 	name(A,[110,825]).
- 
+
 phone(A):-
 	name(A,[115]).
 
@@ -59,14 +59,14 @@ phone(A):-
 
 phone(A):-
 	name(A,[658]).
- 
+
 phone(A):-
 	name(A,[269]).
 
 phone(A):-
 	name(A,[496]).
 
-phone(A):- 
+phone(A):-
 	name(A,[626]).
 
 phone(A):-
@@ -75,7 +75,7 @@ phone(A):-
 phone(A):-
 	name(A,[633]).
 
-phone(A):- 
+phone(A):-
 	name(A,[110,826]).
 
 phone(A):-
@@ -104,13 +104,13 @@ phone(A):-
 
 phone(A):-
 	name(A,[650]).
- 
+
 phone(A):-
 	name(A,[111]).
 
 phone(A):-
 	name(A,[097]).
- 
+
 phone(A):-
 	name(A,[601]).
 

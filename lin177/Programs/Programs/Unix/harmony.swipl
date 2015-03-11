@@ -1,8 +1,8 @@
 :- ['entailment.swipl'].
 
 vow(P) :- name(P,[121]). 		/** y is a vowel **/
-vow(P) :- name(P,[248]). 		/** ¿ is a vowel **/
-vow(P) :- name(P,[230]). 		/** ¾ is a vowel **/
+vow(P) :- name(P,[248]). 		/** Â¿ is a vowel **/
+vow(P) :- name(P,[230]). 		/** Â¾ is a vowel **/
 vow(P) :- name(P,[105]). 		/** i is a vowel **/
 vow(P) :- name(P,[101]). 		/** e is a vowel **/
 vow(P) :- name(P,[117]). 		/** u is a vowel **/
@@ -10,8 +10,8 @@ vow(P) :- name(P,[111]). 		/** o is a vowel **/
 vow(P) :- name(P,[097]). 		/** a is a vowel **/
 
 per(P) :- name(P,[121]). 		/** y is peripheral **/
-per(P) :- name(P,[248]). 		/** ¿ is peripheral **/
-per(P) :- name(P,[230]). 		/** ¾ is peripheral **/
+per(P) :- name(P,[248]). 		/** Â¿ is peripheral **/
+per(P) :- name(P,[230]). 		/** Â¾ is peripheral **/
 per(P) :- name(P,[117]). 		/** u is peripheral **/
 per(P) :- name(P,[111]). 		/** o is peripheral **/
 per(P) :- name(P,[097]). 		/** a is peripheral **/
@@ -24,9 +24,12 @@ hih(P) :- name(P,[121]).		/** y is high **/
 hih(P) :- name(P,[105]). 		/** i is high **/
 hih(P) :- name(P,[117]). 		/** u is high **/
 
-low(P) :- name(P,[230]).		/** ¾ is low **/
+low(P) :- name(P,[230]).		/** Â¾ is low **/
 low(P) :- name(P,[097]).		/** a is low **/
 
+underfinnish([c,V1,c,V2]) :-
+    vow(V1),
+    vow(V2).
 
 finnish(A):-
 	underfinnish(A),
