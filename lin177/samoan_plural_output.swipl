@@ -1,0 +1,30 @@
+?- samoan(X, Y).
+X = [[m, a], [t, e]],
+Y = [verb, singular] ;
+X = [[n, o], [f, o]],
+Y = [verb, singular] ;
+X = [[g, a], [l, u], [e]],
+Y = [verb, singular] ;
+X = [[t, a], [n, u]],
+Y = [verb, singular] ;
+X = [[a], [l, o], [f, a]],
+Y = [verb, singular] ;
+X = [[t, a], [o], [t, o]],
+Y = [verb, singular] ;
+X = [[a, t], [a], [m, a], [?, i]],
+Y = [verb, singular] ;
+X = [[m, a], [m, a], [t, e]],
+Y = [verb, plural] ;
+X = [[n, o], [n, o], [f, o]],
+Y = [verb, plural] ;
+X = [[g, a], [l, u], [l, u], [e]],
+Y = [verb, plural] ;
+X = [[t, a], [t, a], [n, u]],
+Y = [verb, plural] ;
+X = [[a], [l, o], [l, o], [f, a]],
+Y = [verb, plural] ;
+X = [[t, a], [o], [o], [t, o]],
+Y = [verb, plural] ;
+X = [[a, t], [a], [m, a], [m, a], [?, i]],
+Y = [verb, plural] ;
+false.

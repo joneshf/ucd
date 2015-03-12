@@ -1,0 +1,12 @@
+?- yiddish(X, Y).
+X = [s,c,h,m,o,u,s,e],
+Y = [noun] ;
+X = [s,c,h,m,o,u,s,e,r,s],
+Y = [noun] ;
+X = [s,c,h,m,o,o,t,h],
+Y = [noun] ;
+X = [s,c,h,m,i,n,k,l,e,r],
+Y = [noun] ;
+X = [s,c,h,m,a,r,t,i,s,t],
+Y = [noun] ;
+false.

@@ -1,0 +1,10 @@
+?- asturian(X, Y), member(noun, Y).
+X = [p,i,l,u],
+Y = [noun,count] ;
+X = [k,i,s,u],
+Y = [noun,count] ;
+X = [p,e,l,o],
+Y = [noun,mass] ;
+X = [k,e,s,o],
+Y = [noun,mass] ;
+false.

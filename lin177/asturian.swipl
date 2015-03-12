@@ -1,0 +1,20 @@
+front(i).
+front(e).
+
+high(i).
+high(u).
+
+asturian([p, V, l], [stem]) :- front(V).
+asturian([k, V, s], [stem]) :- front(V).
+
+asturian(Asturian, [noun, count]) :-
+    asturian(Stem, [stem]),
+    member(Vowel, Stem),
+    front(Vowel), high(Vowel),
+    append(Stem, [u], Asturian).
+
+asturian(Asturian, [noun, mass]) :-
+    asturian(Stem, [stem]),
+    member(Vowel, Stem),
+    front(Vowel), not(high(Vowel)),
+    append(Stem, [o], Asturian).

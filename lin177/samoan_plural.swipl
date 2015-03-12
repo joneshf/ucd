@@ -1,0 +1,12 @@
+samoan([[m, a], [t, e]], [verb, singular]).
+samoan([[n, o], [f, o]], [verb, singular]).
+samoan([[g, a], [l, u], [e]], [verb, singular]).
+samoan([[t, a], [n, u]], [verb, singular]).
+samoan([[a], [l, o], [f, a]], [verb, singular]).
+samoan([[t, a], [o], [t, o]], [verb, singular]).
+samoan([[a, t], [a], [m, a], [?, i]], [verb, singular]).
+
+samoan(VerbPlural, [verb, plural]) :-
+    samoan(VerbSingular, [verb, singular]),
+    append(Initial, [Repeat, Last], VerbSingular),
+    append(Initial, [Repeat, Repeat, Last], VerbPlural).

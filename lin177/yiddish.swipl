@@ -1,0 +1,23 @@
+vowel(a).
+vowel(e).
+vowel(i).
+vowel(o).
+vowel(u).
+
+english([h, o, u, s, e], [noun]).
+english([t, r, o, u, s, e, r, s], [noun]).
+english([s, m, o, o, t, h], [noun]).
+english([s, p, r, i, n, k, l, e, r], [noun]).
+english([a, r, t, i, s, t], [noun]).
+
+yiddish(Yiddish, [noun]) :-
+    english(English, [noun]),
+    drop_consonants(English, Rest),
+    append([s, c, h, m], Rest, Yiddish).
+
+drop_consonants([], []).
+drop_consonants([C|Cs], [C|Cs]) :-
+    vowel(C).
+drop_consonants([C|Cs], Rest) :-
+    not(vowel(C)),
+    drop_consonants(Cs, Rest).

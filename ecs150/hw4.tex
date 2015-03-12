@@ -1,0 +1,156 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{algorithm}
+\usepackage{algpascal}
+\usepackage{algpseudocode}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 150 Homework 4\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Levitt\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [1]
+      Let's assume we have the following pages for the elements of each array:
+
+      \begin{tabular}{r c r | r | r |}
+        \multicolumn{3}{l|}{elements} & \texttt{A} & \texttt{B} \\
+        \hline
+        1   & - & 100  & 1          & 11 \\
+        \hline
+        101 & - & 200  & 2          & 12 \\
+        \hline
+        201 & - & 300  & 3          & 13 \\
+        \hline
+        301 & - & 400  & 4          & 14 \\
+        \hline
+        401 & - & 500  & 5          & 15 \\
+        \hline
+        501 & - & 600  & 6          & 16 \\
+        \hline
+        601 & - & 700  & 7          & 17 \\
+        \hline
+        701 & - & 800  & 8          & 18 \\
+        \hline
+        801 & - & 900  & 9          & 19 \\
+        \hline
+        901 & - & 1000 & 10         & 20 \\
+        \hline
+      \end{tabular}
+
+      \begin{enumerate}
+        \item The page reference string looks similar to
+
+          \begin{tabular}{r r r r r r p{5cm}}
+            1  ,& 11 ,& 10 ,& 1  ,& 11 ,& 10 ,& ...repeated 98 more times. \\
+            2  ,& 12 ,& 9  ,& 2  ,& 12 ,& 9  ,& ...repeated 98 more times. \\
+            3  ,& 13 ,& 8  ,& 3  ,& 13 ,& 8  ,& ...repeated 98 more times. \\
+            4  ,& 14 ,& 7  ,& 4  ,& 14 ,& 7  ,& ...repeated 98 more times. \\
+            5  ,& 15 ,& 6  ,& 5  ,& 15 ,& 6  ,& ...repeated 98 more times. \\
+            6  ,& 16 ,& 5  ,& 6  ,& 16 ,& 5  ,& ...repeated 98 more times. \\
+            7  ,& 17 ,& 4  ,& 7  ,& 17 ,& 4  ,& ...repeated 98 more times. \\
+            8  ,& 18 ,& 3  ,& 8  ,& 18 ,& 3  ,& ...repeated 98 more times. \\
+            9  ,& 19 ,& 2  ,& 9  ,& 19 ,& 2  ,& ...repeated 98 more times. \\
+            10 ,& 20 ,& 1  ,& 10 ,& 20 ,& 1  ,& ...repeated 98 more times. \\
+          \end{tabular}
+
+        \item
+          \begin{enumerate}
+            \item
+              Using FIFO, nearly every time we access a new page it is a page fault.
+              The reason for so many page faults is every three sequential page accesses are different, with one exception.
+              When we access 5, 15, 6, 6, 16, 5, there is one group of three where we access the same page twice.
+              This is the only instance where we do not page fault.
+
+              We can compute this value simply:
+              in each row we perform three page accesses 100 times,
+              we have 10 rows,
+              minus one access that doesn't miss.
+
+              So the number of page faults is $3 \cdot 100 \cdot 10 - 1 = 2999$.
+
+            \item
+              Using MIN, for each row, we can keep one page in memory,
+              use the register to hold the addition temporarily,
+              and swap between the two other pages.
+              With the first row as an example, we have 1, 11, 10, 1, 11, 10.
+              If we keep page 1 in memory, we would just swap out 11 and 10.
+              So we miss the first access to page 1, then every access to pages 11 and 10.
+              So each row has $1 + 2 \cdot 100 = 201$ misses.
+              Again, we do not have a miss when we switch from row 5 to row 6.
+
+              So the number of page faults is $(1 + 2 \cdot 100) \cdot 10 - 1 = 2000$.
+          \end{enumerate}
+      \end{enumerate}
+    \item [2 \S 4.11]
+      Since there are 32 bits in an address, and we have 20 of the bits taken already, the offset has 12 bits.
+      So each page is $2^{12}$ bytes.
+
+      We can calculate the number of pages as $2^9 \cdot 2^{11} = 2^{20}$.
+
+    \item [3 \S 4.12]
+
+    \item [4 \S 4.13]
+      Since we know the address size, we only need to know one of two things:
+
+      \begin{itemize}
+        \item The sum $a + b + c$
+        \item $d$
+      \end{itemize}
+
+      If we know $a + b + c$ then the page size is $2^{a + b + c}$.
+
+      If we know $d$ then the page size is $2^{32 - d}$
+    \item [5 \S 4.18]
+      \begin{enumerate}
+        \item NRU will replace page 0, as page 0 is the only page in class 0.
+        \item FIFO will replace page 2, as page 2 is the oldest page.
+        \item LRU will replace page 1, as page 1 has the oldest last reference.
+        \item Second chance will replace page 0.
+
+          It sees page 2 is the oldest but has its $R$ bit set,
+          so page 2 is given a new loaded value of the current time
+          and its $R$ bit cleared.
+          The algorithm continues and finds page 0 as the next oldest.
+          Since page 0 does not have its $R$ bit set, this page is removed.
+      \end{enumerate}
+    \item [6 \S 5.16]
+      This has the advantage that for small files only one seek is necessary to read the data,
+      rather than one seek for the i-node and another seek for the data.
+    \item [7 \S 5.15]
+      \begin{itemize}
+        \item
+          The linked list uses $D$ bits for each free block, so the size is $F \cdot D$ bits.
+          The bitmap uses one bit per block, so the size is $B$ bits.
+
+          So the linked list will use less space when $F \cdot D < B$
+        \item
+          For $D = 16$, we can manipulate the equation:
+
+          \begin{align*}
+            F \cdot 16 &< B \\
+            \frac{F}{B} &< \frac{1}{16} \\
+            \frac{F}{B} &< 0.0625
+          \end{align*}
+
+          So the linked list uses less space when there is less than 6.25\% disk space left.
+      \end{itemize}
+  \end{enumerate}
+\end{document}

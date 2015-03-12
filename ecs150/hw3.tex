@@ -1,0 +1,203 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{algorithm}
+\usepackage{algpascal}
+\usepackage{algpseudocode}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{ECS 150 Homework 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Levitt\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [3 \S 3.23]
+      No, the system cannot be safe from deadlock at this point.
+      If any process requests all of their resources,
+      they will not get the full resources.
+      So running any process will lead to deadlock.
+
+    \item [4 \S 3.24]
+      \begin{itemize}
+        \item
+          The computers can be still negotiating if both programs want to separate an animal.
+
+          Assume Cinderella wants Woofer's house first,
+          and Prince wants Woofer first.
+          Their programs send the requests to the lawyers,
+          the lawyers realize the requests would separate Woofer from Woofer's house,
+          so the whole process is restarted.
+          This continues indefinitely.
+        \item
+          Deadlock is possible if both programs request the same property each time.
+          If both programs only want Woofer,
+          then they both send the request for Woofer.
+          This request is then canceled and started again, repeating the process.
+        \item
+          Starvation is only possible if one of the programs does not request an item every day.
+          Otherwise, deadlock will prevent starvation.
+      \end{itemize}
+    \item [5 \S 3.15]
+      \begin{itemize}
+        \item
+          If D asked for one more unit, the state would be unsafe.
+          There would be only one free unit,
+          and no person could request their total units.
+          So the next request would deadlock.
+        \item
+          If C asked for one more unit, the state would be safe.
+          There would be one free unit,
+          so C would be able to then request its last unit,
+          and it would then release all four units.
+          That would allow either B or D to request their maximum,
+          which would free up either five or seven additional units
+          Having at least five free units allows any person to request their maximum units.
+      \end{itemize}
+    \item [6 \S 3.18]
+      In theory, the system is deadlock free any $n$.
+      The system would just have to ensure that if it gave out five of the tape drives,
+      it gave the sixth tape drive to one of the processes that already had one tape drive.
+      Then that process could run to completion,
+      and eventually release the tape drives for future processes.
+      This may lead to starvation if one process runs indefinitely,
+      but it would not lead to deadlock.
+    \item [7]
+      The new monitor can be written as follows.
+
+      \algblock[Monitor]{Monitor}{End}
+
+      \begin{algorithm}
+        \begin{algorithmic}[1]
+          \Monitor \ rw
+            \State \ \textbf{var} nr := 0, nw := 0
+            \State \ \textbf{var} OKR, OKW : \textbf{condition}
+            \Procedure {req\_read}{ }
+              \If {nw $>$ 0}
+                \textbf{wait}(OKR)
+              \EndIf
+              \State nr := nr + 1
+              \State \textbf{signal}(OKR)
+            \EndProcedure
+            \Procedure {rel\_read}{ }
+              \State nr := nr - 1
+              \If {nr $=$ 0}
+                \textbf{signal}(OKW)
+              \EndIf
+            \EndProcedure
+            \Procedure {req\_write}{ }
+              \If {nr $>$ 0 \textbf{or} nw $>$ 0}
+                \textbf{wait}(OKW)
+              \EndIf
+              \State nw := nw + 1
+            \EndProcedure
+            \Procedure {rel\_write}{ }
+              \State nw := nw - 1
+              \If {\textbf{not empty}(OKW)}
+                \textbf{signal}(OKW)
+              \ElsIf {\textbf{not empty}(OKR)}
+                \textbf{signal}(OKR)
+              \EndIf
+            \EndProcedure
+          \End
+        \end{algorithmic}
+      \end{algorithm}
+
+    \pagebreak
+      We ensure that a reader only has access when the number of writers is 0 on lines 8 and 24.
+
+      We still allow multiple readers to have access at the same time.
+
+      We still ensure that a writer only has access exclusively.
+
+      We prioritize writers over readers by checking for \texttt{OKW} first on line 22.
+      This ensures that all writers are given access before readers.
+
+    \item [8]
+      \begin{enumerate}
+        \item
+          \begin{itemize}
+            \item
+              When process 1 ``negotiate''s it sets \texttt{flag[1]} to \texttt{true}.
+              Then it enters the outer while loop.
+              At this point in time \texttt{turn} is equal to \texttt{0} still.
+              so it \texttt{turn not = 1} is true.
+              Process 1 then goes and enters inner while loop.
+              Process 1 does a busy wait checking that \texttt{flag[0]} is \texttt{true}.
+              So process 1 does not enter its critical section.
+
+            \item
+              After process 0 has exited its critical section and set \texttt{flag[0]} to \texttt{false},
+              process 1 will exit the inner loop and set \texttt{turn} to \texttt{1}.
+              Then it checks the outer loop condition.
+              This check fails, so process 1 exits the outer loop.
+              The next statement is the critical section.
+              So process 1 enters its critical section after process 0 exits its critical section.
+          \end{itemize}
+        \item
+          \begin{itemize}
+            \item
+              One interleaving would be allowing process 1 to run first until it gets through the inner while loop.
+              Since process 0 has not run yet,
+              it will work its way through the outer while loop, but not enter the inner while loop.
+              Before it gets a chance to set \texttt{turn} to \texttt{1},
+              let process 0 run through the outer while loop.
+              Process 0 will not enter the while loop as \texttt{turn} is still \texttt{0}.
+              So process 0 enters its critical section.
+              Next, let process 1 continue.
+              Process 1 will set \texttt{turn} to \texttt{1},
+              check the outer condition of the while loop, and exit the loop.
+              Process 1 then enters its critical section.
+
+              Thus, this algorithm does not solve the mutual exclusion problem.
+            \item
+              In order to see if deadlock is possible,
+              it is necessary to check three of the four Coffman Conditions.
+              We view \texttt{turn} and \texttt{flag} as resources:
+              when \texttt{turn} equals \texttt{i}, process \texttt{i} is requesting/holding-on to that resource;
+              when \texttt{flag[i]} is \texttt{true}, process \texttt{i} is requesting/holding-on to that resource.
+
+              \begin{enumerate}
+                \item
+                  \textbf{Mutual Exclusion}
+
+                  \texttt{flag[0]} and \texttt{flag[1]}
+                  are resources that can only be held by
+                  process \texttt{0} and process \texttt{1} respectively.
+
+                \item
+                  \textbf{Wait For}
+
+                  Both processes hold on to their respective \texttt{flag} resource,
+                  and also require the \texttt{turn} resource.
+
+                \item
+                  \textbf{No Preemption}
+
+                  Both processes hold on to their respective \texttt{flag} resource,
+                  and they do so until they have completed the algorithm.
+                  Neither process can forcibly lose their \texttt{flag} resource.
+              \end{enumerate}
+
+              Since these three conditions are true, deadlock is possible.
+
+              N.B. We needn't check the last condition as we are only concerned with the possibility of deadlock, not the existence.
+          \end{itemize}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}

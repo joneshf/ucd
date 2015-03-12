@@ -1,0 +1,19 @@
+:- ['Programs/Programs/Unix/entailment.swipl'].
+
+liq(l).
+liq(r).
+
+vib(r).
+
+latin([m, o, r], [noun]).
+latin([m, o, l], [noun]).
+
+latin([a, R, i, s], [affix]) :- liq(R).
+
+latin(Latin, [adjective]) :-
+    latin(Noun, [noun]),
+    Affix = [a, R, i, s],
+    latin(Affix, [affix]),
+    last(Noun, L),
+    not(vib(R) <=> vib(L)),
+    append(Noun, Affix, Latin).

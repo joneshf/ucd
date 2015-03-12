@@ -1,0 +1,46 @@
+:- ['Programs/Programs/Unix/entailment.swipl'].
+
+vow(P) :- name(P,[121]).
+vow(P) :- name(P,[248]).
+vow(P) :- name(P,[230]).
+vow(P) :- name(P,[105]).
+vow(P) :- name(P,[101]).
+vow(P) :- name(P,[117]).
+vow(P) :- name(P,[111]).
+vow(P) :- name(P,[097]).
+
+per(P) :- name(P,[121]).
+per(P) :- name(P,[248]).
+per(P) :- name(P,[230]).
+per(P) :- name(P,[117]).
+per(P) :- name(P,[111]).
+per(P) :- name(P,[097]).
+
+bck(P) :- name(P,[117]).
+bck(P) :- name(P,[111]).
+bck(P) :- name(P,[097]).
+
+hih(P) :- name(P,[121]).
+hih(P) :- name(P,[105]).
+hih(P) :- name(P,[117]).
+
+low(P) :- name(P,[230]).
+low(P) :- name(P,[097]).
+
+underfinnish([c,V1,c,V2]) :-
+    vow(V1),
+    vow(V2).
+
+underfinnish(UnderFinnish) :-
+    underfinnish(Stem, [stem]),
+    last(Stem, V1),
+    per(V1), (low(V1) ; not(hih(V1)), not(low(V1))),
+    per(V2), low(V2),
+    append(Stem, [s, s, V2], UnderFinnish).
+
+underfinnish([t, a, l, o], [stem]).
+underfinnish([k, y, l, æ], [stem]).
+
+finnish(A):-
+    underfinnish(A),
+    (per(B), per(C), member(B,A), member(C,A)) => (bck(B) <=> bck(C)).

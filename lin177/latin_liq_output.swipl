@@ -1,0 +1,4 @@
+?- latin(X, [adjective]).
+X = [m,o,r,a,l,i,s] ;
+X = [m,o,l,a,r,i,s] ;
+false.

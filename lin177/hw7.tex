@@ -1,0 +1,83 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{minted}
+\usepackage[tone]{tipa}
+\usepackage{qtree}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{LIN 177 Homework 7\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Ojeda\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[prologfile]{prolog}{ fontsize=\footnotesize
+                                    , frame=single
+                                    }
+  \newmint[prolog]{prolog}{ fontsize=\footnotesize
+                          , frame=single
+                          }
+
+  \begin{enumerate}
+    \item
+      The process uses partial reduplication to create pluralized verbs.
+      The second to last phone is duplicated in the morph to create the plural form.
+
+      \prologfile{samoan_plural.swipl}
+      \prologfile{samoan_plural_output.swipl}
+
+    \item
+      The process uses mutation to create yiddish words from english words.
+      Everything up until the first vowel of the morph is replaced by \texttt{schm}.
+
+      \prologfile{yiddish.swipl}
+      \prologfile{yiddish_output.swipl}
+
+    \item
+      The instantiator clause should not be changed as it would then have to understand the underlying form of the language.
+      Rather the underlying form should generate possible morphs and the instantiator should restrict to well formed morphs based on the rules of the language.
+
+      \prologfile{homorganic_fixed.swipl}
+      \input{homorganic_fixed_output.tex}
+      % \prologfile{homorganic_fixed_output.swipl}
+
+    \item
+      \prologfile{harmony_fixed.swipl}
+      \prologfile{harmony_fixed_output.swipl}
+
+    \item
+      \prologfile{asturian.swipl}
+      \prologfile{asturian_output.swipl}
+
+    \item [Extra Credit]
+      It will not make a difference for the outcome of the grammar, but it will change how we implement the grammar. We still have to ensure exclusive disjunction, we just use \texttt{vib(r)} to formulate it.
+
+      As the footnote on page 179 states, we would have to ensure exactly what the change from condition (c) to (d) states.
+
+      We create the first grammar as so:
+
+      \prologfile{latin_liq.swipl}
+      \prologfile{latin_liq_output.swipl}
+
+      And the can extend to the second grammar by making a \texttt{dissimilate} predicate that handles the cases as so:
+
+      \prologfile{latin_nonliq.swipl}
+      \prologfile{latin_nonliq_output.swipl}
+  \end{enumerate}
+\end{document}

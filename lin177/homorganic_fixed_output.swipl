@@ -1,0 +1,14 @@
+?- english(X, [adjective, negative]).
+X = [ʌ,m,p,e,j,d] ;
+X = [ʌ,n,t,ɪ,p,ɪ,k,l] ;
+X = [ʌ,ŋ,k,l,i,ɹ] ;
+X = [ʌ,ɱ,f,e,ɹ] ;
+X = [ʌ,n̹,θ,ɪ,ŋ,k,ə,b,l] ;
+X = [ʌ,ɲ,č,e,j,ɲ,ʒ,d] ;
+X = [ʌ,n̺,ɹ,i,l,e,j,t,ɪ,d] ;
+X = [ʌ,n,ə,v,e,ɪ,l,ə,b,ə,l] ;
+X = [ʌ,n,ɪ,n,d,ɪ,ŋ] ;
+X = [ʌ,n,i,v,ɪ,n] ;
+X = [ʌ,n,o,ɹ,d,ɪ,ɹ,d] ;
+X = [ʌ,n,ʌ,t,ɪ,ɹ,d] ;
+false.
