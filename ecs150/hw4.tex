@@ -107,6 +107,47 @@
 
     \item [3 \S 4.12]
 
+      We need to make some assumptions.
+
+      First, we assume that what is written after
+      ``Call a procedure at 5120, stacking the return address''
+      are the actual instructions at address 5120.
+      Otherwise, it is all but impossible to infer a valid answer from this question.
+      Next, we assume an x86-like semantics for immediate constants.
+      Finally, we assume pages are numbered from 0.
+
+      Since the program is at address 1020 and the instructions are each 4 bytes,
+      we can enumerate some of the addresses.
+
+      \begin{tabular}{r | r | l |}
+        Address & Page & Instruction \\
+        \hline
+        1020    & 1    & Load word 6144 into register 0 \\
+        1024    & 2    & Push register 0 onto the stack \\
+        1028    & 2    & Call a procedure at 5120, stacking the return address \\
+        5120    & 10   & Subtract the immediate constant 16 from the stack pointer \\
+        5124    & 10   & Compare the actual parameter to the immediate constant 4\\
+        5128    & 10   & Jump if equal to 5152\\
+        \hline
+      \end{tabular}
+
+      Now, each of the operands need to be accounted for.
+
+      Word 6144 is on page 12.
+
+      The stack in the second instruction is still at 8192 which is on page 16,
+      however, when we need to push on to the stack, we must move the pointer down 4 bytes to 8188, which is on page 15.
+
+      When we stack the return address of 5120, we move the stack pointer down to 8184, which is still on page 15.
+
+      When we compare the subtraction to 4, we need to access the stack pointer minus 16 which is 8168, and is still on page 15.
+
+      When we test to jump, we need to access 5152, which is on page 10.
+
+      So our page reference string should read.
+
+      1, 12, 2, 15, 2, 10, 15, 10, 10, 15, 10, 10
+
     \item [4 \S 4.13]
       Since we know the address size, we only need to know one of two things:
 
