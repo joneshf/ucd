@@ -41,6 +41,80 @@
 
   \begin{enumerate}
     \item
+      Using the scheme given in the assignment,
+
+      $
+        \begin{pmatrix}
+          \overline{X} - Z_{\frac{\alpha}{2}} \frac{s}{\sqrt{n}}
+          & \overline{X} + Z_{\frac{\alpha}{2}} \frac{s}{\sqrt{n}} \\
+          \overline{X} - t_{n-1;\frac{\alpha}{2}} \frac{s}{\sqrt{n}}
+          & \overline{X} + t_{n-1;\frac{\alpha}{2}} \frac{s}{\sqrt{n}} \\
+        \end{pmatrix}
+      $
+      \begin{enumerate}
+        \item
+          $
+            \begin{pmatrix}
+              \num{3.720728} & \num{7.519790} \\
+              \num{3.425003} & \num{7.815515} \\
+            \end{pmatrix}
+          $
+        \item
+          $
+            \begin{pmatrix}
+              \num{2.339011} & \num{8.127328} \\
+              \num{1.888439} & \num{8.577900} \\
+            \end{pmatrix}
+          $
+        \item
+          $
+            \begin{pmatrix}
+              \num{3.474872} & \num{5.791677} \\
+              \num{3.428046} & \num{5.838504} \\
+            \end{pmatrix}
+          $
+        \item
+          $
+            \begin{pmatrix}
+              \num{2.699661} & \num{4.756874} \\
+              \num{2.658082} & \num{4.798454} \\
+            \end{pmatrix}
+          $
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          The proportion of \texttt{N} confidence intervals that cover the true mean for $Z_{\frac{\alpha}{2}}$ is \num{0.93013}.
+
+          The proportion of \texttt{N} confidence intervals that cover the true mean for $t_{n - 1; \frac{\alpha}{2}}$ is \num{0.95069}.
+        \item
+          The proportion of \texttt{N} confidence intervals that cover the true mean for $Z_{\frac{\alpha}{2}}$ is \num{0.89294}.
+
+          The proportion of \texttt{N} confidence intervals that cover the true mean for $t_{n - 1; \frac{\alpha}{2}}$ is \num{0.91292}.
+        \item
+          The proportion of \texttt{N} confidence intervals that cover the true mean for $Z_{\frac{\alpha}{2}}$ is \num{0.94434}.
+
+          The proportion of \texttt{N} confidence intervals that cover the true mean for $t_{n - 1; \frac{\alpha}{2}}$ is \num{0.94995}.
+        \item
+          The proportion of \texttt{N} confidence intervals that cover the true mean for $Z_{\frac{\alpha}{2}}$ is \num{0.93079}.
+
+          The proportion of \texttt{N} confidence intervals that cover the true mean for $t_{n - 1; \frac{\alpha}{2}}$ is \num{0.93649}.
+        \item
+          The $t_{n - 1; \frac{\alpha}{2}}$ coverage is better than the $Z_{\frac{\alpha}{2}}$ coverage.
+          This is because the sample size of each simulation was smaller than 30.
+        \item
+          The $t_{n - 1; \frac{\alpha}{2}}$ coverage is better than the $Z_{\frac{\alpha}{2}}$ coverage.
+          This again is because the sample size of each simulation was smaller than 30.
+        \item
+          The coverages reported in part (a) were higher than the coverages in part (b).
+          This is probably due to the fact that the population in part (a) was normally distibuted,
+          while the population in part (b) was exponentially distributed.
+        \item
+          The coverages reported in part (c) were again slightly higher than the coverages in part (d).
+          However, the difference is less drastic between the two coverages.
+          The Central Limit Theorem is starting to take effect,
+          so it matters less that the population in part (d) was exponentially distributed.
+      \end{enumerate}
   \end{enumerate}
 
   \include{appendix}
