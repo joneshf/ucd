@@ -1,0 +1,3 @@
+let's fd2 = 1
+ get fd3 = 0
+ going !
