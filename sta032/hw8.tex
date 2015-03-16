@@ -19,9 +19,9 @@
 
 \newcolumntype{d}{D{.}{.}{-1}}
 
-\newcommand*\dif{\mathop{}\!\mathrm{d}}
-\newcommand\numberthis{\refstepcounter{equation}\tag{\theequation}}
-\newcommand\hypot[7]{
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+\newcommand{\numberthis}{\refstepcounter{equation}\tag{\theequation}}
+\newcommand{\hypotz}[7]{
   We have $n = #1, \overline{X} = #2$ and $s = #3$.
   \begin{enumerate}
     \item
@@ -48,6 +48,28 @@
       \fi
   \end{enumerate}
 }
+\newcommand{\hypott}[8]{
+  We have $n = #1, \overline{X} = #2$ and $s = #3$.
+  \begin{enumerate}
+    \item
+      We have our hypotheses:
+      \begin{align*}
+        H_0 &: \mu #5 #4 \\
+        H_A &: \mu #6 #4 \\
+      \end{align*}
+    \item
+      The test statistic is:
+      \pgfmathsetmacro{\result}{(#2 - #4) / (#3 / sqrt(#1))}
+      \[
+        t = \frac{\overline{X} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{#2 - #4}{\frac{#3}{\sqrt{#1}}} = \num{\result}
+      \]
+    \item
+      The corresponding p-value is: #7
+    \item
+      #8
+
+  \end{enumerate}
+}
 
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
@@ -71,7 +93,7 @@
     \item [$\S$ 6.1]
       \begin{enumerate}
         \item [5]
-          \hypot{80}{4.5}{2.7}{5.4}{\ge}{<}{0.0014}
+          \hypotz{80}{4.5}{2.7}{5.4}{\ge}{<}{0.0014}
           \begin{enumerate}[label=(\arabic*)]
             \item
               See part iii above.
@@ -81,7 +103,7 @@
               It is much more likely that the sample was taken from a population with a mean number of sick days less than 5.4.
           \end{enumerate}
         \item [8]
-          \hypot{100}{25}{60}{0}{=}{\ne}{1}
+          \hypotz{100}{25}{60}{0}{=}{\ne}{1}
           \begin{enumerate}[label=(\arabic*)]
             \item
               See part iii above.
@@ -204,16 +226,30 @@
     \item [$\S$ 6.4]
       \begin{enumerate}
         \item [3]
+          \hypott{8}{6.5}{1.9}{5}{\le}{>}{$0.025 < P < 0.050$}{
+            Since the p-value is less than 0.050, we reject the null hypothesis.
+          }
           \begin{enumerate}[label=(\arabic*)]
+            \item See part i above.
+            \item See part iii above.
             \item
-            \item
-            \item
+              Since we reject the null hypothesis,
+              the alternative hypothesis states that the mean flow rate is more than 5 gpm.
+
+              So, the pumps should be put into service.
           \end{enumerate}
         \item [4]
+          \hypott{10}{23.2}{0.2}{23}{=}{\ne}{$0.01 < P < 0.005$}{
+            Since the p-value is less than 0.050, we reject the null hypothesis.
+          }
           \begin{enumerate}[label=(\arabic*)]
+            \item See part i above.
+            \item See part iii above.
             \item
-            \item
-            \item
+              Since we reject the null hypothesis,
+              the alternative hypothesis states that the mean percentage of potassium by weight is not 23\%.
+
+              So, the process should be recalibrated.
           \end{enumerate}
       \end{enumerate}
     \item [$\S$ 6.5]
