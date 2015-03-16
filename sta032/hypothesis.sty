@@ -58,7 +58,8 @@
   \pgfmathsetmacro{\nmean}{#2 - #5}
   \pgfmathsetmacro{\nvariance}{#3^2 / #1 + #6^2 / #4}
   \[
-    \overline{X} - \overline{Y} \sim N(\mu_X - \mu_Y, \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y}) = N(\nmean, \nvariance)
+    \overline{X} - \overline{Y} \sim N\left(\mu_X - \mu_Y, \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y}\right)
+    = N\left(\nmean, \nvariance \right)
   \]
   \begin{enumerate}
     \item
@@ -71,12 +72,55 @@
       The test statistic is:
       \pgfmathsetmacro{\result}{((#2 - #5) - 0) / sqrt(\nvariance)}
       \[
-        z = \frac{(\overline{X} - \overline{Y}) - 0}{\sigma} = \frac{(#2 - #5) - 0}{\sqrt{\nvariance}} = \num{\result}
+        z = \frac{\left(\overline{X} - \overline{Y}\right) - 0}{\sigma} = \frac{(#2 - #5) - 0}{\sqrt{\nvariance}} = \num{\result}
       \]
     \item
       The corresponding p-value is: #8
     \item
       #9
+  \end{enumerate}
+}
+
+\newcommand\hypotztwoprop[7]{
+  We have $n_X = #1$ and $p_X = #2$.
+
+  We have $n_Y = #3$ and $p_Y = #4$.
+
+  And we know $X \sim Bin(#1, #2)$ and $Y \sim Bin(#3, #4)$.
+
+  From this we compute
+  \pgfmathsetmacro{\phatx}{#2 / #1}
+  \pgfmathsetmacro{\phaty}{#4 / #3}
+  \pgfmathsetmacro{\phat}{(#2 + #4) / (#1 + #3)}
+  \[
+    \hat{p}_X = \frac{X}{n_X} = \frac{#2}{#1} = \phatx
+  \]
+  \[
+    \hat{p}_Y = \frac{Y}{n_Y} = \frac{#4}{#3} = \phaty
+  \]
+  \[
+    \hat{p} = \frac{X + Y}{n_X + n_Y} = \frac{#2 + #4}{#1 + #3} = \phat
+  \]
+  \begin{enumerate}
+    \item
+      We have our hypotheses:
+      \begin{align*}
+        H_0 &: p_X - p_Y #5          0 \\
+        H_A &: p_X - p_Y \relate{#5} 0 \\
+      \end{align*}
+    \item
+      The test statistic is:
+      \pgfmathsetmacro{\result}{(\phatx - \phaty)(sqrt(\phat * (1 - \phat) * ((1 / #1) + (1 / #3))))}
+      \[
+        z
+        = \frac{\hat{p}_X - \hat{p}_Y}{\sqrt{\hat{p}(1 - \hat{p})\left(\frac{1}{n_X} + \frac{1}{n_Y}\right)}}
+        = \frac{\phatx - \phaty}{\sqrt{\phat(1 - \phat)\left(\frac{1}{#1} + \frac{1}{#3}\right)}}
+        = \num{\result}
+      \]
+    \item
+      The corresponding p-value is: #6
+    \item
+      #7
   \end{enumerate}
 }
 
@@ -109,7 +153,7 @@
       \pgfmathsetmacro{\result}{((#2 - #5) - 0) / sqrt(\xsq + \ysq)}
       \[
         t_{\num{\doffloor}}
-        = \frac{(\overline{X} - \overline{Y}) - 0}{\sqrt{\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}}}
+        = \frac{\left(\overline{X} - \overline{Y}\right) - 0}{\sqrt{\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}}}
         = \frac{(#2 - #5) - 0}{\sqrt{\frac{#3^2}{#1} + \frac{#6^2}{#4}}}
         = \num{\result}
       \]
