@@ -1,0 +1,253 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage{pgf}
+\usepackage{pgfplots}
+\usepackage{xparse}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+\newcommand\numberthis{\refstepcounter{equation}\tag{\theequation}}
+\newcommand\hypot[7]{
+  We have $n = #1, \overline{X} = #2$ and $s = #3$.
+  \begin{enumerate}
+    \item
+      We have our hypotheses:
+      \begin{align*}
+        H_0 &: \mu #5 #4 \\
+        H_A &: \mu #6 #4 \\
+      \end{align*}
+    \item
+      The test statistic is:
+      \pgfmathsetmacro{\result}{(#2 - #4) / (#3 / sqrt(#1))}
+      \[
+        Z_s = \frac{\overline{X} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{#2 - #4}{\frac{#3}{\sqrt{#1}}} = \num{\result}
+      \]
+    \item
+      The corresponding p-value is: $\num{#7}$
+    \item
+
+      \pgfmathsetmacro{\bool}{ifthenelse(#7 < 0.05, 1, 0)}
+      \ifdim \bool pt = 1 pt
+        Since the p-value is so small, we reject the null hypothesis.
+      \else
+        Since the p-value is large, we assume the null hypothesis is true.
+      \fi
+  \end{enumerate}
+}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{STA 032 Homework 8\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Melcon\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [$\S$ 6.1]
+      \begin{enumerate}
+        \item [5]
+          \hypot{80}{4.5}{2.7}{5.4}{\ge}{<}{0.0014}
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+              See part iii above.
+            \item
+              I am convinced the mean number of sick days is less than 5.4 after allowing telecommuting.
+              The probability that the sample was from a population where the mean number of sick days was greater than 5.4 is exceedingly small.
+              It is much more likely that the sample was taken from a population with a mean number of sick days less than 5.4.
+          \end{enumerate}
+        \item [8]
+          \hypot{100}{25}{60}{0}{=}{\ne}{1}
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+              See part iii above.
+            \item
+              I am convinced that the laser is properly calibrated.
+              Since the probability that the sample was from a population with 0 mean error is effectively 1,
+              it makes sense that the laser is properly calibrated.
+          \end{enumerate}
+      \end{enumerate}
+    \item [$\S$ 6.2]
+      \begin{enumerate}
+        \item [9]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+              The null hypothesis should be:
+              \[
+                H_0: \mu \le 8 \textrm{ years}
+              \]
+              If $H_0$ is rejected,
+              then it is known that the batteries will have a mean lifetime of more than 8 years and
+              so can be installed in pacemakers.
+
+              If $H_0$ is not rejected,
+              then the batteries might have a mean lifetime less than 8 years and
+              so cannot be installed in pacemakers.
+            \item
+              The null hypothesis should be:
+              \[
+                H_0: \mu \le \num{60000} \textrm{ miles}
+              \]
+              If $H_0$ is rejected,
+              then it is known that the tires will have a mean lifetime more than \num{60000} miles and
+              so the new material can be used to make tires.
+
+              If $H_0$ is not rejected,
+              then the tires might have a mean lifetime less than \num{60000} miles and
+              so the new material cannot be used to make tires.
+            \item
+              The null hypothesis should be:
+              \[
+                H_0: \mu = \num{10} \textrm{ \si{\milli\liter\per\second}}
+              \]
+              If $H_0$ is rejected,
+              then it is known that the flow rate will be \num{10} \si{\milli\liter\per\second} and
+              so the flowmeter should be recalibrated.
+
+              If $H_0$ is not rejected,
+              then the flow rate might not be \num{10} \si{\milli\liter\per\second} and
+              so the flowmeter should not be recalibrated.
+          \end{enumerate}
+        \item [14]
+          i. Greater than 0.05.
+
+          We can compute the necessary values from the information given.
+
+          With the interval from 1.2 to 2.0,
+          we can compute $\overline{X} = \frac{1.2 + 2.0}{2} = 1.6$.
+
+          We also know that
+          \begin{align*}
+            1.2 &= 1.6 - 1.96 \frac{s}{\sqrt{n}} \\
+            1.96 \frac{s}{\sqrt{n}} &= 0.4 \\
+            \frac{s}{\sqrt{n}} &= \frac{0.4}{1.96} \\
+            \frac{s}{\sqrt{n}} &= \num{0.20408163265306123} \\
+          \end{align*}
+
+          So, we can compute a z-score
+          \[
+            Z = \frac{\overline{X} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{1.6 - 1.4}{\num{0.20408163265306123}} = 0.98
+          \]
+
+          The corresponding p-value is 0.8365, which much greater than 0.05.
+      \end{enumerate}
+    \item [$\S$ 6.3]
+      \begin{enumerate}
+        \item [7]
+          We want the hypotheses:
+
+          \begin{align*}
+            H_0 &: \mu \le 0.7 \\
+            H_A &: \mu > 0.7 \\
+          \end{align*}
+
+          So $n = 150$ and $p = 0.7$.
+
+          Thus, $\hat{p} \sim N(150, \frac{0.7 (1 - 0.7)}{150}) = N(150, \num{0.00140})$.
+
+          This lets us compute $\sigma_{\hat{p}} = \sqrt{\num{0.00140}} = \num{0.0374}$,
+          and an observed $\hat{p} = \frac{110}{150} = \num{0.7333333}$.
+
+          So we have a z-score of $Z = \frac{\num{0.7333} - 0.7}{\num{0.0374}} = 0.8913$.
+
+          The corresponding p-value is $1 - 0.8133 = 0.1867$.
+
+          Since this value is much higher than 0.05,
+          we do not reject the null hypothesis.
+          We cannot conclude that more than 70\% of the households in the city have high-speed internet access.
+        \item [8]
+          We want the hypotheses:
+
+          \begin{align*}
+            H_0 &: \mu \ge 0.08 \\
+            H_A &: \mu < 0.08 \\
+          \end{align*}
+
+          So $n = 300$ and $p = 0.08$.
+
+          Thus, $\hat{p} \sim N(300, \frac{0.08 (1 - 0.08)}{300}) = N(300, \num{0.0002453})$.
+
+          This lets us compute $\sigma_{\hat{p}} = \sqrt{\num{0.0002453}} = \num{0.015663}$,
+          and an observed $\hat{p} = \frac{12}{300} = \num{0.04}$.
+
+          So we have a z-score of $Z = \frac{\num{0.04} - 0.08}{\num{0.015663}} = \num{-2.553789184702803}$.
+
+          The corresponding p-value is $0.0054$.
+
+          Since this value is very small, we reject the null hypothesis.
+          We can conclude that less than 8\% of the produced parts are defective.
+      \end{enumerate}
+    \item [$\S$ 6.4]
+      \begin{enumerate}
+        \item [3]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+          \end{enumerate}
+        \item [4]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+          \end{enumerate}
+      \end{enumerate}
+    \item [$\S$ 6.5]
+      \begin{enumerate}
+        \item [7]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+          \end{enumerate}
+      \end{enumerate}
+    \item [$\S$ 6.6]
+      \begin{enumerate}
+        \item [12]
+      \end{enumerate}
+    \item [$\S$ 6.7]
+      \begin{enumerate}
+        \item [13]
+      \end{enumerate}
+    \item [$\S$ 6.12]
+      \begin{enumerate}
+        \item [4]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+            \item
+          \end{enumerate}
+        \item [5]
+          \begin{enumerate}[label=(\arabic*)]
+            \item
+            \item
+            \item
+            \item
+          \end{enumerate}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
