@@ -1,3 +1,4 @@
+\RequirePackage[l2tabu, orthodox]{nag}
 \documentclass[12pt,letterpaper]{article}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -14,6 +15,8 @@
 \usepackage{pgf}
 \usepackage{pgfplots}
 \usepackage{xparse}
+\usepackage{microtype}
+\usepackage{hypothesis}
 \pgfplotsset{compat=1.8}
 \usepgfplotslibrary{statistics}
 
@@ -21,55 +24,6 @@
 
 \newcommand*{\dif}{\mathop{}\!\mathrm{d}}
 \newcommand{\numberthis}{\refstepcounter{equation}\tag{\theequation}}
-\newcommand{\hypotz}[7]{
-  We have $n = #1, \overline{X} = #2$ and $s = #3$.
-  \begin{enumerate}
-    \item
-      We have our hypotheses:
-      \begin{align*}
-        H_0 &: \mu #5 #4 \\
-        H_A &: \mu #6 #4 \\
-      \end{align*}
-    \item
-      The test statistic is:
-      \pgfmathsetmacro{\result}{(#2 - #4) / (#3 / sqrt(#1))}
-      \[
-        Z_s = \frac{\overline{X} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{#2 - #4}{\frac{#3}{\sqrt{#1}}} = \num{\result}
-      \]
-    \item
-      The corresponding p-value is: $\num{#7}$
-    \item
-
-      \pgfmathsetmacro{\bool}{ifthenelse(#7 < 0.05, 1, 0)}
-      \ifdim \bool pt = 1 pt
-        Since the p-value is so small, we reject the null hypothesis.
-      \else
-        Since the p-value is large, we assume the null hypothesis is true.
-      \fi
-  \end{enumerate}
-}
-\newcommand{\hypott}[8]{
-  We have $n = #1, \overline{X} = #2$ and $s = #3$.
-  \begin{enumerate}
-    \item
-      We have our hypotheses:
-      \begin{align*}
-        H_0 &: \mu #5 #4 \\
-        H_A &: \mu #6 #4 \\
-      \end{align*}
-    \item
-      The test statistic is:
-      \pgfmathsetmacro{\result}{(#2 - #4) / (#3 / sqrt(#1))}
-      \[
-        t = \frac{\overline{X} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{#2 - #4}{\frac{#3}{\sqrt{#1}}} = \num{\result}
-      \]
-    \item
-      The corresponding p-value is: #7
-    \item
-      #8
-
-  \end{enumerate}
-}
 
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
@@ -257,7 +211,15 @@
         \item [7]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              \hypotztwo{80}{7.79}{1.06}{80}{7.64}{1.31}{\le}{0.2119}{\pnotsmall}
+
+              From the above,
+              we cannot conclude that the mean score on one-tailed hypothesis test questions is higher than the mean score on two-tailed hypothesis test questions.
             \item
+              \hypotztwo{80}{7.79}{1.06}{80}{7.64}{1.31}{=}{0.4238}{\pnotsmall}
+
+              From the above,
+              we cannot conclude that the mean score on one-tailed hypothesis test questions differs from the mean score on two-tailed hypothesis test questions.
           \end{enumerate}
       \end{enumerate}
     \item [$\S$ 6.6]
@@ -267,22 +229,42 @@
     \item [$\S$ 6.7]
       \begin{enumerate}
         \item [13]
+          \hypotttwo{12}{27.3}{5.2}{14}{32.7}{4.1}{\ge}{$0.001 < P < 0.005$}{\psmall}
+
+          From the above, we reject the null hypothesis.
+          So we conclude that the mean time to sleep is less for the new drug than the old drug.
       \end{enumerate}
     \item [$\S$ 6.12]
       \begin{enumerate}
         \item [4]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              Since $\mu$ satisfies $H_0$, $H_0$ should not be rejected.
+              This is a type I error.
             \item
+              Since $\mu$ satisfies $H_0$, $H_0$ should not be rejected.
+              The decision is correct.
             \item
+              Since $\mu$ does not satisfy $H_0$, $H_0$ should be rejected.
+              This is a type II error.
             \item
+              Since $\mu$ does not satisfy $H_0$, $H_0$ should be rejected.
+              The decision is correct.
           \end{enumerate}
         \item [5]
           \begin{enumerate}[label=(\arabic*)]
             \item
+              Since the claim is true, $H_0$ should not be rejected.
+              This is a type I error.
             \item
+              Since the claim is false, $H_0$ should be rejected.
+              This decision is correct.
             \item
+              Since the claim is true, $H_0$ should not be rejected.
+              This decision is correct.
             \item
+              Since the claim is false, $H_0$ should be rejected.
+              This is a type II error.
           \end{enumerate}
       \end{enumerate}
   \end{enumerate}

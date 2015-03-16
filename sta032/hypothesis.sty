@@ -1,0 +1,141 @@
+\newcommand{\hypotz}[7]{
+  We have $n = #1, \overline{X} = #2$ and $s = #3$.
+  \begin{enumerate}
+    \item
+      We have our hypotheses:
+      \begin{align*}
+        H_0 &: \mu #5 #4 \\
+        H_A &: \mu #6 #4 \\
+      \end{align*}
+    \item
+      The test statistic is:
+      \pgfmathsetmacro{\result}{(#2 - #4) / (#3 / sqrt(#1))}
+      \[
+        Z_s = \frac{\overline{X} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{#2 - #4}{\frac{#3}{\sqrt{#1}}} = \num{\result}
+      \]
+    \item
+      The corresponding p-value is: $\num{#7}$
+    \item
+
+      \pgfmathsetmacro{\bool}{ifthenelse(#7 < 0.05, 1, 0)}
+      \ifdim \bool pt = 1 pt
+        Since the p-value is so small, we reject the null hypothesis.
+      \else
+        Since the p-value is large, we assume the null hypothesis is true.
+      \fi
+  \end{enumerate}
+}
+
+\newcommand{\hypott}[8]{
+  We have $n = #1, \overline{X} = #2$ and $s = #3$.
+  \begin{enumerate}
+    \item
+      We have our hypotheses:
+      \begin{align*}
+        H_0 &: \mu #5 #4 \\
+        H_A &: \mu #6 #4 \\
+      \end{align*}
+    \item
+      The test statistic is:
+      \pgfmathsetmacro{\result}{(#2 - #4) / (#3 / sqrt(#1))}
+      \[
+        t = \frac{\overline{X} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{#2 - #4}{\frac{#3}{\sqrt{#1}}} = \num{\result}
+      \]
+    \item
+      The corresponding p-value is: #7
+    \item
+      #8
+
+  \end{enumerate}
+}
+
+\newcommand\hypotztwo[9]{
+  We have $n_X = #1, \mu_X = #2$ and $s_X = #3$.
+
+  We have $n_Y = #4, \mu_Y = #5$ and $s_Y = #6$.
+
+  From this we compute
+  \pgfmathsetmacro{\nmean}{#2 - #5}
+  \pgfmathsetmacro{\nvariance}{#3^2 / #1 + #6^2 / #4}
+  \[
+    \overline{X} - \overline{Y} \sim N(\mu_X - \mu_Y, \frac{\sigma_X^2}{n_X} + \frac{\sigma_Y^2}{n_Y}) = N(\nmean, \nvariance)
+  \]
+  \begin{enumerate}
+    \item
+      We have our hypotheses:
+      \begin{align*}
+        H_0 &: \mu_X - \mu_Y #7          0 \\
+        H_A &: \mu_X - \mu_Y \relate{#7} 0 \\
+      \end{align*}
+    \item
+      The test statistic is:
+      \pgfmathsetmacro{\result}{((#2 - #5) - 0) / sqrt(\nvariance)}
+      \[
+        z = \frac{(\overline{X} - \overline{Y}) - 0}{\sigma} = \frac{(#2 - #5) - 0}{\sqrt{\nvariance}} = \num{\result}
+      \]
+    \item
+      The corresponding p-value is: #8
+    \item
+      #9
+  \end{enumerate}
+}
+
+\newcommand\hypotttwo[9]{
+  We have $n_X = #1, \mu_X = #2$ and $s_X = #3$.
+
+  We have $n_Y = #4, \mu_Y = #5$ and $s_Y = #6$.
+
+  From this we compute
+  \pgfmathsetmacro{\xsq}{#3^2 / #1}
+  \pgfmathsetmacro{\ysq}{#6^2 / #4}
+  \pgfmathsetmacro{\dof}{((\xsq + \ysq)^2) / (\xsq^2 / (#1 - 1) + \ysq^2 / (#4 - 1))}
+  \pgfmathsetmacro{\doffloor}{floor(((\xsq + \ysq)^2) / (\xsq^2 / (#1 - 1) + \ysq^2 / (#4 - 1)))}
+  \sisetup{zero-decimal-to-integer}
+  \[
+    \nu = \floor*{\frac{\left(\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}\right)^2}{\frac{\left(\frac{s_X^2}{n_X}\right)^2}{n_X - 1} + \frac{\left(\frac{s_Y^2}{n_Y}\right)^2}{n_Y - 1}}}
+    = \floor*{\frac{\left(\frac{#3^2}{#1} + \frac{#6^2}{#4}\right)^2}{\frac{\left(\frac{#3^2}{#1}\right)^2}{#1 - 1} + \frac{\left(\frac{#6^2}{#4}\right)^2}{#4 - 1}}}
+    = \floor*{\dof}
+    = \num{\doffloor}
+  \]
+  \begin{enumerate}
+    \item
+      We have our hypotheses:
+      \begin{align*}
+        H_0 &: \mu_X - \mu_Y #7          0 \\
+        H_A &: \mu_X - \mu_Y \relate{#7} 0 \\
+      \end{align*}
+    \item
+      The test statistic is:
+      \pgfmathsetmacro{\result}{((#2 - #5) - 0) / sqrt(\xsq + \ysq)}
+      \[
+        t_{\num{\doffloor}}
+        = \frac{(\overline{X} - \overline{Y}) - 0}{\sqrt{\frac{s_X^2}{n_X} + \frac{s_Y^2}{n_Y}}}
+        = \frac{(#2 - #5) - 0}{\sqrt{\frac{#3^2}{#1} + \frac{#6^2}{#4}}}
+        = \num{\result}
+      \]
+    \item
+      The corresponding p-value is: #8
+    \item
+      #9
+  \end{enumerate}
+}
+
+\newcommand{\psmall}{Since the p-value is small, we reject the null hypothesis.}
+\newcommand{\pnotsmall}{Since the p-value is not small, we do not reject the null hypothesis.}
+
+\usepackage{xifthen}
+\newtest{\reject}[1]{\cnttest{(#1)}{<}{0.05}}
+
+% Switch implementation
+\newcommand{\ifequals}[3]{\ifthenelse{\equal{#1}{#2}}{#3}{}}
+\newcommand{\case}[2]{#1 #2} % Dummy, so \renewcommand has something to overwrite...
+\newenvironment{switch}[1]{\renewcommand{\case}{\ifequals{#1}}}{}
+
+% Example: Pick color by ID
+\newcommand{\relate}[1]{
+  \begin{switch}{#1}
+    \case{=}{\ne}
+    \case{\le}{>}
+    \case{\ge}{<}
+  \end{switch}
+}
