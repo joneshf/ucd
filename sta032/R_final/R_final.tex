@@ -153,17 +153,113 @@
     \item
       \begin{enumerate}
         \item
+          \begin{enumerate}
+            \item
+              \begin{tabular}{| l | d | d |}
+                \hline
+                            & \multicolumn{1}{c |}{Lower} & \multicolumn{1}{c |}{Upper} \\
+                \hline
+                Corrected   & 0.685                       & 0.871 \\
+                \hline
+                Uncorrected & 0.707                       & 0.893 \\
+                \hline
+              \end{tabular}
+            \item
+              \begin{tabular}{| l | d | d |}
+                \hline
+                            & \multicolumn{1}{c |}{Lower} & \multicolumn{1}{c |}{Upper} \\
+                \hline
+                Corrected   & 0.240                       & 0.543 \\
+                \hline
+                Uncorrected & 0.229                       & 0.540 \\
+                \hline
+              \end{tabular}
+          \end{enumerate}
         \item
+          \begin{enumerate}
+            \item
+              \begin{tabular}{| d | d |}
+                \hline
+                \multicolumn{1}{| c |}{Corrected} & \multicolumn{1}{c |}{Uncorrected} \\
+                \hline
+                0.9614 & 0.9329 \\
+                \hline
+              \end{tabular}
+            \item
+              \begin{tabular}{| d | d |}
+                \hline
+                \multicolumn{1}{| c |}{Corrected} & \multicolumn{1}{c |}{Uncorrected} \\
+                \hline
+                0.9475 & 0.9475 \\
+                \hline
+              \end{tabular}
+            \item
+              \begin{tabular}{| d | d |}
+                \hline
+                \multicolumn{1}{| c |}{Corrected} & \multicolumn{1}{c |}{Uncorrected} \\
+                \hline
+                0.9601 & 0.9445 \\
+                \hline
+              \end{tabular}
+            \item
+              \begin{tabular}{| d | d |}
+                \hline
+                \multicolumn{1}{| c |}{Corrected} & \multicolumn{1}{c |}{Uncorrected} \\
+                \hline
+                0.9362 & 0.9362 \\
+                \hline
+              \end{tabular}
+          \end{enumerate}
         \item
+          The difference is large enough that using the corrected version makes sense.
+          It does not add more asymptotic complexity,
+          but it provides a greater coverage probability.
+          You basically get better coverage for free.
         \item
+          The true proportion affects the uncorrected version more than the corrected version.
+          The sample size does not really affect either version.
         \item
+          The corrected version can have worse coverage when the true mean is very low and the sample size is very large.
         \item
+          Given the results of (d) and (e), it would depend on the situation.
+          If the sample size is very large and the true mean is very small then it would be better to use the uncorrected version.
+          If not, it's better to use the corrected version.
       \end{enumerate}
     \item
+      We start by generating a histogram:
+
+      \includegraphics[width=\linewidth]{prob4.png}
+
+      The data appears to be distributed approximately normally.
+
       \begin{enumerate}
-        \item
-        \item
-        \item
+        \item $\mu_0 = 67$
+
+          \begin{tabular}{| d | d | d |}
+            \hline
+            \multicolumn{1}{| c |}{Non-parametric} & \multicolumn{1}{c |}{Parametric} & \multicolumn{1}{c |}{Theoretical} \\
+            \hline
+            0.637 & 0.627 & 0.629 \\
+            \hline
+          \end{tabular}
+        \item $\mu_0 = 68$
+
+          \begin{tabular}{| d | d | d |}
+            \hline
+            \multicolumn{1}{| c |}{Non-parametric} & \multicolumn{1}{c |}{Parametric} & \multicolumn{1}{c |}{Theoretical} \\
+            \hline
+            0.146 & 0.151 & 0.153 \\
+            \hline
+          \end{tabular}
+        \item $\mu_0 = 69$
+
+          \begin{tabular}{| d | d | d |}
+            \hline
+            \multicolumn{1}{| c |}{Non-parametric} & \multicolumn{1}{c |}{Parametric} & \multicolumn{1}{c |}{Theoretical} \\
+            \hline
+            0.00628 & 0.00849 & 0.00863 \\
+            \hline
+          \end{tabular}
       \end{enumerate}
   \end{enumerate}
 

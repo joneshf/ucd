@@ -1,0 +1,85 @@
+### Student Name: Fill in the blank.
+### Class : STA 32 Winter 2015
+### Homework Solutions/Template 6
+
+
+###Problem 1
+```{r,echo = FALSE}
+Conf.Int = function(X,alpha){
+  n = length(X)
+  x.bar = mean(X)
+  s.e = sd(X)/sqrt(n)
+  Z.val = qnorm(0.05/2,lower.tail = FALSE) 
+  t.val = qt(0.05/2,df = n-1,lower.tail = FALSE) 
+  Z.conf.int = x.bar +c(-1,1)*Z.val*s.e
+  t.conf.int = x.bar +c(-1,1)*t.val*s.e
+  both.int = matrix(c(Z.conf.int,t.conf.int),byrow = TRUE,nrow = 2)
+  colnames(both.int) = c("Lower Bound","Upper Bound")
+  rownames(both.int) = c("Z CI","t CI")
+  return(both.int)
+}
+```
++ (a)
+The confidence intervals are:
+```{r, echo = FALSE}
+Conf.Int(X = rnorm(15, mean = 5, sd = 3), alpha = 0.05)
+```
++ (b)
+The confidence intervals are:
+```{r, echo = FALSE}
+Conf.Int(X = rexp(15,rate = 1/5), alpha = 0.05)
+```
++ (c)
+The confidence intervals are:
+```{r, echo = FALSE}
+Conf.Int(X = rnorm(50, mean = 5, sd = 3), alpha = 0.05)
+```
++ (d)
+The confidence intervals are:
+```{r, echo = FALSE}
+Conf.Int(X = rexp(50,rate = 1/5), alpha = 0.05)
+```
+###Problem 2
+```{r,echo = FALSE}
+C.I.cover = function(ThePop,alpha,n,N,TrueMean){
+  all.T.F = sapply(1:N,function(i){
+    Sample = sample(ThePop,n,replace = FALSE)
+    C.I = Conf.Int(Sample, alpha = alpha)
+    Z.cover = ifelse(C.I[1,1] <= TrueMean & C.I[1,2] >= TrueMean,TRUE,FALSE)
+    t.cover = ifelse(C.I[2,1] <= TrueMean & C.I[2,2] >= TrueMean,TRUE,FALSE)
+    cover = matrix(c(Z.cover,t.cover),nrow = 1)
+    colnames(cover) = c("Z-coverage","t-coverage")
+    return(cover)
+  })
+  all.T.F = t(all.T.F)
+  cover.proportion = colMeans(all.T.F)
+  return(cover.proportion)
+}
+```
++ (a)
+The proportion of confidence intervals covering the true mean can be found below:
+```{r, echo = FALSE}
+C.I.cover(ThePop = rnorm(10000,mean = 5, sd = 3),alpha = 0.05, n = 15, N = 10000,TrueMean = 5)
+```
++ (b)
+The proportion of confidence intervals covering the true mean can be found below:
+```{r, echo = FALSE}
+C.I.cover(ThePop = rexp(10000,rate = 1/5),alpha = 0.05, n = 15, N = 10000,TrueMean = 5)
+```
++ (c)
+The proportion of confidence intervals covering the true mean can be found below:
+```{r, echo = FALSE}
+C.I.cover(ThePop = rnorm(10000,mean = 5, sd = 3),alpha = 0.05, n = 50, N = 10000,TrueMean = 5)
+```
++ (d)
+The proportion of confidence intervals covering the true mean can be found below:
+```{r, echo = FALSE}
+C.I.cover(ThePop = rexp(10000,rate = 1/5),alpha = 0.05, n = 50, N = 10000,TrueMean = 5)
+```
++ (e) The t-distribution coverage is better than the z-distribution coverage.  This is most likely because n is small, and when n is small we assume that we have made a larger error and should use a t distribution.
+
++ (f) While both are below the theorectical 0.95, the t-distribution still outperforms the z-distribution.  This is because the t-distribution is more conservative, and results in wider confidence intervals.
+
++ (g) Here the t-distribution and z-distribution perform about the same.  This is because in this case n is large, and the population is normal, so we should expect little improvement with t.
+
++ (h) The t-distribution outperforms the z-distribution in this case.  Even though n is large, when the population is not normal, it is often a better idea to select the more conservative interval.
