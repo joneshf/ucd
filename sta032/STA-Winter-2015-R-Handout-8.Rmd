@@ -1,0 +1,100 @@
+---
+title: "Bootstrap Example"
+author: "Erin Melcon"
+date: "Monday, February 23, 2015"
+output: html_document
+---
+
+Recall that for a non-parametric bootstrap, we are interested in estimating a value $\theta$.
+
+A non-parametric bootstrap has the following steps:
+
+1. Assume you have an original sample of size n.  Resample from this data n times with replacement to create a bootstrap sample.
+2. For this bootstrap sample, find $\hat{\theta}^B_i$, the $i^{th}$ bootstrap estimate of your statistic of interest.
+3. Repeat 1 & 2 $B$ times, so that you have values $\hat{\theta}^B_1, \ldots \hat{\theta}^B_B$.
+
+The bootstrap estimate of $\theta$ is then the average of all $B$ bootstrap samples, or $\bar{\theta}_{boot} = \frac{1}{B}\sum_{i=1}^{B} \hat{\theta}^B_i$
+
+The standard deviation of the bootstrap estimate (or standard error of the bootstrap estimate) is then $\sqrt{\frac{1}{B-1}\sum_{i=1}^B (\bar{\theta}_{boot}  - \hat{\theta}^B_i)^2}$
+
+A parametric bootstrap assumes that you know the underlying distribution, and can generate data from that distribution using sample estimates as your parameters.
+
+A parametric bootstrap has the following steps:
+
+1. Assume you have an original sample of size n. Use this sample to estimate the parameters of the known distribution, and randomly generate a sample of size n from the known distribution.  This is your bootstrap sample.
+2. For this bootstrap sample, find $\hat{\theta}^B_i$, the $i^{th}$ bootstrap estimate of your statistic of interest.
+3. Repeat 1 & 2 $B$ times, so that you have values $\hat{\theta}^B_1, \ldots \hat{\theta}^B_B$.
+
+The bootstrap estimate of $\theta$ is then the average of all $B$ bootstrap samples, or $\bar{\theta}_{boot} = \frac{1}{B}\sum_{i=1}^{B} \hat{\theta}^B_i$
+
+The standard deviation of the bootstrap estimate (or standard error of the bootstrap estimate) is then $\sqrt{\frac{1}{B-1}\sum_{i=1}^B (\bar{\theta}_{boot}  - \hat{\theta}^B_i)^2}$
+
+The code for this is VERY easy to implement in R.
+
+###Example 1 : Non-parametric Bootstrap
+Consider a sample from the lynx data:
+```{r}
+X = sample(as.numeric(lynx), 50)
+```
+
+We will use this sample to create bootstrap estimates of the mean, and find standard deviations of the estimates.
+```{r}
+#Getting the bootstrap sample estimates
+B = 1000
+all.the.BS = sapply(1:B,function(i){
+  BS.sample = sample(X,length(X),replace = TRUE)
+  theta.hat = mean(BS.sample)
+  return(theta.hat)
+})
+BS.estimate = mean(all.the.BS)
+BS.error = sd(all.the.BS)
+results = c(BS.estimate,BS.error)
+names(results) = c("Bootstrap Mean","Bootstrap Error")
+results
+```
+Notice we can calculate the TRUE mean of the lynx "population" and the mean of our sample:
+```{r}
+mean(as.numeric(lynx))
+mean(X)
+```
+
+We can also create a bootstrap confidence interval, by finding the $(\alpha/2)^{th}$ and $(1-\alpha/2)^{th}$ percentiles of many bootstrap estimates, and see if that interval contains the "true" lynx data mean:
+
+```{r}
+alpha = 0.05
+BS.CI = quantile(all.the.BS, c(alpha/2, 1-alpha/2))
+names(BS.CI) = c("Lower Bound","Upper Bound")
+BS.CI
+BS.CI[1] < mean(lynx) & BS.CI[2] > mean(lynx)
+```
+###Example 2  : Parametric bootstrap
+Notice that the lynx "population" looks like it could be exponential:
+```{r}
+hist(lynx,main = "Population Distribution",xlab = "Lynx Trappings")
+```
+We will generate our bootstrap samples with an exponential distribution, where we estimate the mean with the mean from our sample.
+
+```{r}
+para.BS = sapply(1:B,function(i){
+  BS.sample = rexp(length(X), rate = 1/mean(X))
+  theta.hat = mean(BS.sample)
+  return(theta.hat)
+})
+para.estimate = mean(para.BS)
+para.error = sd(para.BS)
+
+para.results = c(para.estimate,para.error)
+names(para.results) = c("Bootstrap Mean","Bootstrap Error")
+para.results
+```
+
+We can create a confidence interval just like before as well:
+```{r}
+alpha = 0.05
+para.CI = quantile(para.BS, c(alpha/2, 1-alpha/2))
+names(para.CI) = c("Lower Bound","Upper Bound")
+para.CI
+para.CI[1] < mean(lynx) & para.CI[2] > mean(lynx)
+```
+###Comments
+If you run this code a view times, you will see that how well the bootstrap estimate does depends on how good our first sample was.  Bootstrap estimates are HIGHLY dependent on the initial sample.

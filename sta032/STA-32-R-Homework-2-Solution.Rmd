@@ -1,0 +1,264 @@
+### Student Name: Fill in the blank.
+### Class : STA 32 Winter 2015
+### Homework Solutions/Template 2
+
+
+1. Problem 1
+```{r, echo = FALSE}
+PairFunction = function(n, part = "a"){
+  CardValue = rep(c("A",2:10,"J","Q","K"),times = 4)
+  CardSuit = rep(c("S","C","H","D"), each = 13)
+  CardDeck = t(rbind(CardValue,CardSuit))
+  ManyTwoCards = sapply(1:n,function(i){
+    TwoCards = CardDeck[sample(1:52,2,replace = FALSE),]
+    if(part == "a"){
+      CheckCondition = ifelse(TwoCards[1,1] == TwoCards[2,1], TRUE,FALSE)
+      return(CheckCondition)
+    }else if(part == "b"){
+      CheckCondition = ifelse((TwoCards[1,2] == "H") & (TwoCards[2,2] == "H"), TRUE,FALSE)
+      return(CheckCondition)    
+    }else if(part == "c"){
+      CheckSuit = ifelse(sum(TwoCards[,2] %in% c("H","D") ) == 2, TRUE, FALSE)
+      CheckValue = ifelse(TwoCards[1,1] == TwoCards[2,1], TRUE,FALSE)
+      CheckCondition = ifelse(CheckSuit + CheckValue == 2, TRUE, FALSE)
+      return(CheckCondition)      
+    }else if(part == "all"){
+      a.Condition = ifelse(TwoCards[1,1] == TwoCards[2,1], TRUE,FALSE)
+      b.Condition = ifelse(TwoCards[1,2] == TwoCards[2,2], TRUE,FALSE)
+      c.Suit = ifelse(sum(TwoCards[,2] %in% c("H","D") ) == 2, TRUE, FALSE)
+      c.Condition = ifelse(c.Suit + a.Condition == 2, TRUE, FALSE)
+      return(c(a.Condition, b.Condition,c.Condition))
+    }else{
+      stop("Error, definition of parameter :part: unknown")
+    }
+  })
+  if(part != "all"){
+    TheProbability  = round(sum(ManyTwoCards)/n,digits = 4)
+    return(TheProbability)
+  }else{
+    TheProbability  = round(rowSums(ManyTwoCards)/n,digits = 4)
+    names(TheProbability) = c("Part(a)","Part(b)","Part(c)")
+    print(TheProbability)
+    return(TheProbability)
+  }
+}
+```
++ (a): The probability of getting two cards of the same value if you draw two cards for the specified **n**'s are:
+```{r,echo = FALSE}
+Results = sapply(c(100,1000,10000,100000),function(i){
+  PairFunction(i,"a")
+})
+names(Results) = as.character(c(100,1000,10000,100000))
+Results
+#Note, by math it is 
+MathProb = (52/52)*(3/51)
+```
+
++ (b): The probability of getting two cards hearts if you draw two cards for the specified **n**'s are:
+```{r,echo = FALSE}
+Results = sapply(c(100,1000,10000,100000),function(i){
+  PairFunction(i,"b")
+})
+names(Results) = as.character(c(100,1000,10000,100000))
+Results
+#Note, by math it is 
+MathProb = (13/52)*(12/51)
+```
+
++ (c): The probability of getting two cards of the same value where one is a heart and the other a diamond if you draw two cards for the specified **n**'s are:
+```{r,echo = FALSE}
+Results = sapply(c(100,1000,10000,100000),function(i){
+  PairFunction(i,"c")
+})
+names(Results) = as.character(c(100,1000,10000,100000))
+Results
+#Note, by math it is 
+MathProb = (26/52)*(1/51)
+```
+
+2. Problem 2:  The results for the various probabilities with the various **n**'s are:
+
+```{r,echo = FALSE}
+BiasedCoin = function(n){
+  Color = sample(c("R","G","B"),n,replace = TRUE)
+  Flip = sapply(1:n,function(i){
+  if(Color[i] =="R"){
+  return(sample(c("T","H"),1,prob = c(0.60,0.40)))
+  }else if(Color[i] =="B"){
+  return(sample(c("T","H"),1,prob = c(0.30,0.70)))
+  }else if(Color[i] == "G"){
+  return(sample(c("T","H"),1,prob = c(0.50,0.50)))
+  }else{print("Error")}
+  })
+  P.A = sum(Color == "B")/n
+  P.B = sum(Flip =="H")/n
+  P.AorB = sum(Flip =="H" |Color == "B")/n
+  P.ACorB = sum(Flip =="H" |Color != "B")/n
+  P.AandB = sum(Flip =="H" & Color == "B")/n
+  P.AgB = sum(Flip =="H" & Color == "B")/sum(Flip == "H")
+  P.AgBc = sum(Flip !="H" & Color == "B")/sum(Flip != "H")
+  Results = matrix(c(P.A,P.B,P.AorB,P.ACorB,P.AandB,P.AgB,P.AgBc),nrow = 1)
+  colnames(Results)= c("P(A)","P(B)","P(AUB)","P(AcUB)","P(A&B)","P(A|B)","P(A|Bc)")
+  return(Results)
+}
+```
+
++ n = 100: 
+```{r, echo = FALSE}
+BiasedCoin(100)
+```
+
++ n = 1000: 
+```{r, echo = FALSE}
+BiasedCoin(1000)
+```
+
++ n = 10000: 
+```{r, echo = FALSE}
+BiasedCoin(10000)
+```
+
++ n = 100000: 
+```{r, echo = FALSE}
+BiasedCoin(100000)
+```
+3. Problem 3
+The results for the various probabilities with the various **n**'s are:
+```{r, echo = FALSE}
+Damaged = function(n){
+  WhatSector = sample(c("Allocation Only","Non-Essential Only","Both"),n,replace = TRUE,prob = c(.2,.7,.1))
+  PartA = sum(WhatSector == "Allocation Only" | WhatSector == "Both")/length(WhatSector)
+  PartB = sum(WhatSector == "Non-Essential Only" | WhatSector == "Both")/length(WhatSector)
+  PartC = sum(WhatSector == "Both")/sum(WhatSector == "Allocation Only" | WhatSector == "Both")
+  PartD = sum(WhatSector == "Both")/sum(WhatSector == "Non-Essential Only" | WhatSector == "Both")
+   PartE = sum(WhatSector == "Allocation Only")/sum(WhatSector == "Allocation Only" | WhatSector == "Both")
+  PartF = sum(WhatSector == "Non-Essential Only")/sum(WhatSector == "Non-Essential Only" | WhatSector == "Both")
+  Results = c(PartA,PartB,PartC,PartD,PartE,PartF)
+  names(Results) = c("Part A","Part B","Part C","Part D","Part E","Part F")
+  return(Results)
+}
+```
++ n = 100: 
+```{r, echo = FALSE}
+Damaged(100)
+```
+
++ n = 1000: 
+```{r, echo = FALSE}
+Damaged(1000)
+```
+
++ n = 10000: 
+```{r, echo = FALSE}
+Damaged(10000)
+```
+
++ n = 100000: 
+```{r, echo = FALSE}
+Damaged(100000)
+```
+********
+### Code Appendix 
+```
+###Problem 1
+PairFunction = function(n, part = "a"){
+  CardValue = rep(c("A",2:10,"J","Q","K"),times = 4)
+  CardSuit = rep(c("S","C","H","D"), each = 13)
+  CardDeck = t(rbind(CardValue,CardSuit))
+  ManyTwoCards = sapply(1:n,function(i){
+    TwoCards = CardDeck[sample(1:52,2,replace = FALSE),]
+    if(part == "a"){
+      CheckCondition = ifelse(TwoCards[1,1] == TwoCards[2,1], TRUE,FALSE)
+      return(CheckCondition)
+    }else if(part == "b"){
+      CheckCondition = ifelse(TwoCards[1,2] == TwoCards[2,2], TRUE,FALSE)
+      return(CheckCondition)    
+    }else if(part == "c"){
+      CheckSuit = ifelse(sum(TwoCards[,2] %in% c("H","D") ) == 2, TRUE, FALSE)
+      CheckValue = ifelse(TwoCards[1,1] == TwoCards[2,1], TRUE,FALSE)
+      CheckCondition = ifelse(CheckSuit + CheckValue == 2, TRUE, FALSE)
+      return(CheckCondition)      
+    }else if(part == "all"){
+      a.Condition = ifelse(TwoCards[1,1] == TwoCards[2,1], TRUE,FALSE)
+      b.Condition = ifelse(TwoCards[1,2] == TwoCards[2,2], TRUE,FALSE)
+      c.Suit = ifelse(sum(TwoCards[,2] %in% c("H","D") ) == 2, TRUE, FALSE)
+      c.Condition = ifelse(c.Suit + a.Condition == 2, TRUE, FALSE)
+      return(c(a.Condition, b.Condition,c.Condition))
+    }else{
+      stop("Error, definition of parameter :part: unknown")
+    }
+  })
+  if(part != "all"){
+    TheProbability  = round(sum(ManyTwoCards)/n,digits = 4)
+    return(TheProbability)
+  }else{
+    TheProbability  = round(rowSums(ManyTwoCards)/n,digits = 4)
+    names(TheProbability) = c("Part(a)","Part(b)","Part(c)")
+    print(TheProbability)
+    return(TheProbability)
+  }
+}
+#Part a
+Results = sapply(c(100,1000,10000,100000),function(i){
+  PairFunction(i,"a")
+})
+names(Results) = as.character(c(100,1000,10000,100000))
+Results
+#Part b
+Results = sapply(c(100,1000,10000,100000),function(i){
+  PairFunction(i,"b")
+})
+names(Results) = as.character(c(100,1000,10000,100000))
+Results
+#Part c
+Results = sapply(c(100,1000,10000,100000),function(i){
+  PairFunction(i,"c")
+})
+names(Results) = as.character(c(100,1000,10000,100000))
+Results
+
+###Problem 2
+BiasedCoin = function(n){
+  Color = sample(c("R","G","B"),n,replace = TRUE)
+  Flip = sapply(1:n,function(i){
+  if(Color[i] =="R"){
+  return(sample(c("T","H"),1,prob = c(0.60,0.40)))
+  }else if(Color[i] =="B"){
+  return(sample(c("T","H"),1,prob = c(0.30,0.70)))
+  }else if(Color[i] == "G"){
+  return(sample(c("T","H"),1,prob = c(0.50,0.50)))
+  }else{print("Error")}
+  })
+  P.A = sum(Color == "B")/n
+  P.B = sum(Flip =="H")/n
+  P.AorB = sum(Flip =="H" |Color == "B")/n
+  P.ACorB = sum(Flip =="H" |Color != "B")/n
+  P.AandB = sum(Flip =="H" & Color == "B")/n
+  P.AgB = sum(Flip =="H" & Color == "B")/sum(Flip == "H")
+  P.AgBc = sum(Flip !="H" & Color == "B")/sum(Flip != "H")
+  Results = matrix(c(P.A,P.B,P.AorB,P.ACorB,P.AandB,P.AgB,P.AgBc),nrow = 1)
+  colnames(Results)= c("P(A)","P(B)","P(AUB)","P(AcUB)","P(A&B)","P(A|B)","P(A|Bc)")
+  return(Results)
+}
+BiasedCoin(100)
+BiasedCoin(1000)
+BiasedCoin(10000)
+BiasedCoin(100000)
+### Problem 3
+Damaged = function(n){
+  WhatSector = sample(c("Allocation Only","Non-Essential Only","Both"),n,replace = TRUE,prob = c(.2,.7,.1))
+  PartA = sum(WhatSector == "Allocation Only" | WhatSector == "Both")/length(WhatSector)
+  PartB = sum(WhatSector == "Non-Essential Only" | WhatSector == "Both")/length(WhatSector)
+  PartC = sum(WhatSector == "Both")/sum(WhatSector == "Allocation Only" | WhatSector == "Both")
+  PartD = sum(WhatSector == "Both")/sum(WhatSector == "Non-Essential Only" | WhatSector == "Both")
+   PartE = sum(WhatSector == "Allocation Only")/sum(WhatSector == "Allocation Only" | WhatSector == "Both")
+  PartF = sum(WhatSector == "Non-Essential Only")/sum(WhatSector == "Non-Essential Only" | WhatSector == "Both")
+  Results = c(PartA,PartB,PartC,PartD,PartE,PartF)
+  names(Results) = c("Part A","Part B","Part C","Part D","Part E","Part F")
+  return(Results)
+}
+Damaged(100)
+Damaged(1000)
+Damaged(10000)
+Damaged(100000)
+```

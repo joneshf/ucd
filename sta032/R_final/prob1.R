@@ -15,11 +15,11 @@ Raw <- function(n) {
   sex <- sample(c(male, female), n, prob = sexProbs, replace = TRUE)
   race <- sapply(c(1:n), function (x) ChooseRace(sex[x]))
 
-  c( "P(Z)"          = sum(race == zerg) / n
-   , "P(T)"          = sum(race == terran) / n
-   , "P(P)"          = sum(race == protoss) / n
-   , "P(M|Z)"        = sum(sex == male & race == zerg) / sum(race == zerg)
-   , "P(M^c|P^c)"    = sum(sex != male & race != protoss) / sum(race != protoss)
+  c( "P(Z)"           = sum(race == zerg) / n
+   , "P(T)"           = sum(race == terran) / n
+   , "P(P)"           = sum(race == protoss) / n
+   , "P(M|Z)"         = sum(sex == male & race == zerg) / sum(race == zerg)
+   , "P(M^c|P^c)"     = sum(sex != male & race != protoss) / sum(race != protoss)
    , "P(Z \\cap M^c)" = sum(race == zerg & sex != male) / n
    , "P(T \\cup M)"   = sum(race == terran | sex == male) / n
    )
