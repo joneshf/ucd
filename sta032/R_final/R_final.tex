@@ -1,0 +1,136 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage{minted}
+\usepackage[title]{appendix}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{STA 032 R Final\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Melcon\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[rData]{r}{ fontsize=\footnotesize
+                          , frame=single
+                          }
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item $P(Z)$
+
+          \begin{tabular}{r | d |}
+            n     & \multicolumn{1}{c |}{probability} \\
+            \hline
+            \num{10000}  & 0.3240 \\
+            \hline
+            \num{100000} & 0.3300 \\
+            \hline
+          \end{tabular}
+        \item $P(T)$
+
+          \begin{tabular}{r | d |}
+            n     & \multicolumn{1}{c |}{probability} \\
+            \hline
+            \num{10000}  & 0.3220 \\
+            \hline
+            \num{100000} & 0.3190 \\
+            \hline
+          \end{tabular}
+        \item $P(P)$
+
+          \begin{tabular}{r | d |}
+            n     & \multicolumn{1}{c |}{probability} \\
+            \hline
+            \num{10000}  & 0.3540 \\
+            \hline
+            \num{100000} & 0.3510 \\
+            \hline
+          \end{tabular}
+        \item $P(M|Z)$
+
+          \begin{tabular}{r | d |}
+            n     & \multicolumn{1}{c |}{probability} \\
+            \hline
+            \num{10000}  & 0.7760 \\
+            \hline
+            \num{100000} & 0.7860 \\
+            \hline
+          \end{tabular}
+        \item $P(M^c|P^c)$
+
+          \begin{tabular}{r | d |}
+            n     & \multicolumn{1}{c |}{probability} \\
+            \hline
+            \num{10000}  & 0.3060 \\
+            \hline
+            \num{100000} & 0.2970 \\
+            \hline
+          \end{tabular}
+        \item $P(Z\cap M^c)$
+
+          \begin{tabular}{r | d |}
+            n     & \multicolumn{1}{c |}{probability} \\
+            \hline
+            \num{10000}  & 0.0724 \\
+            \hline
+            \num{100000} & 0.0705 \\
+            \hline
+          \end{tabular}
+        \item $P(T\cup M)$
+
+          \begin{tabular}{r | d |}
+            n     & \multicolumn{1}{c |}{probability} \\
+            \hline
+            \num{10000}  & 0.7680 \\
+            \hline
+            \num{100000} & 0.7740 \\
+            \hline
+          \end{tabular}
+      \end{enumerate}
+    \item
+    \item
+      \begin{enumerate}
+        \item
+        \item
+        \item
+        \item
+        \item
+        \item
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+        \item
+        \item
+      \end{enumerate}
+  \end{enumerate}
+
+  \include{appendix}
+
+\end{document}
