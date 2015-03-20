@@ -1,0 +1,57 @@
+:- module(place_diacritic, [ touch_diacritic/1, face_diacritic/1
+                           , brush_diacritic/1
+                           ]).
+:- use_module('place.swipl').
+
+/*
+    Place Diacritics
+
+    These diacritics modify a place that tell what the sign does,
+    such as touching or brushing.
+
+    Each diacritic modifies a part of the hand to a place.
+*/
+
+
+% Thumb
+part(['(th)']).
+part(['(t_h)']).
+% Index Finger
+part(['(in)']).
+part(['(i_n)']).
+% Middle Finger
+part(['(md)']).
+part(['(m_d)']).
+% Ring Finger
+part(['(rn)']).
+part(['(r_n)']).
+% Pinky Finger
+part(['(pn)']).
+part(['(p_n)']).
+% Side of Hand
+part(['(sd)']).
+part(['(s_d)']).
+% Back of Hand
+part(['(bk)']).
+part(['(b_k)']).
+% Palm
+part(['(pm)']).
+part(['(p_m)']).
+
+diacritic(Modifier, Place) :-
+    place(P),
+    part([Part]),
+    atomic_list_concat([Modifier, Part], Modify),
+    append([P, ['!'], [Modify]], Place).
+
+%% Touch a place with a part of the hand.
+touch_diacritic(Place) :- diacritic(t, Place).
+
+%% Face a place with a part of the hand.
+face_diacritic(Place) :- diacritic(f, Place).
+
+%% Brush a place with a part of the hand.
+brush_diacritic(Place) :- diacritic(b, Place).
+
+%% Rub a place with a part of the hand.
+rub_diacritic(Place) :- diacritic(r, Place).

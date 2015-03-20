@@ -1,0 +1,333 @@
+:- module(movement, [ movement/1
+                    , x_plane/1, y_plane/1
+                    , top_plane/1, middle_plane/1, bottom_plane/1
+                    , left_plane/1, center_plane/1, right_plane/1
+                    , planar/2, forward/2, backward/2
+                    , north/1, south/1, east/1, west/1
+                    , north_long/1, south_long/1, east_long/1, west_long/1
+                    , arc_wide/1, arc_medium/1, arc_short/1
+                    ]).
+
+/*
+    Movement
+
+    Movement uses a 3D cube with 18 reference points.
+
+       E---A---F
+      /|  /|  /|
+     / D-/-X-/-B
+    M---I---N  |
+    |  H|--C|--G
+    L---Y---J /
+    |/  |/  |/
+    P---K---O
+
+    This is really confusing to draw in ASCII...
+    The back face is denoted the X-plane:
+
+    E---A---F
+    |   |   |
+    D---X---B
+    |   |   |
+    H---C---G
+
+    The front face is denoted the Y-plane:
+
+    M---I---N
+    |   |   |
+    L---Y---J
+    |   |   |
+    P---K---O
+
+    Straight movements are made by juxtaposition.
+    E.g.: To move from `X` to `E`, you have `XE`.
+    There is no real distinction between `DE` and `XA`.
+    Both movements are short upwards movements.
+
+    Arced movements are distinguished with an overline.
+    These can be wide, medium, or short.
+    E.g.: These are respectively denoted:
+    `D^A^B`
+    `D^B`
+    `D^X^B`
+    for upper arcs.
+    Upper arcs are always from left to right,
+    lower arcs are always from right to left.
+*/
+
+movement([Movement]) :-
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+movement([Movement]) :-
+    not(planar([X], [Y])),
+    atomic_list_concat([X, Y], Movement).
+
+x_plane(['A']).
+x_plane(['B']).
+x_plane(['C']).
+x_plane(['D']).
+x_plane(['E']).
+x_plane(['F']).
+x_plane(['G']).
+x_plane(['H']).
+x_plane(['X']).
+
+y_plane(['I']).
+y_plane(['J']).
+y_plane(['K']).
+y_plane(['L']).
+y_plane(['M']).
+y_plane(['N']).
+y_plane(['O']).
+y_plane(['P']).
+y_plane(['Y']).
+
+top_plane(['A']).
+top_plane(['E']).
+top_plane(['F']).
+top_plane(['I']).
+top_plane(['M']).
+top_plane(['N']).
+
+middle_plane(['B']).
+middle_plane(['D']).
+middle_plane(['J']).
+middle_plane(['L']).
+middle_plane(['X']).
+middle_plane(['Y']).
+
+bottom_plane(['C']).
+bottom_plane(['G']).
+bottom_plane(['H']).
+bottom_plane(['K']).
+bottom_plane(['O']).
+bottom_plane(['P']).
+
+left_plane(['E']).
+left_plane(['D']).
+left_plane(['H']).
+left_plane(['M']).
+left_plane(['L']).
+left_plane(['P']).
+
+center_plane(['A']).
+center_plane(['X']).
+center_plane(['C']).
+center_plane(['I']).
+center_plane(['Y']).
+center_plane(['K']).
+
+right_plane(['F']).
+right_plane(['B']).
+right_plane(['G']).
+right_plane(['N']).
+right_plane(['J']).
+right_plane(['O']).
+
+planar(M1, M2) :-
+    x_plane(M1),
+    x_plane(M2),
+    M1 \= M2.
+planar(M1, M2) :-
+    y_plane(M1),
+    y_plane(M2),
+    M1 \= M2.
+
+forward(M1, M2) :-
+    x_plane(M1),
+    y_plane(M2).
+
+backward(M1, M2) :-
+    y_plane(M1),
+    x_plane(M2).
+
+column(M1, M2) :-
+    left_plane(M1),
+    left_plane(M2).
+column(M1, M2) :-
+    center_plane(M1),
+    center_plane(M2).
+column(M1, M2) :-
+    right_plane(M1),
+    right_plane(M2).
+
+row(M1, M2) :-
+    top_plane(M1),
+    top_plane(M2).
+row(M1, M2) :-
+    middle_plane(M1),
+    middle_plane(M2).
+row(M1, M2) :-
+    bottom_plane(M1),
+    bottom_plane(M2).
+
+above(M1, M2) :-
+    middle_plane(M1),
+    bottom_plane(M2).
+above(M1, M2) :-
+    top_plane(M1),
+    middle_plane(M2).
+
+below(M1, M2) :-
+    bottom_plane(M1),
+    middle_plane(M2).
+below(M1, M2) :-
+    middle_plane(M1),
+    top_plane(M2).
+
+left_of(M1, M2) :-
+    left_plane(M1),
+    center_plane(M2).
+left_of(M1, M2) :-
+    center_plane(M1),
+    right_plane(M2).
+
+right_of(M1, M2) :-
+    right_plane(M1),
+    center_plane(M2).
+right_of(M1, M2) :-
+    center_plane(M1),
+    left_plane(M2).
+
+north([Movement]) :-
+    bottom_plane([X]),
+    middle_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+north([Movement]) :-
+    middle_plane([X]),
+    top_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+north_long([Movement]) :-
+    bottom_plane([X]),
+    top_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+
+south([Movement]) :-
+    top_plane([X]),
+    middle_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+south([Movement]) :-
+    middle_plane([X]),
+    bottom_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+south_long([Movement]) :-
+    top_plane([X]),
+    bottom_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+
+east([Movement]) :-
+    right_plane([X]),
+    center_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+east([Movement]) :-
+    center_plane([X]),
+    left_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+east_long([Movement]) :-
+    right_plane([X]),
+    left_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+
+west([Movement]) :-
+    left_plane([X]),
+    center_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+west([Movement]) :-
+    center_plane([X]),
+    right_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+west_long([Movement]) :-
+    left_plane([X]),
+    right_plane([Y]),
+    planar([X], [Y]),
+    atomic_list_concat([X, Y], Movement).
+
+arc_wide([Movement]) :-
+    left_plane([X]),
+    center_plane([Y]),
+    right_plane([Z]),
+    row([X], [Z]),
+    above([Y], [X]),
+    atomic_list_concat([X, ^, Y, ^, Z], Movement).
+arc_wide([Movement]) :-
+    bottom_plane([X]),
+    middle_plane([Y]),
+    top_plane([Z]),
+    column([X], [Z]),
+    left_of([Y], [X]),
+    atomic_list_concat([X, ^, Y, ^, Z], Movement).
+arc_wide([Movement]) :-
+    left_plane([X]),
+    center_plane([Y]),
+    right_plane([Z]),
+    row([X], [Z]),
+    below([Y], [X]),
+    atomic_list_concat([X, '_', Y, '_', Z], Movement).
+arc_wide([Movement]) :-
+    bottom_plane([X]),
+    middle_plane([Y]),
+    top_plane([Z]),
+    column([X], [Z]),
+    right_of([Y], [X]),
+    atomic_list_concat([X, '_', Y, '_', Z], Movement).
+
+arc_medium([Movement]) :-
+    left_plane([X]),
+    right_plane([Y]),
+    row([X], [Y]),
+    atomic_list_concat([X, ^, Y], Movement).
+arc_medium([Movement]) :-
+    bottom_plane([X]),
+    top_plane([Y]),
+    row([X], [Y]),
+    atomic_list_concat([X, ^, Y], Movement).
+arc_medium([Movement]) :-
+    left_plane([X]),
+    right_plane([Y]),
+    row([X], [Y]),
+    atomic_list_concat([X, '_', Y], Movement).
+arc_medium([Movement]) :-
+    bottom_plane([X]),
+    top_plane([Y]),
+    row([X], [Y]),
+    atomic_list_concat([X, '_', Y], Movement).
+
+arc_short([Movement]) :-
+    left_plane([X]),
+    center_plane([Y]),
+    right_plane([Z]),
+    row([X], [Y]),
+    row([Y], [Z]),
+    atomic_list_concat([X, ^, Y, ^, Z], Movement).
+arc_short([Movement]) :-
+    bottom_plane([X]),
+    middle_plane([Y]),
+    top_plane([Z]),
+    column([X], [Y]),
+    column([Y], [Z]),
+    atomic_list_concat([X, ^, Y, ^, Z], Movement).
+arc_short([Movement]) :-
+    left_plane([X]),
+    center_plane([Y]),
+    right_plane([Z]),
+    row([X], [Y]),
+    row([Y], [Z]),
+    atomic_list_concat([X, '_', Y, '_', Z], Movement).
+arc_short([Movement]) :-
+    bottom_plane([X]),
+    middle_plane([Y]),
+    top_plane([Z]),
+    column([X], [Y]),
+    column([Y], [Z]),
+    atomic_list_concat([X, '_', Y, '_', Z], Movement).

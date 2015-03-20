@@ -1,0 +1,55 @@
+:- module(movement_diacritic, [ augment/1, bounce/1, diminish/1, flash/1
+                              , helicopter/1, inebriated/1, jerky/1, paused/1
+                              , quick/1, slow/1, tumble/1, wiggle/1, zigzag/1
+                              ]).
+:- use_module('movement.swipl').
+
+/*
+    Movement Diacritics
+
+    These diacritics modify a movement.
+    Some examples are bounce or wiggle.
+*/
+
+diacritic(Modifier, Movement) :-
+    movement(M),
+    append([M, ['!'], [Modifier]], Movement).
+
+%% Make a movement larger or longer.
+augment(Movement) :- diacritic(a, Movement).
+
+%% Bounce a movement.
+bounce(Movement) :- diacritic(b, Movement).
+
+%% Make a movement smaller or shorter.
+diminish(Movement) :- diacritic(d, Movement).
+
+%% Flash a movement.
+flash(Movement) :- diacritic(f, Movement).
+
+%% Move in a circle parallel to the ground.
+helicopter(Movement) :- diacritic(h, Movement).
+
+%% Move in a smooth sloppy fashion.
+inebriated(Movement) :- diacritic(i, Movement).
+
+%% Move in a haphazard or jerky way.
+jerky(Movement) :- diacritic(j, Movement).
+
+%% Move with pauses in the middle.
+paused(Movement) :- diacritic(p, Movement).
+
+%% Move quickly.
+quick(Movement) :- diacritic(q, Movement).
+
+%% Move slowly.
+slow(Movement) :- diacritic(s, Movement).
+
+%% Repeatedly move in small circles.
+tumble(Movement) :- diacritic(t, Movement).
+
+%% Move back and forth sporadically.
+wiggle(Movement) :- diacritic(w, Movement).
+
+%% Move side to side.
+zigzag(Movement) :- diacritic(z, Movement).
