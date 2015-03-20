@@ -1,0 +1,23 @@
+:- module(asl, [asl/1]).
+:- use_module('place.swipl').
+:- use_module('movement.swipl').
+
+%% Rule #2
+asl(ASL) :-
+    movement(ASL).
+%% Rule #3
+asl(ASL) :-
+    movement(Movement),
+    place(Place),
+    append(Movement, Place, ASL).
+%% Rule #4
+asl(ASL) :-
+    place(Place),
+    movement(Movement),
+    append(Place, Movement, ASL).
+%% Rule #5
+asl(ASL) :-
+    place(Place1),
+    movement(Movement),
+    place(Place2),
+    append([Place1, Movement, Place2], ASL).

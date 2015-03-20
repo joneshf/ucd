@@ -1,0 +1,22 @@
+as --> [].
+as --> [a], as.
+
+abs --> ass.
+
+ass --> [].
+ass --> [a], bss.
+
+bss --> [].
+bss --> [b], ass.
+
+cliche -->
+    thing,
+    " is a ",
+    type_of_thing,
+    " trapped in a ",
+    opposite_type_of_thing,
+    " body.".
+
+thing --> "Cygwin".
+type_of_thing --> "Unix OS".
+opposite_type_of_thing --> "Windows'".
