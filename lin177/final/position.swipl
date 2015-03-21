@@ -1,0 +1,436 @@
+:- module(position, [ position/1, center/1, mirror/1, reversible/1, face/1
+                    , torso/1, below/1
+                    ]).
+
+/*
+    Positions
+
+    Positions are divided into three major section: `face`, `torso` and `below`.
+    Interestingly, since `below` is rarely used, it has lower resolution.
+    There are no `mirror` positions for `below`.
+
+    A line of symmetry is drawn and smaller locations are used for positions.
+
+    The single character positions are along the center line.
+
+    Two character positions are for mirror positions.
+    E.g. `br` is the eyebrow, and there are two eyebrows.
+    Since these are mirror positions,
+    some notation distinguishes between the dominant side and the weak side.
+    The dominant side has no annotation,
+    while the weak side has an underline.
+    The SLIPA notation throws `_` between letters to denote an underline.
+
+    Three character positions are for reversible positions.
+    E.g. `ear` is the ear,
+    and you can position in front or behind the ear on each side.
+    The underline continues to denote the weak side.
+    In addition, the reversed side is denoted by a caret on the dominant side,
+    and an ampersand on the weak side.
+
+*/
+% The top of the forehead (where you'd find a widow's peak).
+position([h]).
+% The middle of the forehead.
+position([f]).
+% Right in between the eyes (x marks the spot?).
+position([x]).
+% The point of the nose in between the brow and tip (the ridge).
+position([r]).
+% The tip of the nose.
+position([n]).
+% The upper lip (or in between the nose and upper lip).
+position([u]).
+% The lower lip.
+position([l]).
+% The dimple in between the lower lip and chin.
+position([d]).
+% The chin (the bottom of it).
+position([c]).
+% The throat.
+position([t]).
+% The center of the collar bone (clavicle).
+position([k]).
+% The middle of the chest.
+position([m]).
+% The bottom of the chest (sternum).
+position([s]).
+% The solar plexus.
+position([p]).
+% The belly button.
+position([b]).
+% Below the belly button (where the intestines are).
+position([i]).
+% Where the tuft of the zipper would be on a pair of jeans.
+position([z]).
+% The groin.
+position([g]).
+
+% The side of the forehead.
+position([sf]).
+position([s_f]).
+% The (eye)brow.
+position([br]).
+position([b_r]).
+% The side of the eye.
+position([sy]).
+position([s_y]).
+% Just under the eye.
+position([ey]).
+position([e_y]).
+% Just under the temple on the side of the head.
+position([tm]).
+position([t_m]).
+% The cheek (on level with the bottom of the nose).
+position([ch]).
+position([c_h]).
+% The nostril (not inside, but to the side of).
+position([nl]).
+position([n_l]).
+% The dimple of the cheek (to the side of the mouth).
+position([dm]).
+position([d_m]).
+% The corner of the mouth.
+position([mt]).
+position([m_t]).
+% The side of the chin.
+position([sc]).
+position([s_c]).
+% The shoulder.
+position([sh]).
+position([s_h]).
+% The pectoral muscle (or general area).
+position([pc]).
+position([p_c]).
+% Just under the nipple (under the pectoral muscle).
+position([np]).
+position([n_p]).
+% To the side of the belly button.
+position([sb]).
+position([s_b]).
+% The belt area.
+position([bl]).
+position([b_l]).
+
+% The ear (near the middle), or behind the ear.
+position([ear]).
+position([e_a_r]).
+position([e^a^r]).
+position([e^a^r]).
+position(['e&a&r']).
+% The earlobe (front or back).
+position([rlb]).
+position([r_l_b]).
+position([r^l^b]).
+position([r^l^b]).
+position(['r&l&b']).
+% The bicep (or tricep).
+position([bcp]).
+position([b_c_p]).
+position([b^c^p]).
+position(['b&c&p']).
+% The elbow joint.
+position([lbw]).
+position([l_b_w]).
+position([l^b^w]).
+position(['l&b&w']).
+% The forearm.
+position([frm]).
+position([f_r_m]).
+position([f^r^m]).
+position(['f&r&m']).
+% The wrist.
+position([wrs]).
+position([w_r_s]).
+position([w^r^s]).
+position(['w&r&s']).
+% The palm (or back of the hand).
+position([plm]).
+position([p_l_m]).
+position([p^l^m]).
+position(['p&l&m']).
+% The knuckles, or the underside of the knuckles.
+position([knl]).
+position([k_n_l]).
+position([k^n^l]).
+position(['k&n&l']).
+% Either the underside or top side of one or more fingers.
+position([fng]).
+position([f_n_g]).
+position([f^n^g]).
+position(['f&n&g']).
+% The upper thigh area (or, when reversed, the buttocks).
+position([btx]).
+position([b_t_x]).
+position([b^t^x]).
+position(['b&t&x']).
+% The thigh (either the front or the back).
+position([thg]).
+position([t_h_g]).
+position([t^h^g]).
+position(['t&h&g']).
+% The knee (either the front or the back).
+position([kne]).
+position([k_n_e]).
+position([k^n^e]).
+position(['k&n&e']).
+% The shin (or, when reversed, the calf muscle).
+position([shn]).
+position([s_h_n]).
+position([s^h^n]).
+position(['s&h&n']).
+% The ankle (either the front or the back).
+position([nkl]).
+position([n_k_l]).
+position([n^k^l]).
+position(['n&k&l']).
+% The top of the foot (or, when reversed, the bottom, or sole, of the foot).
+position([fot]).
+position([f_o_t]).
+position([f^o^t]).
+position(['f&o&t']).
+% The toes (or, when reversed, the heel).
+position([toe]).
+position([t_o_e]).
+position([t^o^e]).
+position(['t&o&e']).
+
+%% A position on the center.
+center([h]).
+center([f]).
+center([x]).
+center([r]).
+center([n]).
+center([u]).
+center([l]).
+center([d]).
+center([c]).
+center([t]).
+center([k]).
+center([m]).
+center([s]).
+center([p]).
+center([b]).
+center([i]).
+center([z]).
+center([g]).
+
+%% A mirrored place.
+mirror([sf]).
+mirror([s_f]).
+mirror([br]).
+mirror([b_r]).
+mirror([sy]).
+mirror([s_y]).
+mirror([ey]).
+mirror([e_y]).
+mirror([tm]).
+mirror([t_m]).
+mirror([ch]).
+mirror([c_h]).
+mirror([nl]).
+mirror([n_l]).
+mirror([dm]).
+mirror([d_m]).
+mirror([mt]).
+mirror([m_t]).
+mirror([sc]).
+mirror([s_c]).
+mirror([sh]).
+mirror([s_h]).
+mirror([pc]).
+mirror([p_c]).
+mirror([np]).
+mirror([n_p]).
+mirror([sb]).
+mirror([s_b]).
+mirror([bl]).
+mirror([b_l]).
+
+%% A reversible place.
+reversible([ear]).
+reversible([e_a_r]).
+reversible([e^a^r]).
+reversible([e^a^r]).
+reversible(['e&a&r']).
+reversible([rlb]).
+reversible([r_l_b]).
+reversible([r^l^b]).
+reversible([r^l^b]).
+reversible(['r&l&b']).
+reversible([bcp]).
+reversible([b_c_p]).
+reversible([b^c^p]).
+reversible(['b&c&p']).
+reversible([lbw]).
+reversible([l_b_w]).
+reversible([l^b^w]).
+reversible(['l&b&w']).
+reversible([frm]).
+reversible([f_r_m]).
+reversible([f^r^m]).
+reversible(['f&r&m']).
+reversible([wrs]).
+reversible([w_r_s]).
+reversible([w^r^s]).
+reversible(['w&r&s']).
+reversible([plm]).
+reversible([p_l_m]).
+reversible([p^l^m]).
+reversible(['p&l&m']).
+reversible([knl]).
+reversible([k_n_l]).
+reversible([k^n^l]).
+reversible(['k&n&l']).
+reversible([fng]).
+reversible([f_n_g]).
+reversible([f^n^g]).
+reversible(['f&n&g']).
+reversible([btx]).
+reversible([b_t_x]).
+reversible([b^t^x]).
+reversible(['b&t&x']).
+reversible([thg]).
+reversible([t_h_g]).
+reversible([t^h^g]).
+reversible(['t&h&g']).
+reversible([kne]).
+reversible([k_n_e]).
+reversible([k^n^e]).
+reversible(['k&n&e']).
+reversible([shn]).
+reversible([s_h_n]).
+reversible([s^h^n]).
+reversible(['s&h&n']).
+reversible([nkl]).
+reversible([n_k_l]).
+reversible([n^k^l]).
+reversible(['n&k&l']).
+reversible([fot]).
+reversible([f_o_t]).
+reversible([f^o^t]).
+reversible(['f&o&t']).
+reversible([toe]).
+reversible([t_o_e]).
+reversible([t^o^e]).
+reversible(['t&o&e']).
+
+%% A place on the face.
+face([h]).
+face([f]).
+face([x]).
+face([r]).
+face([n]).
+face([u]).
+face([l]).
+face([d]).
+face([c]).
+face([sf]).
+face([s_f]).
+face([br]).
+face([b_r]).
+face([sy]).
+face([s_y]).
+face([ey]).
+face([e_y]).
+face([tm]).
+face([t_m]).
+face([ch]).
+face([c_h]).
+face([nl]).
+face([n_l]).
+face([dm]).
+face([d_m]).
+face([mt]).
+face([m_t]).
+face([sc]).
+face([s_c]).
+face([ear]).
+face([e_a_r]).
+face([e^a^r]).
+face([e^a^r]).
+face(['e&a&r']).
+face([rlb]).
+face([r_l_b]).
+face([r^l^b]).
+face([r^l^b]).
+face(['r&l&b']).
+
+%% A place on the torso.
+torso([t]).
+torso([k]).
+torso([m]).
+torso([s]).
+torso([p]).
+torso([b]).
+torso([i]).
+torso([sh]).
+torso([s_h]).
+torso([pc]).
+torso([p_c]).
+torso([np]).
+torso([n_p]).
+torso([sb]).
+torso([s_b]).
+torso([bl]).
+torso([b_l]).
+torso([bcp]).
+torso([b_c_p]).
+torso([b^c^p]).
+torso(['b&c&p']).
+torso([lbw]).
+torso([l_b_w]).
+torso([l^b^w]).
+torso(['l&b&w']).
+torso([frm]).
+torso([f_r_m]).
+torso([f^r^m]).
+torso(['f&r&m']).
+torso([wrs]).
+torso([w_r_s]).
+torso([w^r^s]).
+torso(['w&r&s']).
+torso([plm]).
+torso([p_l_m]).
+torso([p^l^m]).
+torso(['p&l&m']).
+torso([knl]).
+torso([k_n_l]).
+torso([k^n^l]).
+torso(['k&n&l']).
+torso([fng]).
+torso([f_n_g]).
+torso([f^n^g]).
+torso(['f&n&g']).
+
+%% A place below the torso.
+below([z]).
+below([g]).
+below([btx]).
+below([b_t_x]).
+below([b^t^x]).
+below(['b&t&x']).
+below([thg]).
+below([t_h_g]).
+below([t^h^g]).
+below(['t&h&g']).
+below([kne]).
+below([k_n_e]).
+below([k^n^e]).
+below(['k&n&e']).
+below([shn]).
+below([s_h_n]).
+below([s^h^n]).
+below(['s&h&n']).
+below([nkl]).
+below([n_k_l]).
+below([n^k^l]).
+below(['n&k&l']).
+below([fot]).
+below([f_o_t]).
+below([f^o^t]).
+below(['f&o&t']).
+below([toe]).
+below([t_o_e]).
+below([t^o^e]).
+below(['t&o&e']).

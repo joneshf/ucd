@@ -59,8 +59,11 @@ movement([Movement]) :-
     planar([X], [Y]),
     atomic_list_concat([X, Y], Movement).
 movement([Movement]) :-
-    not(planar([X], [Y])),
+    forward([X], [Y]),
     atomic_list_concat([X, Y], Movement).
+movement([Movement]) :-
+    backward([Y], [X]),
+    atomic_list_concat([Y, X], Movement).
 
 x_plane(['A']).
 x_plane(['B']).

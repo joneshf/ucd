@@ -1,0 +1,41 @@
+:- module(sign, [sign/1]).
+:- use_module('hand_shape.swipl').
+:- use_module('movement.swipl').
+:- use_module('place.swipl').
+
+/*
+    Rules
+
+    These are the possible grammatical rules
+    that all signed languages appear to follow.
+*/
+
+%% Rule 1.
+sign(Sign) :-
+    append([Place, [Shape]], Sign),
+    place(Place),
+    hand_shape(Shape).
+%% Rule 2.
+sign(Sign) :-
+    append([Movement, [Shape]], Sign),
+    movement(Movement),
+    hand_shape(Shape).
+%% Rule 3.
+sign(Sign) :-
+    append([Movement, [Shape], Place], Sign),
+    movement(Movement),
+    hand_shape(Shape),
+    place(Place).
+%% Rule 4.
+sign(Sign) :-
+    append([Place, [Shape], Movement], Sign),
+    place(Place),
+    hand_shape(Shape),
+    movement(Movement).
+%% Rule 5.
+sign(Sign) :-
+    append([Place1, [Shape], Movement, Place2], Sign),
+    place(Place1),
+    place(Place2),
+    hand_shape(Shape),
+    movement(Movement).

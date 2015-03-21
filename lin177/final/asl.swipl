@@ -1,23 +1,35 @@
-:- module(asl, [asl/1]).
-:- use_module('place.swipl').
+:- module(asl, [asl/4]).
+:- use_module('hand_shape.swipl').
 :- use_module('movement.swipl').
+:- use_module('place.swipl').
+:- use_module('sign.swipl').
 
-%% Rule #2
-asl(ASL) :-
-    movement(ASL).
-%% Rule #3
-asl(ASL) :-
-    movement(Movement),
-    place(Place),
-    append(Movement, Place, ASL).
-%% Rule #4
-asl(ASL) :-
-    place(Place),
-    movement(Movement),
-    append(Place, Movement, ASL).
-%% Rule #5
-asl(ASL) :-
-    place(Place1),
-    movement(Movement),
-    place(Place2),
-    append([Place1, Movement, Place2], ASL).
+%% Make some possible names.
+name(['A', 'D', 'A', 'M'], [adam]).
+name(['E', 'V', 'E'], [eve]).
+
+%% Make some possible verbs.
+verb([u, ['O', '<'], 'YX'], [eat]).
+
+%% Make a subject pronoun.
+pronoun([s, '!', 't(in)', ['G']], [i]).
+
+%% The under language.
+under_asl(Subject, [subject], Entity, [entity]) :-
+    pronoun(Subject, Entity),
+    sign(Subject).
+under_asl(Subject, [subject], Entity, [entity]) :-
+    name(Subject, Entity),
+    forall(member(Shape, Subject), hand_shape([Shape])).
+under_asl(Verb, [verb], Property, [property]) :-
+    verb(Verb, Property),
+    sign(Verb).
+
+%% Actual ASL.
+asl(Sentence, [sentence], English, [proposition]) :-
+    under_asl(Sentence, [subject], English, [entity]).
+asl(Sentence, [sentence], English, [proposition]) :-
+    under_asl(Subject, [subject], Entity, [entity]),
+    under_asl(Verb, [verb], Property, [property]),
+    append(Subject, Verb, Sentence),
+    append(Entity, Property, English).

@@ -1,0 +1,84 @@
+:- module(hand_shape, [hand_shape/1]).
+
+primitive_shape(['A']).
+primitive_shape(['B']).
+primitive_shape(['B\\']).
+primitive_shape(['C']).
+primitive_shape(['C\'']).
+primitive_shape(['C^']).
+primitive_shape(['D']).
+primitive_shape(['D.']).
+primitive_shape(['D-']).
+primitive_shape(['E']).
+primitive_shape(['E:']).
+primitive_shape(['E^']).
+primitive_shape(['F']).
+primitive_shape(['F.']).
+primitive_shape(['G']).
+primitive_shape(['H']).
+primitive_shape(['I']).
+primitive_shape(['I:']).
+primitive_shape(['J']).
+primitive_shape(['K']).
+primitive_shape(['L']).
+primitive_shape(['M']).
+primitive_shape(['M\'']).
+primitive_shape(['N']).
+primitive_shape(['N~']).
+primitive_shape(['O']).
+primitive_shape(['O\'']).
+primitive_shape(['P']).
+primitive_shape(['P\\']).
+primitive_shape(['Q']).
+primitive_shape(['R']).
+primitive_shape(['R\'']).
+primitive_shape(['S']).
+primitive_shape(['S\'']).
+primitive_shape(['S^']).
+primitive_shape(['T']).
+primitive_shape(['T-']).
+primitive_shape(['T\\']).
+primitive_shape(['U']).
+primitive_shape(['U:']).
+primitive_shape(['V']).
+primitive_shape(['W']).
+primitive_shape(['W:']).
+primitive_shape(['W^']).
+primitive_shape(['X']).
+primitive_shape(['Y']).
+primitive_shape(['Y:']).
+primitive_shape(['Y^']).
+primitive_shape(['Z']).
+primitive_shape(['0']).
+primitive_shape(['1']).
+primitive_shape(['2']).
+primitive_shape(['3']).
+primitive_shape(['4']).
+primitive_shape(['5']).
+primitive_shape(['6']).
+primitive_shape(['7']).
+primitive_shape(['8']).
+primitive_shape(['9']).
+
+hand_shape(Shape) :-
+    primitive_shape(Shape).
+hand_shape(Shape) :-
+    primitive_shape(S),
+    ( bend_fingers_less(B); bend_fingers_more(B)
+    ; close_fingers_more(B) ; close_fingers_less(B)
+    ; spread_fingers_more(B) ; spread_fingers_less(B)
+    ; tense_fingers_more(B) ; tense_fingers_less(B)
+    ),
+    append(S, B, Shape).
+
+bend_fingers_more(['>']).
+bend_fingers_less(['<']).
+
+close_fingers_more(['}']).
+close_fingers_less(['{']).
+
+spread_fingers_more([')']).
+spread_fingers_less(['(']).
+
+tense_fingers_more(['/']).
+tense_fingers_less(['\\']).

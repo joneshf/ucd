@@ -1,15 +1,15 @@
-:- module(place_diacritic, [ touch_diacritic/1, face_diacritic/1
-                           , brush_diacritic/1
+:- module(place_diacritic, [ brush_diacritic/1, face_diacritic/1
+                           , rub_diacritic/1, touch_diacritic/1
                            ]).
-:- use_module('place.swipl').
+:- use_module('position.swipl').
 
 /*
     Place Diacritics
 
-    These diacritics modify a place that tell what the sign does,
+    These diacritics modify a position that tell what the sign does,
     such as touching or brushing.
 
-    Each diacritic modifies a part of the hand to a place.
+    Each diacritic modifies a part of the hand to a position.
 */
 
 
@@ -39,7 +39,7 @@ part(['(pm)']).
 part(['(p_m)']).
 
 diacritic(Modifier, Place) :-
-    place(P),
+    position(P),
     part([Part]),
     atomic_list_concat([Modifier, Part], Modify),
     append([P, ['!'], [Modify]], Place).

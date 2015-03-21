@@ -1,0 +1,66 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{minted}
+\usepackage[tone]{tipa}
+\usepackage{qtree}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{final.bib}
+
+\usepackage{newunicodechar}
+\newunicodechar{ɾ}{\textfishhookr}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{LIN 177 Final\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Ojeda\vspace{-2ex}}
+\date{Winter 2015}
+
+\begin{document}
+  \maketitle
+
+  \newmintedfile[prologfile]{prolog}{ fontsize=\footnotesize
+                                    , frame=single
+                                    }
+
+  For this final, I decided to implement part of SLIPA and use that to translate between English and ASL. \autocite{slipa}
+  The program works similarly to \texttt{spanish.swipl}.
+
+  SLIPA was invented to be a version of IPA for sign language.
+  The system allows creating new signed languages building upon primitives.
+  There are many different signed languages in written format, however most are hard to work with with computerized fonts.
+  The idea of SLIPA was to provide an ASCII realizable format for signed languages.
+  SLIPA provides primitives for places, movements, hand signs, etc.
+
+  The \texttt{asl} predicate supports places, movement, hand shapes and single handed signs.
+  This program doesn't encode all of SLIPA. For example, it does not support facial expressions, such as raising or lowering eye brows.
+  However, it should be fairly simple to improve the program to add this.
+
+  The \texttt{asl} predicate uses an \texttt{under\_asl} predicate which creates possible subjects and verbs.
+  \texttt{asl} then combines the possible subjects and verbs into valid sentences.
+  Each possible \texttt{under\_asl} ensures that the sign is grammatically possible.
+  There are five general grammar rules that all signed languages appear to follow.
+  These rules are defined in \texttt{sign.swipl}.
+
+  More information can be found with each module.
+
+  \include{appendix}
+
+  \printbibliography
+
+\end{document}
