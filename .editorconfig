@@ -11,6 +11,9 @@ insert_final_newline = true
 [.py]
 indent_size = 4
 
+[*.hs]
+indent_size = 4
+
 [*.{c,pl,swipl}]
 indent_size = 4
 

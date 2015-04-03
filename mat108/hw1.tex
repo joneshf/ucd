@@ -1,0 +1,94 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage[title]{appendix}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage{color, colortbl}
+\definecolor{Gray}{gray}{0.8}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 108 HW 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bandyopadhyay\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}[label=Problem \arabic*]
+    \item
+      \begin{enumerate}[label=\arabic*.]
+        \item This sentence is a proposition. Since 18 is not a multiple of 12, this proposition is false.
+        \item This sentence is a proposition. Since 3 is prime, this proposition is false.
+        \item This sentence is not a proposition.
+        \item This sentence is a proposition. Since $-\frac{1}{2}$ is rational and $3\pi$ is less than 10, this proposition is true.
+        \item This sentence is not a proposition.
+      \end{enumerate}
+    \item
+      \begin{enumerate}[label=\arabic*.]
+        \item Since $B$ is a contradiction, this propositional phrase is always false. So this phrase is a contradiction.
+        \item Since $B$ is a contradiction, the inner phrase is always false, and the negation of that will always be true. So this phrase is a tautology.
+        \item Since $A$ is a tautology, this propositional phrase is always true. So this phrase is a tautology.
+      \end{enumerate}
+    \item
+      \begin{enumerate}[label=\arabic*.]
+        \item
+
+          \begin{tabular}{c | c | c | c | g | c | c | g}
+            $P$ & $Q$ & $R$ & $Q \vee R$ & $P \wedge (Q \vee R)$ & $P \wedge Q$ & $P \wedge R$ & $(P \wedge Q) \vee (P \wedge R)$ \\
+            \hline
+            T & T & T & T & T & T & T & T \\
+            T & T & F & T & T & T & F & T \\
+            T & F & T & T & T & F & T & T \\
+            T & F & F & F & F & F & F & F \\
+            F & T & T & T & F & F & F & F \\
+            F & T & F & T & F & F & F & F \\
+            F & F & T & T & F & F & F & F \\
+            F & F & F & F & F & F & F & F \\
+          \end{tabular}
+
+          Since the two shaded columns have the same values at all respective locations,
+          the two propositional phrases are equivalent.
+        \item
+
+          \begin{tabular}{c | c | c | c | g | c | g}
+            $P$ & $Q$ & $R$ & $P \wedge Q$ & $(P \wedge Q) \vee R$ & $Q \wedge R$ & $P \vee (Q \wedge R)$ \\
+            \hline
+            T & T & T & T & T & T & T \\
+            T & T & F & T & T & F & T \\
+            T & F & T & F & T & F & T \\
+            T & F & F & F & F & F & T \\
+            F & T & T & F & T & T & T \\
+            F & T & F & F & F & F & F \\
+            F & F & T & F & T & F & F \\
+            F & F & F & F & F & F & F \\
+          \end{tabular}
+
+          Since the two shaded columns do not have the same values at all respective locations,
+          the two propositional phrases are not equivalent.
+      \end{enumerate}
+  \end{enumerate}
+
+\end{document}
