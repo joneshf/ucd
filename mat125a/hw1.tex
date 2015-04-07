@@ -1,0 +1,131 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage[title]{appendix}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage{color, colortbl}
+\definecolor{Gray}{gray}{0.8}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\newcommand\epsdelta[3]{
+  We want to prove:
+  \[
+    \lim_{x \to #1} #2 = #3
+  \]
+
+  \begin{proof}
+    Choose $\epsilon > 0$,
+    we want to find $\delta > 0$ such that
+
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \].
+
+    We can simplify the consequent a bit.
+
+    \begin{align*}
+      \left|#2 - #3\right| &< \epsilon \\
+      \left|2x - 4\right| &< \\
+      2\left|x - 2\right| &< \\
+      \left|x - 2\right| &< \frac{\epsilon}{2} \\
+    \end{align*}
+
+    If we notice, this is exactly the form of the antecedent,
+    assuming $\delta = \frac{\epsilon}{2}$.
+
+    So, choose $\delta = \frac{\epsilon}{2}$.
+    Then we have
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \]
+    as was to be shown.
+  \end{proof}
+}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 125A HW 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Slivken\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item $\S 4.2$
+      \begin{enumerate}[label=Exercise 4.2.\arabic*]
+        \item
+
+          We want to prove:
+          \[
+            \lim_{x \to 2} (2x + 4) = 8
+          \]
+
+          \begin{proof}
+            Choose $\epsilon > 0$,
+            we want to find $\delta > 0$ such that
+
+            \[
+              0 < \left|x - 2\right| < \delta \implies \left|(2x + 4) - 8\right| < \epsilon
+            \].
+
+            We can simplify the consequent a bit.
+
+            \begin{align*}
+              \left|(2x + 4) - 8\right| &< \epsilon \\
+              \left|2x - 4\right| &< \\
+              2\left|x - 2\right| &< \\
+              \left|x - 2\right| &< \frac{\epsilon}{2} \\
+            \end{align*}
+
+            If we notice, this is exactly the form of the antecedent,
+            assuming $\delta = \frac{\epsilon}{2}$.
+
+            So, choose $\delta = \frac{\epsilon}{2}$.
+            Then we have
+            \[
+              0 < \left|x - 2\right| < \delta \implies \left|(2x + 4) - 8\right| < \epsilon
+            \]
+            as was to be shown.
+          \end{proof}
+
+        \item
+
+        \item
+
+        \item
+
+        \setcounter{enumii}{5}
+
+        \item
+
+        \item
+
+        \item
+
+        \item
+
+      \end{enumerate}
+  \end{enumerate}
+
+\end{document}
