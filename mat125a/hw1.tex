@@ -29,19 +29,14 @@
   \]
 
   \begin{proof}
-    Choose $\epsilon > 0$,
+    Given $\epsilon > 0$,
     we want to find $\delta > 0$ such that
 
     \[
       0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
     \].
 
-    We can simplify the consequent a bit.
-
     #5
-
-    If we notice, this is exactly the form of the antecedent,
-    assuming $\delta = #4$.
 
     So, choose $\delta = #4$.
 
@@ -51,6 +46,16 @@
     \]
     as was to be shown.
   \end{proof}
+}
+\newcommand\epsdeltaconsequent[5]{
+  \epsdelta{#1}{#2}{#3}{#4}{
+    We can simplify the consequent a bit.
+
+    #5
+
+    If we notice, this is exactly the form of the antecedent,
+    assuming $\delta = #4$.
+  }
 }
 \newcommand\e{e}
 
@@ -74,7 +79,7 @@
     \item
       \begin{enumerate}
         \item
-          \epsdelta{2}{(2x + 4)}{8}{\frac{\epsilon}{2}}{
+          \epsdeltaconsequent{2}{(2x + 4)}{8}{\frac{\epsilon}{2}}{
             \begin{align*}
               \left|(2x + 4) - 8\right| &< \epsilon \\
               \left|2x - 4\right| &< \\
@@ -85,7 +90,7 @@
 
         \item
 
-          \epsdelta{0}{x^3}{0}{\sqrt[3]{\epsilon}}{
+          \epsdeltaconsequent{0}{x^3}{0}{\sqrt[3]{\epsilon}}{
             \begin{align*}
               \left|x^3 - 0\right| &< \epsilon \\
               \left|x^3\right| &< \\
@@ -97,16 +102,48 @@
 
         \item
 
-          \epsdelta{2}{x^3}{8}{\sqrt[3]{\epsilon}}{
+          \epsdelta{2}{x^3}{8}{\text{min}\{1, \frac{\epsilon}{19}\}}{
+
+            Start by manipulating the consequent a bit.
+
             \begin{align*}
               \left|x^3 - 8\right| &< \epsilon \\
               \left|(x - 2)(x^2 + 2x + 4)\right| &< \\
+              \left|x - 2\right|\left|x^2 + 2x + 4\right| &< \\
+            \end{align*}
+
+            As in example 4.2.2 (ii),
+            we can control the size of $\left|x - 2\right|$ but not $\left|x^2 + 2x + 4\right|$.
+
+            We arbitrarily choose some upper bound for $\delta$, say $\delta \le 1$.
+            This gives us a delta neighborhood between 1 and 3.
+
+            Since $\left|x^2 + 2x + 4\right|$ is strictly increasing in the delta neighborhood,
+            we only need compute the upper bound.
+
+            So we have $\forall x \in V_\delta(2), \left|x^2 + 2x + 4\right| \le \left|3^2 + 2(3) + 4\right| = 19$ as our upper bound.
+
+            Continuing with the method used in the example,
+            we choose $\delta = \text{min}\{1, \frac{\epsilon}{19}\}$.
+
+            So if $0 < \left|x - 2\right| < \delta$, then we have:
+            \begin{align*}
+              \left|x^3 - 8\right| &= \left|x - 2\right|\left|x^2 + 2x + 4\right| \\
+              &< \frac{\epsilon}{19}(19) \\
+              &= \epsilon
             \end{align*}
           }
 
         \item
 
-          \epsdelta{\pi}{\floor{x}}{3}{0}{}
+          \epsdelta{\pi}{\floor{x}}{3}{\pi - 3}{
+            We begin by noting that if $\floor{x} = 3$ then $\floor{x} - 3 = 0 < \epsilon$ for any choice of $\epsilon$.
+
+            So, we restrict $\delta$ to only produce $x$ such that $\floor{x} = 3$.
+            This happens for any $x$ in the interval $[3, 4)$.
+            We can restrict this further to get an exact value of $\delta$ by choosing the neighborhood to be at $\pi$ with a delta of the fractional part of $\pi$.
+            That is, $\delta = \pi - 3$.
+          }
       \end{enumerate}
 
     \item
@@ -210,6 +247,28 @@
 
     \item
 
+      We have
+      \[
+        t(x) =
+        \begin{cases}
+          1           & \text{if } x = 0 \\
+          \frac{1}{n} & \text{if } x = \frac{m}{n} \in \mathbb{Q} \setminus \{0\} \text{ is in lowest terms with } n > 0 \\
+          0           & \text{if } x \notin \mathbb{Q} \\
+        \end{cases}
+      \].
+
+      \begin{enumerate}
+        \item
+
+          We can choose
+
+          \begin{itemize}
+            \item
+              $x_n = \frac{n + 1}{n}$
+          \end{itemize}
+        \item
+        \item
+      \end{enumerate}
     \setcounter{enumi}{5}
 
     \item
