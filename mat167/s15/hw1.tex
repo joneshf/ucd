@@ -1,0 +1,108 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage[title]{appendix}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage{color, colortbl}
+\usepackage{systeme}
+\sysdelim..
+\definecolor{Gray}{gray}{0.8}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 167 HW 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Cheer\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [$\S$ 1.4]
+      \begin{enumerate}
+        \item [2]
+
+          \begin{itemize}
+            \item
+              After reducing to a triangle system we have:
+
+              \systeme{
+                2x + 3y = 1,
+                -6y = 6
+              }
+
+              So $y = -1$, back-substituting and solving for $x$ we get
+
+              $2x + 3(-1) = 1 \implies 2x - 3 = 1 \implies 2x = 4 \implies x = 2$.
+
+              So we have $x = 2, y = -1$.
+            \item
+              We verify that
+
+              \[
+                2 \begin{bmatrix}2 \\ 10\end{bmatrix} + (-1) \begin{bmatrix}3 \\ 9\end{bmatrix}
+                = \begin{bmatrix}4 \\ 20\end{bmatrix} + \begin{bmatrix}-3 \\ -9\end{bmatrix}
+                = \begin{bmatrix}1 \\ 11\end{bmatrix}
+              \]
+            \item
+              If the right hand side changed to $\begin{bmatrix}4 \\ 44\end{bmatrix} = 4\begin{bmatrix}1 \\ 11\end{bmatrix}$,
+              then the $x$ and $y$ values increase accordingly.
+
+              That is $x = 4(2) = 8, y = 4(-1) = -4$
+          \end{itemize}
+
+        \item [7]
+        \item [9]
+        \item [10]
+        \item [12]
+        \item [13]
+        \item [24]
+        \item [42]
+        \item [46]
+      \end{enumerate}
+    \item [$\S$ 1.5]
+      \begin{enumerate}
+        \item [11]
+        \item [12]
+        \item [18]
+        \item [22]
+        \item [28]
+        \item [33]
+        \item [42]
+      \end{enumerate}
+    \item [$\S$ 1.6]
+      \begin{enumerate}
+        \item [2]
+        \item [4]
+        \item [5]
+        \item [10]
+        \item [17]
+        \item [21]
+        \item [40]
+        \item [49]
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
