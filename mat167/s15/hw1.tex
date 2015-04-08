@@ -556,8 +556,236 @@
     \item [$\S$ 1.5]
       \begin{enumerate}
         \item [11]
+
+          Forward-substituting from $Lc = b$ gives
+
+          \begin{itemize}
+            \item $c_1 = 2$
+            \item $2 + c_2 = 0 \implies c_2 = -2$
+            \item $2 + c_3 = 2 \implies c_3 = 0$
+          \end{itemize}
+
+          Now Back-substituting from $Ux = c$ gives
+
+          \begin{itemize}
+            \item $w = 0$
+            \item $v + 2(0) = -2 \implies v = -2$
+            \item $2u + 4(-2) + 4(0) = 2 \implies 2u - 8 = 2 \implies u = 5$
+          \end{itemize}
+
+          So we have $u = 5, v = -2, w = 0$.
         \item [12]
+          \begin{itemize}
+            \item
+
+              We could factor $A$ into $UL$ if we reduced the rows with the pivots below all 0's.
+              That is, we'd want to form the lower triangular factor first,
+              then perform elementary row operations to create the upper triangular factor.
+
+            \item
+              No, these two decompositions do not necessarily produce the same factors,
+              as $LU$-decomposition in general is not unique.
+          \end{itemize}
         \item [18]
+          We can solve the first two at the same time.
+          \begin{itemize}
+            \item
+              Let
+              \[
+                A
+                =
+                \begin{bmatrix}
+                  0  &  1 & -1 \\
+                  1  & -1 &  0 \\
+                  1  &  0 & -1 \\
+                \end{bmatrix}
+              \]
+
+              Then if we attempt to reduce $A$ to an upper triangular we get
+              \begin{align*}
+                \begin{bmatrix}
+                  0  &  1 & -1 \\
+                  1  & -1 &  0 \\
+                  1  &  0 & -1 \\
+                \end{bmatrix}
+                &=
+                \begin{bmatrix}
+                  1  & -1 &  0 \\
+                  0  &  1 & -1 \\
+                  1  &  0 & -1 \\
+                \end{bmatrix}
+                \\
+                &=
+                \begin{bmatrix}
+                  1  & -1 &  0 \\
+                  0  &  1 & -1 \\
+                  0  &  1 & -1 \\
+                \end{bmatrix}
+                \\
+                &=
+                \begin{bmatrix}
+                  1  & -1 &  0 \\
+                  0  &  1 & -1 \\
+                  0  &  0 &  0 \\
+                \end{bmatrix}
+                \\
+              \end{align*}
+
+              But this matrix is singular, so it has no solutions.
+
+            \item
+
+              Let
+              \[
+                A
+                =
+                \begin{bmatrix}
+                  0  &  1 &  1 \\
+                  1  &  1 &  0 \\
+                  1  &  0 &  1 \\
+                \end{bmatrix}
+              \]
+
+              Then if we attempt to reduce $A$ to an upper triangular we get
+              \begin{align*}
+                A
+                &=
+                \begin{bmatrix}
+                  0  &  1 &  1 \\
+                  1  &  1 &  0 \\
+                  1  &  0 &  1 \\
+                \end{bmatrix}
+                \\
+                E_1A
+                &=
+                \begin{bmatrix}
+                   0 &  1 &  0 \\
+                   1 &  0 &  0 \\
+                   0 &  0 &  1 \\
+                \end{bmatrix}
+                A
+                &=
+                \begin{bmatrix}
+                   1 &  1 &  0 \\
+                   0 &  1 &  1 \\
+                   1 &  0 &  1 \\
+                \end{bmatrix}
+                \\
+                E_2E_1A
+                &=
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   0 &  1 &  0 \\
+                  -1 &  0 &  1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                   0 &  1 &  0 \\
+                   1 &  0 &  0 \\
+                   0 &  0 &  1 \\
+                \end{bmatrix}
+                A
+                &=
+                \begin{bmatrix}
+                   1 &  1 &  0 \\
+                   0 &  1 &  1 \\
+                   0 & -1 &  1 \\
+                \end{bmatrix}
+                \\
+                E_3E_2E_1A
+                &=
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   0 &  1 &  0 \\
+                   0 &  1 &  1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   0 &  1 &  0 \\
+                  -1 &  0 &  1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                   0 &  1 &  0 \\
+                   1 &  0 &  0 \\
+                   0 &  0 &  1 \\
+                \end{bmatrix}
+                A
+                &=
+                \begin{bmatrix}
+                   1 &  1 &  0 \\
+                   0 &  1 &  1 \\
+                   0 &  0 &  2 \\
+                \end{bmatrix}
+                \\
+              \end{align*}
+
+              Since $E_1$ is a permutation matrix,
+              we have $E_1 = P \implies PA = LU$.
+
+              Now we have
+
+              \begin{align*}
+                L &= E_2^{-1}E_3^{-1} \\
+                &=
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   0 &  1 &  0 \\
+                   1 &  0 &  1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   0 &  1 &  0 \\
+                   0 & -1 &  1 \\
+                \end{bmatrix}
+                \\
+                &=
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   0 &  1 &  0 \\
+                   1 & -1 &  1 \\
+                \end{bmatrix}
+              \end{align*}
+
+              So A is nonsingular, in fact we have one unique solution.
+
+              We take $PAx = Pb = y$ and solve with our $LU$ factors.
+
+              \[
+                y
+                =
+                \begin{bmatrix}
+                   0 &  1 &  0 \\
+                   1 &  0 &  0 \\
+                   0 &  0 &  1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                   1 \\
+                   1 \\
+                   1 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                   1 \\
+                   1 \\
+                   1 \\
+                \end{bmatrix}
+              \]
+
+              We can compute the $c$ matrix with $Lc = y$.
+              \begin{itemize}
+                \item $c_1 = 1$
+                \item $c_2 = 1$
+                \item $1 - 1 + c_3 = 1 \implies c_3 = 1$
+              \end{itemize}
+
+              We can compute the $x$ matrix with $Ux = c$.
+              \begin{itemize}
+                \item $2w              = 1 \implies w = \frac{1}{2}$
+                \item $v + \frac{1}{2} = 1 \implies v = \frac{1}{2}$
+                \item $u + \frac{1}{2} = 1 \implies u = \frac{1}{2}$
+              \end{itemize}
+
+              Finally, we have our solution: $u = \frac{1}{2}, v = \frac{1}{2}, w = \frac{1}{2}$.
+          \end{itemize}
         \item [22]
         \item [28]
         \item [33]
