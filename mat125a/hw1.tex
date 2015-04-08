@@ -371,6 +371,75 @@
             as was to be shown.
 
           \end{proof}
+
+        \item
+
+          Let $f : A \to R$.
+          We say that $\lim_{x \to \infty} f(x) = L$ provided that, for all $\epsilon > 0$, there exists an arbitrarily large $\delta$
+          such that whenever $x > \delta$ (and $x \in A$) it follows that $\left|f(x) - L\right| < \epsilon$.
+
+          \begin{proof}
+            We have $f(x) = \frac{1}{x}$.
+
+            Given an $\epsilon > 0$,
+            we want to find an arbitrarily large $\delta$ such that
+
+            \[
+              x > \delta \implies \left|\frac{1}{x} - 0\right| = \left|\frac{1}{x}\right| < \epsilon
+            \].
+
+            Since we know $x > 0$, we can simplify the consequent to:
+
+            \begin{align*}
+              \left|\frac{1}{x}\right| &< \epsilon \\
+              \frac{1}{x} &< \epsilon \\
+              \frac{1}{\epsilon} &< x \\
+            \end{align*}
+
+            So, choose $\delta = \frac{1}{\epsilon}$.
+
+            Then we have
+            \[
+              x > \delta \implies \left|\frac{1}{x} - 0\right| < \epsilon
+            \]
+            as was to be shown.
+
+          \end{proof}
+
+        \item
+          Let $f : A \to R$.
+
+          We say that $\lim_{x \to \infty} f(x) = \infty$ provided that,
+          for all arbitrarily large $\epsilon$,
+          there exists an arbitrarily large $\delta$
+          such that whenever $x > \delta$ (and $x \in A$) it follows that $f(x) > \epsilon$.
+
+          An example of such a limit is
+
+          \[
+            \lim_{x \to \infty} x = \infty
+          \]
+
+          \begin{proof}
+            We have $f(x) = x$.
+
+            Given an arbitrarily large $\epsilon$,
+            we want to find an arbitrarily large $\delta$ such that
+
+            \[
+              x > \delta \implies x > \epsilon
+            \].
+
+            So, choose $\delta = \epsilon$.
+
+            Then we have
+            \[
+              x > \delta \implies x > \epsilon
+            \]
+            as was to be shown.
+
+          \end{proof}
+
       \end{enumerate}
 
     \item
