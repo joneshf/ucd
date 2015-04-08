@@ -1135,7 +1135,149 @@
 
           For these symmetric matrices, $L = U^T$
         \item [33]
+          We find $c$
+          \begin{itemize}
+            \item $c_1             = 4$
+            \item $4   + c_2       = 5 \implies c_2 = 1$
+            \item $4   + 1   + c_3 = 6 \implies c_3 = 1$
+          \end{itemize}
+
+          So we have
+          \[
+            \begin{bmatrix}
+              c_1 \\
+              c_2 \\
+              c_3 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              4 \\
+              1 \\
+              1 \\
+            \end{bmatrix}
+          \]
+
+          Now we find $x$
+
+          \begin{itemize}
+            \item $            x_3 = 1$
+            \item $      x_2 + 1   = 1 \implies x_2 = 0$
+            \item $x_1 + 0   + 1   = 4 \implies x_1 = 3$
+          \end{itemize}
+
+          So we have
+          \[
+            \begin{bmatrix}
+              x_1 \\
+              x_2 \\
+              x_3 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              3 \\
+              0 \\
+              1 \\
+            \end{bmatrix}
+          \]
+
+          Finally,
+
+          \[
+            A
+            =
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+               1 &  1 &  0 \\
+               1 &  1 &  1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+               1 &  1 &  1 \\
+               1 &  1 &  1 \\
+               1 &  0 &  1 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+               1 &  1 &  1 \\
+               1 &  2 &  2 \\
+               1 &  2 &  3 \\
+            \end{bmatrix}
+          \]
         \item [42]
+          \begin{itemize}
+            \item
+              Choose
+              \[
+                P_1
+                =
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  0 & 0 & 1 \\
+                  0 & 1 & 0 \\
+                \end{bmatrix}
+                ,
+                P_2
+                =
+                \begin{bmatrix}
+                  0 & 1 & 0 \\
+                  1 & 0 & 0 \\
+                  0 & 0 & 1 \\
+                \end{bmatrix}
+              \]
+
+              Then
+              \[
+                P_1 P_2
+                =
+                \begin{bmatrix}
+                  0 & 1 & 0 \\
+                  0 & 0 & 1 \\
+                  1 & 0 & 0 \\
+                \end{bmatrix}
+                \ne
+                \begin{bmatrix}
+                  0 & 0 & 1 \\
+                  1 & 0 & 0 \\
+                  0 & 1 & 0 \\
+                \end{bmatrix}
+                =
+                P_2 P_1
+              \]
+            \item
+              Choose
+              \[
+                P_3
+                =
+                \begin{bmatrix}
+                  1 & 0 \\
+                  0 & 1 \\
+                \end{bmatrix}
+                ,
+                P_4
+                =
+                \begin{bmatrix}
+                  0 & 1 \\
+                  1 & 0 \\
+                \end{bmatrix}
+              \]
+
+              Then
+
+              \[
+                P_3 P_4
+                =
+                \begin{bmatrix}
+                  0 & 1 \\
+                  1 & 0 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                  0 & 1 \\
+                  1 & 0 \\
+                \end{bmatrix}
+                =
+                P_4 P_3
+              \]
+          \end{itemize}
       \end{enumerate}
     \item [$\S$ 1.6]
       \begin{enumerate}
