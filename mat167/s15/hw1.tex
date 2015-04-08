@@ -954,6 +954,186 @@
               \]
           \end{itemize}
         \item [28]
+          \begin{align*}
+            A
+            &=
+            \begin{bmatrix}
+               2 &  4 \\
+               4 & 11 \\
+            \end{bmatrix}
+            \\
+            E_{A0}A
+            &=
+            \begin{bmatrix}
+               1 &  0 \\
+              -2 &  1 \\
+            \end{bmatrix}
+            A
+            &=
+            \begin{bmatrix}
+               2 &  4 \\
+               0 &  3 \\
+            \end{bmatrix}
+            \\
+            E_{A0}A
+            &=
+            \begin{bmatrix}
+               1 &  0 \\
+              -2 &  1 \\
+            \end{bmatrix}
+            A
+            &=
+            \begin{bmatrix}
+               2 &  0 \\
+               0 &  3 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+               1 &  2 \\
+               0 &  1 \\
+            \end{bmatrix}
+            \\
+          \end{align*}
+
+          So
+          \[
+            L_A
+            =
+            E_{A0}^{-1}
+            =
+            \begin{bmatrix}
+               1 &  0 \\
+               2 &  1 \\
+            \end{bmatrix}
+            ,
+            D_A
+            =
+            \begin{bmatrix}
+               2 &  0 \\
+               0 &  3 \\
+            \end{bmatrix}
+            ,
+            U_A
+            =
+            \begin{bmatrix}
+               1 &  2 \\
+               0 &  1 \\
+            \end{bmatrix}
+          \]
+
+          \begin{align*}
+            B
+            &=
+            \begin{bmatrix}
+               1 &  4 &  0 \\
+               4 & 12 &  4 \\
+               0 &  4 &  0 \\
+            \end{bmatrix}
+            \\
+            E_{B0}B
+            &=
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+              -4 &  1 &  0 \\
+               0 &  0 &  1 \\
+            \end{bmatrix}
+            B
+            &=
+            \begin{bmatrix}
+               1 &  4 &  0 \\
+               0 & -4 &  4 \\
+               0 &  4 &  0 \\
+            \end{bmatrix}
+            \\
+            E_{B1}E_{B0}B
+            &=
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+               0 &  1 &  0 \\
+               0 &  1 &  1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+              -4 &  1 &  0 \\
+               0 &  0 &  1 \\
+            \end{bmatrix}
+            B
+            &=
+            \begin{bmatrix}
+               1 &  4 &  0 \\
+               0 & -4 &  4 \\
+               0 &  0 &  4 \\
+            \end{bmatrix}
+            \\
+            E_{B1}E_{B0}B
+            &=
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+               0 &  1 &  0 \\
+               0 &  1 &  1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+              -4 &  1 &  0 \\
+               0 &  0 &  1 \\
+            \end{bmatrix}
+            B
+            &=
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+               0 & -4 &  0 \\
+               0 &  0 &  4 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+               1 &  4 &  0 \\
+               0 &  1 & -1 \\
+               0 &  0 &  1 \\
+            \end{bmatrix}
+            \\
+          \end{align*}
+
+          So
+          \[
+            L
+            =
+            E_{B0}^{-1}E_{B1}^{-1}
+            =
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+               4 &  1 &  0 \\
+               0 &  0 &  1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+               0 &  1 &  0 \\
+               0 & -1 &  1 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+               4 &  1 &  0 \\
+               0 & -1 &  1 \\
+            \end{bmatrix}
+            ,
+          \]
+          \[
+            D
+            =
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+               0 & -4 &  0 \\
+               0 &  0 &  4 \\
+            \end{bmatrix}
+            ,
+            U
+            =
+            \begin{bmatrix}
+               1 &  4 &  0 \\
+               0 &  1 & -1 \\
+               0 &  0 &  1 \\
+            \end{bmatrix}
+          \]
+
+          For these symmetric matrices, $L = U^T$
         \item [33]
         \item [42]
       \end{enumerate}
