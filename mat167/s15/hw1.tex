@@ -787,6 +787,172 @@
               Finally, we have our solution: $u = \frac{1}{2}, v = \frac{1}{2}, w = \frac{1}{2}$.
           \end{itemize}
         \item [22]
+          The elementary operations we performed were
+          \[
+            E_1 =
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+              -1 &  1 &  0 \\
+              -1 &  0 &  1 \\
+            \end{bmatrix}
+            ,
+            E_2 =
+            \begin{bmatrix}
+               1 &  0 &  0 \\
+               0 &  1 &  0 \\
+               0 & -2 &  1 \\
+            \end{bmatrix}
+          \]
+
+          \begin{itemize}
+            \item
+              So
+              \[
+                L
+                =
+                E_1^{-1} E_2^{-1}
+                =
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   1 &  1 &  0 \\
+                   1 &  0 &  1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   0 &  1 &  0 \\
+                   0 &  2 &  1 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   1 &  1 &  0 \\
+                   1 &  2 &  1 \\
+                \end{bmatrix}
+              \]
+              We have
+              \begin{align*}
+                Lc &= b \\
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   1 &  1 &  0 \\
+                   1 &  2 &  1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  c_1 \\
+                  c_2 \\
+                  c_3 \\
+                \end{bmatrix}
+                &=
+                \begin{bmatrix}
+                   5 \\
+                   7 \\
+                  11 \\
+                \end{bmatrix}
+              \end{align*}
+              and
+              \begin{align*}
+                Ux &= c \\
+                \begin{bmatrix}
+                   1 &  1 & 1 \\
+                   0 &  1 & 2 \\
+                   0 &  0 & 1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  x \\
+                  y \\
+                  z \\
+                \end{bmatrix}
+                &=
+                \begin{bmatrix}
+                  c_1 \\
+                  c_2 \\
+                  c_3 \\
+                \end{bmatrix}
+              \end{align*}
+            \item
+
+              Plugging in the values for $c$ we compute:
+              \[
+                \begin{bmatrix}
+                   1 &  0 &  0 \\
+                   1 &  1 &  0 \\
+                   1 &  2 &  1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  5 \\
+                  2 \\
+                  2 \\
+                \end{bmatrix}
+                =
+                5
+                \begin{bmatrix}
+                  1 \\
+                  1 \\
+                  1 \\
+                \end{bmatrix}
+                +
+                2
+                \begin{bmatrix}
+                   0 \\
+                   1 \\
+                   2 \\
+                \end{bmatrix}
+                +
+                2
+                \begin{bmatrix}
+                   0 \\
+                   0 \\
+                   1 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                  5 \\
+                  5 \\
+                  5 \\
+                \end{bmatrix}
+                +
+                \begin{bmatrix}
+                   0 \\
+                   2 \\
+                   4 \\
+                \end{bmatrix}
+                +
+                \begin{bmatrix}
+                   0 \\
+                   0 \\
+                   2 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                  5  \\
+                  7  \\
+                  11 \\
+                \end{bmatrix}
+              \]
+              So this $c$ solves the first system.
+            \item
+              We compute
+              \begin{itemize}
+                \item $              z = 2$
+                \item $    y    + 2(2) = 2 \implies y + 4 = 2 \implies y = -2$
+                \item $x + (-2) + 2    = 5 \implies x = 5$
+              \end{itemize}
+              So the $x$ that solves the second system is:
+
+              \[
+                \begin{bmatrix}
+                  x \\
+                  y \\
+                  z \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                   5 \\
+                  -2 \\
+                   2 \\
+                \end{bmatrix}
+              \]
+          \end{itemize}
         \item [28]
         \item [33]
         \item [42]
