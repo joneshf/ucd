@@ -430,7 +430,127 @@
                 \]
           \end{enumerate}
         \item [24]
+          We want
+          \[
+            E_{21}
+            =
+            \begin{bmatrix}
+              1  & 0 & 0 \\
+              -4 & 1 & 0 \\
+              0  & 0 & 1 \\
+            \end{bmatrix}
+            ,
+            E_{31}
+            =
+            \begin{bmatrix}
+              1  & 0 & 0 \\
+              0  & 1 & 0 \\
+              2  & 0 & 1 \\
+            \end{bmatrix}
+            ,
+            E_{32}
+            =
+            \begin{bmatrix}
+              1  & 0  & 0 \\
+              0  & 1  & 0 \\
+              0  & -2 & 1 \\
+            \end{bmatrix}
+          \]
+
+          \begin{align*}
+            M
+            &=
+            E_{32}E_{31}E_{21}
+            \\
+            &=
+            \begin{bmatrix}
+              1  & 0  & 0 \\
+              0  & 1  & 0 \\
+              0  & -2 & 1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+              1  & 0 & 0 \\
+              0  & 1 & 0 \\
+              2  & 0 & 1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+              1  & 0 & 0 \\
+              -4 & 1 & 0 \\
+              0  & 0 & 1 \\
+            \end{bmatrix}
+            \\
+            &=
+            \begin{bmatrix}
+              1  & 0  & 0 \\
+              0  & 1  & 0 \\
+              2  & -2 & 1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+              1  & 0 & 0 \\
+              -4 & 1 & 0 \\
+              0  & 0 & 1 \\
+            \end{bmatrix}
+            \\
+            &=
+            \begin{bmatrix}
+              1  & 0  & 0 \\
+              -4 & 1  & 0 \\
+              10 & -2 & 1 \\
+            \end{bmatrix}
+            \\
+          \end{align*}
+
+          \[
+            MA
+            =
+            \begin{bmatrix}
+              1  & 0  & 0 \\
+              -4 & 1  & 0 \\
+              10 & -2 & 1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+              1  & 1  & 0 \\
+              4  & 6  & 1 \\
+              -2 & 2  & 0 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1  & 1  & 0  \\
+              0  & 2  & 1  \\
+              0  & 0  & -2 \\
+            \end{bmatrix}
+          \]
         \item [42]
+          \begin{enumerate}[label=(\alph*)]
+            \item
+              True.
+
+              Since matrix multiplication is only defined for matrices $A, B$ with dimension $m \times n, n \times p$, respectively,
+              $A^2 = A*A$ must have $m = n = p$.
+              That is $A$ must be a square matrix.
+            \item
+              False.
+
+              We can choose $A, B$ with dimension $m \times n, n \times m$, respectively, where $m \ne n$.
+              So $A$ and $B$ are not square.
+
+              Then $AB$ is defined, as well as $BA$, yet $A$ and $B$ are not square.
+            \item
+              True.
+
+              We can choose $A, B$ with dimension $m \times n, n \times m$, respectively.
+
+              Then $AB$ is defined, as well as $BA$.
+
+              These two products have dimension $m \times m$ and $n \times n$ respectively,
+              so $AB$ and $BA$ are square.
+            \item
+              False.
+
+              Let $B = 0$.
+
+              Then $A0 = 0$ for all appropriate matrices, but $A$ is not necessarily $I$.
+          \end{enumerate}
         \item [46]
       \end{enumerate}
     \item [$\S$ 1.5]
