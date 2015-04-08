@@ -30,6 +30,13 @@
   }
 }
 
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
 \setlength{\droptitle}{-10ex}
 
 \preauthor{\begin{flushright}\large \lineskip 0.5em}
@@ -1381,17 +1388,205 @@
             Thus, the inverse of $A$ is $AB$.
           \end{proof}
         \item [10]
+          \begin{enumerate}[label=(\alph*)]
+            \item
+
+              \begin{align*}
+                \begin{bmatrix}[c c c c | c c c c]
+                   0 &  0 &  0 &  1 &  1 &  0 &  0 &  0 \\
+                   0 &  0 &  2 &  0 &  0 &  1 &  0 &  0 \\
+                   0 &  3 &  0 &  0 &  0 &  0 &  1 &  0 \\
+                   4 &  0 &  0 &  0 &  0 &  0 &  0 &  1 \\
+                \end{bmatrix}
+                &=
+                \begin{bmatrix}[c c c c | c c c c]
+                   4 &  0 &  0 &  0 &  0 &  0 &  0 &  1 \\
+                   0 &  3 &  0 &  0 &  0 &  0 &  1 &  0 \\
+                   0 &  0 &  2 &  0 &  0 &  1 &  0 &  0 \\
+                   0 &  0 &  0 &  1 &  1 &  0 &  0 &  0 \\
+                \end{bmatrix}
+                \\
+                &=
+                \begin{bmatrix}[c c c c | c c c c]
+                    1 &  0 &  0 &  0 &  \frac{1}{4} &  0           &  0           &  0           \\
+                    0 &  1 &  0 &  0 &  0           &  \frac{1}{3} &  0           &  0           \\
+                    0 &  0 &  1 &  0 &  0           &  0           &  \frac{1}{2} &  0           \\
+                    0 &  0 &  0 &  1 &  0           &  0           &  0           &  \frac{1}{1} \\
+                \end{bmatrix}
+                \\
+              \end{align*}
+
+              So
+
+              \[
+                A_1^{-1}
+                =
+                \begin{bmatrix}
+                  \frac{1}{4} &  0           &  0           &  0           \\
+                  0           &  \frac{1}{3} &  0           &  0           \\
+                  0           &  0           &  \frac{1}{2} &  0           \\
+                  0           &  0           &  0           &  \frac{1}{1} \\
+                \end{bmatrix}
+              \]
+            \item
+              \begin{align*}
+                \begin{bmatrix}[c c c c | c c c c]
+                   1            &  0            &  0            &  0 &  1 &  0 &  0 &  0 \\
+                   -\frac{1}{2} &  1            &  0            &  0 &  0 &  1 &  0 &  0 \\
+                   0            &  -\frac{2}{3} &  1            &  0 &  0 &  0 &  1 &  0 \\
+                   0            &  0            &  -\frac{3}{4} &  1 &  0 &  0 &  0 &  1 \\
+                \end{bmatrix}
+                &=
+                \begin{bmatrix}[c c c c | c c c c]
+                   1            &  0            &  0            &  0 &  1 &  0 &  0 &  0 \\
+                   0            &  1            &  0            &  0 &  2 &  1 &  0 &  0 \\
+                   0            &  -\frac{2}{3} &  1            &  0 &  0 &  0 &  1 &  0 \\
+                   0            &  0            &  -\frac{3}{4} &  1 &  0 &  0 &  0 &  1 \\
+                \end{bmatrix}
+                \\
+                &=
+                \begin{bmatrix}[c c c c | c c c c]
+                   1            &  0            &  0            &  0 &  1 &  0           &  0 &  0 \\
+                   0            &  1            &  0            &  0 &  2 &  1           &  0 &  0 \\
+                   0            &  0            &  1            &  0 &  3 &  \frac{3}{2} &  1 &  0 \\
+                   0            &  0            &  -\frac{3}{4} &  1 &  0 &  0           &  0 &  1 \\
+                \end{bmatrix}
+                \\
+                &=
+                \begin{bmatrix}[c c c c | c c c c]
+                   1            &  0            &  0            &  0 &  1           &  0           &  0           &  0 \\
+                   0            &  1            &  0            &  0 &  2           &  1           &  0           &  0 \\
+                   0            &  0            &  1            &  0 &  3           &  \frac{3}{2} &  1           &  0 \\
+                   0            &  0            &  0            &  1 &  \frac{9}{4} &  \frac{9}{8} &  \frac{3}{4} &  1 \\
+                \end{bmatrix}
+                \\
+              \end{align*}
+
+              So
+
+              \[
+                A_2^{-1}
+                =
+                \begin{bmatrix}
+                  1           &  0           &  0           &  0 \\
+                  2           &  1           &  0           &  0 \\
+                  3           &  \frac{3}{2} &  1           &  0 \\
+                  \frac{9}{4} &  \frac{9}{8} &  \frac{3}{4} &  1 \\
+                \end{bmatrix}
+              \]
+            \item
+              \begin{align*}
+                \begin{bmatrix}[c c c c | c c c c]
+                   a &  b &  0 &  0 &  1 &  0 &  0 &  0 \\
+                   c &  d &  0 &  0 &  0 &  1 &  0 &  0 \\
+                   0 &  0 &  a &  b &  0 &  0 &  1 &  0 \\
+                   0 &  0 &  c &  d &  0 &  0 &  0 &  1 \\
+                \end{bmatrix}
+                &=
+                \begin{bmatrix}[c c c c | c c c c]
+                   a &  b               &  0 &  0               &  1           &  0 &  0           &  0 \\
+                   0 &  \frac{ad-bc}{a} &  0 &  0               & -\frac{c}{a} &  1 &  0           &  0 \\
+                   0 &  0               &  a &  b               &  0           &  0 &  1           &  0 \\
+                   0 &  0               &  0 &  \frac{ad-bc}{a} &  0           &  0 & -\frac{c}{a} &  1 \\
+                \end{bmatrix}
+                \\
+                &=
+                \begin{bmatrix}[c c c c | c c c c]
+                   a &  0               &  0 &  0               &  \frac{ad}{ad - bc} &  -\frac{ab}{ad - bc} &  0                  &  0                   \\
+                   0 &  \frac{ad-bc}{a} &  0 &  0               & -\frac{c}{a}        &  1                   &  0                  &  0                   \\
+                   0 &  0               &  a &  0               &  0                  &  0                   &  \frac{ad}{ad - bc} &  -\frac{ab}{ad - bc} \\
+                   0 &  0               &  0 &  \frac{ad-bc}{a} &  0                  &  0                   & -\frac{c}{a}        &  1                   \\
+                \end{bmatrix}
+                \\
+                &=
+                \begin{bmatrix}[c c c c | c c c c]
+                   1 &  0 &  0 &  0 &  \frac{d}{ad - bc} &  -\frac{b}{ad - bc} &  0                 &  0                  \\
+                   0 &  1 &  0 &  0 & -\frac{c}{ad-bc}   &  \frac{a}{ad-bc}    &  0                 &  0                  \\
+                   0 &  0 &  1 &  0 &  0                 &  0                  &  \frac{d}{ad - bc} &  -\frac{b}{ad - bc} \\
+                   0 &  0 &  0 &  1 &  0                 &  0                  & -\frac{c}{ad-bc}   &  \frac{a}{ad-bc}    \\
+                \end{bmatrix}
+                \\
+              \end{align*}
+
+              So
+
+              \[
+                A_3^{-1}
+                =
+                \frac{1}{ad - bc}
+                \begin{bmatrix}
+                   d & -b &  0 &  0 \\
+                  -c &  a &  0 &  0 \\
+                   0 &  0 &  d & -b \\
+                   0 &  0 & -c &  a \\
+                \end{bmatrix}
+              \]
+          \end{enumerate}
         \item [17]
+          \begin{enumerate}[label=(\alph*)]
+            \item
+              \begin{align*}
+                A &= A \\
+                L_2D_2U_2 &= L_1D_1U_1 \\
+                L_1^{-1}L_2D_2U_2 &= D_1U_1 \\
+                L_1^{-1}L_2D_2 &= D_1U_1U_2^{-1} \\
+              \end{align*}
+
+              Inverting a lower triangular matrix gives another lower triangular matrix.
+              Inverting an upper triangular matrix gives another upper triangular matrix.
+
+              Multiplication of one type of triangular matrix
+              by a triangular matrix of the same type gives another triangular matrix of the same type.
+
+              Since diagonal matrices are trivially both upper and lower triangular,
+              the left side is a lower triangular matrix
+              while the right side is an upper triangular matrix.
+            \item
+              For the equation $L_1^{-1}L_2D_2 = D_1U_1U_2^{-1}$ to be true,
+              both sides must be diagonal matrices.
+              This is because the left side is a lower triangular matrix
+              and the right side is an upper triangular matrix.
+              The only possible matrix of this type is a diagonal matrix.
+
+              The main diagonal of the left hand side must be the same as the diagonal of $D_2$,
+              as the triangular matrix on the left hand side has all 1's on the main diagonal.
+              The main diagonal of the right hand side must be the same as the diagonal of $D_1$,
+              as the triangular matrix on the right hand side has all 1's on the main diagonal.
+
+              The elements off the diagonal must be all 0 since both sides are diagonal matrices.
+
+              So we have that the left side is equal to $D_2$ and
+              the right side is equal to $D_1$, thus $D_2 = D_1$.
+
+              Since the left side is equal to $D_2$, we have:
+
+              \[
+                L_1^{-1}L_2D_2 = D_2 \implies L_1^{-1}L_2 = I \implies L_2 = L_1
+              \]
+
+              Since the left side is equal to $D_1$, we have:
+
+              \[
+                D_1U_1U_2^{-1} = D_1 \implies U_1U_2^{-1} = I \implies U_1 = U_2
+              \]
+
+              So we have shown if $A = L_1D_1U_1$ and $A = L_2D_2U_2$,
+              $L_1 = L_2$, $D_1 = D_2$, $U_1 = U_2$.
+
+              Thus the factorization is unique.
+          \end{enumerate}
         \item [21]
           \begin{proof}
             Let $A, B$ be square matrices with $I - AB$ invertible.
 
-            Then
-
             \begin{align*}
               B(I - AB) &= (I - BA)B \\
-              B(I - AB) &= (I - BA)B \\
+              B &= (I - BA)B(I - AB)^{-1} \\
+              I &= (I - BA)B(I - AB)^{-1}B^{-1} \\
+              (I - BA)^{-1} &= B(I - AB)^{-1}B^{-1} \\
             \end{align*}
+
+            Then $(I - BA)$ is invertible.
           \end{proof}
         \item [40]
           \begin{enumerate}[label=(\alph*)]
@@ -1445,6 +1640,91 @@
               \[
                 A
                 =
+                \begin{bmatrix}
+                   1 &  0 \\
+                   9 &  3 \\
+                \end{bmatrix}
+              \]
+
+              \[
+                A^T
+                =
+                \begin{bmatrix}
+                   1 &  9 \\
+                   0 &  3 \\
+                \end{bmatrix}
+              \]
+              \[
+                A^{-1}
+                =
+                \frac{1}{1(3) - 9(0)}
+                \begin{bmatrix}
+                  -1 &  9 \\
+                   0 & -3 \\
+                \end{bmatrix}
+                =
+                \frac{1}{3}
+                \begin{bmatrix}
+                  -1 &  9 \\
+                   0 & -3 \\
+                \end{bmatrix}
+              \]
+              \[
+                \left(A^{-1}\right)^T
+                =
+                \left(A^T\right)^{-1}
+                =
+                \frac{1}{3}
+                \begin{bmatrix}
+                  -1 &  0 \\
+                   9 & -3 \\
+                \end{bmatrix}
+              \]
+            \item
+              \[
+                A
+                =
+                \begin{bmatrix}
+                   1 &  c \\
+                   c &  0 \\
+                \end{bmatrix}
+              \]
+
+              \[
+                A^T
+                =
+                \begin{bmatrix}
+                   1 &  c \\
+                   c &  0 \\
+                \end{bmatrix}
+              \]
+              \[
+                A^{-1}
+                =
+                \frac{1}{1(0) - c(c)}
+                \begin{bmatrix}
+                  -1 &  c \\
+                   c & -0 \\
+                \end{bmatrix}
+                =
+                \frac{1}{c^2}
+                \begin{bmatrix}
+                  -1 &  c \\
+                   c & -0 \\
+                \end{bmatrix}
+                , \text{ when } c \ne 0
+              \]
+              \[
+                \left(A^{-1}\right)^T
+                =
+                \left(A^T\right)^{-1}
+                =
+                \frac{1}{c^2}
+                \begin{bmatrix}
+                  -1 &  c \\
+                   c & -0 \\
+                \end{bmatrix}
+                , \text{ when } c \ne 0
               \]
           \end{enumerate}
       \end{enumerate}
