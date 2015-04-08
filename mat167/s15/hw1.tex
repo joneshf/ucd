@@ -12,6 +12,7 @@
 \usepackage{dcolumn}
 \usepackage[title]{appendix}
 \usepackage{pgfplots}
+\usepackage{tikz}
 \pgfplotsset{compat=1.8}
 \usepgfplotslibrary{statistics}
 \usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
@@ -22,6 +23,12 @@
 \newcolumntype{d}{D{.}{.}{-1}}
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand*\circled[1]{
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};
+  }
+}
 
 \setlength{\droptitle}{-10ex}
 
@@ -43,95 +50,231 @@
     \item [$\S$ 1.4]
       \begin{enumerate}
         \item [2]
-
-          \begin{itemize}
+          \[
+            \begin{bmatrix}
+              4 & 1 \\
+              5 & 1 \\
+              6 & 1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+              1 \\
+              3
+            \end{bmatrix}
+            =
+            1
+            \begin{bmatrix}
+              4 \\
+              5 \\
+              6 \\
+            \end{bmatrix}
+            + 3
+            \begin{bmatrix}
+              1 \\
+              1 \\
+              1 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              4 \\
+              5 \\
+              6 \\
+            \end{bmatrix}
+            +
+            \begin{bmatrix}
+              3 \\
+              3 \\
+              3 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              7 \\
+              8 \\
+              9 \\
+            \end{bmatrix}
+          \]
+        \item [7]
+          \begin{enumerate}[label=(\alph*)]
             \item
-              After reducing to a triangle system we have:
-
-              \sysdelim..
-              \systeme{
-                2x + 3y = 1,
-                -6y = 6
-              }
-
-              So $y = -1$, back-substituting and solving for $x$ we get
-
-              $2x + 3(-1) = 1 \implies 2x - 3 = 1 \implies 2x = 4 \implies x = 2$.
-
-              So we have $x = 2, y = -1$.
-            \item
-              We verify that
-
               \[
-                2 \begin{bmatrix}2 \\ 10\end{bmatrix} + (-1) \begin{bmatrix}3 \\ 9\end{bmatrix}
-                = \begin{bmatrix}4 \\ 20\end{bmatrix} + \begin{bmatrix}-3 \\ -9\end{bmatrix}
-                = \begin{bmatrix}1 \\ 11\end{bmatrix}
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  0 & 2 & 0 \\
+                  0 & 0 & 3 \\
+                \end{bmatrix}
               \]
             \item
-              If the right hand side changed to $\begin{bmatrix}4 \\ 44\end{bmatrix} = 4\begin{bmatrix}1 \\ 11\end{bmatrix}$,
-              then the $x$ and $y$ values increase accordingly.
-
-              That is $x = 4(2) = 8, y = 4(-1) = -4$
-          \end{itemize}
-
-        \item [7]
-          \begin{enumerate}
+              \[
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  0 & 2 & 0 \\
+                  0 & 0 & 3 \\
+                \end{bmatrix}
+              \]
             \item
-              If $a = 2$, then elimination breaks down permanently.
-              As we will end up in an inconsistent system.
+              \[
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  0 & 2 & 0 \\
+                  0 & 0 & 3 \\
+                \end{bmatrix}
+              \]
             \item
-              If $a = 0$, then elimination breaks down temporarily
-              until the first equation is swapped for the second.
+              \[
+                \begin{bmatrix}
+                  0  & 1  & 0 \\
+                  -1 & 0  & 2 \\
+                  0  & -2 & 0 \\
+                \end{bmatrix}
+              \]
           \end{enumerate}
-
-          We can solve by elimination if we swap the equations
-
-          \sysdelim.\}
-          \systeme{
-            4x + 6y = 6,
-            3y = -3
-          }
-          $\implies$
-          \systeme{
-            4x + 6y = 6,
-            y = -1
-          }
-          $\implies$
-          \systeme{
-            4x = 12,
-            y = -1
-          }
-          $\implies$
-          \systeme{
-            x = 3,
-            y = -1
-          }
-
-          So, $x = 3, y = -1$.
         \item [9]
-
-          \begin{itemize}
-            \item These two equations have a solution only when $2b_1 = b_2$.
-            \item There are infinitely many solutions.
-            \item
-              \begin{tikzpicture}
-                \begin{axis}[axis equal, axis x line=middle, axis y line=middle, grid=major]
-                  \addplot[-stealth]
-                    coordinates { (0, 0) (3, 6) }
-                    [xshift=15pt, yshift=-10pt]
-                    node[pos=1] { (3, 6) }
-                  ;
-                  \addplot[-stealth]
-                    coordinates { (0, 0) (-2, -4) }
-                    [xshift=-15pt, yshift=10pt]
-                    node[pos=1] { (-2, -4) }
-                  ;
-                  \addplot[only marks, mark=*] coordinates { (0, 0) };
-                \end{axis}
-              \end{tikzpicture}
-          \end{itemize}
+          Assuming $A$ has as many pivots as rows, we have the following results.
+          \begin{enumerate}[label=(\alph*)]
+            \item $a_{11}$
+            \item $l_{i1} = \frac{a_{i1}}{a_{11}}$
+            \item $a_{ij} - a_{1j}\left(\frac{a_{i1}}{a_{11}}\right)$
+            \item $a_{22} - a_{12}\left(\frac{a_{21}}{a_{11}}\right)$
+          \end{enumerate}
         \item [10]
+          \begin{enumerate}[label=(\alph*)]
+            \item True.
+            \item
+              False.
+
+              $AB$ may not even have three rows.
+
+              For example, let $A$ be a $1 \times 3$ matrix and $B$ be a $3 \times 3$ matrix.
+
+              Then $AB$ is a $1 \times 3$ matrix, so it has no third row.
+            \item True.
+            \item
+
+              False.
+
+              Let
+              \[
+                A = \begin{bmatrix}
+                  1 & 2 \\
+                  1 & 2 \\
+                \end{bmatrix}
+                ,
+                B = \begin{bmatrix}
+                  1 & 1 \\
+                  0 & 0 \\
+                \end{bmatrix}
+              \]
+
+              Then
+              \begin{align*}
+                (AB)^2
+                &= \left(\begin{bmatrix}
+                  1 & 2 \\
+                  1 & 2 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  1 & 1 \\
+                  0 & 0 \\
+                \end{bmatrix}\right)^2 \\
+                &= \begin{bmatrix}
+                  1 & 1 \\
+                  1 & 1 \\
+                \end{bmatrix}^2 \\
+                &= \begin{bmatrix}
+                  2 & 2 \\
+                  2 & 2 \\
+                \end{bmatrix} \\
+              \end{align*}
+
+              But
+              \begin{align*}
+                A^2B^2
+                &= \begin{bmatrix}
+                  1 & 2 \\
+                  1 & 2 \\
+                \end{bmatrix}^2
+                \begin{bmatrix}
+                  1 & 1 \\
+                  0 & 0 \\
+                \end{bmatrix}^2 \\
+                &= \begin{bmatrix}
+                  3 & 6 \\
+                  3 & 6 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  1 & 1 \\
+                  0 & 0 \\
+                \end{bmatrix} \\
+                &= \begin{bmatrix}
+                  3 & 3 \\
+                  3 & 3 \\
+                \end{bmatrix} \\
+              \end{align*}
+
+              So $(AB)^2 \ne A^2B^2$.
+          \end{enumerate}
         \item [12]
+          \begin{itemize}
+            \item
+
+              Let
+              \[
+                A = \begin{bmatrix}
+                  1 & 0 \\
+                  1 & 1 \\
+                \end{bmatrix}
+                ,
+                B = \begin{bmatrix}
+                  1 & 0 \\
+                  2 & 1 \\
+                \end{bmatrix}
+              \]
+
+              \begin{align*}
+                AB
+                &=
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  1 & 1 & 0 \\
+                  1 & 1 & 1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  2 & 1 & 0 \\
+                  3 & 2 & 1 \\
+                \end{bmatrix}
+                \\
+                &=
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  3 & 1 & 0 \\
+                  6 & 3 & 1 \\
+                \end{bmatrix}
+              \end{align*}
+
+            \item
+
+              \begin{proof}
+                For any lower triangular matrices $A, B$ with dimension $n \times n$,
+                each entry $ab_{ij}$ in $AB$ it is computed by:
+
+                \[
+                  \sum_{k = 1}^{n} a_{ik}b_{kj}
+                \]
+
+                If $i < k, a_{ik} = 0$.
+
+                If $k < j, b_{kj} = 0$.
+
+                Each entry above the main diagonal has one of either $i < k$ or $k < j$.
+
+                So for each entry above the main diagonal of $AB$,
+                we have a sum of products where at least one of the factors is 0.
+
+                So, each entry above the main diagonal is 0.
+
+                Thus, the product of any two lower triangular matrices is lower triangular.
+              \end{proof}
+          \end{itemize}
         \item [13]
         \item [24]
         \item [42]
