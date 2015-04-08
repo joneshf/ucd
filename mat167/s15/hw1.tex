@@ -1282,13 +1282,171 @@
     \item [$\S$ 1.6]
       \begin{enumerate}
         \item [2]
+          \begin{enumerate}
+            \item For all permutation matrices $P$, $P^{-1} = P^T$.
+
+              So the first $P^{-1}$ is
+              \[
+                \begin{bmatrix}
+                  0 & 0 & 1 \\
+                  0 & 1 & 0 \\
+                  1 & 0 & 0 \\
+                \end{bmatrix}
+              \]
+              The second $P^{-1}$ is
+              \[
+                \begin{bmatrix}
+                  0 & 1 & 0 \\
+                  0 & 0 & 1 \\
+                  1 & 0 & 0 \\
+                \end{bmatrix}
+              \]
+            \item
+              Intuitively we can think of $P^T$ as performing the inverse permutation of $P$.
+
+              % \begin{proof}
+              %   For any permutation matrix $P$ of dimension $n \times n$
+              %   We can construct each $(PP^T)_{ij}$ as
+              %   \[
+              %     \sum_{k = 1}^{n} p_{ik}p_{kj}^T
+              %   \]
+
+              %   Since $P$ is a permutation matrix,
+              %   each product in the sum consists of factors of either $0$ or $1$.
+              %   $p_{ik} = 1$ when
+              % \end{proof}
+          \end{enumerate}
         \item [4]
+          \begin{enumerate}
+            \item
+              \[
+                AB = AC \implies A^{-1}AB = A^{-1}AC \implies B = C
+              \]
+            \item
+              Choose
+              \[
+                B =
+                \begin{bmatrix}
+                  1 & 0 \\
+                  0 & 1 \\
+                \end{bmatrix}
+                ,
+                C =
+                \begin{bmatrix}
+                  1 & 0 \\
+                  0 & 2 \\
+                \end{bmatrix}
+              \]
+              Then
+              \[
+                AB =
+                \begin{bmatrix}
+                  1 & 0 \\
+                  0 & 0 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  1 & 0 \\
+                  0 & 1 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                  1 & 0 \\
+                  0 & 0 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                  1 & 0 \\
+                  0 & 0 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  1 & 0 \\
+                  0 & 2 \\
+                \end{bmatrix}
+                =
+                AC
+              \]
+               But $B \ne C$.
+          \end{enumerate}
         \item [5]
+          \begin{proof}
+            Let $(A^2)^{-1} = B$
+
+            \begin{align*}
+              (A^2)^{-1} &= B \\
+              (AA)^{-1} &= \\
+              A^{-1}A^{-1} &= \\
+              A^{-1} &= AB \\
+            \end{align*}
+
+            Thus, the inverse of $A$ is $AB$.
+          \end{proof}
         \item [10]
         \item [17]
         \item [21]
+          \begin{proof}
+            Let $A, B$ be square matrices with $I - AB$ invertible.
+
+            Then
+
+            \begin{align*}
+              B(I - AB) &= (I - BA)B \\
+              B(I - AB) &= (I - BA)B \\
+            \end{align*}
+          \end{proof}
         \item [40]
+          \begin{enumerate}[label=(\alph*)]
+            \item True. The matrix has less pivots than 4, and so is singular.
+            \item
+
+              False.
+
+              Let
+              \[
+                A
+                =
+                \begin{bmatrix}
+                  1 & 1 \\
+                  1 & 1 \\
+                \end{bmatrix}
+              \]
+
+              A has 1's down the main diagonal,
+              but is singular and so not invertible.
+            \item True. The inverse of $A^{-1}$ is $A$.
+            \item True.
+              \begin{proof}
+                Given $A^T$ is invertible we have:
+
+                \begin{align*}
+                  A^{-1}A &= \left({A^T}^T\right)^{-1}\left({A^T}^T\right) \\
+                  &= \left(\left({A^T}\right)^{-1}\right)^T\left({A^T}^T\right) \\
+                  &= \left({A^T}\left({A^T}\right)^{-1}\right)^T \\
+                  &= I^T \\
+                  &= I \\
+                \end{align*}
+
+                and
+
+                \begin{align*}
+                  AA^{-1} &= \left({A^T}^T\right)\left({A^T}^T\right)^{-1} \\
+                  &= \left({A^T}^T\right)\left(\left({A^T}\right)^{-1}\right)^T \\
+                  &= \left(\left({A^T}\right)^{-1}{A^T}\right)^T \\
+                  &= I^T \\
+                  &= I \\
+                \end{align*}
+
+                So $A$ is invertible.
+              \end{proof}
+          \end{enumerate}
         \item [49]
+          \begin{enumerate}
+            \item
+
+              \[
+                A
+                =
+              \]
+          \end{enumerate}
       \end{enumerate}
   \end{enumerate}
 \end{document}
