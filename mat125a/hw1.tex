@@ -337,6 +337,42 @@
 
     \item
 
+      \begin{enumerate}
+        \item
+
+          Let $f : A \to R$, and let $c$ be a limit point of the domain $A$.
+          We say that $\lim_{x \to c} f(x) = \infty$ provided that, for all arbitrarily large $\epsilon$, there exists a $\delta > 0$
+          such that whenever $0 < |x - c| < \delta$ (and $x \in A$) it follows that $f(x) > \epsilon$.
+
+          \begin{proof}
+            We have $f(x) = \frac{1}{x^2}, c = 0$.
+
+            Given an arbitrarily large $\epsilon$,
+            we want to find $\delta > 0$ such that
+
+            \[
+              0 < \left|x - 0\right| = \left|x\right| < \delta \implies \frac{1}{x^2} > \epsilon
+            \].
+
+            We can simplify the consequent to:
+
+            \begin{align*}
+              \frac{1}{x^2} &> \epsilon \\
+              \frac{1}{\epsilon} &> x^2 \\
+              \frac{1}{\sqrt{\epsilon}} &> \left|x\right| \\
+            \end{align*}
+
+            So, choose $\delta = \frac{1}{\sqrt{\epsilon}}$.
+
+            Then we have
+            \[
+              0 < \left|x\right| < \delta \implies \frac{1}{x^2} > \epsilon
+            \]
+            as was to be shown.
+
+          \end{proof}
+      \end{enumerate}
+
     \item
 
     \item
