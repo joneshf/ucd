@@ -115,9 +115,18 @@
             \item There are infinitely many solutions.
             \item
               \begin{tikzpicture}
-                \begin{axis}[grid=major, axis x line=middle, axis y line=middle]
-                  \addplot[-stealth] coordinates {(0, 0) (3, 6)};
-                  \addplot[-stealth] coordinates {(0, 0) (-2, -4)};
+                \begin{axis}[axis equal, axis x line=middle, axis y line=middle, grid=major]
+                  \addplot[-stealth]
+                    coordinates { (0, 0) (3, 6) }
+                    [xshift=15pt, yshift=-10pt]
+                    node[pos=1] { (3, 6) }
+                  ;
+                  \addplot[-stealth]
+                    coordinates { (0, 0) (-2, -4) }
+                    [xshift=-15pt, yshift=10pt]
+                    node[pos=1] { (-2, -4) }
+                  ;
+                  \addplot[only marks, mark=*] coordinates { (0, 0) };
                 \end{axis}
               \end{tikzpicture}
           \end{itemize}
