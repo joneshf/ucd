@@ -465,6 +465,51 @@
 
     \item
 
+        We have $\lim_{x \to c} f(x) = L$ and $\lim_{x \to c} h(x) = L$.
+
+        So for any $\epsilon > 0$, there exists $\delta_0 > 0$ such that
+
+        $0 < \left|x - c\right| < \delta_0 \implies \left|f(x) - L\right| < \epsilon$ and
+
+        for any $\epsilon > 0$, there exists $\delta_1 > 0$ such that
+
+        $0 < \left|x - c\right| < \delta_1 \implies \left|h(x) - L\right| < \epsilon$.
+
+        We need to show for any $\epsilon > 0$, there exists $\delta > 0$ such that
+
+        $0 < \left|x - c\right| < \delta \implies \left|g(x) - L\right| < \epsilon$.
+
+      \begin{proof}
+        Given $\epsilon > 0$, we have $\delta_0, \delta_1 > 0$ such that
+
+        $0 < \left|x - c\right| < \delta_0 \implies \left|f(x) - L\right| < \epsilon$ and
+
+        $0 < \left|x - c\right| < \delta_1 \implies \left|h(x) - L\right| < \epsilon$.
+
+        We can manipulate $\left|f(x) - L\right| < \epsilon$ to
+        $-\epsilon < f(x) - L < \epsilon$, and
+
+        $\left|h(x) - L\right| < \epsilon$ to
+        $-\epsilon < h(x) - L < \epsilon$.
+
+        Now choose $\delta = \text{min}\{\delta_0, \delta_1\}$
+
+        Since we know $f(x) \le g(x) \le h(x)$
+        it follows that $f(x) - L \le g(x) - L \le h(x) - L$,
+
+        from this and our choice of $\delta$ it follows that $-\epsilon < f(x) - L \le g(x) - L \le h(x) - L < \epsilon$,
+
+        which simplifies to $-\epsilon < g(x) - L < \epsilon = \left|g(x) - L\right| < \epsilon$.
+
+        Then we have
+        \[
+          0 < \left|x - c\right| < \delta \implies \left|g(x) - L\right| < \epsilon
+        \].
+
+        Thus, we have $\lim_{x \to c} g(x) = L$, as was to be shown.
+
+      \end{proof}
+
   \end{enumerate}
 
 \end{document}
