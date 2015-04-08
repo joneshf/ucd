@@ -17,7 +17,6 @@
 \usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
 \usepackage{color, colortbl}
 \usepackage{systeme}
-\sysdelim..
 \definecolor{Gray}{gray}{0.8}
 \newcolumntype{g}{>{\columncolor{Gray}}c}
 \newcolumntype{d}{D{.}{.}{-1}}
@@ -49,6 +48,7 @@
             \item
               After reducing to a triangle system we have:
 
+              \sysdelim..
               \systeme{
                 2x + 3y = 1,
                 -6y = 6
@@ -75,7 +75,52 @@
           \end{itemize}
 
         \item [7]
+          \begin{enumerate}
+            \item
+              If $a = 2$, then elimination breaks down permanently.
+              As we will end up in an inconsistent system.
+            \item
+              If $a = 0$, then elimination breaks down temporarily
+              until the first equation is swapped for the second.
+          \end{enumerate}
+
+          We can solve by elimination if we swap the equations
+
+          \sysdelim.\}
+          \systeme{
+            4x + 6y = 6,
+            3y = -3
+          }
+          $\implies$
+          \systeme{
+            4x + 6y = 6,
+            y = -1
+          }
+          $\implies$
+          \systeme{
+            4x = 12,
+            y = -1
+          }
+          $\implies$
+          \systeme{
+            x = 3,
+            y = -1
+          }
+
+          So, $x = 3, y = -1$.
         \item [9]
+
+          \begin{itemize}
+            \item These two equations have a solution only when $2b_1 = b_2$.
+            \item There are infinitely many solutions.
+            \item
+              \begin{tikzpicture}
+                \begin{axis}[grid=major, axis x line=middle, axis y line=middle]
+                  \addplot[-stealth] coordinates {(0, 0) (3, 6)};
+                  \addplot[-stealth] coordinates {(0, 0) (-2, -4)};
+                \end{axis}
+              \end{tikzpicture}
+          \end{itemize}
         \item [10]
         \item [12]
         \item [13]
