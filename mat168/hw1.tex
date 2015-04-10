@@ -350,7 +350,7 @@
               ;
               \addplot[name path global=c3,very thick, domain=0:15]
                 coordinates { (0, 7) (15, 7) }
-                node[above, pos=0.5, sloped, style={font=\tiny}] {$x_2 \leq 7$}
+                node[above, pos=0.6, sloped, style={font=\tiny}] {$x_2 \leq 7$}
               ;
               \addplot[name path global=c4,very thick, domain=0:15]{2 * x}
                 node[above, pos=0.4, sloped, style={font=\tiny}] {$2x_1 - x_2 \geq 0$}
@@ -379,7 +379,11 @@
                 --(point5)
                 --(point1)
                 ;
-              \addplot coordinates{ (5, 7) };
+              \addplot
+                coordinates { (5, 7) }
+                node[label={[style={font=\tiny}]30:(5, 7)}] {}
+              ;
+
             \end{axis}
           \end{tikzpicture}
         \item
