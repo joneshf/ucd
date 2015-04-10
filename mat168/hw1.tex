@@ -339,17 +339,27 @@
                 ymin=0,ymax=15,
                 xmin=0,xmax=15,
                 xlabel=$x_1$, ylabel=$x_2$,
-                grid=major
+                grid=major,
               ]
-              \addplot[name path global=c1,very thick, domain=-15:15]{12 - x};
-              \addplot[name path global=c2,very thick, domain=-15:15]
-                coordinates { (10, -15) (10, 15) };
-              \addplot[name path global=c3,very thick, domain=-15:15]
-                coordinates { (-15, 7) (15, 7) };
-              \addplot[name path global=c4,very thick, domain=-15:15]{2 * x};
-              \addplot[name path global=c5,very thick, domain=-15:15]{0.5 * x};
+              \addplot[name path global=c1,very thick, domain=0:15]{12 - x}
+                node[above, pos=0.1, sloped, style={font=\tiny}] {$x_1 + x_2 \leq 12$}
+              ;
+              \addplot[name path global=c2,very thick, domain=0:15]
+                coordinates { (10, 0) (10, 15) }
+                node[right, pos=0.7, style={font=\tiny}] {$x_1 \leq 10$}
+              ;
+              \addplot[name path global=c3,very thick, domain=0:15]
+                coordinates { (0, 7) (15, 7) }
+                node[above, pos=0.5, sloped, style={font=\tiny}] {$x_2 \leq 7$}
+              ;
+              \addplot[name path global=c4,very thick, domain=0:15]{2 * x}
+                node[above, pos=0.4, sloped, style={font=\tiny}] {$2x_1 - x_2 \geq 0$}
+              ;
+              \addplot[name path global=c5,very thick, domain=0:15]{0.5 * x}
+                node[below, pos=0.8, sloped, style={font=\tiny}] {$-x_1 + 2x_2 \geq 0$}
+              ;
               \foreach \d in {34, 68, 102, 136, 170}{
-                \addplot[domain=-15:15]{(\d / 17) - (11 / 17) * x};
+                \addplot[domain=0:15]{(\d / 17) - (11 / 17) * x};
               }
               \fill[ name intersections={of=c1 and c3, by=point1}
                    , name intersections={of=c1 and c5, by=point2}
