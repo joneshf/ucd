@@ -23,5 +23,3 @@ SCIP> display solution
 objective value:                               192000
 band                                               30   (obj:5000)
 coil                                               10   (obj:4200)
-
-SCIP>

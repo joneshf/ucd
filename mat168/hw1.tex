@@ -7,13 +7,16 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{cancel}
+\usepackage{caption}
 \usepackage{color, colortbl}
 \usepackage{dcolumn}
 \usepackage{enumitem}
 \usepackage{fp}
+\usepackage{float}
 \usepackage{listings}
 \usepackage{mathtools}
 \usepackage{pgfplots}
+\usepackage{subcaption}
 \usepackage{systeme}
 \usepackage{tikz}
 \usepackage{titling}
@@ -108,21 +111,15 @@
       Since the hours are what the problem explicitly asks for,
       these can be our decision variables.
 
-      Call these
-      \begin{itemize}
-        \item $x_1$ := Band
-        \item $x_2$ := Coil
-      \end{itemize}
-
-      Next we look at the other information in the statement.
+      Say $x_1, x_2$. Next we look at the other information in the statement.
       \begin{itemize}
         \item
           \constant{rate}
 
           We have
           \begin{itemize}
-            \item $r_1 = 200 \frac{ton}{hour}$
-            \item $r_2 = 140 \frac{ton}{hour}$
+            \item $r_1 = 200$
+            \item $r_2 = 140$
           \end{itemize}
 
         \item
@@ -130,8 +127,8 @@
 
           We have
           \begin{itemize}
-            \item $p_1 = 25 \frac{dollar}{ton}$
-            \item $p_2 = 30 \frac{dollar}{ton}$
+            \item $p_1 = 25$
+            \item $p_2 = 30$
           \end{itemize}
         \item
           \maximumconstraint{the weight that can be produced}
@@ -159,11 +156,7 @@
 
       It turns out what we have modeled is an instance of the fractional knapsack problem.
       We can see it better if we simplify the first two constraints to
-
-      \sysdelim.\}
-      \systeme{ x_1 \leq 30
-              , x_2 \leq \frac{200}{7}
-              }, respectively.
+      $x_1 \leq 30, x_2 \leq \frac{200}{7}$, respectively.
 
       Here, our ``knapsack'' is the number of hours to schedule.
       The maximum ``weight'' of the ``knapsack'' is the 40 hours available for the next week.
@@ -261,8 +254,6 @@
 
       \lstinputlisting{hw1_airline.zpl}
 
-      \pagebreak
-
       Now we can use scip to find the solution:
 
       \lstinputlisting{hw1_airline_scip.txt}
@@ -313,148 +304,168 @@
 
           \lstinputlisting{hw1_invest.zpl}
 
+          \pagebreak
+
           And solve it with SCIP:
 
           \lstinputlisting{hw1_invest_scip.txt}
 
+          We see that the optimal solution is $x_1 = 5, x_2 = 7$,
+          which returns \$1.74 million.
+
         \item
+          \begin{figure}
+          \centering
+            \begin{minipage}{.5\textwidth}
+              \centering
 
-          \begin{tikzpicture}
-            \begin{axis}[axis on top,smooth,
-                axis line style=very thick,
-                axis x line=bottom,
-                axis y line=left,
-                ymin=0,ymax=15,
-                xmin=0,xmax=15,
-                xlabel=$x_1$, ylabel=$x_2$,
-                grid=major,
-              ]
-              \addplot[name path global=c1,very thick, domain=0:15]{12 - x}
-                node[above, pos=0.1, sloped, style={font=\tiny}] {$x_1 + x_2 \leq 12$}
-              ;
-              \addplot[name path global=c2,very thick, domain=0:15]
-                coordinates { (10, 0) (10, 15) }
-                node[right, pos=0.7, style={font=\tiny}] {$x_1 \leq 10$}
-              ;
-              \addplot[name path global=c3,very thick, domain=0:15]
-                coordinates { (0, 7) (15, 7) }
-                node[above, pos=0.6, sloped, style={font=\tiny}] {$x_2 \leq 7$}
-              ;
-              \addplot[name path global=c4,very thick, domain=0:15]{2 * x}
-                node[above, pos=0.4, sloped, style={font=\tiny}] {$2x_1 - x_2 \geq 0$}
-              ;
-              \addplot[name path global=c5,very thick, domain=0:15]{0.5 * x}
-                node[below, pos=0.8, sloped, style={font=\tiny}] {$-x_1 + 2x_2 \geq 0$}
-              ;
-              \foreach \d in {34.8, 69.6, 104.4, 139.2, 174.0}{
-                \addplot[domain=0:15]{(\d / 17) - (11 / 17) * x};
-              }
-              \fill[ name intersections={of=c1 and c3, by=point1}
-                   , name intersections={of=c1 and c5, by=point2}
-                   , name intersections={of=c5 and c4, by=point3}
-                   , name intersections={of=c4 and c3, by=point4}
-                   , name intersections={of=c3 and c1, by=point5}
-                   ]
-                   [ very thick
-                   , draw=orange
-                   , pattern=crosshatch dots
-                   , pattern color=green!60!white
-                   ]
-                (point1)
-                --(point2)
-                --(point3)
-                --(point4)
-                --(point5)
-                --(point1)
-                ;
-              \addplot
-                coordinates { (5, 7) }
-                node[label={[style={font=\tiny}]30:(5, 7)}] {}
-              ;
+              \begin{tikzpicture}
+                \begin{axis}[axis on top,smooth,
+                    axis line style=very thick,
+                    axis x line=bottom,
+                    axis y line=left,
+                    ymin=0,ymax=15,
+                    xmin=0,xmax=15,
+                    xlabel=$x_1$, ylabel=$x_2$,
+                    grid=major,
+                  ]
+                  \addplot[name path global=c1,very thick, domain=0:15]{12 - x}
+                    node[above, pos=0.1, sloped, style={font=\tiny}] {$x_1 + x_2 \leq 12$}
+                  ;
+                  \addplot[name path global=c2,very thick, domain=0:15]
+                    coordinates { (10, 0) (10, 15) }
+                    node[right, pos=0.7, style={font=\tiny}] {$x_1 \leq 10$}
+                  ;
+                  \addplot[name path global=c3,very thick, domain=0:15]
+                    coordinates { (0, 7) (15, 7) }
+                    node[above, pos=0.6, sloped, style={font=\tiny}] {$x_2 \leq 7$}
+                  ;
+                  \addplot[name path global=c4,very thick, domain=0:15]{2 * x}
+                    node[above, pos=0.4, sloped, style={font=\tiny}] {$2x_1 - x_2 \geq 0$}
+                  ;
+                  \addplot[name path global=c5,very thick, domain=0:15]{0.5 * x}
+                    node[below, pos=0.8, sloped, style={font=\tiny}] {$-x_1 + 2x_2 \geq 0$}
+                  ;
+                  \foreach \d in {34.8, 69.6, 104.4, 139.2, 174.0}{
+                    \addplot[domain=0:15]{(\d / 17) - (11 / 17) * x};
+                  }
+                  \fill[ name intersections={of=c1 and c3, by=point1}
+                       , name intersections={of=c1 and c5, by=point2}
+                       , name intersections={of=c5 and c4, by=point3}
+                       , name intersections={of=c4 and c3, by=point4}
+                       , name intersections={of=c3 and c1, by=point5}
+                       ]
+                       [ very thick
+                       , draw=orange
+                       , pattern=crosshatch dots
+                       , pattern color=green!60!white
+                       ]
+                    (point1)
+                    --(point2)
+                    --(point3)
+                    --(point4)
+                    --(point5)
+                    --(point1)
+                    ;
+                  \addplot
+                    coordinates { (5, 7) }
+                    node[label={[style={font=\tiny}]30:(5, 7)}] {}
+                  ;
 
-            \end{axis}
-          \end{tikzpicture}
+                \end{axis}
+              \end{tikzpicture}
 
-          The hyperplanes run orthogonal to the vector
+              \captionof{figure}{Objective function: $0.11x_1 + 0.17x_2$}
+              \label{fig:c}
+            \end{minipage}%
+            \begin{minipage}{.5\textwidth}
+              \centering
+
+              \begin{tikzpicture}
+                \begin{axis}[axis on top,smooth,
+                    axis line style=very thick,
+                    axis x line=bottom,
+                    axis y line=left,
+                    ymin=0,ymax=15,
+                    xmin=0,xmax=15,
+                    xlabel=$x_1$, ylabel=$x_2$,
+                    grid=major,
+                  ]
+                  \addplot[name path global=c1,very thick, domain=0:15]{12 - x}
+                    node[above, pos=0.1, sloped, style={font=\tiny}] {$x_1 + x_2 \leq 12$}
+                  ;
+                  \addplot[name path global=c2,very thick, domain=0:15]
+                    coordinates { (10, 0) (10, 15) }
+                    node[right, pos=0.7, style={font=\tiny}] {$x_1 \leq 10$}
+                  ;
+                  \addplot[name path global=c3,very thick, domain=0:15]
+                    coordinates { (0, 7) (15, 7) }
+                    node[above, pos=0.6, sloped, style={font=\tiny}] {$x_2 \leq 7$}
+                  ;
+                  \addplot[name path global=c4,very thick, domain=0:15]{2 * x}
+                    node[above, pos=0.4, sloped, style={font=\tiny}] {$2x_1 - x_2 \geq 0$}
+                  ;
+                  \addplot[name path global=c5,very thick, domain=0:15]{0.5 * x}
+                    node[below, pos=0.8, sloped, style={font=\tiny}] {$-x_1 + 2x_2 \geq 0$}
+                  ;
+                  \foreach \d in {2.4, 4.8, 7.2, 9.6, 12.0}{
+                    \addplot[domain=0:15]{\d - x};
+                  }
+                  \fill[ name intersections={of=c1 and c3, by=point1}
+                       , name intersections={of=c1 and c5, by=point2}
+                       , name intersections={of=c5 and c4, by=point3}
+                       , name intersections={of=c4 and c3, by=point4}
+                       , name intersections={of=c3 and c1, by=point5}
+                       ]
+                       [ very thick
+                       , draw=orange
+                       , pattern=crosshatch dots
+                       , pattern color=green!60!white
+                       ]
+                    (point1)
+                    --(point2)
+                    --(point3)
+                    --(point4)
+                    --(point5)
+                    --(point1)
+                    ;
+                  \addplot[lightgray, very thick]
+                    coordinates { (5, 7) (8, 4) }
+                  ;
+
+                  \addplot[blue, mark=*]
+                    coordinates { (5, 7) }
+                    node[label={[style={font=\tiny}]30:(5, 7)}] {}
+                  ;
+
+                  \addplot[blue, mark=*]
+                    coordinates { (8, 4) }
+                    node[label={[style={font=\tiny}]90:(8, 4)}] {}
+                  ;
+
+                \end{axis}
+              \end{tikzpicture}
+
+              \captionof{figure}{Objective function: $x_1 + x_2$}
+              \label{fig:d}
+            \end{minipage}
+          \end{figure}
+
+          The hyperplanes in Figure ~\ref{fig:c} run orthogonal to the vector
           $\begin{bmatrix}11 \\ 17\end{bmatrix}$.
 
           From this we can find the hyperplane with the largest value.
           The largest value is at the point (5, 7).
           This gives the optimal solution of
-          $0.11(5) + 0.17(7) = \$1.67$ million dollars.
+          $0.11(5) + 0.17(7) = \$1.74$ million dollars.
 
         \item
-          \begin{tikzpicture}
-            \begin{axis}[axis on top,smooth,
-                axis line style=very thick,
-                axis x line=bottom,
-                axis y line=left,
-                ymin=0,ymax=15,
-                xmin=0,xmax=15,
-                xlabel=$x_1$, ylabel=$x_2$,
-                grid=major,
-              ]
-              \addplot[name path global=c1,very thick, domain=0:15]{12 - x}
-                node[above, pos=0.1, sloped, style={font=\tiny}] {$x_1 + x_2 \leq 12$}
-              ;
-              \addplot[name path global=c2,very thick, domain=0:15]
-                coordinates { (10, 0) (10, 15) }
-                node[right, pos=0.7, style={font=\tiny}] {$x_1 \leq 10$}
-              ;
-              \addplot[name path global=c3,very thick, domain=0:15]
-                coordinates { (0, 7) (15, 7) }
-                node[above, pos=0.6, sloped, style={font=\tiny}] {$x_2 \leq 7$}
-              ;
-              \addplot[name path global=c4,very thick, domain=0:15]{2 * x}
-                node[above, pos=0.4, sloped, style={font=\tiny}] {$2x_1 - x_2 \geq 0$}
-              ;
-              \addplot[name path global=c5,very thick, domain=0:15]{0.5 * x}
-                node[below, pos=0.8, sloped, style={font=\tiny}] {$-x_1 + 2x_2 \geq 0$}
-              ;
-              \foreach \d in {2.4, 4.8, 7.2, 9.6, 12.0}{
-                \addplot[domain=0:15]{\d - x};
-              }
-              \fill[ name intersections={of=c1 and c3, by=point1}
-                   , name intersections={of=c1 and c5, by=point2}
-                   , name intersections={of=c5 and c4, by=point3}
-                   , name intersections={of=c4 and c3, by=point4}
-                   , name intersections={of=c3 and c1, by=point5}
-                   ]
-                   [ very thick
-                   , draw=orange
-                   , pattern=crosshatch dots
-                   , pattern color=green!60!white
-                   ]
-                (point1)
-                --(point2)
-                --(point3)
-                --(point4)
-                --(point5)
-                --(point1)
-                ;
-              \addplot[lightgray, very thick]
-                coordinates { (5, 7) (8, 4) }
-              ;
+          By making both rates of return equal in Figure ~\ref{fig:d},
+          we see that the hyper planes now run parallel to the line $x_1 + x_2 = 12$.
 
-              \addplot[blue, mark=*]
-                coordinates { (5, 7) }
-                node[label={[style={font=\tiny}]30:(5, 7)}] {}
-              ;
-
-              \addplot[blue, mark=*]
-                coordinates { (8, 4) }
-                node[label={[style={font=\tiny}]90:(8, 4)}] {}
-              ;
-
-            \end{axis}
-          \end{tikzpicture}
+          Since this line is a boundary line for our polygon,
+          any solution on this line segment--from (5, 7) to (8, 4)--is an optimal solution.
       \end{enumerate}
-
-      By making both rates of return equal,
-      we see that the hyper planes now run parallel to the line $x_1 + x_2 = 12$.
-
-      Since this line is a boundary line for our polygon,
-      any solution on this line segment--from (5, 7) to (8, 4)--is an optimal solution.
 
     \item [4-2]
       \begin{enumerate}
