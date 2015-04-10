@@ -1,0 +1,30 @@
+SCIP> read hw1_productivity.zpl
+
+read problem <hw1_productivity.zpl>
+============
+
+
+base directory for ZIMPL parsing: </home/joneshf/school/ucd/mat168>
+
+Block memory allocation count 97
+original problem has 12 variables (0 bin, 0 int, 0 impl, 12 cont) and 7 constraints
+SCIP> opt
+
+...
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.00
+Solving Nodes      : 1
+Primal Bound       : +1.88250000000000e+04 (1 solutions)
+Dual Bound         : +1.88250000000000e+04
+Gap                : 0.00 %
+
+SCIP> disp solution
+
+objective value:                                18825
+hours$Designer 1$Project 1                         70   (obj:90)
+hours$Designer 1$Project 2                         10   (obj:80)
+hours$Designer 2$Project 2                         40   (obj:70)
+hours$Designer 2$Project 3                          5   (obj:50)
+hours$Designer 2$Project 4                         35   (obj:65)
+hours$Designer 3$Project 3                         80   (obj:80)

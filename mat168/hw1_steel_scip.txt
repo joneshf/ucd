@@ -1,0 +1,27 @@
+SCIP> read hw1_steel_2.zpl
+
+read problem <hw1_steel_2.zpl>
+============
+
+
+base directory for ZIMPL parsing: </home/joneshf/school/ucd/mat168>
+
+original problem has 2 variables (0 bin, 0 int, 0 impl, 2 cont) and 3 constraints
+SCIP> optimize
+
+...
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.00
+Solving Nodes      : 1
+Primal Bound       : +1.92000000000000e+05 (2 solutions)
+Dual Bound         : +1.92000000000000e+05
+Gap                : 0.00 %
+
+SCIP> display solution
+
+objective value:                               192000
+band                                               30   (obj:5000)
+coil                                               10   (obj:4200)
+
+SCIP>

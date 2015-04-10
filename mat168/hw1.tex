@@ -68,7 +68,7 @@
 }
 
 \lstdefinelanguage{zimpl}{
-  morekeywords={forall,in,2maximize,minimize,param,set,subto,sum,var},
+  morekeywords={forall,in,maximize,minimize,param,set,subto,sum,var},
   sensitive=true,
   morecomment=[l]{\#},
   morestring=[b]",
@@ -143,7 +143,7 @@
       With this information, we can now formalize the problem.
 
       \begin{alignat*}{7}
-        \text{maximize}   \quad \rlap{$5000 x_1 + 4500 x_2$}                                        \\
+        \text{maximize}   \quad \rlap{$5000 x_1 + 4200 x_2$}                                        \\
         \text{subject to} \quad & 200 & x_1 &       &     &                   && \leq 6000          \\
                                 &     &     &       & 140 & x_2               && \leq 4000          \\
                                 &     & x_1 & {}+{} &     & x_2               && \leq 40            \\
@@ -209,6 +209,14 @@
       With a choice of 30 hours making Bands and 10 hours making Coils,
       the company can make an optimally maximized profit of $\$192,000$.
 
+      We can verify this by modeling it with ZIMPL:
+
+      \lstinputlisting{hw1_steel_2.zpl}
+
+      And then solving with scip:
+
+      \lstinputlisting{hw1_steel_scip.txt}
+
     \item [1.2]
 
       We use as our decision variables the number of tickets of each flight combination, say $x_i, i \in \{1, 2, \dots, 9\}$.
@@ -258,9 +266,9 @@
 
       We model this in ZIMPL in order to arrive at a solution.
 
-      \pagebreak
-
       \lstinputlisting{hw1_airline.zpl}
+
+      \pagebreak
 
       Now we can use scip to find the solution:
 
@@ -271,7 +279,51 @@
     \item [2-2]
       \begin{enumerate}
         \item
+
+          As stated in the problem,
+          we use the decision variables
+          \begin{itemize}
+            \item $x_1$ := dollars invested in domestic stocks (in millions)
+            \item $x_2$ := dollars invested in foreign stocks (in millions)
+          \end{itemize}
+
+          And we can read the five constraints as follows:
+
+          \begin{enumerate}
+            \item The sum of $x_1$ and $x_2$ can be at most 12.
+            \item $x_1$ can be at most 10.
+            \item $x_2$ can be at most 7.
+            \item $x_1$ must be at least twice as much as $x_2$.
+            \item $x_2$ must be at least twice as much as $x_1$.
+          \end{enumerate}
+
+          N.B. It might seem like we need an additional constraint that $x_1, x_2 \geq 0$,
+          however, the last two constraints together ensure this fact.
+
+          We want to maximize the returns for domestic and foreign stocks,
+          which are 0.11 and 0.17, respectively.
+
+          Now we can create a model:
+
+          \begin{alignat*}{4}
+            \text{maximize}   \quad \mathrlap{0.11 x_1 + 0.16 x_2}                                 \\
+            \text{subject to} \quad &   & x_1 & {}+{} &   & x_2                 && \leq 12         \\
+                                    &   & x_1 &       &   &                     && \leq 10         \\
+                                    &   &     &       &   & x_2                 && \leq  7         \\
+                                    & 2 & x_1 & {}-{} &   & x_2                 && \geq  0         \\
+                                    & - & x_1 & {}+{} & 2 & x_2                 && \geq  0         \\
+                                    &   &     &       &   & \mathclap{x_1, x_2} && \in  \mathbb{R} \\
+          \end{alignat*}
+
         \item
+          We can formulate this model in ZIMPL:
+
+          \lstinputlisting{hw1_invest.zpl}
+
+          And solve it with SCIP:
+
+          \lstinputlisting{hw1_invest_scip.txt}
+
         \item
         \item
       \end{enumerate}
@@ -279,7 +331,59 @@
     \item [4-2]
       \begin{enumerate}
         \item
+          We use one decision variable for each combination of designer and project.
+          The variable represents how many hours the designer spends on the said project.
+
+          Say $x_{ij}, i \in \{1, 2, 3\}, j \in \{1, 2, 3, 4\}$
+
+          Now lets look at the rest of the information
+
+          \begin{itemize}
+            \item We have that each designer can spend a maximum of 80 hours working.
+            \item
+              We have the productivity rating for each designer on each project.
+
+              Say $p_{ij}, i \in \{1, 2, 3\}, j \in \{1, 2, 3, 4\}$
+            \item
+              We have some estimates--that we'll use as upper bounds--for how long each project takes.
+              \begin{itemize}
+                \item $e_1 = 70$
+                \item $e_2 = 50$
+                \item $e_3 = 85$
+                \item $e_4 = 35$
+              \end{itemize}
+              So we know that for each project $i$,
+              the sum of all the hours each designer spends on project $i$ must equal $e_i$.
+          \end{itemize}
+
+          Our objective function is to maximize productivity.
+          We can calculate productivity as the sum of all $p_{ij} \cdot x_{ij}$.
+
+          Now we can create a model:
+
+          \begin{alignat*}{3}
+            \text{maximize}   \quad \mathrlap{\sum_{i = 1}^3 \sum_{j = 1}^4 p_{ij} x_{ij}}               \\
+            \text{subject to} \quad & \forall i \in \{1, 2, 3\} \sum_{j = 1}^4 x_{ij} && \leq 80         \\
+                                    & \sum_{i = 1}^3 x_{i1}                           && \leq 70         \\
+                                    & \sum_{i = 1}^3 x_{i1}                           && \geq 70         \\
+                                    & \sum_{i = 1}^3 x_{i2}                           && \leq 50         \\
+                                    & \sum_{i = 1}^3 x_{i2}                           && \geq 50         \\
+                                    & \sum_{i = 1}^3 x_{i3}                           && \leq 85         \\
+                                    & \sum_{i = 1}^3 x_{i3}                           && \geq 85         \\
+                                    & \sum_{i = 1}^3 x_{i4}                           && \leq 35         \\
+                                    & \sum_{i = 1}^3 x_{i4}                           && \geq 35         \\
+                                    & x_{ij}                                          && \in  \mathbb{R} \\
+          \end{alignat*}
+
         \item
+
+          We can formulate this model in ZIMPL:
+
+          \lstinputlisting{hw1_productivity.zpl}
+
+          And solve it with SCIP:
+
+          \lstinputlisting{hw1_productivity_scip.txt}
       \end{enumerate}
   \end{enumerate}
 \end{document}
