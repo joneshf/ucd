@@ -7,7 +7,8 @@ read problem <hw1_productivity.zpl>
 base directory for ZIMPL parsing: </home/joneshf/school/ucd/mat168>
 
 Block memory allocation count 97
-original problem has 12 variables (0 bin, 0 int, 0 impl, 12 cont) and 7 constraints
+original problem has 12 variables (0 bin, 0 int, 0 impl, 12 cont) and
+7 constraints
 SCIP> opt
 
 ...

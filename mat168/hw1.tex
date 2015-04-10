@@ -1,24 +1,30 @@
 \documentclass[12pt,letterpaper]{article}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amsthm}
-\usepackage{mathtools}
-\usepackage{cancel}
 \usepackage[margin=1in]{geometry}
-\usepackage{titling}
-\usepackage{fp}
-\usepackage{enumitem}
-\usepackage[super]{nth}
-\usepackage{dcolumn}
-\usepackage[title]{appendix}
-\usepackage{pgfplots}
-\usepackage{tikz}
-\pgfplotsset{compat=1.8}
-\usepgfplotslibrary{statistics}
 \usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
 \usepackage{color, colortbl}
-\usepackage{systeme}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
 \usepackage{listings}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{systeme}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\usetikzlibrary{intersections}
+\usetikzlibrary{patterns}
+
+\pgfplotsset{compat=1.8}
+
 \definecolor{Gray}{gray}{0.8}
 \newcolumntype{g}{>{\columncolor{Gray}}c}
 \newcolumntype{d}{D{.}{.}{-1}}
@@ -306,7 +312,7 @@
           Now we can create a model:
 
           \begin{alignat*}{4}
-            \text{maximize}   \quad \mathrlap{0.11 x_1 + 0.16 x_2}                                 \\
+            \text{maximize}   \quad \mathrlap{0.11 x_1 + 0.17 x_2}                                 \\
             \text{subject to} \quad &   & x_1 & {}+{} &   & x_2                 && \leq 12         \\
                                     &   & x_1 &       &   &                     && \leq 10         \\
                                     &   &     &       &   & x_2                 && \leq  7         \\
@@ -325,6 +331,47 @@
           \lstinputlisting{hw1_invest_scip.txt}
 
         \item
+          \begin{tikzpicture}
+            \begin{axis}[axis on top,smooth,
+                axis line style=very thick,
+                axis x line=bottom,
+                axis y line=left,
+                ymin=0,ymax=15,
+                xmin=0,xmax=15,
+                xlabel=$x_1$, ylabel=$x_2$,
+                grid=major
+              ]
+              \addplot[name path global=c1,very thick, domain=-15:15]{12 - x};
+              \addplot[name path global=c2,very thick, domain=-15:15]
+                coordinates { (10, -15) (10, 15) };
+              \addplot[name path global=c3,very thick, domain=-15:15]
+                coordinates { (-15, 7) (15, 7) };
+              \addplot[name path global=c4,very thick, domain=-15:15]{2 * x};
+              \addplot[name path global=c5,very thick, domain=-15:15]{0.5 * x};
+              \foreach \d in {34, 68, 102, 136, 170}{
+                \addplot[domain=-15:15]{(\d / 17) - (11 / 17) * x};
+              }
+              \fill[ name intersections={of=c1 and c3, by=point1}
+                   , name intersections={of=c1 and c5, by=point2}
+                   , name intersections={of=c5 and c4, by=point3}
+                   , name intersections={of=c4 and c3, by=point4}
+                   , name intersections={of=c3 and c1, by=point5}
+                   ]
+                   [ very thick
+                   , draw=orange
+                   , pattern=crosshatch dots
+                   , pattern color=green!60!white
+                   ]
+                (point1)
+                --(point2)
+                --(point3)
+                --(point4)
+                --(point5)
+                --(point1)
+                ;
+              \addplot coordinates{ (5, 7) };
+            \end{axis}
+          \end{tikzpicture}
         \item
       \end{enumerate}
 
