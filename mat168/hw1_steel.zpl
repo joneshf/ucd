@@ -8,7 +8,7 @@ param data[Product * Params] :=
 |"Band"|      25,    200|
 |"Coil"|      30,    140|;
 
-var time[Product] real >= 0;
+var time[Product] real;
 
 maximize profit: sum <product> in Product:
     data[product, "Profit"] * data[product, "Rate"] * time[product];

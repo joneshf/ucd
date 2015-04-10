@@ -13,7 +13,7 @@ param seating[Fare * Flight] :=
 |"B"|                 8,                 13,                 10|
 |"M"|                22,                 20,                 18|;
 
-var passenger[Fare * Flight] integer >= 0;
+var passenger[Fare * Flight] integer;
 
 maximize revenue: sum <fare, flight> in Fare * Flight:
     prices[fare, flight] * passenger[fare, flight];

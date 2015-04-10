@@ -6,6 +6,7 @@ read problem <hw1_invest.zpl>
 
 base directory for ZIMPL parsing: </home/joneshf/school/ucd/mat168>
 
+Block memory allocation count 97
 original problem has 2 variables (0 bin, 0 int, 0 impl, 2 cont) and 5 constraints
 SCIP> opt
 
@@ -14,14 +15,12 @@ SCIP> opt
 SCIP Status        : problem is solved [optimal solution found]
 Solving Time (sec) : 0.00
 Solving Nodes      : 1
-Primal Bound       : +1.67000000000000e+00 (2 solutions)
-Dual Bound         : +1.67000000000000e+00
+Primal Bound       : +1.74000000000000e+00 (2 solutions)
+Dual Bound         : +1.74000000000000e+00
 Gap                : 0.00 %
 
 SCIP> disp solution
 
-objective value:                                 1.67
+objective value:                                 1.74
 domestic                                            5   (obj:0.11)
-foreign                                             7   (obj:0.16)
-
-SCIP>
+foreign                                             7   (obj:0.17)
