@@ -141,10 +141,27 @@
                                 &     &     &       &     & \clap{$x_1, x_2$} && \geq 0    \\
       \end{alignat*}
 
-      Since all of the variables in the problem are positive real values,
+      It turns out what we have modeled is an instance of the fractional knapsack problem.
+      We can see it better if we simplify the first two constraints to
+
+      \sysdelim.\}
+      \systeme{ x_1 \leq 30
+              , x_2 \leq \frac{200}{7}
+              }, respectively.
+
+      Here, our ``knapsack'' is the number of hours to schedule.
+      The maximum ``weight'' of the ``knapsack'' is the 40 hours available for the next week.
+      The maximum amount of each ``item'' we want to take is the first two constraints.
+      Finally, we have the amount of profit per ``weight'' (in this case hours).
+
+      Importantly, the decision variables in the problem are positive real values.
+      The variables being real values allows us to formalize the model as a fractional knapsack rather than 0-1 knapsack or some other version.
+
+      Since we already know that fractional knapsack has optimal substructure and
+      satisfies the greedy choice property,
       we can use a greedy approach to solve this.
 
-      Let's catalogue the steps.
+      Let's catalog the steps.
 
       \begin{itemize}
         \item
