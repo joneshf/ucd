@@ -18,6 +18,7 @@
 \usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
 \usepackage{color, colortbl}
 \usepackage{systeme}
+\usepackage{listings}
 \definecolor{Gray}{gray}{0.8}
 \newcolumntype{g}{>{\columncolor{Gray}}c}
 \newcolumntype{d}{D{.}{.}{-1}}
@@ -65,6 +66,14 @@
 \newcommand*\minimumobjective[1]{
   \genericobjective{minimum}{#1}
 }
+
+\lstdefinelanguage{zimpl}{
+  morekeywords={forall,in,2maximize,minimize,param,set,subto,sum,var},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+}
+\lstset{basicstyle=\scriptsize, frame=single, language=zimpl}
 
 \setlength{\droptitle}{-10ex}
 
@@ -134,11 +143,12 @@
       With this information, we can now formalize the problem.
 
       \begin{alignat*}{7}
-        \text{maximize}   \quad \rlap{$5000 x_1 + 4500 x_2$}                              \\
-        \text{subject to} \quad & 200 & x_1 &       &     &                   && \leq 6000 \\
-                                &     &     &       & 140 & x_2               && \leq 4000 \\
-                                &     & x_1 & {}+{} &     & x_2               && \leq 40   \\
-                                &     &     &       &     & \clap{$x_1, x_2$} && \geq 0    \\
+        \text{maximize}   \quad \rlap{$5000 x_1 + 4500 x_2$}                                        \\
+        \text{subject to} \quad & 200 & x_1 &       &     &                   && \leq 6000          \\
+                                &     &     &       & 140 & x_2               && \leq 4000          \\
+                                &     & x_1 & {}+{} &     & x_2               && \leq 40            \\
+                                &     &     &       &     & \clap{$x_1, x_2$} && \geq 0             \\
+                                &     &     &       &     & \clap{$x_1, x_2$} && \in  \mathbb{R}    \\
       \end{alignat*}
 
       It turns out what we have modeled is an instance of the fractional knapsack problem.
@@ -201,6 +211,63 @@
 
     \item [1.2]
 
+      We use as our decision variables the number of tickets of each flight combination, say $x_i, i \in \{1, 2, \dots, 9\}$.
+
+      Now we look at the rest of the information:
+
+      \begin{itemize}
+        \item
+          Each flight has a maximum constraint on the number of passengers since the plane can only hold 30 people.
+
+        \item
+          Each flight has only so many seats available for each fare,
+          say $s_i, i \in \{1, 2, \dots, 9\}$.
+
+        \item
+          Each flight fare has a ticket price associated with it,
+          say $p_i, i \in \{1, 2, \dots, 9\}$.
+
+        \item
+          Our objective function is to maximize revenue for each flight.
+      \end{itemize}
+
+      So we can formalize this model as:
+
+      % \begin{alignat*}{19}
+      %   \text{maximize}   \quad \mathrlap{\sum_{i = 1}^{9} s_ix_i}                                                                                               \\
+      %   \text{subject to} \quad & x_1 &       &     &       &     &       &     &       &     &       &     &       &     &       &     &       &     && \leq 4  \\
+      %                           &     &       & x_2 &       &     &       &     &       &     &       &     &       &     &       &     &       &     && \leq 8  \\
+      %                           &     &       &     &       & x_3 &       &     &       &     &       &     &       &     &       &     &       &     && \leq 22 \\
+      %                           &     &       &     &       &     &       & x_4 &       &     &       &     &       &     &       &     &       &     && \leq 8  \\
+      %                           &     &       &     &       &     &       &     &       & x_5 &       &     &       &     &       &     &       &     && \leq 13 \\
+      %                           &     &       &     &       &     &       &     &       &     &       & x_6 &       &     &       &     &       &     && \leq 20 \\
+      %                           &     &       &     &       &     &       &     &       &     &       &     &       & x_7 &       &     &       &     && \leq  3 \\
+      %                           &     &       &     &       &     &       &     &       &     &       &     &       &     &       & x_8 &       &     && \leq 10 \\
+      %                           &     &       &     &       &     &       &     &       &     &       &     &       &     &       &     &       & x_9 && \leq 18 \\
+      %                           & x_1 & {}+{} & x_2 & {}+{} & x_3 &       &     &       &     &       &     &       &     &       &     &       &     && \leq 30 \\
+      %                           &     &       &     &       &     &       & x_4 & {}+{} & x_5 & {}+{} & x_6 &       &     &       &     &       &     && \leq 30 \\
+      %                           &     &       &     &       &     &       &     &       &     &       &     &       & x_7 & {}+{} & x_8 & {}+{} & x_9 && \leq 30 \\
+      % \end{alignat*}
+      \begin{alignat*}{4}
+        \text{maximize}   \quad \mathrlap{\sum_{i = 1}^{9} p_ix_i}                                                            \\
+        \text{subject to} \quad & \forall i \in \{1, 2, \dots, 9\}, \quad & x_i                            && \leq s_i        \\
+                                & \forall j \in \{0, 1, 2\},        \quad & \sum_{i = 3j + 1}^{3j + 3} x_i && \leq 30         \\
+                                & \forall i \in \{1, 2, \dots, 9\}, \quad & x_i                            && \geq 0          \\
+                                & \forall i \in \{1, 2, \dots, 9\}, \quad & x_i                            && \in  \mathbb{Z} \\
+      \end{alignat*}
+
+      We model this in ZIMPL in order to arrive at a solution.
+
+      \pagebreak
+
+      \lstinputlisting{hw1_airline.zpl}
+
+      Now we can use scip to find the solution:
+
+      \lstinputlisting{hw1_airline_scip.txt}
+
+      So we see that the optimal revenue is \$14,710,
+      assuming the appropriate number of tickets are sold.
     \item [2-2]
       \begin{enumerate}
         \item

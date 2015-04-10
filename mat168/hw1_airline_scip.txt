@@ -1,0 +1,32 @@
+SCIP> read hw1_airline.zpl
+
+read problem <hw1_airline.zpl>
+============
+
+
+base directory for ZIMPL parsing: </home/joneshf/school/ucd/mat168>
+
+original problem has 9 variables (0 bin, 9 int, 0 impl, 0 cont) and 12 constraints
+SCIP> opt
+
+...
+
+SCIP Status        : problem is solved [optimal solution found]
+Solving Time (sec) : 0.00
+Solving Nodes      : 1
+Primal Bound       : +1.47100000000000e+04 (2 solutions)
+Dual Bound         : +1.47100000000000e+04
+Gap                : 0.00 %
+
+SCIP> disp solution
+
+objective value:                                14710
+passenger$Y$Ithaca to Newark                        4   (obj:300)
+passenger$Y$Newark to Boston                        8   (obj:160)
+passenger$Y$Ithaca to Boston                        3   (obj:360)
+passenger$B$Ithaca to Newark                        8   (obj:220)
+passenger$B$Newark to Boston                       13   (obj:130)
+passenger$B$Ithaca to Boston                       10   (obj:280)
+passenger$M$Ithaca to Newark                       18   (obj:100)
+passenger$M$Newark to Boston                        9   (obj:80)
+passenger$M$Ithaca to Boston                       17   (obj:140)
