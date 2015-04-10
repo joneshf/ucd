@@ -1,0 +1,201 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage[title]{appendix}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage{color, colortbl}
+\usepackage{systeme}
+\definecolor{Gray}{gray}{0.8}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand*\circled[1]{
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};
+  }
+}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand*\constant[1]{
+  Each product has a different #1,
+  but these are constant values not constrained by anything else in the process.
+}
+
+\newcommand*\genericconstraint[2]{
+  Each product has a #1 constraint on #2.
+}
+
+\newcommand*\maximumconstraint[1]{
+  \genericconstraint{maximum}{#1}
+}
+
+\newcommand*\minimumconstraint[1]{
+  \genericconstraint{minimum}{#1}
+}
+
+\newcommand*\genericobjective[2]{
+  The objective is to #1 #2.
+}
+
+\newcommand*\maximumobjective[1]{
+  \genericobjective{maximum}{#1}
+}
+
+\newcommand*\minimumobjective[1]{
+  \genericobjective{minimum}{#1}
+}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 168 HW 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor K\"{o}eppe\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [1.1]
+
+      The first thing we should do is try to understand the domain.
+      The steel company wants to know how many hours to allocate to each job.
+      Since the description does not mention that each job must be a full hour--%
+      or some minimum fraction of an hour--%
+      we assume that hours can be real valued.
+      Since the hours are what the problem explicitly asks for,
+      these can be our decision variables.
+
+      Call these
+      \begin{itemize}
+        \item $x_1$ := Band
+        \item $x_2$ := Coil
+      \end{itemize}
+
+      Next we look at the other information in the statement.
+      \begin{itemize}
+        \item
+          \constant{rate}
+
+          We have
+          \begin{itemize}
+            \item $r_1 = 200 \frac{ton}{hour}$
+            \item $r_2 = 140 \frac{ton}{hour}$
+          \end{itemize}
+
+        \item
+          \constant{profit}
+
+          We have
+          \begin{itemize}
+            \item $p_1 = 25 \frac{dollar}{ton}$
+            \item $p_2 = 30 \frac{dollar}{ton}$
+          \end{itemize}
+        \item
+          \maximumconstraint{the weight that can be produced}
+          Since the problem does not state otherwise,
+          we assume this can be a real value.
+        \item
+          \maximumobjective{profit}
+
+          We can find the profit of either product by taking the expression
+          \[
+            p_i \cdot r_i \cdot x_i, \text{ for } i \in \{1, 2\}
+          \]
+      \end{itemize}
+
+      With this information, we can now formalize the problem.
+
+      \begin{alignat*}{7}
+        \text{maximize}   \quad \rlap{$5000 x_1 + 4500 x_2$}                              \\
+        \text{subject to} \quad & 200 & x_1 &       &     &                   && \leq 6000 \\
+                                &     &     &       & 140 & x_2               && \leq 4000 \\
+                                &     & x_1 & {}+{} &     & x_2               && \leq 40   \\
+                                &     &     &       &     & \clap{$x_1, x_2$} && \geq 0    \\
+      \end{alignat*}
+
+      Since all of the variables in the problem are positive real values,
+      we can use a greedy approach to solve this.
+
+      Let's catalogue the steps.
+
+      \begin{itemize}
+        \item
+          We have a system of constraints
+
+          \sysdelim..
+          \systeme{ 200x_1 \leq 6000
+                  , 140x_2 \leq 4000
+                  , x_1 + x_2 \leq 40
+                  , x_1 \geq 0
+                  , x_2 \geq 0
+                  }
+
+          Bands are worth more from the profit perspective, so we take as many as possible.
+          Using the first constraint, this gives us a direct number for $x_1$.
+
+          Namely $200 x_1 \leq 6000 \implies x_1 \leq 30$.
+
+          This choice does not violate any other constraints,
+          so we choose the maximum possible value $x_1$ can take which is 30.
+
+        \item
+          Our new system is
+
+          \systeme{ 140x_2 \leq 4000
+                  , x_2 \leq 10
+                  , x_2 \geq 0
+                  }
+
+          So we take the maximum value possible for $x_2$ which is 10.
+      \end{itemize}
+
+      The profit can now be computed and we end up with the following result:
+
+      With a choice of 30 hours making Bands and 10 hours making Coils,
+      the company can make an optimally maximized profit of $\$192,000$.
+
+    \item [1.2]
+
+    \item [2-2]
+      \begin{enumerate}
+        \item
+        \item
+        \item
+        \item
+      \end{enumerate}
+
+    \item [4-2]
+      \begin{enumerate}
+        \item
+        \item
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
