@@ -1,0 +1,21 @@
+zimpl	v       0	passenger$Y$It@0	"passenger$Y$Ithaca to Newark"
+zimpl	v       1	passenger$Y$Ne@1	"passenger$Y$Newark to Boston"
+zimpl	v       2	passenger$Y$It@2	"passenger$Y$Ithaca to Boston"
+zimpl	v       3	passenger$B$It@3	"passenger$B$Ithaca to Newark"
+zimpl	v       4	passenger$B$Ne@4	"passenger$B$Newark to Boston"
+zimpl	v       5	passenger$B$It@5	"passenger$B$Ithaca to Boston"
+zimpl	v       6	passenger$M$It@6	"passenger$M$Ithaca to Newark"
+zimpl	v       7	passenger$M$Ne@7	"passenger$M$Newark to Boston"
+zimpl	v       8	passenger$M$It@8	"passenger$M$Ithaca to Boston"
+zimpl	c       0	seating_limit_1 	"seating_limit_1"	0.0000000000000000e+00
+zimpl	c       1	seating_limit_2 	"seating_limit_2"	0.0000000000000000e+00
+zimpl	c       2	seating_limit_3 	"seating_limit_3"	0.0000000000000000e+00
+zimpl	c       3	seating_limit_4 	"seating_limit_4"	0.0000000000000000e+00
+zimpl	c       4	seating_limit_5 	"seating_limit_5"	0.0000000000000000e+00
+zimpl	c       5	seating_limit_6 	"seating_limit_6"	0.0000000000000000e+00
+zimpl	c       6	seating_limit_7 	"seating_limit_7"	0.0000000000000000e+00
+zimpl	c       7	seating_limit_8 	"seating_limit_8"	0.0000000000000000e+00
+zimpl	c       8	seating_limit_9 	"seating_limit_9"	0.0000000000000000e+00
+zimpl	c       9	flight_limit_1  	"flight_limit_1"	0.0000000000000000e+00
+zimpl	c      10	flight_limit_2  	"flight_limit_2"	0.0000000000000000e+00
+zimpl	c      11	flight_limit_3  	"flight_limit_3"	0.0000000000000000e+00
