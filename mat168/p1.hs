@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -Wall #-}
-{-# OPTIONS_GHC -Werror #-}
+--{-# OPTIONS_GHC -Werror #-}
 {-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
@@ -8,30 +8,23 @@ module P1 where
 import Control.Lens
 
 import Data.Char (digitToInt,isUpper)
+import Data.Geo.Coordinate
+import Data.Geo.Geodetic
+import Data.List
+import Data.Maybe
 
+import Text.Groom
 import Text.Parsec (anyChar, chainl1, char, choice, digit, endOfLine, manyTill, satisfy, spaces, string, try)
 import Text.Parsec.String (Parser, parseFromFile)
-
-newtype Degree = Degree { _runDegree :: Int }
-    deriving (Enum, Eq, Integral, Num, Ord, Real, Show)
-newtype Minute = Minute { _runMinute :: Int }
-    deriving (Enum, Eq, Integral, Num, Ord, Real, Show)
-
-data Geo = Geo
-    { _degree :: Degree
-    , _minute :: Minute
-    } deriving (Eq, Show)
+import Text.Printf
 
 data Node = Node
     { _number    :: Int
-    , _latitude  :: Geo
-    , _longitude :: Geo
+    , _latitude  :: Latitude
+    , _longitude :: Longitude
     } deriving (Eq, Show)
 
 makeLenses ''Node
-makeLenses ''Geo
-makeLenses ''Degree
-makeLenses ''Minute
 
 parseNodes :: Parser [Node]
 parseNodes = do
@@ -41,29 +34,85 @@ parseNodes = do
 parseNode :: Parser Node
 parseNode =
     Node <$> (spaces *> parseInt)
-         <*> parseGeo
-         <*> parseGeo
+         <*> parseLatitude
+         <*> parseLongitude
          <*  endOfLine
 
-parseGeo :: Parser Geo
-parseGeo = spaces *> choice [pos, neg, geo]
+parseLatitude :: Parser Latitude
+parseLatitude = spaces *> choice [pos, neg, lat]
     where
-    pos = char '+' *> geo
-    neg = char '-' *> geo
-    geo =
-        Geo <$> (Degree <$> parseInt) <* char '.'
-            <*> (Minute <$> parseInt)
+    pos = char '+' *> lat
+    neg = char '-' *> neglat
+    s = remSeconds 0
+    lat = do
+        d <- parseInt
+        char '.'
+        m <- parseInt
+        let dub = read $ printf "%d.%d" d m :: Double
+        dub^?_Latitude & fromJust & pure
+    neglat = do
+        d <- negate <$> parseInt
+        char '.'
+        m <- parseInt
+        let dub = read $ printf "%d.%d" d m :: Double
+        dub^?_Latitude & fromJust & pure
+
+parseLongitude :: Parser Longitude
+parseLongitude = spaces *> choice [pos, neg, long]
+    where
+    pos = char '+' *> long
+    neg = char '-' *> neglong
+    s = remSeconds 0
+    long = do
+        d <- parseInt
+        char '.'
+        m <- parseInt
+        let dub = read $ printf "%d.%d" d m :: Double
+        dub^?_Longitude & fromJust & pure
+    neglong = do
+        d <- negate <$> parseInt
+        char '.'
+        m <- parseInt
+        let dub = read $ printf "%d.%d" d m :: Double
+        dub^?_Longitude & fromJust & pure
 
 parseInt :: Parser Int
 parseInt = chainl1 (digitToInt <$> digit) (pure $ (+) . (* 10))
 
-distance :: Node -> Node -> Float
-distance a b = sqrt $ fromIntegral ((((a^.latitude.degree - b^.latitude.degree)^(2 :: Int) * (a^.longitude.degree - b^.longitude.degree)^(2 :: Int)))^.runDegree)
---distance _ _ = 1
---distance a b = sqrt $ xx * yy
---    where
---    xx = (runGeo (latitude a) - runGeo (latitude b)) * (runGeo (latitude a) - runGeo (latitude b))
---    yy = (runGeo (longitude a) - runGeo (longitude b)) * (runGeo (longitude a) - runGeo (longitude b))
+distance :: Node -> Node -> Int
+distance i j = floor $
+    sphericalLaw rrr (i^.latitude, i^.longitude) (j^.latitude, j^.longitude)
+
+distance' :: Node -> Node -> Double
+distance' i j = rrr' * acos (0.5 * (1.0 + q1) * q2 - (1.0 - q1) * q3) + 1.0
+    where
+    rrr' = _Sphere # rrr
+    q1 = cos (longI - longJ)
+    q2 = cos (latI - latJ)
+    q3 = cos (latI + latJ)
+    latI = pi * (fromIntegral dLatI + 5.0 * fromIntegral mLatI / 3.0) / 180.0
+    latJ = pi * (fromIntegral dLatJ + 5.0 * fromIntegral mLatJ / 3.0) / 180.0
+    longI = pi * (fromIntegral dLongI + 5.0 * fromIntegral mLongI / 3.0) / 180.0
+    longJ = pi * (fromIntegral dLongJ + 5.0 * fromIntegral mLongJ / 3.0) / 180.0
+    dLatI :: Int
+    dLatI = _DegreesLatitude # (i^.latitude._DegreesLatitude)
+    dLatJ :: Int
+    dLatJ = _DegreesLatitude # (j^.latitude._DegreesLatitude)
+    dLongI :: Int
+    dLongI = _DegreesLongitude # (i^.longitude._DegreesLongitude)
+    dLongJ :: Int
+    dLongJ = _DegreesLongitude # (j^.longitude._DegreesLongitude)
+    mLatI :: Int
+    mLatI = _Minutes # (i^.latitude._Minutes)
+    mLatJ :: Int
+    mLatJ = _Minutes # (j^.latitude._Minutes)
+    mLongI :: Int
+    mLongI = _Minutes # (i^.longitude._Minutes)
+    mLongJ :: Int
+    mLongJ = _Minutes # (j^.longitude._Minutes)
+
+rrr :: Sphere
+rrr = (6378.388 :: Double)^._Sphere
 
 tour :: [Node] -> [(Node, Node)]
 tour xs = zip xs rot
@@ -71,10 +120,24 @@ tour xs = zip xs rot
     rot = t ++ h
     (h, t) = splitAt 1 xs
 
-tourDistance :: [(Node, Node)] -> Float
+tourDistance :: [(Node, Node)] -> Int
 tourDistance = sum . fmap (uncurry distance)
+
+tourDistance' :: [(Node, Node)] -> Double
+tourDistance' = sum . fmap (uncurry distance')
 
 main :: IO ()
 main = do
     nodes <- parseFromFile parseNodes "ulysses22.tsp"
-    either print (print . tourDistance . tour) nodes
+    either print (putStrLn . groom . tourDistance . tour . optimalTour) nodes
+    either print (putStrLn . groom . tourDistance' . tour . optimalTour) nodes
+    either print (putStrLn . groom . tourDistance . tour) nodes
+    --either print (putStrLn . groom . tour . optimalTour) nodes
+
+optimalNodes :: [Int]
+optimalNodes = [1, 14, 13, 12, 7, 6, 15, 5, 11, 9, 10, 19, 20, 21, 16, 3, 2, 17, 22, 4, 18, 8]
+
+optimalTour :: [Node] -> [Node]
+optimalTour ns = mapMaybe look optimalNodes
+    where
+    look o = find ((== o) . _number) ns
