@@ -8,12 +8,16 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{cancel}
+\usepackage{caption}
 \usepackage{color, colortbl}
 \usepackage{dcolumn}
 \usepackage{enumitem}
+\usepackage{float}
 \usepackage{fp}
 \usepackage{mathtools}
 \usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{tikz}
 \usepackage{titling}
 
 \usepgfplotslibrary{statistics}
@@ -105,9 +109,9 @@
 
                   ($\sim$ $f'(x_0) = 0$) $\implies$ ($\sim$ ($f$ has a relative minimum at $x_0$ $\land$ $f$ is differentiable at $x_0$))
 
-                  $f'(x_0) \ne 0$ $\implies$ ($\sim$ $f$ has a relative minimum at $x_0$ $\lor$ $\sim$ $f$ is differentiable at $x_0$)
+                  $f'(x_0) \neq 0$ $\implies$ ($\sim$ $f$ has a relative minimum at $x_0$ $\lor$ $\sim$ $f$ is differentiable at $x_0$)
 
-                  $f'(x_0) \ne 0$ $\implies$ ($f$ does not have a relative minimum at $x_0$ $\lor$ $f$ is not differentiable at $x_0$)
+                  $f'(x_0) \neq 0$ $\implies$ ($f$ does not have a relative minimum at $x_0$ $\lor$ $f$ is not differentiable at $x_0$)
 
                   Since the original statement is true,
                   and the contrapositive has the same truth value,
@@ -131,7 +135,7 @@
 
                   ($\sim$ $n = 2$ $\lor$ $\sim$ $n$ is odd) $\implies$ $n$ is not prime
 
-                  ($n \ne 2$ $\lor$ $n$ is not odd) $\implies$ $n$ is not prime
+                  ($n \neq 2$ $\lor$ $n$ is not odd) $\implies$ $n$ is not prime
 
                   Since the original statement is true,
                   and the contrapositive has the same truth value,
@@ -261,56 +265,239 @@
         \item
           \begin{enumerate}
             \setcounter{enumiii}{1}
-            \item
+            \item $(\forall x)(x \text{ is precious} \implies x \text{ is not beautiful})$
             \setcounter{enumiii}{3}
-            \item
-            \item
+            \item $\sim (\exists x)(x \text{ is a right triangle} \land x \text{ is isosceles})$
+            \item $(\forall x)(x \text{ is not isosceles} \implies x \text{ is a right triangle})$
             \setcounter{enumiii}{8}
-            \item
+            \item $(\forall x)(x \in \mathbb{Z} \implies (x > -4 \lor x < 6))$
             \setcounter{enumiii}{11}
-            \item
+            \item $(\forall x)(\forall y)(x \in \mathbb{Z} \land y \in \mathbb{Z} \land x < y \implies (\exists z)(x < z < y))$
           \end{enumerate}
         \setcounter{enumii}{4}
         \item
+          \begin{itemize}
+            \item
+              All people dislike all taxes:
+
+              $(\forall x)(x \text{ is a person} \implies (\forall y)(y \text{ is a tax} \implies x \text{ dislikes } y))$
+            \item
+              All people dislike some taxes:
+
+              $(\forall x)(x \text{ is a person} \implies (\exists y)(y \text{ is a tax} \land x \text{ dislikes } y))$
+            \item
+              Some people dislike all taxes:
+
+              $(\exists x)(x \text{ is a person} \land (\forall y)(y \text{ is a tax} \implies x \text{ dislikes } y))$
+            \item
+              Some people dislike some taxes:
+
+              $(\exists x)(x \text{ is a person} \land (\exists y)(y \text{ is a tax} \land x \text{ dislikes } y))$
+          \end{itemize}
         \item
+          \begin{enumerate}
+            \item
+              This statement is true in all four universes $T, U, V, W$,
+              using the elements $17, 6, 24, 2$ respectively.
+
+              In $T$, both the antecedent and the consequent are true so the statement is true.
+              In the other three, the antecedent is false so the statement is true.
+            \item
+              This statement is true only in universe $T$.
+              The other three have no elements which satisfy both parts of the conjunct.
+            \item
+              This statement is true in universes $T, U, V$.
+
+              In $T$, both the antecedent and the consequent are true so the statement is true.
+              In $U$ and $V$, the antecedent is false so the statement is true.
+              In $W$, one of the elements--namely 7--has a true antecedent but a false consequent so the statement is false.
+            \item
+              This statement is true only in universe $T$.
+              The other three have no elements which satisfy both parts of the conjunct.
+          \end{enumerate}
         \setcounter{enumii}{7}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{2}
             \item
+              This is false.
+              We can see this by simplifying a bit.
+
+              $(\exists x)(2x + 3 = 6x + 7)$
+
+              $(\exists x)(2x = 6x + 4)$
+
+              $(\exists x)(-4x = 4)$
+
+              $(\exists x)(x = -1)$
+
+              Since the universe is $\mathbb{N}$,
+              it does not contain negative numbers.
+              So, there are no elements which satisfy this sentence.
             \item
+              We can see this by graphing the two equations.
+
+              In Figure \ref{fig:8d} we see that the two lines intersect,
+              so there exists some real number such that $3^x = x^2$.
+
+              Thus, the sentence is true.
+
             \item
+              We can see this by graphing the two equations.
+
+              In Figure \ref{fig:8e} we see that the two do not intersect,
+              so there is no real number such that $3^x = x$.
+
+              Thus, the sentence is false.
             \item
+              This sentence is true.
+
+              We can see this by simplifying the equation a bit.
+
+              \begin{align*}
+                3(2 - x) &= 5 + 8(1 - x) \\
+                6 - 3x &= 5 + 8 - 8x \\
+                6 - 3x &= 13 - 8x \\
+                5x &= 7 \\
+                x &= \frac{7}{5} \\
+              \end{align*}
+
+              So there is exactly one value that satisfies the sentence, in specific $\frac{7}{5}$.
+
+              Thus, the sentence is true.
             \setcounter{enumiii}{10}
             \item
+              This sentence is false.
+
+              If we let $x = -20$ then we have the value
+              \[
+                (-20)^3 + 17(-20)^2 + 6(-20) + 100 = -1220
+              \]
+              and this is less than 0.
+
+              So the sentence is false.
             \item
+              This sentence is true.
+
+              For any two real numbers we can construct a new number between the two such that $w = \frac{x + y}{2}$.
           \end{enumerate}
+
+          \begin{figure}
+            \centering
+            \begin{minipage}{.5\textwidth}
+              \centering
+              \begin{tikzpicture}
+                \begin{axis}[ smooth
+                            , axis x line=bottom
+                            , axis y line=center
+                            , axis on top=true
+                            , xlabel=x
+                            , xmax=5
+                            , xmin=-5
+                            , ylabel=y
+                            , ymax=5
+                            , ymin=0
+                            ]
+                  \addplot[very thick]{x^2}
+                    node[below, pos=0.55, sloped]{$x^2$}
+                  ;
+                  \addplot[domain=-5:5, very thick]{3^x}
+                    node[above, pos=0.03, sloped]{$3^x$}
+                  ;
+                \end{axis}
+              \end{tikzpicture}
+              \captionof{figure}{8 (d)}
+              \label{fig:8d}
+            \end{minipage}%
+            \begin{minipage}{.5\textwidth}
+              \centering
+              \begin{tikzpicture}
+                \begin{axis}[ smooth
+                            , axis x line=middle
+                            , axis y line=center
+                            , axis on top=true
+                            , xlabel=x
+                            , xmax=5
+                            , xmin=-5
+                            , ylabel=y
+                            , ymax=5
+                            , ymin=-5
+                            ]
+                  \addplot[domain=-5:5, very thick]{x}
+                    node[below, pos=0.65, sloped]{$x$}
+                  ;
+                  \addplot[domain=-5:5, very thick]{3^x}
+                    node[above, pos=0.03, sloped]{$3^x$}
+                  ;
+                \end{axis}
+              \end{tikzpicture}
+              \captionof{figure}{8 (e)}
+              \label{fig:8e}
+            \end{minipage}
+          \end{figure}
+
         \item
           \begin{enumerate}
-            \item
+            \item All naturals are greater than or equal to 1.
             \setcounter{enumiii}{2}
-            \item
+            \item All naturals that are prime and not equal to 2 are odd.
             \setcounter{enumiii}{6}
-            \item
+            \item For any odd natural $x$, $x^2$ is also odd.
           \end{enumerate}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{8}
             \item
+              This sentence is false.
+              If we were given some unique $x$ then we would have to have:
+              $x = 3^2 = 9$ and also $x = 4^2 = 16$, but this is false.
             \item
+              This sentence is true since $x = y^2$ is a function.
             \item
+              This sentence is false since the $x$ and $y$ aren't unique.
           \end{enumerate}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{1}
             \item
+
+              The converse of Theorem 1.3.2 (a) is:
+
+              If $A(x)$ is an open sentence with variable $x$, then
+              $(\exists x)A(x) \implies (\exists ! x)A(x)$
+
+              We want to prove this statement false.
+
+              \begin{proof}
+                Let $A(x)$ be the open sentence $x > 1$ in the universe $\mathbb{N}$.
+
+                Then we have the antecedent true,
+                as every element in $\mathbb{N} \setminus \{1\}$ is greater than 1.
+
+                However, the consequent is not true
+                since $\mathbb{N} \setminus \{1\}$ contains more than one element.
+
+                Thus this theorem is not true for all open sentences.
+              \end{proof}
           \end{enumerate}
         \item
           \begin{enumerate}
             \item
+              This sentence does not have to be true.
+              We can have $a_n = b_n$, but $a_0 \neq b_0$ and
+              then the two polynomials are not equal.
             \item
+              This sentence does not have to be true.
+              The reason is the same as the previous argument.
+              All of the individual coefficients could be the same
+              except for one and the polynomials would be different.
             \item
+              This sentence does not have to be true.
+              This sentence is a recapitulation of the previous sentence.
+              So the answer is the same.
             \item
+              This sentence must be true.
+              There must be at least one coefficient that is not equal between the two polynomials.
           \end{enumerate}
       \end{enumerate}
   \end{enumerate}
