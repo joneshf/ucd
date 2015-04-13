@@ -22,9 +22,20 @@
 
 \pgfplotsset{compat=1.8}
 
+\newcolumntype{d}{D{.}{.}{-1}}
 \newcolumntype{g}{>{\columncolor{Gray}}c}
 
-\newcolumntype{d}{D{.}{.}{-1}}
+\newcommand*\biconditional[3]{
+  This statement is #1 since both sides of the bi-conditional have #2 truth values.
+
+  #3
+}
+\newcommand*\biconditionaltrue[2]{
+  \biconditional{true}{the same}{#1 and #2.}
+}
+\newcommand*\biconditionalfalse[2]{
+  \biconditional{false}{different}{#1 yet #2.}
+}
 
 \renewcommand{\labelenumi}{\S 1.\arabic*}
 \renewcommand{\labelenumii}{\arabic*}
@@ -53,30 +64,196 @@
         \setcounter{enumii}{5}
         \item
           \begin{enumerate}
-            \item
-            \item
+            \item \biconditionaltrue{Triangles have three sides}{squares have four sides}
+            \item \biconditionaltrue{7 + 5 = 12}{1 + 1 = 2}
             \setcounter{enumiii}{3}
-            \item
+            \item \biconditionaltrue{parallelograms have four sides}{27 is not prime.}
           \end{enumerate}
         \setcounter{enumii}{9}
         \item
           \begin{enumerate}
             \item
+              ($f$ has a relative minimum at $x_0$ $\land$ $f$ is differentiable at $x_0$) $\implies$ $f'(x_0) = 0$
             \item
+              $n$ is prime $\implies$ ($n = 2$ $\lor$ $n$ is odd)
             \item
+              $R$ is irreflexive $\implies$ ($R$ is symmetric $\land$ $R$ is transitive)
             \item
+              det $\mathbf{B} = 0$ $\implies$ ($\mathbf{B}$ is square $\land$ not invertible)
             \setcounter{enumiii}{5}
             \item
+              ($2n < 4 \lor n > 4$) $\implies$ $2 < n - 6$
             \item
+              $6 \geq n - 3$ $\implies$ ($n > 4 \lor n > 10$)
             \item
+              $x$ is Cauchy $\implies$ $x$ is convergent.
           \end{enumerate}
         \setcounter{enumii}{14}
         \item
+          \begin{enumerate}
+            \item
+              ($f$ has a relative minimum at $x_0$ $\land$ $f$ is differentiable at $x_0$) $\implies$ $f'(x_0) = 0$
+
+              \begin{itemize}
+                \item Converse:
+
+                  $f'(x_0) = 0$ $\implies$ ($f$ has a relative minimum at $x_0$ $\land$ $f$ is differentiable at $x_0$)
+
+                  This sentence is false since $f'(x_0) = 0$ can be true, but $f$ may have a relative maximum at $x_0$.
+
+                \item Contrapositive:
+
+                  ($\sim$ $f'(x_0) = 0$) $\implies$ ($\sim$ ($f$ has a relative minimum at $x_0$ $\land$ $f$ is differentiable at $x_0$))
+
+                  $f'(x_0) \ne 0$ $\implies$ ($\sim$ $f$ has a relative minimum at $x_0$ $\lor$ $\sim$ $f$ is differentiable at $x_0$)
+
+                  $f'(x_0) \ne 0$ $\implies$ ($f$ does not have a relative minimum at $x_0$ $\lor$ $f$ is not differentiable at $x_0$)
+
+                  Since the original statement is true,
+                  and the contrapositive has the same truth value,
+                  this sentence is also true.
+
+              \end{itemize}
+
+            \item
+              $n$ is prime $\implies$ ($n = 2$ $\lor$ $n$ is odd)
+
+              \begin{itemize}
+                \item Converse:
+
+                  ($n = 2$ $\lor$ $n$ is odd) $\implies$ $n$ is prime
+
+                  This sentence is false.
+                  If $n = 9$ then $n$ is odd, but $n$ is not prime.
+                \item Contrapositive:
+
+                  ($\sim$ ($n = 2$ $\lor$ $n$ is odd)) $\implies$ ($\sim$ $n$ is prime)
+
+                  ($\sim$ $n = 2$ $\lor$ $\sim$ $n$ is odd) $\implies$ $n$ is not prime
+
+                  ($n \ne 2$ $\lor$ $n$ is not odd) $\implies$ $n$ is not prime
+
+                  Since the original statement is true,
+                  and the contrapositive has the same truth value,
+                  this sentence is also true.
+
+              \end{itemize}
+
+            \setcounter{enumiii}{5}
+            \item
+              ($2n < 4 \lor n > 4$) $\implies$ $2 < n - 6$
+
+              \begin{itemize}
+                \item Converse:
+
+                  $2 < n - 6$ $\implies$ ($2n < 4 \lor n > 4$)
+
+                  This sentence is true.
+
+                  We can see this by simplifying both sides a bit:
+
+                  $8 < n$ $\implies$ ($n < 2 \lor 4 < n$)
+
+                  If $n$ is greater than 8, it is also greater than 4.
+                  So if the antecedent is true, the whole sentence is true.
+
+                \item Contrapositive:
+
+                  ($\sim$ $2 < n - 6$) $\implies$ ($\sim$ ($2n < 4 \lor n > 4$))
+
+                  $2 \geq n - 6$ $\implies$ ($\sim$ $2n < 4$ $\land$ $\sim$ $n > 4$)
+
+                  $2 \geq n - 6$ $\implies$ ($2n \geq 4$ $\land$ $n \leq 4$)
+
+                  This sentence is false.
+
+                  We can see this by simplifying both sides a bit:
+
+                  $8 \geq n$ $\implies$ ($n \geq 2$ $\land$ $4 \geq n$)
+
+                  If $n$ is 0, then the antecedent is true,
+                  but 0 is not greater than or equal to 2 so the consequent is false.
+              \end{itemize}
+
+            \item
+              $6 \geq n - 3$ $\implies$ ($n > 4 \lor n > 10$)
+
+              \begin{itemize}
+                \item Converse:
+
+                  ($n > 4 \lor n > 10$) $\implies$ $6 \geq n - 3$
+
+                  This sentence is false.
+
+                  We can see this by simplifying both sides a bit:
+
+                  ($n > 4 \lor n > 10$) $\implies$ $9 \geq n$
+
+                  If $n$ is 100, then the antecedent is true,
+                  but 100 is not less than or equal to 9 so the consequent is false.
+
+                \item Contrapositive:
+
+                  ($\sim$ ($n > 4 \lor n > 10$)) $\implies$ ($\sim$ $6 \geq n - 3$)
+
+                  ($\sim$ $n > 4$ $\land$ $\sim$ $n > 10$) $\implies$ ($6 < n - 3$)
+
+                  ($n \leq 4$ $\land$ $n \leq 10$) $\implies$ ($6 < n - 3$)
+
+                  This sentence is false.
+
+                  We can see this by simplifying both sides a bit:
+
+                  ($n \leq 4$ $\land$ $n \leq 10$) $\implies$ ($9 < n$)
+
+                  If $n$ is 0, then the antecedent is true,
+                  but 0 is not greater than 9 so the consequent is false.
+              \end{itemize}
+          \end{enumerate}
         \item
           \begin{enumerate}
             \item
+              We can use a truth table to enumerate all possibilities.
+
+              \begin{tabular}{c | c | c | c | g}
+                $P$ & $Q$ & $P \implies Q$ & $(P \implies Q) \implies Q$ & $[(P \implies Q) \implies Q] \implies P$ \\
+                \hline
+                T & T & T & T & T \\
+                T & F & F & T & T \\
+                F & T & T & T & F \\
+                F & F & T & F & T \\
+              \end{tabular}
+
+              Since the truth value of final column is neither all true nor all false,
+              this is neither a tautology nor a contradiction.
             \item
+              We can use a truth table to enumerate all possibilities.
+
+              \begin{tabular}{c | c | c | c | g}
+                $P$ & $Q$ & $P \lor Q$ & $P \land (P \lor Q)$ & $P \iff P \land (P \lor Q)$ \\
+                \hline
+                T & T & T & T & T \\
+                T & F & T & T & T \\
+                F & T & T & F & T \\
+                F & F & F & F & T \\
+              \end{tabular}
+
+              Since the truth value of final column is all true,
+              this is a tautology.
             \item
+              We can use a truth table to enumerate all possibilities.
+
+              \begin{tabular}{c | c | c | c | c | g}
+                $P$ & $Q$ & $P \implies Q$ & $\sim Q$ & $P \land \sim Q$ & $P \implies Q \iff P \land \sim Q$ \\
+                \hline
+                T & T & T & F & F  & F \\
+                T & F & F & T & T  & F \\
+                F & T & T & F & F  & F \\
+                F & F & T & T & F  & F \\
+              \end{tabular}
+
+              Since the truth value of final column is all false,
+              this is a contradiction.
           \end{enumerate}
       \end{enumerate}
     \item
