@@ -1,0 +1,175 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\epsdelta[5]{
+  We want to prove:
+  \[
+    \lim_{x \to #1} #2 = #3
+  \]
+
+  \begin{proof}
+    Given $\epsilon > 0$,
+    we want to find $\delta > 0$ such that
+
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \].
+
+    #5
+
+    So, choose $\delta = #4$.
+
+    Then we have
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \]
+    as was to be shown.
+  \end{proof}
+}
+\newcommand\epsdeltaconsequent[5]{
+  \epsdelta{#1}{#2}{#3}{#4}{
+    We can simplify the consequent a bit.
+
+    #5
+
+    If we notice, this is exactly the form of the antecedent,
+    assuming $\delta = #4$.
+  }
+}
+\newcommand\e{e}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 125A HW 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Slivken\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}[label=Exercise 4.3.\arabic*]
+    \setcounter{enumi}{5}
+    \item
+      \begin{enumerate}
+        \item
+          \begin{proof}
+            We have Dirichlet's function
+            \[
+              f(x) =
+              \begin{cases}
+                1 & \text{if } x \in \mathbb{Q} \\
+                0 & \text{if } x \notin \mathbb{Q} \\
+              \end{cases}
+            \]
+
+            This is a function from $\mathbb{R} \to \mathbb{R}$.
+
+            Choose 0 as a limit point in $\mathbb{R}$.
+
+            Now we construct a sequence from $x_n = \frac{\e}{n}$.
+            So $(x_n) \to 0$, by The Algebraic Limit Theorem.
+
+            Now, $f(x_n) \to 0$, but $f(0) = 1$.
+
+            So, by Corollary 4.3.3, Dirichlet's function is not continuous at 0.
+
+            We can extend this to any $c \in \mathbb{Q}$
+            by constructing a new sequence $y_n = x_n + c$.
+
+            Following similar arguments,
+            it can be shown that Dirichlet's function is not continuous at any point in $\mathbb{Q}$.
+
+            A similar argument holds for showing that Dirichlet's function is not continuous on $\mathbb{I}$.
+            We choose some sequence of rationals such that for any limit point $c$,
+            $(z_n) \to c$.
+            Then we have that $f(z_n) \to 1$, but $f(c) = 0$.
+            So Dirichlet's function is not continuous on $\mathbb{I}$ either.
+
+            Thus, Dirichlet's function is not continuous on $\mathbb{R}$.
+          \end{proof}
+        \item
+          \begin{proof}
+            We have
+            \[
+              f(x) =
+              \begin{cases}
+                1           & \text{if } x = 0 \\
+                \frac{1}{n} & \text{if } x = \frac{m}{n} \in \mathbb{Q} \setminus \{0\} \text{ is in lowest terms with } n > 0 \\
+                0           & \text{if } x \notin \mathbb{Q} \\
+              \end{cases}
+            \].
+
+            Choose some rational number $c$ in lowest terms $\frac{m}{n}$.
+
+            Now construct any sequence $(x_n)$ from $\mathbb{I}$ such that,
+            $(x_n) \to c$.
+
+            So, $f(x_n) \to 0$, but $f(c) = \frac{1}{n}$.
+
+            Now, since $f : \mathbb{R} \to \mathbb{R}$,
+            $c$ is a limit point in $\mathbb{R}$,
+            $(x_n) \to c$,
+            but $f(x_n) \neq f(c)$,
+            we conclude that Thomae's function is not continuous at any rational point.
+          \end{proof}
+        \item
+          \begin{proof}
+            We have
+            \[
+              f(x) =
+              \begin{cases}
+                1           & \text{if } x = 0 \\
+                \frac{1}{n} & \text{if } x = \frac{m}{n} \in \mathbb{Q} \setminus \{0\} \text{ is in lowest terms with } n > 0 \\
+                0           & \text{if } x \notin \mathbb{Q} \\
+              \end{cases}
+            \].
+
+            Choose some $c \in \mathbb{I}$.
+            Then we know that $f(c) = 0$, since $c \notin \mathbb{Q}$.
+
+            Now given, some $\epsilon > 0$, choose $\delta = \epsilon$.
+
+            So for $x \in \mathbb{I}$ where $|x - c| < \delta$,
+            we have $|f(x) - f(c)| = |0 - 0| = 0 < \epsilon$.
+
+            Thus, by Theorem 4.3.2, $f$ is continuous on $\mathbb{I}$.
+          \end{proof}
+      \end{enumerate}
+
+  \end{enumerate}
+
+\end{document}
