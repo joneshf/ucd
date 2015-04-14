@@ -87,6 +87,8 @@
       \begin{enumerate}
         \item
           \begin{proof}
+            This proof was partially inspired by John Hunter's lecture notes.
+
             We have Dirichlet's function
             \[
               f(x) =
@@ -170,6 +172,129 @@
           \end{proof}
       \end{enumerate}
 
+    \item
+      \begin{proof}
+
+        Let $c$ be a limit point in $K$.
+        Then there exists some sequence $(x_n)$ in $K$ such that
+        $\lim\limits_{x \to c}x_n = c$
+
+        Since $h$ is continuous on $\mathbb{R}$,
+        $\lim\limits_{x \to c} h(x_n) = h(c)$.
+
+        But since all $x_n$ are in $K$, all $h(x_n) = 0$.
+
+        So $\lim\limits_{x \to c} h(x_n) = h(c) = 0$.
+
+        Since $h(c) = 0, c \in K$, so $K$ contains its limit points.
+
+        Thus $K$ is a closed set.
+      \end{proof}
+
+    \item
+      \begin{enumerate}
+        \item
+          \begin{proof}
+            Let the continuous function be $f$.
+
+            Let $c$ be an arbitrary point in $\mathbb{I}$.
+
+            Then there exists some sequence $(x_n)$ in $\mathbb{Q}$ such that
+            $\lim\limits_{x \to c} x_n = c$.
+            Since $f$ is continuous, we know that $\lim\limits_{x \to c} f(x_n) = f(c)$.
+            And since all $x_n \in \mathbb{Q}$, all $f(x_n) = 0$.
+
+            So $\lim\limits_{x \to c} f(x_n) = f(c) = 0$.
+
+            Since our choice of $c$ was arbitrary,
+            we have that for all $c \in \mathbb{I}, f(c) = 0$.
+
+            So $f$ is 0 on all of $\mathbb{I}$ and $\mathbb{Q}$.
+
+            Thus $f$ is 0 on all of $\mathbb{R}$.
+          \end{proof}
+        \item
+          No, the two functions do not have to be the same since there is not restriction that the functions be continuous.
+
+          Let
+
+          \[
+            f(x) = 1,
+            g(x) =
+            \begin{cases}
+              1 & \text{if } \in    \mathbb{Q} \\
+              0 & \text{if } \notin \mathbb{Q}
+            \end{cases}
+          \]
+
+          Then these two functions are not the same,
+          yet both equal each other when $x \in \mathbb{Q}$.
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          Since the given information looks quite similar to the definition of continuity,
+          we should try to manipulate it a bit.
+
+          If we had $|f(x) - f(y)| \leq c|x - y| < \epsilon$ for any $\epsilon > 0$,
+          we'd be all set.
+
+          \begin{proof}
+            Let $y$ be a limit point of $\mathbb{R}$.
+
+            For any $\epsilon > 0$, choose $\delta = \frac{\epsilon}{c}$.
+
+            Then we have $0 < |x - y| < \delta = \frac{\epsilon}{c} \implies |f(x) - f(y)| \leq c|x - y|$.
+
+            Since $|x - y| < \frac{\epsilon}{c} \implies |f(x) - f(y)| \leq c|x - y| < c\frac{\epsilon}{c} = \epsilon$.
+
+            So $f$ is continuous at $y$.
+            But our choice of $y$ was arbitrary, so $f$ is continuous on all of $\mathbb{R}$.
+          \end{proof}
+        \item
+        \item
+        \item
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          \begin{itemize}
+            \item
+              Choose $x = y = 0$.
+
+              Then:
+              \begin{align*}
+                f(0 + 0) &= f(0) + f(0) \\
+                f(0) &= f(0) + f(0) \\
+                0 &= f(0) \\
+              \end{align*}
+
+              Thus, $f(0) = 0$.
+            \item
+              Since $f(0) = 0$.
+
+              Then:
+              \begin{align*}
+                f(0) &= 0 \\
+                f(x - x) &= 0, \text{for any } x \in \mathbb{R} \\
+                f(x + (- x)) &= 0 \\
+                f(x) + f(- x) &= 0 \\
+                f(- x) &= -f(x) \\
+              \end{align*}
+
+              Thus, $f(- x) = -f(x)$ for any $x \in \mathbb{R}$.
+          \end{itemize}
+        \item
+        \item
+        \item
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+        \item
+        \item
+        \item
+      \end{enumerate}
   \end{enumerate}
 
 \end{document}
