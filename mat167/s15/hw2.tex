@@ -1,26 +1,34 @@
 \documentclass[12pt,letterpaper]{article}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amsthm}
-\usepackage{mathtools}
-\usepackage{cancel}
+
 \usepackage[margin=1in]{geometry}
-\usepackage{titling}
-\usepackage{fp}
-\usepackage{enumitem}
-\usepackage[super]{nth}
-\usepackage{dcolumn}
-\usepackage[title]{appendix}
-\usepackage{pgfplots}
-\usepackage{tikz}
-\pgfplotsset{compat=1.8}
-\usepgfplotslibrary{statistics}
 \usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
 \usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{mathtools}
+\usepackage{pgfplots}
 \usepackage{systeme}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usetikzlibrary{arrows, automata}
+
+\usepgfplotslibrary{statistics}
+
+\pgfplotsset{compat=1.8}
+
 \definecolor{Gray}{gray}{0.8}
-\newcolumntype{g}{>{\columncolor{Gray}}c}
+
 \newcolumntype{d}{D{.}{.}{-1}}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
@@ -36,6 +44,10 @@
   \let\@ifnextchar\new@ifnextchar
   \array{#1}}
 \makeatother
+
+\renewcommand{\labelenumi}{\S 2.\arabic*}
+\renewcommand{\labelenumii}{\arabic*}
+\renewcommand{\labelenumiii}{(\alph*)}
 
 \setlength{\droptitle}{-10ex}
 
@@ -63,7 +75,67 @@
           The largest subspace in both the subspace of all symmetric matrices, let's call it $\mathcal{S}$, and the subspace of all lower triangular matrices, let's call it $\mathcal{L}$, would be the set of all diagonal matrices, since every diagonal matrix would be symmetric and would also be lower triangular.
 
         \item [8]
+          The correct answer is (e).
+          Since we have $Ax = 0$, the solutions $x$ form the null space of $A$.
         \item [14]
+          \begin{enumerate}
+            \item
+              The smallest subspace $M$ that contains these two matrices is
+
+              \[
+                \left\{
+                  \begin{bmatrix}
+                    a & b \\
+                    0 & 0 \\
+                  \end{bmatrix}
+                  |
+                  a, b \in \mathbb{F}
+                \right\}
+              \]
+              For whatever field $\mathbb{F}$ the original matrices are defined over.
+            \item
+              The smallest subspace $M$ that contains these two matrices is
+
+              \[
+                \left\{
+                  \begin{bmatrix}
+                    a & 0 \\
+                    0 & b \\
+                  \end{bmatrix}
+                  |
+                  a, b \in \mathbb{F}
+                \right\}
+              \]
+              For whatever field $\mathbb{F}$ the original matrices are defined over.
+            \item
+              The smallest subspace $M$ that contains these two matrices is
+
+              \[
+                \left\{
+                  \begin{bmatrix}
+                    a & 0 \\
+                    0 & b \\
+                  \end{bmatrix}
+                  |
+                  a, b \in \mathbb{F}
+                \right\}
+              \]
+              For whatever field $\mathbb{F}$ the original matrices are defined over.
+            \item
+              The smallest subspace $M$ that contains these two matrices is
+
+              \[
+                \left\{
+                  \begin{bmatrix}
+                    a & b \\
+                    0 & c \\
+                  \end{bmatrix}
+                  |
+                  a, b, c \in \mathbb{F}
+                \right\}
+              \]
+              For whatever field $\mathbb{F}$ the original matrices are defined over.
+          \end{enumerate}
         \item [24]
           For which vectors $(b_1, b_2, b_3)$ do these systems have a solution?
           \[
@@ -124,28 +196,478 @@
           $(x_1 + x_2, x_2, 0)$.
 
         \item [26]
+          Let
+          \[
+            A =
+            \begin{bmatrix}
+              1 & 0 \\
+              0 & 1 \\
+            \end{bmatrix}
+            ,
+            B =
+            \begin{bmatrix}
+              0 & 0 \\
+              0 & 1 \\
+            \end{bmatrix}
+            ,
+            AB =
+            \begin{bmatrix}
+              0 & 0 \\
+              0 & 1 \\
+            \end{bmatrix}
+          \]
+
+          Then the column space of $A$ is
+          $\left\{\left[\begin{smallmatrix}1 \\ 0\end{smallmatrix}\right], \left[\begin{smallmatrix}0 \\ 1\end{smallmatrix}\right]\right\}$.
+
+          Meanwhile the column space of $AB$ is
+          $\left\{\left[\begin{smallmatrix}0 \\ 1\end{smallmatrix}\right]\right\}$.
+
+          So col($A$) $\neq$ col($AB$)
       \end{enumerate}
     \item
       \begin{enumerate}
         \item [6]
+          We can do this by reducing the system:
+
+          \[
+            \begin{bmatrix}
+              1 & 0 & b_1 \\
+              0 & 1 & b_2 \\
+              2 & 3 & b_3 \\
+            \end{bmatrix}
+          \]
+
+          \begin{align*}
+            \begin{bmatrix}
+              1 & 0 & b_1 \\
+              0 & 1 & b_2 \\
+              2 & 3 & b_3 \\
+            \end{bmatrix}
+            &=
+            \begin{bmatrix}
+              1 & 0 & b_1 \\
+              0 & 1 & b_2 \\
+              0 & 3 & -2b_1 + b_3 \\
+            \end{bmatrix}
+            \\
+            &=
+            \begin{bmatrix}
+              1 & 0 & b_1 \\
+              0 & 1 & b_2 \\
+              0 & 0 & -2b_1 - 3b_2 + b_3 \\
+            \end{bmatrix}
+            \\
+          \end{align*}
+
+          So if we have $2b_1 + 3b_2 = b_3$, then the last equation is $0 = 0$
+
+          The rank is 2.
+
+          A particular solution is:
+
+          \[
+            \begin{bmatrix}
+              u \\
+              v \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 \\
+              1 \\
+            \end{bmatrix}
+          \]
         \item [10]
+          \begin{itemize}
+            \item
+              Using the trick explained in the book,
+              We can read off some of the elements from the particular solution:
+              \[
+                \begin{bmatrix}
+                  1 & 0 & w_1 \\
+                  0 & 1 & w_2 \\
+                \end{bmatrix}
+              \]
+
+              All that is necessary now is to find $w_1, w_2$.
+
+              Which we can read from the null space solution.
+              So our system is:
+              \[
+                \begin{bmatrix}
+                  1 & 0 & -1 \\
+                  0 & 1 & -3 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  x_1 \\
+                  x_2 \\
+                  x_3 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                  b_1 \\
+                  b_2 \\
+                \end{bmatrix}
+              \]
+            \item
+              It suffices to add another row so our sytem becomes
+              \[
+                \begin{bmatrix}
+                  1 & 0 & -1 \\
+                  0 & 1 & -3 \\
+                  1 & 1 &  1 \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                  x_1 \\
+                  x_2 \\
+                  x_3 \\
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                  b_1 \\
+                  b_2 \\
+                  b_3 \\
+                \end{bmatrix}
+              \]
+          \end{itemize}
         \item [18]
+          Let
+          \[
+            A
+            =
+            \begin{bmatrix}
+              1 & 1 & 0 \\
+              0 & 0 & 1 \\
+              0 & 0 & 0 \\
+            \end{bmatrix}
+            ,
+            A^T
+            =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+            \end{bmatrix}
+          \]
+
+          Then the pivot columns for $A$ are 1 and 3,
+          while the pivot columns for $A^T$ are 1 and 2.
         \item [25]
         \item [30]
+          The steps are as follows.
+
+          \begin{enumerate}[label=Step \arabic*]
+            \item
+              We reduce to
+
+              \begin{align*}
+                \begin{bmatrix}
+                  2 & 4 & 6 & 4 & b_1 \\
+                  2 & 5 & 7 & 6 & b_2 \\
+                  2 & 3 & 5 & 2 & b_3 \\
+                \end{bmatrix}
+                &\Rightarrow
+                \begin{bmatrix}
+                  2 &  4 &  6 &  4 & b_1 \\
+                  0 &  1 &  1 &  2 & -b_1 + b_2 \\
+                  0 & -1 & -1 & -2 & -b_1 + b_3 \\
+                \end{bmatrix}
+                \\
+                &\Rightarrow
+                \begin{bmatrix}
+                  2 &  4 &  6 &  4 & b_1 \\
+                  0 &  1 &  1 &  2 & -b_1 + b_2 \\
+                  0 &  0 &  0 &  0 & -b_1 + b_2 + b_3 \\
+                \end{bmatrix}
+              \end{align*}
+            \item
+              So the solvability condition is $b_1 = b_2 + b_3$
+            \item
+              The column space is all linear combinations of the vectors
+              $
+                \left\{
+                  \begin{bmatrix}
+                    2 \\
+                    2 \\
+                    2 \\
+                  \end{bmatrix}
+                  ,
+                  \begin{bmatrix}
+                    4 \\
+                    5 \\
+                    3 \\
+                  \end{bmatrix}
+                \right\}
+              $
+            \item
+              The special solutions have free variables $x_3, x_4$.
+
+              \[
+                N
+                =
+                \begin{bmatrix}
+                  -1 \\
+                   1 \\
+                   0 \\
+                   0 \\
+                \end{bmatrix}
+              \]
+            \item
+            \item
+          \end{enumerate}
         \item [46]
         \item [68]
+          \begin{enumerate}
+            \item
+              Let
+              \[
+                A
+                =
+                \begin{bmatrix}
+                  1 & 1 & 0 \\
+                  0 & 0 & 1 \\
+                  0 & 0 & 0 \\
+                \end{bmatrix}
+                ,
+                A^T
+                =
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  1 & 0 & 0 \\
+                  0 & 1 & 0 \\
+                \end{bmatrix}
+              \]
+              Then the null space of $A$ is spanned by
+              $\begin{bmatrix}x_1 \\ -x_1 \\ 0 \\\end{bmatrix}$
+              for any $x_1 \in \mathbb{R}$.
+
+              Whereas the null space of $A^T$ is spanned by
+              $\begin{bmatrix}0 \\ 0 \\ x_3 \\\end{bmatrix}$
+              for any $x_3 \in \mathbb{R}$.
+            \item
+              Let
+              \[
+                A
+                =
+                \begin{bmatrix}
+                  1 & 1 & 0 \\
+                  0 & 0 & 1 \\
+                  0 & 0 & 0 \\
+                \end{bmatrix}
+                ,
+                A^T
+                =
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  1 & 0 & 0 \\
+                  0 & 1 & 0 \\
+                \end{bmatrix}
+              \]
+              Then the free variables of $A$ are $x_1, x_3$.
+              Whereas the free variables of $A^T$ are $x_1, x_2$.
+            \item
+              Let
+              \[
+                A
+                =
+                \begin{bmatrix}
+                  1 & 1 & 0 \\
+                  0 & 0 & 1 \\
+                  0 & 0 & 0 \\
+                \end{bmatrix}
+                ,
+                A^T
+                =
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  1 & 0 & 0 \\
+                  0 & 1 & 0 \\
+                \end{bmatrix}
+              \]
+              Then
+              \[
+                \text{rref}\left(A\right)
+                =
+                \begin{bmatrix}
+                  1 & 1 & 0 \\
+                  0 & 0 & 1 \\
+                  0 & 0 & 0 \\
+                \end{bmatrix}
+              \]
+              Whereas
+              \[
+                \text{rref}\left(A^T\right)
+                =
+                \begin{bmatrix}
+                  1 & 0 & 0 \\
+                  0 & 1 & 0 \\
+                  0 & 0 & 0 \\
+                \end{bmatrix}
+              \]
+          \end{enumerate}
       \end{enumerate}
     \item
       \begin{enumerate}
         \item [8]
+          We can substitute:
+
+          \begin{align*}
+            c_1v_1 + c_2v_2 + c_3v_3
+            &=
+            c_1(w_2 + w_3) + c_2(w_1 + w_3) + c_3(w_1 + w_2)
+            \\
+            &=
+            c_1w_2 + c_1w_3 + c_2w_1 + c_2w_3 + c_3w_1 + c_3w_2
+            \\
+            &=
+            c_2w_1 + c_3w_1 + c_1w_2 + c_3w_2 + c_1w_3 + c_2w_3
+            \\
+            &=
+            (c_2 + c_3)w_1 + (c_1 + c_3)w_2 + (c_1 + c_2)w_3
+          \end{align*}
+
+          Since $w_1, w_2, w_3$ are linearly independent,
+          this equation is 0 only when
+
+          $c_2 + c_3 = c_1 + c_3 = c_1 + c_2 = 0$
+
+          So we solve
+
+          \[
+            \begin{bmatrix}
+              0 & 1 & 1 \\
+              1 & 0 & 1 \\
+              1 & 1 & 0 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+              c_1 \\
+              c_2 \\
+              c_3 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              0 \\
+              0 \\
+              0 \\
+            \end{bmatrix}
+          \]
+
+          Reducing the matrix we get
+          \[
+            \begin{bmatrix}
+              0 & 1 & 1 \\
+              1 & 0 & 1 \\
+              1 & 1 & 0 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 1 \\
+              0 & 1 & 1 \\
+              1 & 1 & 0 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 &  1 \\
+              0 & 1 &  1 \\
+              0 & 1 & -1 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 &  1 \\
+              0 & 1 &  1 \\
+              0 & 0 & -2 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+              0 & 0 & 1 \\
+            \end{bmatrix}
+          \]
+
+          So $c_1 = c_2 = c_3 = 0$.
+
+          Thus $v_1, v_2, v_3$ are linearly independent.
         \item [17]
+          The test is for how many rows are now all 0 rather than the columns.
+          If there is a row with all zero entries,
+          then that vector is a combination of the others.
+          If no row has all zero entries,
+          then the vectors are linearly independent.
         \item [30]
+          The pivots are the second and third columns.
+
+          One basis is
+          $\left\{
+            u_2 =
+            \begin{bmatrix}5 \\ 0 \\ 0 \\ 0 \\\end{bmatrix}
+            ,
+            u_3 =
+            \begin{bmatrix}4 \\ 2 \\ 0 \\ 0 \\\end{bmatrix}
+          \right\}$
+
+          We express column one as $u_1 = 0u_2 + 0u_3$.
+          We express column four as $u_4 = \frac{1}{5}u_2 + \frac{1}{2}u_3$.
         \item [36]
+          Since the rank is 11, and the matrix $A$ is $64 \times 17$,
+          there are 6 vectors in the nullspace.
+          So there are 6 vectors satisfying $Ax = 0$.
+
+          Since the rank is 11, and the matrix $A^T$ is $17 \times 64$,
+          there are 53 vectors in the nullspace.
+          So there are 53 vectors satisfying $A^Ty = 0$.
         \item [42]
+          \begin{itemize}
+            \item One possible basis is $\left\{1, x, x^2, x^3\right\}$
+            \item
+              We need $p(1) = 0$ for all elements of the basis.
+
+              It is easy to see that the basis vector $1$ cannot be included.
+
+              If we evaluate the polynomial at the basis vector $x$ we get 1,
+              so we'd need a new basis vector $x - 1$.
+
+              If we evaluate the polynomial at the basis vector $x^2$ we get 1,
+              so we'd need a new basis vector $x^2 - 1$.
+
+              If we evaluate the polynomial at the basis vector $x^3$ we get 1,
+              so we'd need a new basis vector $x^3 - 1$.
+
+              Thus our new basis is:
+              $\left\{x - 1, x^2 - 1, x^3 - 1\right\}$
+          \end{itemize}
       \end{enumerate}
     \item
       \begin{enumerate}
         \item [4]
+          \[
+            A^T
+            =
+            \begin{bmatrix}
+              0 & 0 & 0 \\
+              1 & 0 & 0 \\
+              0 & 1 & 0 \\
+            \end{bmatrix}
+          \]
+          \begin{itemize}
+            \item $C(A)$
+              rank: 2
+              vectors:
+              $\left\{\begin{bmatrix}1 \\ 0 \\ 0 \\\end{bmatrix}, \begin{bmatrix}0 \\ 1 \\ 0 \\\end{bmatrix}\right\}$
+            \item $N(A)$
+              rank: 1
+              vectors:
+              $\left\{\begin{bmatrix}1 \\ 0 \\ 0 \\\end{bmatrix}\right\}$
+            \item $R(A)$
+              rank: 2
+              vectors:
+              $\left\{\begin{bmatrix}1 \\ 0 \\ 0 \\\end{bmatrix}, \begin{bmatrix}0 \\ 1 \\ 0 \\\end{bmatrix}\right\}$
+              $\left\{\begin{bmatrix}\end{bmatrix}\right\}$
+            \item $N(A^T)$
+              rank: 1
+              vectors:
+              $\left\{\begin{bmatrix}0 \\ 0 \\ 1 \\\end{bmatrix}\right\}$
+          \end{itemize}
         \item [12]
           \begin{enumerate}
             \item
@@ -289,6 +811,8 @@
           \end{enumerate}
 
         \item [16]
+          The problem is the assumption that $A^T A$ is left-invertible.
+          This does not follow from any given information.
         \item [21]
           \begin{enumerate}[label=(\alph*)]
             \item
@@ -343,16 +867,332 @@
     \item
       \begin{enumerate}
         \item [1]
+          We have
+
+          \[
+            A
+            =
+            \begin{bmatrix}
+               1 & -1 &  0 \\
+               1 &  0 & -1 \\
+               0 &  1 & -1 \\
+            \end{bmatrix}
+            ,
+            A^T
+            =
+            \begin{bmatrix}
+               1 &  1 &  0 \\
+              -1 &  0 &  1 \\
+               0 & -1 & -1 \\
+            \end{bmatrix}
+          \]
+          \[
+            \text{rref}(A)
+            =
+            \begin{bmatrix}
+               1 & -1 &  0 \\
+               0 &  1 & -1 \\
+               0 &  0 &  0 \\
+            \end{bmatrix}
+            ,
+            \text{rref}\left(A^T\right)
+            =
+            \begin{bmatrix}
+               1 &  1 &  0 \\
+               0 &  1 &  1 \\
+               0 &  0 &  0 \\
+            \end{bmatrix}
+          \]
+
+          So we have complete solutions
+          \[
+            x
+            =
+            \begin{bmatrix}
+              1 \\
+              1 \\
+              0
+            \end{bmatrix}
+            +
+            x_3
+            \begin{bmatrix}
+              1 \\
+              1 \\
+              1 \\
+            \end{bmatrix}
+          \]
+          \[
+            y
+            =
+            \begin{bmatrix}
+              1 \\
+              1 \\
+              0
+            \end{bmatrix}
+            +
+            x_3
+            \begin{bmatrix}
+               1 \\
+               1 \\
+              -1 \\
+            \end{bmatrix}
+          \]
         \item [4]
+          Given
+
+          \[
+            A
+            =
+            \begin{bmatrix}
+               1 & -1 &  0 \\
+               1 &  0 & -1 \\
+               0 &  1 & -1 \\
+            \end{bmatrix}
+            ,
+            A^T
+            =
+            \begin{bmatrix}
+               1 &  1 &  0 \\
+              -1 &  0 &  1 \\
+               0 & -1 & -1 \\
+            \end{bmatrix}
+          \]
+
+          We have
+
+          \begin{align*}
+            A^TA &=
+            \begin{bmatrix}
+               1 & -1 &  0 \\
+               1 &  0 & -1 \\
+               0 &  1 & -1 \\
+            \end{bmatrix}
+            \begin{bmatrix}
+               1 &  1 &  0 \\
+              -1 &  0 &  1 \\
+               0 & -1 & -1 \\
+            \end{bmatrix}
+            \\
+            &=
+            \begin{bmatrix}
+               2 & 1 & -1 \\
+               1 & 2 &  1 \\
+              -1 & 1 &  2 \\
+            \end{bmatrix}
+          \end{align*}
+
+          Now $A^TA = \left(A^TA\right)^T$ by inspection.
+          If we attempt to reduce it we get:
+
+          \begin{align*}
+            \begin{bmatrix}
+               2 & 1 & -1 \\
+               1 & 2 &  1 \\
+              -1 & 1 &  2 \\
+            \end{bmatrix}
+            &=
+            \begin{bmatrix}
+               1 & 2 &  1 \\
+               2 & 1 & -1 \\
+              -1 & 1 &  2 \\
+            \end{bmatrix}
+            \\
+            &=
+            \begin{bmatrix}
+               1 &  2 &  1 \\
+               0 & -3 & -3 \\
+               0 &  3 &  3 \\
+            \end{bmatrix}
+            \\
+            &=
+            \begin{bmatrix}
+               1 &  2 &  1 \\
+               0 &  3 &  3 \\
+               0 &  0 &  0 \\
+            \end{bmatrix}
+            \\
+          \end{align*}
+
+          Since there is a row of all 0, $A^TA$ is singular.
+
+          We get the complete solution
+
+          \[
+            x
+            =
+            \begin{bmatrix}
+              1 \\
+              3 \\
+              0
+            \end{bmatrix}
+            +
+            x_3
+            \begin{bmatrix}
+               0 \\
+              -1 \\
+               1 \\
+            \end{bmatrix}
+          \]
+
+          The $2 \times 2$ matrix is
+
+          \[
+            \begin{bmatrix}
+               1 & -1 \\
+               1 &  0 \\
+            \end{bmatrix}
+          \]
+
+          We can reduce to
+
+          \[
+            \begin{bmatrix}
+               1 & -1 \\
+               1 &  0 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+               1 &  0 \\
+               1 & -1 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+               1 &  0 \\
+               0 & -1 \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+               1 &  0 \\
+               0 &  1 \\
+            \end{bmatrix}
+          \]
+          Since this is the identity matrix, it is not singular.
         \item [10]
+
+          \begin{tikzpicture}[ >=stealth
+                             , shorten > = 1pt
+                             , auto
+                             , node distance=3cm
+                             , semithick
+                             ]
+
+            \tikzstyle{every state}=[ draw=black
+                                    , thick
+                                    , fill=white
+                                    , minimum size=4mm
+                                    ]
+            \node[state] (n1) {$node 1$};
+            \node[state] (n2) [right of=n1] {$node 2$};
+            \node[state] (n3) [below of=n1] {$node 3$};
+            \node[state] (n4) [right of=n3] {$node 4$};
+
+            \path[->] (n1) edge node {$edge 1$} (n2);
+            \path[->] (n1) edge node {$edge 2$} (n3);
+            \path[->] (n4) edge node {$edge 3$} (n2);
+            \path[->] (n3) edge node {$edge 4$} (n4);
+          \end{tikzpicture}
+
+          If we reduce $A$ we get
+          \[
+            \begin{bmatrix}
+               1 &  0 &  0 & -1 \\
+               0 &  1 &  0 & -1 \\
+               0 &  0 &  1 & -1 \\
+               0 &  0 &  0 &  0 \\
+            \end{bmatrix}
+          \]
+
+          So we have a row of all 0, thus the rows are not independent.
+
+          If we remove the last edge we have
+
+          \[
+            \begin{bmatrix}
+              -1 &  1 &  0 &  0 \\
+              -1 &  0 &  1 &  0 \\
+               0 &  1 &  0 & -1 \\
+            \end{bmatrix}
+          \]
+
+          which reduces to
+
+          \[
+            \begin{bmatrix}
+               1 &  0 &  0 & -1 \\
+               0 &  1 &  0 & -1 \\
+               0 &  0 &  1 & -1 \\
+            \end{bmatrix}
+          \]
+
+          Since there is no row of all 0, this graph is a spanning tree.
       \end{enumerate}
     \item
       \begin{enumerate}
         \item [8]
         \item [14]
+          If $T$ is linear we have, then we have for some $cx, dy \in \mathbb{R}^3$:
+          \begin{align*}
+            T^2(cx + dy)
+            &= \left(T \circ T\right)(cx + dy) \\
+            &= T(T(cx + dy)) \\
+            &= T(cTx + dTy) \\
+            &= cTTx + dTTy \\
+            &= cT^2x + dT^2y \\
+          \end{align*}
+
+          So $T^2$ is linear.
         \item [22]
+          (d) is not a linear transformation.
+
+          Let $x, y \in \text{dom}(T)$
+
+          Now
+
+          \begin{align*}
+            T(cx + dy)
+            &= T\left((cx_1, cx_2) + (dx_1, dx_2)\right) \\
+            &= T\left((cx_1 + dx_1, cx_2 + dx_2)\right) \\
+            &= (0, 1) \\
+          \end{align*}
+
+          but
+          \begin{align*}
+            cTx + dTy
+            &= cT(x_1, x_2) + dT(y_1, y_2) \\
+            &= c(0, 1) + d(0, 1) \\
+            &= (0, c) + (0, d) \\
+            &= (0, c + d) \\
+          \end{align*}
+
+          Which is not true for any $c, d$.
         \item [29]
+          \begin{enumerate}
+            \item The range of $T$ is a line, not $\mathbb{R}^2$.
+            \item The range of $T$ is a plane, not $\mathbb{R}^3$.
+            \item The kernel of $T$ has infinitely many vectors of the form $(0, v_2)$, not just 0.
+          \end{enumerate}
         \item [50]
+          \begin{enumerate}
+            \item
+              Assuming $A$ is non trivial, the shape is a parallelogram.
+            \item
+              $A$ is a square if $A$ is of the form
+              \[
+                \begin{bmatrix}
+                  x & 0 \\
+                  0 & x \\
+                \end{bmatrix}
+                \text{or}
+                \begin{bmatrix}
+                  0 & x \\
+                  x & 0 \\
+                \end{bmatrix}
+              \]
+            \item
+              $A$ is a line if $A$ has only one non-zero entry.
+            \item
+              The area is still 1 if det($A$) = 1.
+          \end{enumerate}
       \end{enumerate}
   \end{enumerate}
 \end{document}
