@@ -1,0 +1,358 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage[margin=1in]{geometry}
+\usepackage{titling}
+\usepackage{fp}
+\usepackage{enumitem}
+\usepackage[super]{nth}
+\usepackage{dcolumn}
+\usepackage[title]{appendix}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage{color, colortbl}
+\usepackage{systeme}
+\definecolor{Gray}{gray}{0.8}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand*\circled[1]{
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};
+  }
+}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 167 HW 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Cheer\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}[label=\S 2.\arabic*]
+    \item
+      \begin{enumerate}
+        \item [4]
+          The smallest subspace containing both symmetric matrices and lower triangular matrices is the set of all 3 by 3 matrices.
+          It must be the entire subspace since we have to be able to add symmetric matrices to lower triangular matrices. This combination would end up with matrices that have entries above and below the diagonal, though not necessarily symmetric or lower triangular.
+
+          The largest subspace in both the subspace of all symmetric matrices, let's call it $\mathcal{S}$, and the subspace of all lower triangular matrices, let's call it $\mathcal{L}$, would be the set of all diagonal matrices, since every diagonal matrix would be symmetric and would also be lower triangular.
+
+        \item [8]
+        \item [14]
+        \item [24]
+          For which vectors $(b_1, b_2, b_3)$ do these systems have a solution?
+          \[
+            \left[
+            \begin{array}{ccc}
+              1 & 1 & 1  \\
+              0 & 1 & 1  \\
+              0 & 0 & 1
+            \end{array}
+            \right]
+            \left[
+            \begin{array}{c}
+              x_1 \\
+              x_2 \\
+              x_3
+            \end{array}
+            \right]
+            =
+            \left[
+            \begin{array}{c}
+              b_1 \\
+              b_2 \\
+              b_3
+            \end{array}
+            \right]
+            \tag{1}\label{eq:1}
+          \]
+          and
+          \[
+            \left[
+            \begin{array}{ccc}
+              1 & 1 & 1  \\
+              0 & 1 & 1  \\
+              0 & 0 & 0
+            \end{array}
+            \right]
+            \left[
+            \begin{array}{c}
+              x_1 \\
+              x_2 \\
+              x_3
+            \end{array}
+            \right]
+            =
+            \left[
+            \begin{array}{c}
+              b_1 \\
+              b_2 \\
+              b_3
+            \end{array}
+            \right]
+            \tag{2}\label{eq:2}
+          \]
+
+          Since the matrix in $\eqref{eq:1}$ is invertible, $(b_1, b_2, b_3)$ is all of $\mathbf{R}^3$
+
+          For $\eqref{eq:2}$ we have solutions of the form
+          $(x_1 + x_2, x_2, 0)$.
+
+        \item [26]
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item [6]
+        \item [10]
+        \item [18]
+        \item [25]
+        \item [30]
+        \item [46]
+        \item [68]
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item [8]
+        \item [17]
+        \item [30]
+        \item [36]
+        \item [42]
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item [4]
+        \item [12]
+          \begin{enumerate}
+            \item
+              \[
+                A = \begin{bmatrix}
+                  1 & 0 & 0 & 3 \\
+                  0 & 0 & 0 & 0 \\
+                  2 & 0 & 0 & 6 \\
+                \end{bmatrix}
+              \]
+              rank: 1
+
+              \[
+                A = uv^T =
+                \begin{bmatrix}
+                  1 \\
+                  0 \\
+                  2
+                \end{bmatrix}
+                \begin{bmatrix}
+                  1 & 0 & 0 & 3
+                \end{bmatrix}
+              \]
+
+            \item
+              \[
+                A = \begin{bmatrix}
+                  2 & -2 \\
+                  6 & -6 \\
+                \end{bmatrix}
+              \]
+              rank: 1
+
+              \[
+                A = uv^T =
+                \begin{bmatrix}
+                  1 \\
+                  3
+                \end{bmatrix}
+                \begin{bmatrix}
+                  2 & -2
+                \end{bmatrix}
+              \]
+          \end{enumerate}
+        \item [14]
+          \begin{enumerate}
+            \item
+              The rank of this matrix is 2, which is the same as the number of rows, and it is a rectangular matrix, so it only has a right inverse, though there many inverses.
+
+              We can construct the ``best'' right inverse by $A^T(AA^T)^{-1}$
+
+              \begin{align*}
+                A^{-1} = A^T(AA^T)^{-1} &=
+                \begin{bmatrix}
+                  1 & 0 \\
+                  1 & 1 \\
+                  0 & 1
+                \end{bmatrix}
+                \left(
+                \begin{bmatrix}
+                  1 & 1 & 0 \\
+                  0 & 1 & 1
+                \end{bmatrix}
+                \begin{bmatrix}
+                  1 & 0 \\
+                  1 & 1 \\
+                  0 & 1
+                \end{bmatrix}
+                \right)^{-1} \\
+                &=
+                \begin{bmatrix}
+                  1 & 0 \\
+                  1 & 1 \\
+                  0 & 1
+                \end{bmatrix}
+                \begin{bmatrix}
+                  2 & 1 \\
+                  1 & 2
+                \end{bmatrix}^{-1} \\
+                &=
+                \begin{bmatrix}
+                  1 & 0 \\
+                  1 & 1 \\
+                  0 & 1
+                \end{bmatrix}
+                \begin{bmatrix}
+                  \frac{2}{3} & -\frac{1}{3} \\
+                  -\frac{1}{3} & \frac{2}{3}
+                \end{bmatrix} \\
+                &=
+                \begin{bmatrix}
+                  \frac{2}{3} & -\frac{1}{3} \\
+                  \frac{1}{3} & \frac{1}{3} \\
+                  -\frac{1}{3} & \frac{2}{3}
+                \end{bmatrix}
+              \end{align*}
+            \item
+              In this case, we have only one inverse.
+
+              \[
+                M =
+                \begin{bmatrix}
+                  1 & 0 \\
+                  1 & 1 \\
+                  0 & 1
+                \end{bmatrix}
+              \]
+
+              The rank of this matrix is 2, which is the same as the number of columns, and it is a rectangular matrix, so it only has a left inverse which is unique.
+
+              We can use the fact that $M^T = A$ to use $(A^{-1})^T$ as the left inverse.
+
+              \[
+                M^{-1} = (A^{-1})^T =
+                \begin{bmatrix}
+                  \frac{2}{3} & \frac{1}{3} & -\frac{1}{3} \\
+                  -\frac{1}{3} & \frac{1}{3} & \frac{2}{3}
+                \end{bmatrix}
+              \]
+            \item
+              \[
+                T =
+                \begin{bmatrix}
+                  a & b \\
+                  0 & a
+                \end{bmatrix}
+              \]
+
+              The rank of this matrix is 2, which is the same as the number of rows and columns, so it has both a left and a right inverse which are the same.
+
+              This we can use the closed form to calculate $T^{-1} = \frac{1}{\text{det}(T)}\text{adj}(T)$
+
+              \[
+                T^{-1} =
+                \frac{1}{a^2}
+                \begin{bmatrix}
+                  a & -b \\
+                  0 & a
+                \end{bmatrix}
+              \]
+          \end{enumerate}
+
+        \item [16]
+        \item [21]
+          \begin{enumerate}[label=(\alph*)]
+            \item
+              Column space contains $\begin{bsmallmatrix}1 \\ 1 \\ 0\end{bsmallmatrix}$, $\begin{bsmallmatrix}0 \\ 0 \\ 1\end{bsmallmatrix}$, row space contains $\begin{bsmallmatrix}1 \\ 2\end{bsmallmatrix}$, $\begin{bsmallmatrix}2 \\ 5\end{bsmallmatrix}$.
+
+                \[
+                  \begin{bmatrix}
+                    1 & 0 \\
+                    1 & 0 \\
+                    0 & 1
+                  \end{bmatrix}
+                \]
+
+            \item
+              Column space has basis $\begin{bsmallmatrix}1 \\ 2 \\ 3\end{bsmallmatrix}$, nullspace has basis $\begin{bsmallmatrix}3 \\ 2 \\ 1\end{bsmallmatrix}$.
+
+              Not possible since the rank would be 1, and the nullity 1, but it has 3 rows, and $3 - 1 \ne 1$
+
+            \item
+              Dimension of nullspace = 1 + dimension of left nullspace.
+
+              \[
+                \begin{bmatrix}
+                  1 & 0
+                \end{bmatrix}
+              \]
+
+            \item
+              Left nullspace contains $\begin{bsmallmatrix}1 \\ 3\end{bsmallmatrix}$, row space contains $\begin{bsmallmatrix}3 \\ 1\end{bsmallmatrix}$.
+
+              \[
+                \begin{bmatrix}
+                  -9 & -3 \\
+                  3 & 1
+                \end{bmatrix}
+              \]
+
+            \item
+              Row space = column space, nullspace $\ne$ left nullspace.
+
+              Not possible since row space = column space implies a square matrix, and for square matrices, nullspace = left nullspace.
+          \end{enumerate}
+        \item [33]
+          The combination is spelled out in the right hand side.
+
+          1 row 3 - 2 row 2 + 1 row 1 = the zero row.
+
+          Which vectors are in the nullspace of $A^T$ and which are in the nullspace of $A$?
+
+          The same vectors are in both spaces: scalar multiples of $\begin{bsmallmatrix}1 \\ -2 \\ 1\end{bsmallmatrix}$
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item [1]
+        \item [4]
+        \item [10]
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item [8]
+        \item [14]
+        \item [22]
+        \item [29]
+        \item [50]
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
