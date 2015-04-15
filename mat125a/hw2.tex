@@ -285,16 +285,117 @@
               Thus, $f(- x) = -f(x)$ for any $x \in \mathbb{R}$.
           \end{itemize}
         \item
+          \begin{proof}
+            Assume $f$ is continuous at 0.
+
+            Choose some $c \in \mathbb{R}$ as a limit point.
+
+            Then there exists a sequence $(x_n) \to c$.
+            We also know that $(c) \to c$.
+
+            So we can compute $(x_n - c) \to c - c = 0$.
+
+            Since $f$ is continuous at 0, we have
+            \begin{align*}
+              \lim\limits_{x \to 0} f(x_n - c) &= f(0) \\
+              \lim\limits_{x \to 0} f(x_n + (- c)) &= 0 \\
+              \lim\limits_{x \to 0} f(x_n) + f(- c) &= \\
+              \lim\limits_{x \to 0} f(x_n) - f(c) &= \\
+              \lim\limits_{x \to 0} f(x_n) - \lim\limits_{x \to 0} f(c) &= \\
+              \lim\limits_{x \to 0} f(x_n) &= \lim\limits_{x \to 0} f(c) \\
+            \end{align*}
+
+            So $f$ is continuous at $c$.
+
+            Since our choice of $c$ was arbitrary, the result holds for all $c \in \mathbb{R}$.
+
+            Thus, if $f$ is continuous at 0 then $f$ is continuous at all points in $\mathbb{R}$.
+          \end{proof}
         \item
+          \begin{itemize}
+            \item
+              \begin{proof}
+                We can show this by induction.
+
+                \begin{itemize}
+                  \item Base
+                    $f(1) = k = k(1)$, so the base case is true.
+
+                  \item Inductive
+                    Assume $f(n) = kn$.
+                    Then $f(n + 1) = f(n) + f(1) = kn + k = k(n + 1)$.
+                    So the inductive case in true.
+                \end{itemize}
+
+                Thus we have shown by induction that $f(n) = kn, \forall n \in \mathbb{N}$
+              \end{proof}
+            \item
+              We need to look at three case:
+              \begin{itemize}
+                \item
+                  $n > 0$
+
+                  This is exactly the case proven above.
+
+                \item
+                  $n = 0$
+
+                  We are given by definition $f(0) = 0 = k(0)$
+
+                \item
+                  $n < 0$
+
+                  In this case we can let $-m = n \implies m = -n$ and $m >0$.
+
+                  Then we have $f(-m) = -f(m) = -k(m) = -k(-n) = k(n)$
+              \end{itemize}
+
+              From these three we have shown that $f(n) = kn, \forall n \in \mathbb{Z}$
+            \item
+              Given some $f\left(\frac{p}{q}\right)$, we can rewrite this as
+              \begin{align*}
+                f\underbrace{\left(\frac{1}{q} + \frac{1}{q} + \dots + \frac{1}{q}\right)}_{p\text{ times}}
+                &= \underbrace{f\left(\frac{1}{q}\right) + f\left(\frac{1}{q}\right) + \dots + f\left(\frac{1}{q}\right)}_{p\text{ times}} \\
+                &= p f\left(\frac{1}{q}\right)
+              \end{align*}
+
+              So we can rewrite
+              \begin{align*}
+                f(1)
+                &= f\underbrace{\left(\frac{1}{n} + \frac{1}{n} + \dots + \frac{1}{n}\right)}_{n\text{ times}} \\
+                &= \underbrace{f\left(\frac{1}{n}\right) + f\left(\frac{1}{n}\right) + \dots + f\left(\frac{1}{n}\right)}_{n\text{ times}} \\
+                &= n f\left(\frac{1}{n}\right)
+                &= k
+              \end{align*}
+              So, $k = n f\left(\frac{1}{n}\right) \implies f\left(\frac{1}{n}\right) = \frac{k}{n}$
+
+              Then, $f\left(\frac{p}{q}\right) = p f\left(\frac{1}{q}\right) = p \frac{k}{q} = k \frac{p}{q}$.
+
+              Thus $f(n) = k(n), \forall n \in \mathbb{Q}$
+          \end{itemize}
         \item
+          \begin{proof}
+            Choose $x \in \mathbb{I}$ as a limit point.
+
+            Then there exists some $(x_n) \to x$ with all $x_n \in \mathbb{Q}$.
+
+            Since $f$ is continuous on $\mathbb{R}$,
+            $f$ is continuous at $x$.
+
+            So, $\lim_{n \to \infty} f(x_n) = f(x)$ and $\lim_{n \to \infty} f(x_n) = \lim_{n \to \infty} k x_n = k x$
+
+            Then $f(x) = k x$.
+
+            Thus we conclude any additive function that is continuous at $x = 0$ must necessarily be a linear function through the origin.
+          \end{proof}
       \end{enumerate}
-    \item
-      \begin{enumerate}
-        \item
-        \item
-        \item
-        \item
-      \end{enumerate}
+    % \item
+    %   \begin{enumerate}
+    %     \item
+    %     \item
+    %     \item
+    %     \item
+    %   \end{enumerate}
   \end{enumerate}
 
 \end{document}
