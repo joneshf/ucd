@@ -1,22 +1,24 @@
 {-# OPTIONS_GHC -Wall #-}
---{-# OPTIONS_GHC -Werror #-}
+{-# OPTIONS_GHC -Werror #-}
 {-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
 module P1 where
 
-import Control.Lens
+import Control.Lens (Getting, (^.), (#), (&), (^?), makeLenses)
 
-import Data.Char (digitToInt,isUpper)
-import Data.Geo.Coordinate
-import Data.Geo.Geodetic
-import Data.List
-import Data.Maybe
+import Data.Geo.Coordinate ( Longitude, Latitude, _Longitude, _Latitude
+                           , _Minutes, _DegreesLatitude, _DegreesLongitude
+                           )
+import Data.Geo.Geodetic (Sphere, _Sphere, sphericalLaw)
+import Data.List (find)
+import Data.Maybe (fromJust, mapMaybe)
+import Data.Monoid (First)
 
-import Text.Groom
-import Text.Parsec (anyChar, chainl1, char, choice, digit, endOfLine, manyTill, satisfy, spaces, string, try)
+import Text.Groom (groom)
+import Text.Parsec (anyChar, endOfLine, manyTill, spaces, string, try)
 import Text.Parsec.String (Parser, parseFromFile)
-import Text.Printf
+import Text.ParserCombinators.Parsec.Number (fractional, nat, sign)
 
 data Node = Node
     { _number    :: Int
@@ -29,62 +31,33 @@ makeLenses ''Node
 parseNodes :: Parser [Node]
 parseNodes = do
     manyTill anyChar $ try $ string "NODE_COORD_SECTION"
-    manyTill parseNode $ try $ satisfy isUpper
+    manyTill parseNode $ try $ string "EOF"
 
 parseNode :: Parser Node
 parseNode =
-    Node <$> (spaces *> parseInt)
+    Node <$> (spaces *> nat)
          <*> parseLatitude
          <*> parseLongitude
          <*  endOfLine
 
 parseLatitude :: Parser Latitude
-parseLatitude = spaces *> choice [pos, neg, lat]
-    where
-    pos = char '+' *> lat
-    neg = char '-' *> neglat
-    s = remSeconds 0
-    lat = do
-        d <- parseInt
-        char '.'
-        m <- parseInt
-        let dub = read $ printf "%d.%d" d m :: Double
-        dub^?_Latitude & fromJust & pure
-    neglat = do
-        d <- negate <$> parseInt
-        char '.'
-        m <- parseInt
-        let dub = read $ printf "%d.%d" d m :: Double
-        dub^?_Latitude & fromJust & pure
+parseLatitude = parseGeo _Latitude
 
 parseLongitude :: Parser Longitude
-parseLongitude = spaces *> choice [pos, neg, long]
-    where
-    pos = char '+' *> long
-    neg = char '-' *> neglong
-    s = remSeconds 0
-    long = do
-        d <- parseInt
-        char '.'
-        m <- parseInt
-        let dub = read $ printf "%d.%d" d m :: Double
-        dub^?_Longitude & fromJust & pure
-    neglong = do
-        d <- negate <$> parseInt
-        char '.'
-        m <- parseInt
-        let dub = read $ printf "%d.%d" d m :: Double
-        dub^?_Longitude & fromJust & pure
+parseLongitude = parseGeo _Longitude
 
-parseInt :: Parser Int
-parseInt = chainl1 (digitToInt <$> digit) (pure $ (+) . (* 10))
+parseGeo :: Getting (First a) Double a -> Parser a
+parseGeo _Geo = do
+    spaces
+    dub <- sign <*> fractional :: Parser Double
+    dub^?_Geo & fromJust & pure
 
 distance :: Node -> Node -> Int
 distance i j = floor $
     sphericalLaw rrr (i^.latitude, i^.longitude) (j^.latitude, j^.longitude)
 
 distance' :: Node -> Node -> Double
-distance' i j = rrr' * acos (0.5 * (1.0 + q1) * q2 - (1.0 - q1) * q3) + 1.0
+distance' i j = rrr' * acos (0.5 * ((1.0 + q1) * q2 - (1.0 - q1) * q3)) + 1.0
     where
     rrr' = _Sphere # rrr
     q1 = cos (longI - longJ)
@@ -115,9 +88,8 @@ rrr :: Sphere
 rrr = (6378.388 :: Double)^._Sphere
 
 tour :: [Node] -> [(Node, Node)]
-tour xs = zip xs rot
+tour xs = zip xs (t ++ h)
     where
-    rot = t ++ h
     (h, t) = splitAt 1 xs
 
 tourDistance :: [(Node, Node)] -> Int
@@ -132,7 +104,7 @@ main = do
     either print (putStrLn . groom . tourDistance . tour . optimalTour) nodes
     either print (putStrLn . groom . tourDistance' . tour . optimalTour) nodes
     either print (putStrLn . groom . tourDistance . tour) nodes
-    --either print (putStrLn . groom . tour . optimalTour) nodes
+    either print (putStrLn . groom . tourDistance' . tour) nodes
 
 optimalNodes :: [Int]
 optimalNodes = [1, 14, 13, 12, 7, 6, 15, 5, 11, 9, 10, 19, 20, 21, 16, 3, 2, 17, 22, 4, 18, 8]
