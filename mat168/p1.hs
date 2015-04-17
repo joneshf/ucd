@@ -5,14 +5,11 @@
 {-# LANGUAGE TemplateHaskell #-}
 module P1 where
 
-import Control.Lens
+import Control.Lens ((^.), (#), makeLenses, to)
 
 import Data.Geo.Geodetic (Sphere, _Sphere)
-import Data.List (find)
-import Data.Maybe (mapMaybe)
 import Data.Tuple (swap)
 
-import Text.Groom (groom)
 import Text.Parsec (anyChar, endOfLine, manyTill, spaces, string, try)
 import Text.Parsec.String (Parser, parseFromFile)
 import Text.ParserCombinators.Parsec.Number (fractional, nat, sign)
@@ -60,7 +57,7 @@ rrr :: Sphere
 rrr = (6378.388 :: Double)^._Sphere
 
 tour :: [Node] -> [(Node, Node)]
-tour xs = zip xs (uncurry (++) . swap . splitAt 1 $ xs)
+tour = zip <*> (uncurry (++) . swap . splitAt 1)
 
 tourDistance :: [(Node, Node)] -> Int
 tourDistance = sum . fmap (uncurry distance)
@@ -68,19 +65,4 @@ tourDistance = sum . fmap (uncurry distance)
 main :: IO ()
 main = do
     nodes <- parseFromFile parseNodes "ulysses22.tsp"
-    either print (putStrLn . groom . tourDistance . take 1 . tour) nodes
-    either print (putStrLn . groom . tourDistance . tour) nodes
-    either print (putStrLn . groom . tourDistance . tour . optimalTour) nodes
-    (putStrLn . groom . tourDistance) [(n1, n2)]
-
-n1, n2 :: Node
-n1 = Node 1 0 0
-n2 = Node 2 0 180
-
-optimalNodes :: [Int]
-optimalNodes = [1, 14, 13, 12, 7, 6, 15, 5, 11, 9, 10, 19, 20, 21, 16, 3, 2, 17, 22, 4, 18, 8]
-
-optimalTour :: [Node] -> [Node]
-optimalTour ns = mapMaybe look optimalNodes
-    where
-    look o = find ((== o) . _number) ns
+    either print (print . tourDistance . tour) nodes
