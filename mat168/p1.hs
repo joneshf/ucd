@@ -5,27 +5,31 @@
 {-# LANGUAGE TemplateHaskell #-}
 module P1 where
 
-import Control.Lens (Getting, (^.), (#), (&), (^?), makeLenses)
+import Control.Lens
 
-import Data.Geo.Coordinate ( Longitude, Latitude, _Longitude, _Latitude
-                           , _Minutes, _DegreesLatitude, _DegreesLongitude
-                           )
-import Data.Geo.Geodetic (Sphere, _Sphere, sphericalLaw)
+import Data.Geo.Geodetic (Sphere, _Sphere)
 import Data.List (find)
-import Data.Maybe (fromJust, mapMaybe)
-import Data.Monoid (First)
+import Data.Maybe (mapMaybe)
+
+import Debug.Trace
 
 import Text.Groom (groom)
 import Text.Parsec (anyChar, endOfLine, manyTill, spaces, string, try)
 import Text.Parsec.String (Parser, parseFromFile)
-import Text.ParserCombinators.Parsec.Number (fractional, nat, sign)
+import Text.ParserCombinators.Parsec.Number (nat, sign)
+
+data Geo = Geo
+    { _characteristic :: Int
+    , _mantissa :: Int
+    } deriving (Eq, Show)
 
 data Node = Node
     { _number    :: Int
-    , _latitude  :: Latitude
-    , _longitude :: Longitude
+    , _latitude  :: Geo
+    , _longitude :: Geo
     } deriving (Eq, Show)
 
+makeLenses ''Geo
 makeLenses ''Node
 
 parseNodes :: Parser [Node]
@@ -36,53 +40,32 @@ parseNodes = do
 parseNode :: Parser Node
 parseNode =
     Node <$> (spaces *> nat)
-         <*> parseLatitude
-         <*> parseLongitude
+         <*> parseGeo
+         <*> parseGeo
          <*  endOfLine
 
-parseLatitude :: Parser Latitude
-parseLatitude = parseGeo _Latitude
-
-parseLongitude :: Parser Longitude
-parseLongitude = parseGeo _Longitude
-
-parseGeo :: Getting (First a) Double a -> Parser a
-parseGeo _Geo = do
-    spaces
-    dub <- sign <*> fractional :: Parser Double
-    dub^?_Geo & fromJust & pure
+parseGeo :: Parser Geo
+parseGeo =
+    Geo <$> (spaces *> (sign <*> nat))
+        <*> (string "." *> (sign <*> nat))
 
 distance :: Node -> Node -> Int
-distance i j = floor $
-    sphericalLaw rrr (i^.latitude, i^.longitude) (j^.latitude, j^.longitude)
-
-distance' :: Node -> Node -> Double
-distance' i j = rrr' * acos (0.5 * ((1.0 + q1) * q2 - (1.0 - q1) * q3)) + 1.0
+distance i j = floor (rrr' * acos (0.5 * ((1 + q1) * q2 - (1 - q1) * q3)) + 1)
     where
+    rrr', q1, q2, q3, latI, latJ, longI, longJ :: Double
     rrr' = _Sphere # rrr
-    q1 = cos (longI - longJ)
-    q2 = cos (latI - latJ)
-    q3 = cos (latI + latJ)
-    latI = pi * (fromIntegral dLatI + 5.0 * fromIntegral mLatI / 3.0) / 180.0
-    latJ = pi * (fromIntegral dLatJ + 5.0 * fromIntegral mLatJ / 3.0) / 180.0
-    longI = pi * (fromIntegral dLongI + 5.0 * fromIntegral mLongI / 3.0) / 180.0
-    longJ = pi * (fromIntegral dLongJ + 5.0 * fromIntegral mLongJ / 3.0) / 180.0
-    dLatI :: Int
-    dLatI = _DegreesLatitude # (i^.latitude._DegreesLatitude)
-    dLatJ :: Int
-    dLatJ = _DegreesLatitude # (j^.latitude._DegreesLatitude)
-    dLongI :: Int
-    dLongI = _DegreesLongitude # (i^.longitude._DegreesLongitude)
-    dLongJ :: Int
-    dLongJ = _DegreesLongitude # (j^.longitude._DegreesLongitude)
-    mLatI :: Int
-    mLatI = _Minutes # (i^.latitude._Minutes)
-    mLatJ :: Int
-    mLatJ = _Minutes # (j^.latitude._Minutes)
-    mLongI :: Int
-    mLongI = _Minutes # (i^.longitude._Minutes)
-    mLongJ :: Int
-    mLongJ = _Minutes # (j^.longitude._Minutes)
+    q1 = cos $ longI - longJ -- 0.9953121781612654
+    q2 = cos $ latI - latJ   -- 0.9996341006403823
+    q3 = cos $ latI + latJ   -- 0.20193268514150065
+    radians node d m = pi * (node^.d + 5 * node^.m / 300) / 180
+    latI = traceShowId $ radians i latD latM -- 0.6702064327658225
+    latJ = traceShowId $ radians j latD latM -- 0.6972590361717347
+    longI = radians i longD longM -- 0.361283080000000090
+    longJ = radians j longD longM -- 0.458148833333333283
+    latD = latitude.characteristic.to fromIntegral
+    latM = latitude.mantissa.to fromIntegral
+    longD = longitude.characteristic.to fromIntegral
+    longM = longitude.mantissa.to fromIntegral
 
 rrr :: Sphere
 rrr = (6378.388 :: Double)^._Sphere
@@ -95,16 +78,13 @@ tour xs = zip xs (t ++ h)
 tourDistance :: [(Node, Node)] -> Int
 tourDistance = sum . fmap (uncurry distance)
 
-tourDistance' :: [(Node, Node)] -> Double
-tourDistance' = sum . fmap (uncurry distance')
-
 main :: IO ()
 main = do
     nodes <- parseFromFile parseNodes "ulysses22.tsp"
-    either print (putStrLn . groom . tourDistance . tour . optimalTour) nodes
-    either print (putStrLn . groom . tourDistance' . tour . optimalTour) nodes
-    either print (putStrLn . groom . tourDistance . tour) nodes
-    either print (putStrLn . groom . tourDistance' . tour) nodes
+    --either print (putStrLn . groom) nodes
+    either print (putStrLn . groom . tourDistance . take 1 . tour) nodes
+    --either print (putStrLn . groom . tourDistance . tour . optimalTour) nodes
+    --either print (putStrLn . groom . tourDistance . tour) nodes
 
 optimalNodes :: [Int]
 optimalNodes = [1, 14, 13, 12, 7, 6, 15, 5, 11, 9, 10, 19, 20, 21, 16, 3, 2, 17, 22, 4, 18, 8]
