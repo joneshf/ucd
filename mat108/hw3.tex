@@ -1,0 +1,447 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{fp}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\definecolor{Gray}{gray}{0.8}
+
+\pgfplotsset{compat=1.8}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+
+\newcommand*\biconditional[3]{
+  This statement is #1 since both sides of the bi-conditional have #2 truth values.
+
+  #3
+}
+\newcommand*\biconditionaltrue[2]{
+  \biconditional{true}{the same}{#1 and #2.}
+}
+\newcommand*\biconditionalfalse[2]{
+  \biconditional{false}{different}{#1 yet #2.}
+}
+
+\newcommand*\directproofsimple[6]{
+  With integers $x$ and $y$, we want to show:
+
+  If #1, then #2 is even.
+
+  \begin{proof}
+    Suppose #1.
+
+    Then there exist some integers $p, q$ such that #3 and #4.
+
+    Then we have #5$ = 2($#6$)$.
+
+    Since #6 is an integer, we can rename as $r = $ #6.
+
+    So #2 $ = 2r$, and is even.
+
+    Thus if #1, then #2 is even
+  \end{proof}
+}
+
+\renewcommand{\labelenumi}{\S 1.\arabic*}
+\renewcommand{\labelenumii}{\arabic*}
+\renewcommand{\labelenumiii}{(\alph*)}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 108 HW 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bandyopadhyay\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \setcounter{enumi}{3}
+    \item
+      \begin{enumerate}
+        \setcounter{enumii}{4}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{4}
+            \item
+              \directproofsimple
+                {$x$ and $y$ are odd}
+                {$x + y$}
+                {$x = 2p + 1$}
+                {$y = 2q + 1$}
+                {$x + y = (2p + 1) + (2q + 1) = 2p + 2q + 2$}
+                {$p + q + 1$}
+            \item
+              \directproofsimple
+                {$x$ and $y$ are odd}
+                {$3x - 5y$}
+                {$x = 2p + 1$}
+                {$y = 2q + 1$}
+                {$3x - 5y = 3(2p + 1) - 5(2q + 1) = 6p + 3 - 10q - 5 = 6p - 10q - 2$}
+                {$3p - 5q - 1$}
+            \setcounter{enumiii}{8}
+            \item
+              \directproofsimple
+                {$x$ is even and $y$ is odd}
+                {$xy$}
+                {$x = 2p$}
+                {$y = 2q + 1$}
+                {$xy = (2p)(2q + 1) = 4pq + 2p$}
+                {$2pq + p$}
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{3}
+            \item
+              With real numbers $a, b$ we want to prove $|a + b| \leq |a| + |b|$.
+              \begin{proof}
+                We prove this by cases.
+
+                For cases 2 and 3,
+                we choose without loss of generality $a \geq 0, b < 0$.
+                The exact same argument holds for $a < 0, b \geq 0$.
+                \begin{enumerate}[label=Case \arabic*]
+                  \item $a \geq 0, b \geq 0$
+
+                    Since $a \geq 0, b \geq 0, a + b \geq 0$.
+
+                    So $|a + b| = a + b$.
+
+                    Also, $|a| = a$ and $|b| = b$.
+
+                    So $|a + b| = a + b = |a| + |b|$.
+
+                    Thus, $|a + b| \leq |a| + |b|$.
+                  \item $a \geq 0, b < 0, a + b \geq 0$
+
+                    Since $a + b \geq 0, |a + b| = a + b$.
+
+                    Also, $|a| = a$ and $|b| = -b$.
+
+                    Since $b < 0 \implies 2b < 0 \implies b < -b \implies a + b < a + (-b)$,
+
+                    we have $|a + b| = a + b < a + (-b) = |a| + |b|$.
+
+                    Thus, $|a + b| \leq |a| + |b|$.
+                  \item $a \geq 0, b < 0, a + b < 0$
+
+                    Since $a + b < 0, |a + b| = -(a + b) = -a - b$.
+
+                    Also, $|a| = a$ and $|b| = -b$.
+
+                    Since $0 \leq a \implies 0 \leq 2a \implies -a \leq a \implies -a - b \leq a - b$,
+
+                    we have $|a + b| = -a - b \leq a - b = a + (-b) = |a| + |b|$.
+
+                    Thus, $|a + b| \leq |a| + |b|$.
+                  \item $a < 0, b < 0$
+
+                    Since $a < 0, b < 0, a + b < 0$.
+
+                    So $|a + b| = - (a + b) = -a - b$.
+
+                    Also, $|a| = -a$ and $|b| = -b$.
+
+                    So $|a + b| = -a - b = -a + (-b) = |a| + |b|$.
+
+                    Thus, $|a + b| \leq |a| + |b|$.
+                \end{enumerate}
+
+                Since these are all the possible cases,
+                we have proven by exhaustion that
+
+                $|a + b| \leq |a| + |b|$.
+              \end{proof}
+            \item
+              With real numbers $a, b$ we want to prove if $|a| \leq b$, then $-b \leq a \leq b$.
+
+              \begin{proof}
+                We prove this by cases.
+
+                \begin{enumerate}[label=Case \arabic*]
+                  \item $a \geq 0$
+
+                    Assume $|a| \leq b$.
+
+                    Since $a \geq 0$, we have $|a| = a$.
+
+                    Now, we know $|a| = a \leq b$.
+
+                    Also $0 \leq |a| = a \leq b \implies 0 \leq b$.
+                    And since both $a$ and $b$ are non-negative,
+                    $a + b$ is also non-negative.
+
+                    So we have $0 \leq a + b \implies -b \leq a$.
+
+                    Then we have both $-b \leq a$ and $a \leq b$ or $-b \leq a \leq b$.
+
+                    Thus if $|a| \leq b$, then $-b \leq a \leq b$.
+
+                  \item $a < 0$
+
+                    Assume $|a| \leq b$.
+
+                    Since $a < 0$, we have $|a| = -a$.
+
+                    Then, $|a| = -a \leq b \implies -a - b \leq 0 \implies -b \leq a$.
+
+                    Now, by the definition of absolute value, $|a| \leq b \implies 0 \leq b$.
+
+                    And $a < 0 \implies a < 0 \leq b \implies a < b \implies a \leq b$.
+
+                    Then we have both $-b \leq a$ and $a \leq b$ or $-b \leq a \leq b$.
+
+                    Thus if $|a| \leq b$, then $-b \leq a \leq b$.
+                \end{enumerate}
+
+                Since these are the only possible cases,
+                we have proved by exhaustion that:
+
+                If $|a| \leq b$, then $-b \leq a \leq b$.
+              \end{proof}
+            \item
+              With real numbers $a, b$ we want to prove if $-b \leq a \leq b$, then $|a| \leq b$.
+
+              \begin{proof}
+                We prove this by cases.
+
+                \begin{enumerate}[label=Case \arabic*]
+                  \item $a \geq 0$
+
+                    Assume $-b \leq a \leq b$.
+
+                    Since $a \geq 0$, we have $|a| = a$.
+
+                    We have $-b \leq a \leq b \implies a \leq b$.
+
+                    Then, $a = |a| \leq b$.
+
+                    Thus, if $-b \leq a \leq b$, then $|a| \leq b$.
+                  \item $a < 0$
+
+                    Assume $-b \leq a \leq b$.
+
+                    Since $a < 0$, we have $|a| = -a$.
+
+                    We have $-b \leq a \leq b \implies -b \leq a \implies -a - b \leq 0 \implies -a \leq b$.
+
+                    Then $-a = |a| \leq b$.
+
+                    Thus, if $-b \leq a \leq b$, then $|a| \leq b$.
+                \end{enumerate}
+
+                Since these are the only possible cases,
+                we have proved by exhaustion that:
+
+                If $-b \leq a \leq b$, then $|a| \leq b$.
+              \end{proof}
+          \end{enumerate}
+        \setcounter{enumii}{8}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{1}
+            \item
+              With integers $a, b, c$ we work backward to prove:
+
+              if $a$ divides $b$ and $a$ divides $b + c$, then $a$ divides $3c$.
+
+              If $a$ divides $3c$,
+              then there exists some integer $p$ such that $3c = ap \implies 3b + 3c = 3b + ap \implies 3(b + c) = 3b + ap$.
+
+              Now, if $a$ divides $b$, then there exists some integer $q$ such that $b = aq$.
+              And also, if $a$ divides $b + c$, then there exists some integer $r$ such that $b + c = ar$
+
+              So $3(b + c) = 3aq + ap \implies 3ar = 3aq + ap \implies 3r = 3q + p \implies 3r - 3q = p \implies 3(r - q) = p$.
+
+              Looks like we can construct a proof if we can assume $p = 3(r - q)$.
+
+              \begin{proof}
+                Assume $a$ divides $b$ and $a$ divides $b + c$.
+
+                These mean there exist integers $q, r$ such that $b = aq, b + c = ar$.
+
+                Now construct another integer $p = 3(r - q)$.
+
+                Then,
+                \begin{align*}
+                  3(r - q) &= p \\
+                  3a(r - q) &= ap \\
+                  3(ar - aq) &= ap \\
+                  3(b + c - b) &= ap \\
+                  3c &= ap \\
+                \end{align*}
+
+                So, we have that $a$ divides $3c$.
+
+                Thus, if $a$ divides $b$ and $a$ divides $b + c$, then $a$ divides $3c$.
+              \end{proof}
+            \item
+            \item
+              With the real number $x$ we work backward to prove:
+
+              if $x^3 + 2x^2 < 0$, then $2x + 5 < 11$.
+
+              We find $2x + 5 < 11 \implies 2x < 6 \implies x < 3$.
+
+              If we work a bit forward from the antecedent we see
+              $x^3 + 2x^2 < 0 \implies x + 2 < 0 \implies x < -2$.
+
+              Now, we should have enough to construct a proof.
+
+              \begin{proof}
+                Assume $x^3 + 2x^2 < 0$.
+
+                Then we have
+                $x^3 + 2x^2 < 0 \implies x + 2 < 0 \implies x < -2$.
+
+                Now, if $x$ is less than $-2$, then $x$ is also less than 3.
+
+                So we have $x < 3 \implies 2x < 6 \implies 2x + 5 < 11$.
+
+                Thus, if $x^3 + 2x^2 < 0$, then $2x + 5 < 11$.
+              \end{proof}
+          \end{enumerate}
+        \setcounter{enumii}{10}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{1}
+            \item
+              The claim is solid.
+
+              The proof has the correct idea, however, it is incorrect.
+
+              When constructing the factors of $c$,
+              a new integer should be chosen as otherwise,
+              $b$ and $c$ are the same integer.
+
+              While this is also a true claim,
+              it does not prove what the original claim suggests.
+
+              One way to fix the proof is as follows.
+
+              \begin{proof}
+                Suppose $a$ divides $b$ and $a$ divides $c$.
+                Then for some integer $q, b = a q$,
+                and for some integer $\mathbf{r}, c = ar$.
+
+                Then $b + c = aq + ar = a(q + r)$.
+                Since $q + r$ is also an integer, we rename $q + r = s$.
+                So $b + c = as$, and $a$ divides $b + c$.
+              \end{proof}
+
+              So on the scale of \textbf{A}, \textbf{C}, \textbf{F}, this proof gets a grade of \textbf{C}.
+
+            \setcounter{enumiii}{4}
+            \item
+              The claim is solid.
+
+              The proof is also correct.
+
+              So on the scale of \textbf{A}, \textbf{C}, \textbf{F}, this proof gets a grade of \textbf{A}.
+          \end{enumerate}
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \setcounter{enumii}{2}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{2}
+            \item
+              We want to show by contraposition:
+
+              if $x^2$ is not divisible by 4, then $x$ is odd.
+
+              The contrapositive of this statement is:
+
+              If $x$ is even, then $x^2$ is divisible by 4.
+
+              \begin{proof}
+                Assume $x$ is even.
+
+                Then there exists some integer $p$ such that $x = 2p$.
+
+                So $x^2 = (2p)^2 = 4p^2$.
+
+                Since $p$ is an integer, $p^2$ is also an integer.
+                So we can replace it with $p^2 = q$.
+
+                Then $x^2 = 4q$, meaning that 4 divides $x^2$,
+                or equivalently $x^2$ is divisible by 4.
+
+                Therefore, $x^2$ is divisible by 4.
+
+                Thus, if $x$ is even, then $x^2$ is divisible by 4.
+
+                Therefore, if $x^2$ is not divisible by 4, then $x$ is odd.
+              \end{proof}
+            \item
+
+              We want to show by contraposition:
+
+              if $xy$ is even, then either $x$ or $y$ is even.
+
+              The contrapositive of this statement is:
+
+              if $x$ and $y$ are both odd, then $xy$ is odd.
+
+              \begin{proof}
+                Assume both $x$ and $y$ odd.
+
+                Then there exists some integers $p, q$ such that $x = 2p + 1, y = 2q + 1$.
+
+                So $xy = (2p + 1)(2q + 1) = 4pq + 2p + 2q + 1 = 2(2pq + p + q) + 1$.
+
+                Since $2pq + p + q$ is an integer, we can replace it with $2pq + p + q = r$.
+
+                Then $xy = 2r + 1$.
+
+                Therefore, $xy$ is odd.
+
+                Thus, if $x$ and $y$ are both odd, then $xy$ is odd.
+
+                Therefore, if $xy$ is even, then either $x$ or $y$ is even.
+              \end{proof}
+          \end{enumerate}
+        \setcounter{enumii}{4}
+        \item
+        \item
+          \begin{enumerate}
+            \item
+            \item
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{2}
+            \item
+          \end{enumerate}
+        \setcounter{enumii}{10}
+        \item
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
