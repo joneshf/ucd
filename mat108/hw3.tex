@@ -17,6 +17,7 @@
 \usepackage{mathtools}
 \usepackage{pgfplots}
 \usepackage{subcaption}
+\usepackage{tabularx}
 \usepackage{tikz}
 \usepackage{titling}
 
@@ -302,6 +303,66 @@
                 Thus, if $a$ divides $b$ and $a$ divides $b + c$, then $a$ divides $3c$.
               \end{proof}
             \item
+              With integers $a, b, c$ and the real number $x$,
+              we work backward to prove:
+
+              if $ab > 0$ and $bc < 0$, then $ax^2 + bx + c = 0$ has two real solutions.
+
+              One way to prove this is to remember the quadratic formula:
+
+              $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$.
+
+              This has exactly two real solutions when $b^2 - 4ac$ is positive.
+
+              so we need $b^2 - 4ac > 0$.
+
+              We can see:
+              \begin{align*}
+                b^2 - 4ac &> 0 \\
+                b^2 &> 4ac \\
+                \frac{1}{4}b^2 &> ac \\
+                \frac{1}{4}b^2b^2 &> acb^2 \\
+                \frac{1}{4}b^2b^2 &> ab^2c \\
+                \frac{1}{4}b^2b^2 &> (ab)(bc) \\
+                \frac{1}{4}b^2b^2 \geq 0 &> (ab)(bc) \\
+              \end{align*}
+
+              Since $\frac{1}{4}, b^2, b^2$ are all non-negative,
+              we have the last inequality if $ab > 0$ and $bc < 0$.
+
+              Looks like we have some way to proceed.
+
+              \begin{proof}
+                Assume $ab > 0$ and $bc < 0$.
+
+                Then we know none of $a, b, c$ is 0.
+
+                We have
+
+                \begin{align*}
+                  (ab)(bc) &< 0 \\
+                  (ab)(bc) &< 0 \leq \frac{1}{4}b^2b^2 && \text{ since } b^2 \geq 0 \\
+                  (ab)(bc) &< \frac{1}{4}b^2b^2 \\
+                  ab^2c &< \frac{1}{4}b^2b^2 \\
+                  ac &< \frac{1}{4}b^2 \\
+                  4ac &< b^2 \\
+                  0 &< b^2 - 4ac \\
+                \end{align*}
+
+                Since $b^2 - 4ac > 0$ we know that
+                $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$
+                has exactly two real solutions.
+
+                These solutions are:
+                \[
+                  x_1 = \frac{-b + \sqrt{b^2 - 4ac}}{2a}
+                  ,
+                  x_2 = \frac{-b - \sqrt{b^2 - 4ac}}{2a}
+                \]
+
+                Thus,
+                if $ab > 0$ and $bc < 0$, then $ax^2 + bx + c = 0$ has two real solutions.
+              \end{proof}
             \item
               With the real number $x$ we work backward to prove:
 
@@ -430,18 +491,285 @@
           \end{enumerate}
         \setcounter{enumii}{4}
         \item
+          Given a circle with center $(2, 4)$.
+          \begin{enumerate}
+            \item
+              We want to prove that $(-1, 5), (5, 1)$ are not both on the circle.
+
+              We prove by contradiction.
+
+              \begin{proof}
+                Assume $(-1, 5), (5, 1)$ are both on the circle.
+
+                Then the distance from the center to each point must be the same.
+
+                The distance from the center to $(-1, 5)$ is:
+
+                \[
+                  \sqrt{\left(2 - (-1)\right)^2 + \left(4 - 5\right)^2}
+                  =
+                  \sqrt{3^2 + \left(-1\right)^2}
+                  =
+                  \sqrt{9 + 1}
+                  =
+                  \sqrt{10}.
+                \]
+
+                The distance from the center to $(5, 1)$ is:
+
+                \[
+                  \sqrt{\left(2 - 5\right)^2 + \left(4 - 1\right)^2}
+                  =
+                  \sqrt{\left(-3\right)^2 + 3^2}
+                  =
+                  \sqrt{9 + 9}
+                  =
+                  \sqrt{18}.
+                \]
+
+                But $\sqrt{10} \neq \sqrt{18}$.
+
+                Thus, the distance from the center to $(-1, 5)$ and $(5, 1)$ is not the same.
+
+                So we have a contradiction.
+
+                Then our assumption was incorrect.
+
+                Thus, $(-1, 5), (5, 1)$ are not both on the circle.
+              \end{proof}
+            \item
+              We want to prove:
+
+              if the radius is less than 5,
+              then the circle does not intersect the line $y = x - 6$.
+
+              We prove by contradiction.
+
+              \begin{proof}
+                Assume the statement is false.
+
+                That is,
+                the radius is less than 5 and the circle intersects the line $y = x - 6$.
+
+                If the radius is less than 5,
+                then the distance from the center $(2, 4)$ to any point $(x, y)$ must be less than 5.
+
+                That is:
+
+                \[
+                  \sqrt{(x - 2)^2 + (y - 4)^2} < 5
+                \]
+
+                Since we also have $y = x - 6$, we can substitute and simplify
+
+                \begin{align*}
+                  \sqrt{(x - 2)^2 + (y - 4)^2} &< 5 \\
+                  \sqrt{(x - 2)^2 + ((x - 6) - 4)^2} &< 5 \\
+                  \sqrt{(x - 2)^2 + (x - 10)^2} &< 5 \\
+                  (x - 2)^2 + (x - 10)^2 &< 25 \\
+                  (x^2 - 4x + 4) + (x^2 - 20x + 100) &< 25 \\
+                  2x^2 - 24x + 104 &< 25 \\
+                  2x^2 - 24x &< -79 \\
+                  x^2 - 12x &< \frac{-79}{2} \\
+                  x^2 - 12x + 36 &< \frac{-79}{2} + 36 \\
+                  x^2 - 12x + 36 &< \frac{-79}{2} + \frac{72}{2} \\
+                  x^2 - 12x + 36 &< \frac{-7}{2} \\
+                  (x - 6)(x - 6) &< \frac{-7}{2} \\
+                  (x - 6)^2 &< \frac{-7}{2} \\
+                \end{align*}
+
+                So we have $(x - 6)^2 < \frac{-7}{2} < 0$
+
+                But we know that for any real number $x$, $x^2 \geq 0$.
+
+                Since $x - 6$ is a real number, we have a contradiction,
+                namely $(x - 6)^2 < 0$ and $(x - 6)^2 \geq 0$.
+
+                Then our assumption must have been incorrect,
+                and the original statement must in fact be true.
+
+                Thus,
+                if the radius is less than 5,
+                then the circle does not intersect the line $y = x - 6$.
+              \end{proof}
+            \item
+              We want to prove:
+
+              if $(0, 3)$ is not inside the circle,
+              then $(3, 1)$ is not inside the circle.
+
+              \begin{proof}
+                Assume $(0, 3)$ is not inside the circle.
+
+                This means that the radius $r$, of the circle with center $(2, 4)$ is less than the distance to $(0, 3)$.
+
+                We can create an equation for the circle by computing the radius as the distance from the center to any point $(x, y)$ on the circle:
+
+                \[
+                  \sqrt{(x - 2)^2 + (y - 4)^2} = r
+                \]
+
+                So we know that the distance from the center to $(0, 3)$ is greater than $r$,
+                otherwise, $(0, 3)$ would be inside the circle.
+
+                That is:
+
+                \begin{align*}
+                  \sqrt{(0 - 2)^2 + (3 - 4)^2} &> r \\
+                  \sqrt{(- 2)^2 + (-1)^2} &> r \\
+                  \sqrt{4 + 1} &> r \\
+                  \sqrt{5} &> r \\
+                \end{align*}
+
+                Now, we can compute the distance from the center of the circle to the point $(3, 1)$.
+
+                \begin{align*}
+                  \sqrt{(3 - 2)^2 + (1 - 4)^2} &= \sqrt{1^2 + (-3)^2} \\
+                  &= \sqrt{1 + 9} \\
+                  &= \sqrt{10} \\
+                \end{align*}
+
+                Now, since $\sqrt{10} > \sqrt{5} > r$ we know that the point $(3, 1)$ is not inside the circle either.
+
+                Thus
+                if $(0, 3)$ is not inside the circle,
+                then $(3, 1)$ is not inside the circle.
+              \end{proof}
+          \end{enumerate}
         \item
           \begin{enumerate}
             \item
+              With positive integers $a, b$,
+              we want to prove by contradiction:
+
+              if $a$ divides $b$, then $a \leq b$.
+
+              \begin{proof}
+                Assume the statement
+                \textit{if $a$ divides $b$, then $a \leq b$} is false.
+
+                So we assume $a$ divides $b$ and $a > b$.
+
+                Since we have $a$ divides $b$,
+                then there exists some integer $p$ such that $b = ap$.
+
+                Since both $a$ and $b$ are positive integers,
+                $p$ must also be a positive integer,
+                otherwise $b = ap$ would be less than or equal to 0.
+
+                Therefore, $p > 0$.
+
+                Since we assumed $a > b$,
+                we have $b = ap > bp \implies b > bp \implies 1 > p \implies 0 \geq p$.
+
+                Therefore, $p \leq 0$,
+
+                Hence, $p > 0$ and $p \leq 0$ is a contradiction.
+
+                Since we assumed a statement and used all true statements to arrive at this contradiction, our assumption was false.
+
+                That is, the statement
+                \textit{if $a$ divides $b$, then $a \leq b$} is true.
+
+                Thus,
+                if $a$ divides $b$, then $a \leq b$.
+              \end{proof}
             \item
+              With positive integers $a, b$,
+              we want to prove by contradiction:
+
+              if $ab$ is odd, then both $a$ and $b$ are odd.
+
+              \begin{proof}
+                Assume the statement
+                \textit{if $ab$ is odd, then both $a$ and $b$ are odd} is false.
+
+                So we assume $ab$ is odd and one of $a, b$ is odd while the other even.
+
+                We use the result of the proof from $\S 1.4.5$ (i) above,
+                namely,
+                with integers $x, y$ if $x$ is even and $y$ is odd, then $xy$ is even.
+
+                If we have $a$ odd and $b$ even, then $ab$ is even.
+                If we have $b$ odd and $a$ even, then $ba = ab$ is even.
+
+                In either case, we have a contradiction since we assumed $ab$ is odd.
+
+                Since we assumed one statement, and used all true statements to arrive at this contradiction, our assumption was false.
+
+                That is, the statement
+                \textit{if $ab$ is odd, then both $a$ and $b$ are odd} is true.
+
+                Thus,
+                if $ab$ is odd, then both $a$ and $b$ are odd.
+              \end{proof}
           \end{enumerate}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{2}
             \item
+              With positive integer $a$, we want to prove:
+              $a$ is odd if and only if $a + 1$ is even.
+
+              \begin{proof}
+
+                Assume $a$ is odd.
+
+                \begin{tabularx}{0.95\linewidth}{l@{}c@{}X}
+                  $a$ is odd & $\iff$ & there exists some integer $p$ such that $a = 2p + 1$.               \\
+                             & $\iff$ & $a + 1 = (2p + 1) + 1 = 2p + 2 = 2(p + 1)$                          \\
+                             & $\iff$ & $a + 1 = 2(p + 1) = 2q$ where $p + 1 = q$ for integers $p, q$. \\
+                             & $\iff$ & there exists some integer $q$ such that $a + 1 = 2q$.               \\
+                             & $\iff$ & $a + 1$ is even.                                                    \\
+                \end{tabularx}
+
+                Since we started with $a$ is odd, and arrived at $a + 1$ is even
+                through only biconditional statements we have proved:
+
+                $a$ is odd if and only if $a + 1$ is even.
+              \end{proof}
           \end{enumerate}
         \setcounter{enumii}{10}
         \item
+          With real numbers $x, y, z$ such that $0 < x < y < z < 1$,
+
+          we want to prove:
+
+          at least two of the numbers are within $\frac{1}{2}$ of each other.
+
+          The statement is saying that one of the following are true:
+
+          Either $y - x < \frac{1}{2}$ or $z - y < \frac{1}{2}$.
+
+          We prove by contradiction.
+          \begin{proof}
+            Suppose not.
+
+            Assume it is not the case that
+
+            at least two of the numbers are within $\frac{1}{2}$ of each other.
+
+            That is,
+            both $y - x \geq \frac{1}{2}$ and $z - y \geq \frac{1}{2}$.
+
+            Then
+
+            \begin{align*}
+              (z - y) + (y - x) &\geq \frac{1}{2} + \frac{1}{2} = 1 \\
+              z - y + y - x &\geq 1 \\
+              z - x &\geq 1 \\
+            \end{align*}
+
+            But we also have
+            $z < 1 \implies z < 1 < 1 + x \implies z < 1 + x \implies z - x < 1$.
+
+            Since we have both $z - x \geq 1$ and $z - x < 1$, we have a contradiction.
+
+            Then our assumption was false.
+
+            Thus,
+            at least two of the numbers are within $\frac{1}{2}$ of each other.
+          \end{proof}
       \end{enumerate}
   \end{enumerate}
 \end{document}
