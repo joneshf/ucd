@@ -1,0 +1,344 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\epsdelta[5]{
+  We want to prove:
+  \[
+    \lim_{x \to #1} #2 = #3
+  \]
+
+  \begin{proof}
+    Given $\epsilon > 0$,
+    we want to find $\delta > 0$ such that
+
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \].
+
+    #5
+
+    So, choose $\delta = #4$.
+
+    Then we have
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \]
+    as was to be shown.
+  \end{proof}
+}
+\newcommand\epsdeltaconsequent[5]{
+  \epsdelta{#1}{#2}{#3}{#4}{
+    We can simplify the consequent a bit.
+
+    #5
+
+    If we notice, this is exactly the form of the antecedent,
+    assuming $\delta = #4$.
+  }
+}
+\newcommand\e{e}
+\newcommand\uc{uniformly continuous }
+
+\renewcommand{\labelenumi}{4.\arabic*}
+\renewcommand{\labelenumii}{\arabic*}
+\renewcommand{\labelenumiii}{(\alph*)}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 125A HW 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Slivken\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \setcounter{enumi}{3}
+    \item
+      \begin{enumerate}
+        \setcounter{enumii}{3}
+        \item
+
+          \begin{proof}
+            Assume $f$ is continuous on $[a, b]$ and for all $x \in [a, b], f(x) > 0$.
+
+            So we have $[a, b]$ is compact,
+            then we know that $f$ is compact on $[a, b]$, since $f$ is continuous on $[a, b]$.
+
+            By the extreme value theorem, $f$ has a minimum and maximum value.
+            So there is some $x_0 \in [a, b]$ such that for all $x \in [a, b], f(x_0) \leq f(x)$.
+
+            Now, since we know for all $x \in [a, b], f(x) > 0$,
+
+            we have $f(x_0) \leq f(x) \implies \frac{1}{f(x)} \leq \frac{1}{f(x_0)}$.
+
+            Then for all $x \in [a, b], \frac{1}{f(x)}$ is bounded by $\frac{1}{f(x_0)}$.
+          \end{proof}
+        \setcounter{enumii}{5}
+        \item
+          \begin{enumerate}
+            \item
+              Let $f(x) = \frac{1}{x}$.
+              This function is continuous on $(0, 1)$.
+
+              If we take the sequence $(x_n) = \frac{1}{n}$,
+              then $(x_n)$ is Cauchy.
+
+              But $f(x_n) = \frac{1}{\frac{1}{n}} = n$, and this sequence is unbounded.
+              So it is not Cauchy.
+            \item
+            \item
+            \item
+              Let $f(x) = -\left(x - \frac{1}{2}\right)^2$.
+
+              Then $f$ has a maximum at the root of the polynomial, but no minimum value.
+          \end{enumerate}
+        \setcounter{enumii}{7}
+        \item
+          \begin{enumerate}
+            \item
+              We want to show
+              if there exists some $b > 0$ such that $f$ is \uc on $[b, \infty)$,
+              then $f$ is \uc on $[0, \infty)$.
+              \begin{proof}
+                Given $f : [0, \infty) \to \mathbb{R}$ is continuous at every point in $[0, \infty)$.
+
+                Assume that $f$ is not \uc on $[0, \infty)$,
+                then we want to show that for any $b > 0$ $f$ is not \uc on $[b, \infty)$.
+
+                We can rephrase the first part as:
+
+                There exists some $\epsilon_0 > 0$ such that for all $\delta_0 > 0$,
+                $|x - y| < \delta_0$ and $|f(x) - f(y)| \geq \epsilon_0$.
+
+                And the second part as for any $b > 0$, there exists some $\epsilon_1 > 0$ such that
+                for all $\delta_1 > 0$,
+                $|x - y| < \delta_1$ and $|f(x) - f(y)| \geq \epsilon_1$.
+
+                If we choose $\epsilon_0 = \epsilon_1$,
+                then for any $\delta_1 > 0$ there exists some $0 < \delta_0 < \delta_1$,
+
+                where $|x - y| < \delta_0$ and $|f(x) - f(y)| \geq \epsilon_0$.
+
+                Then we have that $f$ is not \uc, as we desired.
+
+                Thus, by contraposition:
+
+
+                Given $f : [0, \infty) \to \mathbb{R}$ is continuous at every point in $[0, \infty)$,
+                if there exists some $b > 0$ such that $f$ is \uc on $[b, \infty)$,
+                then $f$ is \uc on $[0, \infty)$.
+              \end{proof}
+            \item
+              \begin{proof}
+                From part (a), we need an interval $[b, \infty)$ with $f$ continuous at every point.
+
+                If we choose $b = 1$,
+                then for any $\epsilon > 0$ we can choose $\delta = \epsilon$.
+
+                We also know that $\sqrt{x} + \sqrt{y} \geq 1 + 1 = 2$
+
+                Now,
+
+                \begin{align*}
+                  |x - y| &< \epsilon \\
+                  |\sqrt{x} - \sqrt{y}||\sqrt{x} + \sqrt{y}| &< \epsilon \\
+                  |\sqrt{x} - \sqrt{y}| &< \frac{\epsilon}{|\sqrt{x} + \sqrt{y}|} \\
+                  |\sqrt{x} - \sqrt{y}| &\leq \frac{\epsilon}{2} \\
+                  |\sqrt{x} - \sqrt{y}| &< \epsilon \\
+                \end{align*}
+
+                So $f$ is \uc on $[1, \infty)$.
+
+                From part (a), we conclude that $f$ is \uc on $[0, \infty)$.
+
+                Thus, $f(x) = \sqrt{x}$ \uc on $[0, \infty)$.
+              \end{proof}
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \item
+              \begin{proof}
+                Assume $f : A \to \mathbb{R}$ is Lipschitz.
+
+                Then there exists some $M > 0$ such that for all $x, y \in A$,
+
+                \[\left|\frac{f(x) - f(y)}{x - y}\right| \leq M\].
+
+                For any $\epsilon > 0$, choose $\delta = \frac{\epsilon}{M}$.
+
+                Then, when $|x - y| < \delta$,
+
+                \begin{align*}
+                  \left|\frac{f(x) - f(y)}{x - y}\right| &\leq M \\
+                  \frac{\left|f(x) - f(y)\right|}{\left|x - y\right|} &\leq M \\
+                  \left|f(x) - f(y)\right| &\leq \left|x - y\right|M \\
+                  \left|f(x) - f(y)\right| &< \frac{\epsilon}{M}M \\
+                  \left|f(x) - f(y)\right| &< \epsilon \\
+                \end{align*}
+
+                So, $f$ is \uc.
+
+                Thus, if $f : A \to \mathbb{R}$ is Lipschitz,
+                then $f$ is \uc.
+              \end{proof}
+            \item
+              No, not all \uc functions are Lipschitz.
+
+              Let $f(x) = \sqrt{x}$ on $[0, \infty)$, then we know this is \uc by a problem above.
+
+              But if $y = 0$ then
+
+              \[
+                \left|\frac{\sqrt{x} - \sqrt{0}}{x - 0}\right|
+                =
+                \left|\frac{\sqrt{x}}{x}\right|
+                =
+                \frac{\sqrt{x}}{x}
+              \]
+
+              and this grows unbounded when $x \to 0$.
+
+              So $f$ is not Lipschitz.
+          \end{enumerate}
+        \setcounter{enumii}{12}
+        \item
+          \begin{enumerate}
+            \item
+              \begin{proof}
+                Assume $f : A \to \mathbb{R}$ is \uc,
+                and $(x_n) \subseteq A$ is Cauchy.
+
+                Then we have,
+                for all $\epsilon > 0$ there exists some $\delta > 0$ such that,
+                if $|x - y| < \delta$ then $|f(x) - f(y)| < \epsilon$.
+
+                And also,
+                for all $\epsilon > 0$ there exists some $N \in \mathbb{N}$ such that,
+                for all $m, n \geq N, |x_m - x_n| < \epsilon$.
+
+                So, given some $\epsilon > 0$, choose $\delta = \epsilon$.
+
+                Since $(x_n)$ is Cauchy, there exists $N_0 \in \mathbb{N}$ such that,
+                for all $m, n \geq N, |x_m - x_n| < \delta$.
+
+                And since we know $f$ is \uc, we have $|f(x_m) - f(x_n)| < \epsilon$.
+
+                So $f(x_n)$ is also Cauchy.
+              \end{proof}
+            \item
+              \begin{proof}
+                We need to prove both directions.
+
+                \begin{itemize}
+                  \item $(\Longrightarrow)$
+
+                  \item $(\Longleftarrow)$
+
+                    Since $g$ is continuous and $[a, b]$ is compact,
+                    $g$ is \uc on $[a, b]$.
+
+                    And Since $(a, b) \subseteq [a, b]$, $g$ is \uc on $(a, b)$.
+                \end{itemize}
+              \end{proof}
+          \end{enumerate}
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          \begin{proof}
+            The closed interval $[a, b] = E$ is connected.
+
+            Given Theorem 4.5.2, $f(E)$ is also connected.
+
+            If we have some $L$ between $f(a)$ and $f(b)$,
+            then $L \in f(E)$.
+            And if $L \in f(E)$ there must be some $c \in E$ such that $f(c) = L$.
+
+            This is the Intermediate Value Theorem.
+          \end{proof}
+        \item
+          \begin{enumerate}
+            \item False.
+
+              Let $f(x) = \frac{1}{x}$.
+
+              Then on the bounded open interval $(0, 1)$,
+              the range of $f$ is $(0, \infty)$, which is unbounded.
+            \item False.
+
+              Let $f(x) = x^2$.
+
+              Then on the bounded open interval $(-1, 1)$,
+              the range of $f$ is $[0, 1)$, which is a not an open set.
+            \item True.
+
+              Let $f$ be continuous on a bounded closed interval $A$.
+              Then this interval is compact, and so $f(A)$ is also compact.
+
+              And since $f(A)$ is compact, $f(A)$ is an interval.
+          \end{enumerate}
+        \setcounter{enumii}{6}
+        \item
+          \begin{proof}
+            Assume $f$ is continuous on $[0, 1]$.
+            We can construct a function $g(x) = x$ which is also continuous with the same domain and range.
+
+            $g$ is continuous if we take $\epsilon = \delta$ for any $\epsilon > 0$, then $|x - y| < \delta = \epsilon$.
+
+            Then we can construct another continuous function, $h(x) = f(x) - g(x)$.
+
+            Now $h(x)$ has domain $[0, 1]$ and range $[-1, 1]$.
+
+            Where at $x = 0$, $h(0) = f(0) - g(0) = f(0)$ so $h(0) \in [0, 1]$.
+            And at $x = 1$, $h(1) = f(1) - g(1) = f(1) - 1$ so $h(1) \in [-1, 0]$.
+
+            So by the Intermediate Value Theorem, there must exist some $c \in [0, 1]$
+            such that $h(c) = 0 = f(c) - g(c) \implies f(c) = g(c) \implies f(c) = c$.
+          \end{proof}
+      \end{enumerate}
+    % \item
+    %   \begin{enumerate}
+    %     \setcounter{enumii}{3}
+    %     \item
+    %     \item
+    %     \setcounter{enumii}{8}
+    %     \item
+    %     \item
+    %   \end{enumerate}
+  \end{enumerate}
+\end{document}
