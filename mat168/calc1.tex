@@ -1,0 +1,289 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{systeme}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\usetikzlibrary{intersections}
+\usetikzlibrary{patterns}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand*\circled[1]{
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};
+  }
+}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand*\constant[1]{
+  Each product has a different #1,
+  but these are constant values not constrained by anything else in the process.
+}
+
+\newcommand*\genericconstraint[2]{
+  Each product has a #1 constraint on #2.
+}
+
+\newcommand*\maximumconstraint[1]{
+  \genericconstraint{maximum}{#1}
+}
+
+\newcommand*\minimumconstraint[1]{
+  \genericconstraint{minimum}{#1}
+}
+
+\newcommand*\genericobjective[2]{
+  The objective is to #1 #2.
+}
+
+\newcommand*\maximumobjective[1]{
+  \genericobjective{maximum}{#1}
+}
+
+\newcommand*\minimumobjective[1]{
+  \genericobjective{minimum}{#1}
+}
+
+% Simplex commands
+
+\newcommand*\continueopt[1]{
+  Now, we can continue optimizing since #1 has a positive coefficient.
+}
+
+\newcommand*\enterexit[2]{
+  So we can let #1 enter and #2 exit.
+}
+
+\newcommand*\morerestrictive[2]{
+  The more restrictive constraint is that #1 $\leq$ #2, so set #1 $=$ #2.
+}
+
+\newcommand*\newdict{
+  So we have a new dictionary:
+}
+
+\newcommand*\newvalue[1]{
+  This gives a new value for #1.
+}
+
+\lstdefinelanguage{zimpl}{
+  morekeywords={forall,in,maximize,minimize,param,set,subto,sum,var},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+}
+\lstset{basicstyle=\scriptsize, frame=single, language=zimpl}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 168 Calculation 1\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor K\"{o}ppe\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [2.1]
+      We first start by rewriting as a dictionary:
+
+      \begin{alignat*}{17}
+        \text{maximize}   \quad & \zeta & {}={} & 0 & {}+{} & 6 & x_1 & {}+{} & 8 & x_2 & {}+{} & 5 & x_3 & {}+{} & 9 & x_4 \\
+        \text{subject to} \quad & x_5   & {}={} & 5 & {}-{} & 2 & x_1 & {}-{} &   & x_2 & {}-{} &   & x_3 & {}-{} & 3 & x_4 \\
+                                & x_6   & {}={} & 3 & {}-{} &   & x_1 & {}-{} & 3 & x_2 & {}-{} &   & x_3 & {}-{} & 2 & x_4 \\
+      \end{alignat*}
+
+      Then we can begin by entering with the largest variable, $x_4$.
+
+      We look at the constraints and see:
+      \begin{itemize}
+        \item $x_5 \implies x_4 \leq \frac{5}{3}$
+        \item $x_6 \implies x_4 \leq \frac{3}{2}$
+      \end{itemize}
+
+      \morerestrictive{$x_4$}{$\frac{3}{2}$}
+
+      \enterexit{$x_4$}{$x_6$}
+
+      \[
+        x_4 = \frac{3}{2} - \frac{1}{2}x_1 - \frac{3}{2}x_2 - \frac{1}{2}x_3 - \frac{1}{2}x_6
+      \]
+
+      \newvalue{$x_5$}
+
+      \[
+        x_5 = \frac{1}{2} - \frac{1}{2}x_1 + \frac{7}{2}x_2 + \frac{1}{2}x_3 + \frac{3}{2}x_6
+      \]
+
+      \newvalue{$\zeta$}
+
+      \[
+        \zeta = \frac{27}{2} + \frac{3}{2}x_1 - \frac{11}{2}x_2 + \frac{1}{2}x_3 - \frac{9}{2}x_6
+      \]
+
+      \newdict
+
+      \begin{alignat*}{17}
+        \text{maximize}   \quad & \zeta & {}={} & \frac{27}{2} & {}+{} & \frac{3}{2} & x_1 & {}-{} & \frac{11}{2} & x_2 & {}+{} & \frac{1}{2} & x_3 & {}-{} & \frac{9}{2} & x_6 \\
+        \text{subject to} \quad & x_5   & {}={} & \frac{1}{2}  & {}-{} & \frac{1}{2} & x_1 & {}+{} & \frac{7}{2}  & x_2 & {}+{} & \frac{1}{2} & x_3 & {}+{} & \frac{3}{2} & x_6 \\
+                                & x_4   & {}={} & \frac{3}{2}  & {}-{} & \frac{1}{2} & x_1 & {}-{} & \frac{3}{2}  & x_2 & {}-{} & \frac{1}{2} & x_3 & {}-{} & \frac{1}{2} & x_6 \\
+      \end{alignat*}
+
+      \continueopt{$x_1$}
+
+      We look at the constraints and see:
+      \begin{itemize}
+        \item $x_5 \implies x_1 \leq 1$
+        \item $x_4 \implies x_1 \leq 3$
+      \end{itemize}
+
+      \morerestrictive{$x_1$}{$1$}
+
+      \enterexit{$x_1$}{$x_5$}
+
+      \[
+        x_1 = 1 + 7x_2 + x_3 + 3x_6 - 2x_5
+      \]
+
+      \newvalue{$x_4$}
+
+      \[
+        x_4 = 1 - 5x_2 - x_3 - 2x_6 + x_5
+      \]
+
+      \newvalue{$\zeta$}
+
+      \[
+        \zeta = 15 + 5x_2 + 2x_3 - 3x_5
+      \]
+
+      \newdict
+
+      \begin{alignat*}{17}
+        \text{maximize}   \quad & \zeta & {}={} & 15 & {}+{} & 5 & x_2 & {}+{} & 2 & x_3 &       &   &     & {}-{} & 3 & x_5 \\
+        \text{subject to} \quad & x_1   & {}={} & 1  & {}+{} & 7 & x_2 & {}+{} &   & x_3 & {}+{} & 3 & x_6 & {}-{} & 2 & x_5 \\
+                                & x_4   & {}={} & 1  & {}-{} & 5 & x_2 & {}-{} &   & x_3 & {}-{} & 2 & x_6 & {}+{} &   & x_5 \\
+      \end{alignat*}
+
+      \continueopt{$x_2$}
+
+      We look at the constraints and see:
+      \begin{itemize}
+        \item $x_1 \implies x_2 \geq 0$
+        \item $x_4 \implies x_2 \leq \frac{1}{5}$
+      \end{itemize}
+
+      \morerestrictive{$x_2$}{$\frac{1}{5}$}
+
+      \enterexit{$x_2$}{$x_4$}
+
+      \[
+        x_2 = \frac{1}{5} - \frac{1}{5}x_4 - \frac{1}{5}x_3 - \frac{2}{5}x_6 + \frac{1}{5}x_5
+      \]
+
+      \newvalue{$x_1$}
+
+      \[
+        x_1 = \frac{12}{5} - \frac{7}{5}x_4 - \frac{2}{5}x_3 + \frac{1}{5}x_6 - \frac{3}{5}x_5
+      \]
+
+      \newvalue{$\zeta$}
+
+      \[
+        \zeta = 16 - x_4 + x_3 - 2x_6 - 2x_5
+      \]
+
+      \newdict
+
+      \begin{alignat*}{17}
+        \text{maximize}   \quad & \zeta & {}={} & 16           & {}-{} &             & x_4 & {}+{} &             & x_3 & {}-{} & 2           & x_6 & {}-{} & 2            & x_5 \\
+        \text{subject to} \quad & x_1   & {}={} & \frac{12}{5} & {}-{} & \frac{7}{5} & x_4 & {}-{} & \frac{2}{5} & x_3 & {}+{} & \frac{1}{5} & x_6 & {}-{} & \frac{3}{5} & x_5 \\
+                                & x_2   & {}={} & \frac{1}{5}  & {}-{} & \frac{1}{5} & x_4 & {}-{} & \frac{1}{5} & x_3 & {}-{} & \frac{2}{5} & x_6 & {}+{} & \frac{1}{5} & x_5 \\
+      \end{alignat*}
+
+      \continueopt{$x_3$}
+
+      We look at the constraints and see:
+      \begin{itemize}
+        \item $x_1 \implies x_3 \leq 6$
+        \item $x_2 \implies x_3 \leq 1$
+      \end{itemize}
+
+      \morerestrictive{$x_3$}{$1$}
+
+      \enterexit{$x_3$}{$x_2$}
+
+      \[
+        x_3 = 1 - x_4 - 5x_2 - 2x_6 + x_5
+      \]
+
+      \newvalue{$x_1$}
+
+      \[
+        x_1 = 2 - x_4 + 2x_2 + x_6 - x_5
+      \]
+
+      \newvalue{$\zeta$}
+
+      \[
+        \zeta = 17 - 2x_4 - 5x_2 - 4x_6 - x_5
+      \]
+
+      \newdict
+
+      \begin{alignat*}{17}
+        \text{maximize}   \quad & \zeta & {}={} & 17 & {}-{} & 2 & x_4 & {}-{} & 5 & x_2 & {}-{} & 4 & x_6 & {}-{} &  & x_5 \\
+        \text{subject to} \quad & x_1   & {}={} & 2  & {}-{} &   & x_4 & {}+{} & 2 & x_2 & {}+{} &   & x_6 & {}-{} &  & x_5 \\
+                                & x_3   & {}={} & 1  & {}-{} &   & x_4 & {}-{} & 5 & x_2 & {}-{} & 2 & x_6 & {}+{} &  & x_5 \\
+      \end{alignat*}
+
+      Since we have no more optimizable variables
+      (all variable coefficients of $\zeta$ are non-positive),
+      we can no longer maximize $\zeta$.
+
+      Then we have an optimal solution with $x_1 = 2, x_3 = 1, x_2 = x_4 = x_5 = x_6 = 0$,
+      and value 17.
+    \item [2.2]
+    \item [2.3]
+  \end{enumerate}
+\end{document}

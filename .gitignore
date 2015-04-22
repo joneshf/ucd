@@ -13,6 +13,7 @@ octave-workspace
 *.zip
 *.pdf
 !hw[[:digit:]].pdf
+!calc[[:digit:]].pdf
 czt
 *~
 ecs122a/gusfield
