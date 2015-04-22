@@ -284,6 +284,74 @@
       Then we have an optimal solution with $x_1 = 2, x_3 = 1, x_2 = x_4 = x_5 = x_6 = 0$,
       and value 17.
     \item [2.2]
+      We first start by rewriting as a dictionary:
+
+      \begin{alignat*}{17}
+        \text{maximize}   \quad & \zeta & {}={} & 0 & {}+{} & 2 & x_1 & {}+{} &   & x_2 \\
+        \text{subject to} \quad & x_3   & {}={} & 4 & {}-{} & 2 & x_1 & {}-{} &   & x_2 \\
+                                & x_4   & {}={} & 3 & {}-{} & 2 & x_1 & {}-{} & 3 & x_2 \\
+                                & x_5   & {}={} & 5 & {}-{} & 4 & x_1 & {}-{} &   & x_2 \\
+                                & x_6   & {}={} & 1 & {}-{} &   & x_1 & {}-{} & 5 & x_2 \\
+      \end{alignat*}
+
+      Then we can begin by entering with the largest variable, $x_1$.
+
+      We look at the constraints and see:
+      \begin{itemize}
+        \item $x_3 \implies x_1 \leq 2$
+        \item $x_4 \implies x_1 \leq \frac{3}{2}$
+        \item $x_5 \implies x_1 \leq \frac{5}{4}$
+        \item $x_6 \implies x_1 \leq 1$
+      \end{itemize}
+
+      \morerestrictive{$x_1$}{$1$}
+
+      \enterexit{$x_1$}{$x_6$}
+
+      \[
+        x_1 = 1 + 5x_2 - x_6
+      \]
+
+      \newvalue{$x_3$}
+
+      \[
+        x_3 = 2 - 9x_2 + 2x_6
+      \]
+
+      \newvalue{$x_4$}
+
+      \[
+        x_4 = 1 + 7x_2 + 2x_6
+      \]
+
+      \newvalue{$x_5$}
+
+      \[
+        x_5 = 1 + 19x_2 + 4x_6
+      \]
+
+      \newvalue{$\zeta$}
+
+      \[
+        \zeta = 2 - 9x_2 - 2x_6
+      \]
+
+      \newdict
+
+      \begin{alignat*}{17}
+        \text{maximize}   \quad & \zeta & {}={} & 2 & {}-{} & 9  & x_2 & {}-{} & 2 & x_6 \\
+        \text{subject to} \quad & x_3   & {}={} & 2 & {}-{} & 9  & x_2 & {}+{} & 2 & x_6 \\
+                                & x_4   & {}={} & 1 & {}+{} & 7  & x_2 & {}+{} & 2 & x_6 \\
+                                & x_5   & {}={} & 1 & {}+{} & 19 & x_2 & {}+{} & 4 & x_6 \\
+                                & x_1   & {}={} & 1 & {}+{} & 5  & x_2 & {}-{} &   & x_6 \\
+      \end{alignat*}
+
+      Since we have no more optimizable variables
+      (all variable coefficients of $\zeta$ are non-positive),
+      we can no longer maximize $\zeta$.
+
+      Then we have an optimal solution with $x_1 = 1, x_2 = x_3 = x_4 = x_5 = x_6 = 0$,
+      and value 2.
     \item [2.3]
   \end{enumerate}
 \end{document}
