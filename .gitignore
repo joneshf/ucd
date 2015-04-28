@@ -22,3 +22,4 @@ ecs165a/hw4/**/*.csv
 ecs165a/hw4/**/*.CSV
 ecs171/proj
 dist
+*.ptb

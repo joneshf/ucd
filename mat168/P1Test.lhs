@@ -134,3 +134,7 @@ the distance between the first two nodes should be 492 km.
 
 Having all of these properties hold
 gives us some confidence that we've constructed a valid program.
+
+We can see this in action by running on the terminal:
+
+![runit](p1test.png)

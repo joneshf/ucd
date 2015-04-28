@@ -22,3 +22,8 @@ subto seating_limit: forall <fare, flight> in Fare * Flight:
     passenger[fare, flight] <= seating[fare, flight];
 subto flight_limit: forall <flight> in Flight:
     (sum <fare> in Fare: passenger[fare, flight]) <= 30;
+
+sos s1: type1: 100 * x[1] + 200 * x[2] + 400 * x[3];
+sos s2: type2 priority 100 : sum <i> in I: a[i] * x[i];
+sos s3: forall <i> in I with i > 2:
+type1: (100 + i) * x[i] + i * x[i-1];
