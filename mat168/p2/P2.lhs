@@ -24,6 +24,7 @@ And also for lens generation:
 > {-# LANGUAGE FlexibleInstances #-}
 > {-# LANGUAGE GADTs #-}
 > {-# LANGUAGE KindSignatures #-}
+> {-# LANGUAGE RankNTypes #-}
 > {-# LANGUAGE TemplateHaskell #-}
 > {-# LANGUAGE TypeSynonymInstances #-}
 
@@ -36,16 +37,19 @@ We import a whole mess of helper things
 > import Control.Lens -- ((^.), makeLenses, to)
 > import Control.Applicative
 
+> import Data.Foldable (for_)
+> import Data.List (sort)
 > import Data.Tuple (swap)
 > import Data.Typeable (Typeable)
 
-> import System.FilePath ((</>))
+> import System.FilePath (takeFileName)
+> import System.FilePath.Glob (glob)
 
 > import Text.Parsec ( anyChar, endOfLine, manyTill, spaces
 >                    , string, try
 >                    )
 > import Text.Parsec.String (Parser, parseFromFile)
-> import Text.ParserCombinators.Parsec.Number ( fractional2, nat
+> import Text.ParserCombinators.Parsec.Number ( floating2, nat
 >                                             , sign
 >                                             )
 > import Text.Printf (PrintfType, printf)
@@ -104,6 +108,11 @@ And of course generate some lenses so we don't end up doing too much work oursel
 
 > makeLenses ''Node
 
+We also want a sum of the possible lists of nodes.
+
+> data Nodes = GEOS [Node 'GEO]
+>            | EUC_2DS [Node 'EUC_2D]
+
 For each tagged type, we need a different distance function.
 Since this is the only thing that changes in the whole algorithm,
 we abstract over it with a typeclass.
@@ -153,22 +162,23 @@ so we know what kind of nodes we're dealing with,
 then ignore everything up until `NODE_COORD_SECTION`,
 then parse a whole bunch of nodes until `EOF`.
 
-> parseData :: Parser (Either [Node 'GEO] [Node 'EUC_2D])
+> parseData :: Parser Nodes
 > parseData = do
 >     ewt <- parseEdgeType
 >     anyChar `manyThen'` NODE_COORD_SECTION
 >     case ewt of
->         GEO    -> Left  <$> parseNodes
->         EUC_2D -> Right <$> parseNodes
+>         Just GEO    -> GEOS    <$> parseNodes
+>         Just EUC_2D -> EUC_2DS <$> parseNodes
+>         Nothing     -> empty
 
 > parseNodes :: Parser [Node s]
 > parseNodes = parseNode `manyThen'` EOF
 
-> parseEdgeType :: Parser EdgeWeightType
+> parseEdgeType :: Parser (Maybe EdgeWeightType)
 > parseEdgeType = do
 >     anyChar `manyThen'` EDGE_WEIGHT_TYPE
 >     spaces *> string ":" *> spaces
->     GEO <$ string' GEO <|> EUC_2D <$ string' EUC_2D
+>     Just GEO <$ try (string' GEO) <|> Just EUC_2D <$ try (string' EUC_2D) <|> pure Nothing
 
 The format for the nodes is:
 `<integer>` `<real>` `<real>`.
@@ -178,8 +188,8 @@ We create a parser for this schema.
 > parseNode :: Parser (Node s)
 > parseNode =
 >     Node <$> (spaces *> nat)
->          <*> (spaces *> (sign <*> fractional2 False))
->          <*> (spaces *> (sign <*> fractional2 False))
+>          <*> (spaces *> (sign <*> floating2 True))
+>          <*> (spaces *> (sign <*> floating2 True))
 >          <*  endOfLine
 
 > manyThen :: Parser a -> Parser b -> Parser [a]
@@ -206,6 +216,10 @@ We provide some output formatting
 > format' :: (Distance s, PrintfType a) => [Node s] -> a
 > format' xs = format (length xs) . tourDistance . tour $ xs
 
+> cataNode :: PrintfType a => (forall s. (Distance s) => ([Node s] -> a)) -> Nodes -> a
+> cataNode f (GEOS    ns) = f ns
+> cataNode f (EUC_2DS ns) = f ns
+
 Finally, we actually attempt to run this program.
 First parse the file.
 If it doesn't parse, then print out the message and be done.
@@ -213,7 +227,13 @@ If it parses fine, then create a tour, find the distance, and print it.
 
 > main :: IO ()
 > main = do
->     nodes <- parseFromFile parseData ("all_tsp" </> "a280.tsp")
->     either print (either format' format') nodes
+>     burma14 <- parseFromFile parseData "all_tsp/burma14.tsp"
+>     either print (cataNode format') burma14
+>     tsps <- glob "all_tsp/*.tsp"
+>     for_ (take 30 $ sort tsps) $ \tsp -> do
+>         printf "Tour of %s\n" $ takeFileName tsp
+>         ns <- parseFromFile parseData tsp
+>         -- We just silently ignore parse errors.
+>         either (const $ pure ()) (cataNode format') ns
 
 We can see this in action by running on the terminal:
