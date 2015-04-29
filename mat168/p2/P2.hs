@@ -30,10 +30,10 @@ import Control.Lens ((^.), _1, _2, _3)
 
 import Data.Foldable (for_)
 import Data.List (sort)
-import Data.Tuple (swap)
 
 import P2.Distance (Distance(..))
-import P2.Node (Node, Nodes(..), number)
+import P2.Morphism (incPairsDists, tourDistance)
+import P2.Node (Node, Nodes(..))
 import P2.Parser (parseData)
 
 import System.FilePath (takeFileName)
@@ -44,30 +44,13 @@ import Text.Printf (PrintfType, printf)
 
 -- And off we go.
 
--- We construct a tour by pairing up each node with its immediate successor,
--- and wrapping the end of the list around.
-
-tour :: [a] -> [(a, a)]
-tour = zip <*> (uncurry (++) . swap . splitAt 1)
-
-tourDistance :: (Distance s, Integral a) => [(Node s, Node s)] -> a
-tourDistance = sum . fmap (uncurry distance)
-
--- We want to be able to make increasing pairs of nodes.
-incPairs :: [Node s] -> [(Node s, Node s)]
-incPairs ns = [(i, j) | i <- ns, j <- ns, i^.number < j^.number]
-
-incPairsDists :: (Distance s, Integral a) => [Node s] -> [(Int, Int, a)]
-incPairsDists = fmap go . incPairs
-    where go (i, j) = (i^.number, j^.number, distance i j)
-
 -- We provide some output formatting
 
 format :: PrintfType a => Int -> Int -> a
 format = printf
     "The distance of the tour in order 1-2-...-%d-1 is: %d km\n"
 format' :: (Distance s, PrintfType a) => [Node s] -> a
-format' xs = format (length xs) . tourDistance . tour $ xs
+format' xs = format (length xs) . tourDistance $ xs
 
 cataNode :: PrintfType a => (forall s. (Distance s) => ([Node s] -> a)) -> Nodes -> a
 cataNode f (GEOS    ns) = f ns
