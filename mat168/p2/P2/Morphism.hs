@@ -51,22 +51,15 @@ nearestNeighbors ns = go $ mkNearest ns
     -- Our main iteration.
     go :: Distance s => Nearest (Node s) -> [Node s]
     go (Nearest vs                      []) = reverse vs
-    go (Nearest vs@(Node current _ _:_) us) =
-        let m = shortest current us
-        -- Handle `Nothing` even though it better not happen.
-        in maybe (go $ Nearest vs []) (\(v, us') -> go $ Nearest (v:vs) us') m
+    go (Nearest vs@(current:_) us) =
+        let (next, rest) = shortest current us
+        in go $ Nearest (next:vs) rest
     -- Compute the shortest distance.
-    -- If it ever returns `Nothing`, we're in trouble.
-    shortest :: Int -> [Node s] -> Maybe (Node s, [Node s])
-    shortest i us = do
-        ns <- sequence $ do
-            n@(Node j _ _) <- us
-            let pair = if i < j then (i, j) else (j, i)
-            pure $ (n, ) <$> M.lookup pair distances
-        let n = fst $ minimumBy (comparing snd) ns
-        pure (n, delete n us)
-    -- Compute the distances once.
-    distances = mkDistances ns
+    shortest :: Distance s => Node s -> [Node s] -> (Node s, [Node s])
+    shortest i us =
+        let ns = ((,) <*> distance i) <$> us
+            n = fst $ minimumBy (comparing snd) ns
+        in (n, delete n us)
 
 -- Compute the nearest neighbors and then run the tour.
 nearestDistance :: Distance s => [Node s] -> Int32
