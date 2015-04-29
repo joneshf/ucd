@@ -19,8 +19,6 @@
 {-# OPTIONS_GHC -Werror #-}
 {-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 
-{-# LANGUAGE RankNTypes #-}
-
 -- Now on to our actual program:
 
 module P2 where
