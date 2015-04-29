@@ -63,7 +63,7 @@ parseNode =
          <*  spaces
 
 manyThen :: Parser a -> Parser b -> Parser [a]
-manyThen p q = manyTill p $ try $ q
+manyThen p q = manyTill p $ try q
 manyThen' :: Show s => Parser a -> s -> Parser [a]
 manyThen' p = manyThen p . string'
 string' :: Show s => s -> Parser String

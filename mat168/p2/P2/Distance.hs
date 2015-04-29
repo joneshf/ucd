@@ -4,6 +4,8 @@ module P2.Distance (Distance(..)) where
 
 import Control.Lens ((^.), to)
 
+import Data.Int (Int32)
+
 import P2.Node (EdgeWeightType(..), Node(..), r1, r2)
 
 -- For each tagged type, we need a different distance function.
@@ -11,7 +13,7 @@ import P2.Node (EdgeWeightType(..), Node(..), r1, r2)
 -- we abstract over it with a typeclass.
 
 class Distance (s :: EdgeWeightType) where
-    distance :: Integral a => Node s -> Node s -> a
+    distance :: Node s -> Node s -> Int32
 
 -- Then we can provide an implementation for each `Node` synonym.
 
