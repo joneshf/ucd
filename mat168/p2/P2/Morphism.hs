@@ -1,3 +1,4 @@
+{-# LANGUAGE TupleSections #-}
 module P2.Morphism (incPairsDists, nearestNeighbors, nearestDistance, tourDistance) where
 
 import Control.Lens ((^.))
@@ -30,6 +31,7 @@ incPairsDists :: (Distance s) => [Node s] -> [(Int, Int, Int32)]
 incPairsDists = fmap go . incPairs
     where go (i, j) = (i^.number, j^.number, distance i j)
 
+-- Some types for the nearest neighbor algorithm.
 type Distances = M.Map (Int, Int) Int32
 
 data Nearest a = Nearest
@@ -44,26 +46,28 @@ mkNearest :: [a] -> Nearest a
 mkNearest = uncurry Nearest . splitAt 1
 
 nearestNeighbors :: Distance s => [Node s] -> [Node s]
-nearestNeighbors ns = go vs us
+nearestNeighbors ns = go $ mkNearest ns
     where
-    go :: Distance s => [Node s] -> [Node s] -> [Node s]
-    go vs             [] = reverse vs
-    go vs@(Node current _ _:_) us =
-        go (fst (shortest current us):vs) (snd $ shortest current us)
-    shortest :: Int -> [Node s] -> (Node s, [Node s])
-    shortest i us = maybe undefined (\(n, _) -> (n, delete n us)) $ minimumBy (comparing snd) <$> sequence $ do
-        n@(Node j _ _) <- us
-        let pair = if i < j then (i, j) else (j, i)
-        pure $ (,) n <$> M.lookup pair distances
-    Nearest vs us = mkNearest ns
+    -- Our main iteration.
+    go :: Distance s => Nearest (Node s) -> [Node s]
+    go (Nearest vs                      []) = reverse vs
+    go (Nearest vs@(Node current _ _:_) us) =
+        let m = shortest current us
+        -- Handle `Nothing` even though it better not happen.
+        in maybe (go $ Nearest vs []) (\(v, us') -> go $ Nearest (v:vs) us') m
+    -- Compute the shortest distance.
+    -- If it ever returns `Nothing`, we're in trouble.
+    shortest :: Int -> [Node s] -> Maybe (Node s, [Node s])
+    shortest i us = do
+        ns <- sequence $ do
+            n@(Node j _ _) <- us
+            let pair = if i < j then (i, j) else (j, i)
+            pure $ (n, ) <$> M.lookup pair distances
+        let n = fst $ minimumBy (comparing snd) ns
+        pure (n, delete n us)
+    -- Compute the distances once.
     distances = mkDistances ns
 
+-- Compute the nearest neighbors and then run the tour.
 nearestDistance :: Distance s => [Node s] -> Int32
 nearestDistance = tourDistance . nearestNeighbors
-
--- 1. start on an arbitrary vertex as current vertex.
--- 2. find out the shortest edge connecting current vertex and an unvisited vertex V.
--- 3. set current vertex to V.
--- 4. mark V as visited.
--- 5. if all the vertices in domain are visited, then terminate.
--- 6. Go to step 2.

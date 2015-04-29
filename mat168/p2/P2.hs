@@ -31,7 +31,7 @@ import Control.Lens ((^.), _1, _2, _3)
 
 import Data.Foldable (for_)
 import Data.Int (Int32)
-import Data.List (isInfixOf, sort)
+import Data.List (sort)
 
 import P2.Distance (Distance(..))
 import P2.Morphism -- (incPairsDists, tourDistance)
@@ -41,7 +41,6 @@ import P2.Parser (parseData)
 import System.FilePath ((</>), replaceExtension, takeFileName)
 import System.FilePath.Glob (glob)
 
-import Text.Groom
 import Text.Parsec.String (parseFromFile)
 import Text.Printf (PrintfType, printf)
 
@@ -108,15 +107,9 @@ main = do
     -- We first need to write the increasing distance pairs for each file.
     -- for_ (take 1 tsps') $ \(fp, n) ->
     --     cataNode (writeIncPairs $ mkIncPairsName fp) n
-    -- -- Next we want to take compute the direct tour from 1 to n.
-    -- for_ tsps' $ uncurry prettyDirect
+    -- Next we want to take compute the direct tour from 1 to n.
+    for_ tsps' $ uncurry prettyDirect
     -- Now we need to do the nearest neighbor.
-    for_ (filter (("ulysses22" `isInfixOf`) . fst) tsps') $ \(fp, n) -> do
+    for_ tsps' $ \(fp, n) -> do
         print fp
-        case n of
-            GEOS    ns -> do
-                putStrLn $ groom $ nearestNeighbors ns
-                putStrLn $ groom $ nearestDistance ns
-            EUC_2DS ns -> do
-                putStrLn $ groom $ nearestNeighbors ns
-                putStrLn $ groom $ nearestDistance ns
+        cataNode (print . nearestDistance) n
