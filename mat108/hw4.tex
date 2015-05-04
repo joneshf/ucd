@@ -1,0 +1,313 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{fp}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\definecolor{Gray}{gray}{0.8}
+
+\pgfplotsset{compat=1.8}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+
+\newcommand*\biconditional[3]{
+  This statement is #1 since both sides of the bi-conditional have #2 truth values.
+
+  #3
+}
+\newcommand*\biconditionaltrue[2]{
+  \biconditional{true}{the same}{#1 and #2.}
+}
+\newcommand*\biconditionalfalse[2]{
+  \biconditional{false}{different}{#1 yet #2.}
+}
+
+\newcommand*\directproofsimple[6]{
+  With integers $x$ and $y$, we want to show:
+
+  If #1, then #2 is even.
+
+  \begin{proof}
+    Suppose #1.
+
+    Then there exist some integers $p, q$ such that #3 and #4.
+
+    Then we have #5$ = 2($#6$)$.
+
+    Since #6 is an integer, we can rename as $r = $ #6.
+
+    So #2 $ = 2r$, and is even.
+
+    Thus if #1, then #2 is even
+  \end{proof}
+}
+
+\renewcommand{\labelenumi}{\S 1.\arabic*}
+\renewcommand{\labelenumii}{\arabic*}
+\renewcommand{\labelenumiii}{(\alph*)}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 108 HW 4\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bandyopadhyay\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \setcounter{enumi}{5}
+    \item
+      \begin{enumerate}
+        \setcounter{enumii}{5}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{8}
+            \item
+              We want to show that there exists some $K \in \mathbb{N}$,
+              such that for all $r \in \mathbb{R}$ if $r > K$, then $\frac{1}{r^2} < 0.01$.
+
+              It helps to rewrite the consequent a bit first:
+
+              \[
+                \frac{1}{r^2} < 0.01 \implies \frac{1}{r^2} < \frac{1}{100} \implies 100 < r^2
+              \]
+
+              Since we're only concerned with $r$ greater than some natural number,
+              we only need to concern ourself with $r > 0$.
+
+              So we can simplify the consequent a bit more:
+
+              \[
+                100 < r^2 \implies 10 < r
+              \]
+
+              Now it's fairly obvious that we need $K \geq 10$.
+
+              \begin{proof}
+                Choose $K = 10$.
+
+                $K$ is a natural number.
+
+                Now, for any arbitrary real number $r$ that is greater than $K$,
+                we have:
+
+                \[
+                  10 < r \implies 100 < r^2 \implies \frac{1}{r^2} < \frac{1}{100} \implies \frac{1}{r^2} < 0.01
+                \]
+
+                Thus we have shown,
+
+                there exists some natural number $K$,
+                such that for any real number $r$,
+                if $r$ is greater than $K$, then $r$ is less than $0.01$.
+              \end{proof}
+            \item
+              We want to show that there exist integers $L, G$,
+              such that for any real number $x$,
+              if $L < x < G$, then $40 > 10 - 2x > 12$.
+
+              It helps to manipulate the consequent a bit:
+
+              \[
+                40 > 10 - 2x > 12 \implies 30 > -2x > 2 \implies -15 < x < -1
+              \]
+
+              So if we have $L = -15, G = -1$, then we can work backwards to the proof.
+
+              \begin{proof}
+                Choose $L = -15, G = -1$.
+
+                Then $L, G \in \mathbb{Z}$.
+
+                Now, for any real number $x$.
+
+                If $L < x < G$, then we have:
+
+                \[
+                  -15 < x < -1 \implies 30 > -2x > 2  \implies 40 > 10 - 2x > 12
+                \]
+
+                So we have shown that there exist integers $L, G$,
+                such that for any real number $x$,
+                if $L < x < G$, then $40 > 10 - 2x > 12$.
+              \end{proof}
+            \setcounter{enumiii}{13}
+            \item
+
+              We want to show for any positive real numbers $x, y$ with $x < y$,
+              there exists some natural $M$,
+              such that if $n$ is a natural and $n > M$, then $\frac{1}{n} < y - x$.
+
+              Let's manipulate the consequent a bit.
+
+              \[
+                \frac{1}{n} < y - x \implies x + \frac{1}{n} < y
+              \]
+
+              So if we can show that $x + \frac{1}{n}$ is less than $y$, we can prove this.
+
+              We have that $M < n$, so $\frac{1}{n} < \frac{1}{M}$.
+
+              So, if we choose our $M$ carefully, we can prove this.
+
+              \begin{proof}
+                Given any two positive real numbers $x, y$ with $x < y$,
+                choose a natural $M$ such that $x + \frac{1}{M} < y$.
+
+                Now, for any natural $n > M$ we have:
+
+                \[
+                  M < n \implies \frac{1}{n} < \frac{1}{M}
+                \]
+
+                Then we have:
+
+                \[
+                  x + \frac{1}{M} < y \implies x + \frac{1}{n} < x + \frac{1}{M} < y \implies x + \frac{1}{n} < y \implies \frac{1}{n} < y - x
+                \]
+
+                So we have shown that for any positive real numbers $x, y$ with $x < y$,
+                there exists some natural $M$,
+                such that if $n$ is a natural and $n > M$, then $\frac{1}{n} < y - x$.
+              \end{proof}
+          \end{enumerate}
+      \end{enumerate}
+  \end{enumerate}
+  \renewcommand{\labelenumi}{\S 2.\arabic*}
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \setcounter{enumii}{13}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{1}
+            \item $\mathcal{P}(X) = \{\varnothing, \{S\}, \{\{S\}\}, \{S, \{S\}\}\}$
+            \setcounter{enumiii}{3}
+            \item
+              \begin{align*}
+                \mathcal{P}(X) =
+                &\{ \varnothing \\
+                &, \{1\}, \{\{\varnothing\}\}, \{\{2, \{3\}\}\} \\
+                &, \{1, \{\varnothing\}\}, \{1, \{2, \{3\}\}\}, \{\{\varnothing\}, \{2, \{3\}\}\} \\
+                &, \{1, \{\varnothing\}, \{2, \{3\}\}\} \\
+                &\}
+              \end{align*}
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{1}
+            \item True.
+            \item False.
+            \item True.
+          \end{enumerate}
+        \setcounter{enumii}{16}
+        \item
+          \begin{enumerate}
+            \item True.
+            \item True.
+            \setcounter{enumiii}{3}
+            \item True.
+            \setcounter{enumiii}{5}
+            \item True.
+          \end{enumerate}
+        \item
+
+          We want to prove, for any sets $A, B$, $A = B$ if and only if $\mathcal{P}(A) = \mathcal{P}(B)$.
+
+          We need to show both directions
+
+          \begin{proof}
+            \begin{itemize}
+              \item $(\Longrightarrow)$
+
+              Assume $A = B$.
+
+              Then, $\mathcal{P}(A) = \{X | X \subseteq A\} = \{X | X \subseteq B\} = \mathcal{P}(B)$.
+
+              Thus, if $A = B$, then $\mathcal{P}(A) = \mathcal{P}(B)$.
+
+              \item $(\Longleftarrow)$
+
+              Assume $\mathcal{P}(A) = \mathcal{P}(B)$.
+
+              Then we have $\mathcal{P}(A) \subseteq \mathcal{P}(B)$, and $\mathcal{P}(B) \subseteq \mathcal{P}(A)$
+
+              Now, since $A \subseteq A, A \in \mathcal{P}(A)$.
+
+              And since $\mathcal{P}(A) \subseteq \mathcal{P}(B), A \in \mathcal{P}(B)$.
+
+              This means $A \subseteq B$.
+
+              Additionally,
+              since $B \subseteq B, B \in \mathcal{P}(B)$.
+
+              And since $\mathcal{P}(B) \subseteq \mathcal{P}(A), B \in \mathcal{P}(A)$.
+
+              This means $B \subseteq A$.
+
+              So we have $A \subseteq B$ and $B \subseteq A$.
+
+              Then $A = B$.
+
+              Thus, if $\mathcal{P}(A) = \mathcal{P}(B)$, then $A = B$.
+            \end{itemize}
+
+            Since we have shown both directions,
+            we have shown for any sets $A, B$, $A = B$ if and only if $\mathcal{P}(A) = \mathcal{P}(B)$.
+          \end{proof}
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \setcounter{enumii}{2}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{4}
+            \item
+              Since $\mathbb{Z}^+ \cap \mathbb{Z}^- = \varnothing$, $\mathbb{Z}^+ - \mathbb{Z}^- = \mathbb{Z}+$
+            \item
+              Since $E \cap D = \varnothing$, and $E \cup D = \mathbb{Z}$, and $\mathbb{Z}$ is the universe, $E^C = D$.
+            \setcounter{enumiii}{7}
+            \item
+              Since $\left(E \cap \mathbb{Z}^-\right)^C = E^C \cup \left(\mathbb{Z}^-\right)^C = D \cup \mathbb{Z}^+ \cup \{0\}$.
+
+              In words this is all of the integers except the negative evens.
+
+              Or $\{-1, -3, -5, \dots\} \cup \{0, 1, 2, \dots\}$
+            \item
+              $\varnothing^C = \mathbb{Z}$, which is the universe.
+          \end{enumerate}
+        \setcounter{enumii}{4}
+        \item
+          The only disjoint pairs of sets are $C, D$.
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
