@@ -3,8 +3,6 @@ Programming assignment 2
 
 Hardy Jones
 -----------
-999397426
----------
 Professor K&ouml;ppe
 --------------------
 
@@ -46,10 +44,11 @@ And off we go.
 >     let tsps' = [(fp, ns) | (fp, Right ns) <- zip tspFiles tsps]
 >     -- We first need to write the increasing distance pairs for each file.
 >     for_ tsps' $ uncurry prettyIncPairs
->     -- Next we want to take compute the direct tour from 1 to n.
+>     -- Next we want to compute the direct tour from 1 to n.
 >     for_ tsps' $ uncurry prettyDirect
 >     -- Now we need to do the nearest neighbor.
 >     for_ tsps' $ uncurry prettyNearest
+>     -- Finally, write out the comparison of the distances.
 >     writeFile "comparison.md" $ prettyTable tsps'
 
 We can see the result of running this program.

@@ -139,6 +139,8 @@
 
   \begin{enumerate}
     \item
+      An example follows.
+
       Given the dictionary:
 
       \begin{alignat*}{9}
@@ -161,6 +163,8 @@
         \zeta  & {}={} & 11 & {}-{} & 2 & x_3 & {}-{} &   & x_1 \\
         x_2    & {}={} & 4  & {}-{} &   & x_3 & {}-{} &   & x_1 \\
       \end{alignat*}
+
+      So we have $x_1$ becoming basic in one iteration and non-basic in the next.
     \item
       \begin{proof}
         Given some dictionary:
@@ -173,7 +177,7 @@
         If $x_k, k \in B$ is chosen to leave the basis and become non-basic,
         and $x_l, l \in N$ is chosen to enter the basis and become basic.
 
-        Then we know that $\overline{c}_l > 0$.
+        Then we know that $\overline{c}_l > 0$, otherwise $x_l$ would not be chosen to enter the basis.
 
         We also know that $x_l = \overline{b}_l - \ldots - \overline{c}_{lk}x_k - \ldots$.
 
@@ -185,7 +189,7 @@
 
         $\zeta = \overline{\zeta}' + \ldots - \overline{c}_{lk}'x_k + \ldots$
 
-        Since $\overline{c}_{lk}' < 0$, it will not be chosen to become basic in the next iteration.
+        Since $-\overline{c}_{lk}' < 0$, it will not be chosen to become basic in the next iteration.
 
         Since our choice of entering and leaving variables was arbitrary,
         this holds for any such entering and leaving variables.
@@ -216,16 +220,11 @@
         Assume $x_j = 0$ is not optimal for all $j$.
         Then we should be able to increase some $x_j$ and arrive at an optimal solution.
 
-        From the constraints, we see that there must exist some $a_{ij}$ for each $i$ less than or equal to 0.
+        From the constraints, we see that there must exist some $a_{ij} \leq 0$, for each $i$.
         Otherwise $\sum\limits_{j = 1}^n a_{ij}x_j \leq 0$ would fail to hold for all $i$.
 
         If we choose an arbitrary $a_{kl} \leq 0$ and its corresponding $x_l$,
         then we can increase $x_l$ while still keeping the constraint valid.
-
-        If increasing $x_l$ causes some other constraint to be invalidated--%
-        say $\sum\limits_{j = 1}^n a_{pj}x_j \leq 0$--%
-        then we simply increase the $x_q$ corresponding to the $a_{pq}$ that is less than or equal to 0.
-        Repeating this process as necessary.
 
         What we find is that, increasing any arbitrary $x_l$ does not invalidate any constraints.
         However, the objective value becomes larger.
@@ -242,10 +241,10 @@
         \item
           We're asked to prove or disprove the feasible region of problem 3.4 is a convex cone.
 
-          The feasible region of 3.4 is the set $\{x_j | x_j \geq 0\}$ for $x_j \in \mathbb{R}^n$.
+          The feasible region of 3.4 is the set $\{x_j \in \mathbb{R}^n | x_j \geq 0\}$.
 
           \begin{proof}
-            Choose some $x, y \in C = \{x_j | x_j \geq 0\}$ for $x_j \in \mathbb{R}^n$.
+            Choose some $x, y \in C = \{x_j \in \mathbb{R}^n | x_j \geq 0\}$.
 
             Choose some $\lambda, \mu \geq 0 \in \mathbb{R}$.
 

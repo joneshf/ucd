@@ -22,7 +22,7 @@ We use the `DIMENSION` to tell the parser how many nodes to expect.
 The formatting doesn't work out well enough in general to allow a parser that doesn't depend on `DIMENSION`.
 Next, we need the `EDGE_WEIGHT_TYPE` so we know what kind of nodes we're dealing with,
 then ignore everything up until `NODE_COORD_SECTION`,
-then parse `DIMENSION` nodes and tag them with their .
+then parse `DIMENSION` nodes and tag them with their `EdgeWeightType`.
 
 > parseData :: Parser Nodes
 > parseData = do

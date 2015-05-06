@@ -19,7 +19,7 @@ we abstract over it with a typeclass.
 > class Distance (s :: EdgeWeightType) where
 >     distance :: Node s -> Node s -> Int32
 
-Then we can provide an implementation for each `Node` synonym.
+Then we can provide a `Distance` instance for each `EdgeWeightType`.
 
 The algorithm given in the TSPLIB pdf.
 This is basically a direct copy.

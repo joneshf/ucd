@@ -25,18 +25,20 @@ Not a whole lot of purity in here.
 
 First, make a helper catamorphism that unwraps the `Nodes`.
 
-> cataNode :: PrintfType a
->          => (forall s. (Distance s) => ([Node s] -> a))
->          -> Nodes
->          -> a
-> cataNode f (GEOS    ns) = f ns
-> cataNode f (EUC_2DS ns) = f ns
-
 > cataNode' :: (forall s. (Distance s) => ([Node s] -> a))
 >           -> Nodes
 >           -> a
 > cataNode' f (GEOS    ns) = f ns
 > cataNode' f (EUC_2DS ns) = f ns
+
+And specialize it so we can use it with `PrintfType`s.
+Though, this ends up being more common...
+
+> cataNode :: PrintfType a
+>          => (forall s. (Distance s) => ([Node s] -> a))
+>          -> Nodes
+>          -> a
+> cataNode = cataNode'
 
 We can print a list of nodes directly.
 
@@ -96,6 +98,7 @@ We want to make things easier on ourselves for creating a table.
 > prettyTable' :: M.Map String (Int32, Int32, [Int32]) -> String
 > prettyTable' = prettyCols . M.toList
 >
+> -- The `boxes` api isn't so great to use, but quite powerful.
 > prettyCols :: [(String, (Int32, Int32, [Int32]))] -> String
 > prettyCols = render . hsep 2 left . mkHeaders . map (vcat left) . transpose . map go
 >     where

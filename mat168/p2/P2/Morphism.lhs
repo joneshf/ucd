@@ -1,7 +1,7 @@
 Here we collect different morphisms on nodes.
 
-> module P2.Morphism ( incPairsDists, nearestNeighbors
->                    , nearestDistance, tourDistance
+> module P2.Morphism ( incPairsDists, nearestNeighbors, nearestDistance, tour
+>                    , tourDistance
 >                    ) where
 
 > import Control.Lens ((^.))
@@ -24,8 +24,8 @@ and wrapping the end of the list around.
 > tour :: [a] -> [(a, a)]
 > tour = zip <*> (uncurry (++) . swap . splitAt 1)
 >
-> tourDistance :: (Distance s) => [Node s] -> Int32
-> tourDistance = sum . fmap (uncurry distance) . tour
+> tourDistance :: (Distance s) => [(Node s, Node s)] -> Int32
+> tourDistance = sum . fmap (uncurry distance)
 
 We want to be able to make increasing pairs of nodes.
 
@@ -39,7 +39,7 @@ We want to be able to make increasing pairs of nodes.
 Compute the nearest neighbors and then run the tour.
 
 > nearestDistance :: Distance s => [Node s] -> Int32
-> nearestDistance = tourDistance . nearestNeighbors
+> nearestDistance = tourDistance . tour . nearestNeighbors
 
 Make `nearestNeighbors'` slightly less polymorphic.
 
