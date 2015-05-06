@@ -1,0 +1,315 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{systeme}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\usetikzlibrary{intersections}
+\usetikzlibrary{patterns}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand*\circled[1]{
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};
+  }
+}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand*\constant[1]{
+  Each product has a different #1,
+  but these are constant values not constrained by anything else in the process.
+}
+
+\newcommand*\genericconstraint[2]{
+  Each product has a #1 constraint on #2.
+}
+
+\newcommand*\maximumconstraint[1]{
+  \genericconstraint{maximum}{#1}
+}
+
+\newcommand*\minimumconstraint[1]{
+  \genericconstraint{minimum}{#1}
+}
+
+\newcommand*\genericobjective[2]{
+  The objective is to #1 #2.
+}
+
+\newcommand*\maximumobjective[1]{
+  \genericobjective{maximum}{#1}
+}
+
+\newcommand*\minimumobjective[1]{
+  \genericobjective{minimum}{#1}
+}
+
+% Simplex commands
+
+\newcommand*\seeconstraints{
+  We look at the constraints and see:
+}
+
+\newcommand*\continueopt[1]{
+  Now, we can continue optimizing since #1 has a positive coefficient.
+}
+
+\newcommand*\enterleave[2]{
+  So we can let #1 enter and #2 leave.
+}
+
+\newcommand*\morerestrictive[2]{
+  The more restrictive constraint is that #1 $\leq$ #2, so set #1 $=$ #2.
+}
+
+\newcommand*\newdict{
+  So we have a new dictionary:
+}
+
+\newcommand*\newvalue[2]{
+  This gives a new value for #1. #1 $ = $ #2
+}
+
+\newcommand*\opt{
+  Since we have no more optimizable variables
+  (all variable coefficients of $\zeta$ are non-positive),
+  we can no longer maximize $\zeta$.
+}
+
+\newcommand*\optsolution[2]{
+  Then we have an optimal solution with #1, and value #2.
+}
+
+\lstdefinelanguage{zimpl}{
+  morekeywords={forall,in,maximize,minimize,param,set,subto,sum,var},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+}
+\lstset{basicstyle=\scriptsize, frame=single, language=zimpl}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 168 Proof Writing 2\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor K\"{o}ppe\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      Given the dictionary:
+
+      \begin{alignat*}{9}
+        \zeta  & {}={} & 3 & {}+{} &   & x_1 & {}+{} & 2 & x_2 \\
+        x_3    & {}={} & 4 & {}-{} &   & x_1 & {}-{} &   & x_2 \\
+      \end{alignat*}
+
+      We have non-basic variables $x_1, x_2$ and the basic variable $x_3$.
+
+      We can let $x_1$ enter and $x_3$ leave to get:
+
+      \begin{alignat*}{9}
+        \zeta  & {}={} & 7 & {}-{} &   & x_3 & {}+{} &   & x_2 \\
+        x_1    & {}={} & 4 & {}-{} &   & x_3 & {}-{} &   & x_2 \\
+      \end{alignat*}
+
+      And then let $x_2$ enter and $x_1$ leave to get:
+
+      \begin{alignat*}{9}
+        \zeta  & {}={} & 11 & {}-{} & 2 & x_3 & {}-{} &   & x_1 \\
+        x_2    & {}={} & 4  & {}-{} &   & x_3 & {}-{} &   & x_1 \\
+      \end{alignat*}
+    \item
+      \begin{proof}
+        Given some dictionary:
+
+        \begin{alignat*}{9}
+          \zeta  & {}={} & \overline{\zeta} & {}+{} & \sum_{j \in N} \overline{c}_jx_j    &         \\
+          x_i    & {}={} & \overline{b}_i   & {}-{} & \sum_{j \in N} \overline{c}_{ij}x_j & \text{ for } i \in B \\
+        \end{alignat*}
+
+        If $x_k, k \in B$ is chosen to leave the basis and become non-basic,
+        and $x_l, l \in N$ is chosen to enter the basis and become basic.
+
+        Then we know that $\overline{c}_l > 0$.
+
+        We also know that $x_l = \overline{b}_l - \ldots - \overline{c}_{lk}x_k - \ldots$.
+
+        When we go to pivot in the objective function $\zeta$, we substitute this new value for $x_l$.
+
+        We end up with $\zeta = \overline{\zeta} + \ldots + \overline{c}_l\left(\overline{b}_l - \ldots - \overline{c}_{lk}x_k - \ldots\right) + \ldots$.
+
+        After simplification, and letting $\overline{c}_{lk}' = \overline{c}_l\overline{c}_{lk}$, we have
+
+        $\zeta = \overline{\zeta}' + \ldots - \overline{c}_{lk}'x_k + \ldots$
+
+        Since $\overline{c}_{lk}' < 0$, it will not be chosen to become basic in the next iteration.
+
+        Since our choice of entering and leaving variables was arbitrary,
+        this holds for any such entering and leaving variables.
+
+        Thus, we have shown that
+        if a variable becomes non-basic in one iteration,
+        then it cannot become basic in the next iteration.
+      \end{proof}
+    \item
+      We're asked to show that:
+
+      Given a linear program with all right hand sides equal to 0,
+      either $x_j = 0$ is optimal for all $j$, or the problem is unbounded.
+
+      We can rephrase this as:
+
+      Given a linear program with all right hand sides equal to 0,
+      either it's not the case that $x_j = 0$ is not optimal for all $j$, or the problem is unbounded.
+
+      And this is equivalent to the rephrasing:
+
+      Given a linear program with all right hand sides equal to 0,
+      if $x_j = 0$ is not optimal for all $j$, then the problem is unbounded.
+
+      \begin{proof}
+        Given some linear program with all right hand sides equal to 0.
+
+        Assume $x_j = 0$ is not optimal for all $j$.
+        Then we should be able to increase some $x_j$ and arrive at an optimal solution.
+
+        From the constraints, we see that there must exist some $a_{ij}$ for each $i$ less than or equal to 0.
+        Otherwise $\sum\limits_{j = 1}^n a_{ij}x_j \leq 0$ would fail to hold for all $i$.
+
+        If we choose an arbitrary $a_{kl} \leq 0$ and its corresponding $x_l$,
+        then we can increase $x_l$ while still keeping the constraint valid.
+
+        If increasing $x_l$ causes some other constraint to be invalidated--%
+        say $\sum\limits_{j = 1}^n a_{pj}x_j \leq 0$--%
+        then we simply increase the $x_q$ corresponding to the $a_{pq}$ that is less than or equal to 0.
+        Repeating this process as necessary.
+
+        What we find is that, increasing any arbitrary $x_l$ does not invalidate any constraints.
+        However, the objective value becomes larger.
+        Since we can increase any arbitrary $x_l$ to any amount,
+        this problem is unbounded.
+
+        Thus, (with some mental reformulation) we have shown that:
+
+        Given a linear program with all right hand sides equal to 0,
+        either $x_j = 0$ is optimal for all $j$, or the problem is unbounded.
+      \end{proof}
+    \item
+      \begin{enumerate}
+        \item
+          We're asked to prove or disprove the feasible region of problem 3.4 is a convex cone.
+
+          The feasible region of 3.4 is the set $\{x_j | x_j \geq 0\}$ for $x_j \in \mathbb{R}^n$.
+
+          \begin{proof}
+            Choose some $x, y \in C = \{x_j | x_j \geq 0\}$ for $x_j \in \mathbb{R}^n$.
+
+            Choose some $\lambda, \mu \geq 0 \in \mathbb{R}$.
+
+            Then $\lambda x + \mu y \geq 0 + 0 \geq 0$, so $\lambda x + \mu y \in C$.
+
+            Since our choice of $x, y, \lambda, \mu$ were arbitrary,
+            this result holds for any such values.
+
+            So $C$ is a convex cone.
+
+            Thus we have shown that the feasible region of problem 3.4 is a convex cone.
+          \end{proof}
+        \item
+          We're asked to prove or disprove that every convex polyhedron is a convex cone.
+
+          We can represent a convex polyhedron as $\{x \in \mathbb{R}^n | Ax = b\}$,
+          where $A \in \mathbb{R}^{m \times n}, b \in \mathbb{R}^m$.
+
+          \begin{proof}
+            Let $C = \{x \in \mathbb{R}^n | Ax = b\}$,
+            where $A \in \mathbb{R}^{m \times n}, b \in \mathbb{R}^m$, be a convex polyhedron.
+
+            Then choose some arbitrary $x, y \in C$ and $\lambda, \mu > 0 \in \mathbb{R}$.
+
+            Now $A \left(\lambda x + \mu y\right) = A \lambda x + A \mu y = \lambda A x + \mu A y = \lambda b + \mu b = \left(\lambda + \mu \right) b > b$.
+
+            So $\lambda x + \mu y \notin C$.
+
+            Since we chose arbitrary $x, y, \lambda, \mu$, and $\lambda x + \mu y \notin C$,
+            $C$ is not a convex cone.
+
+            Then there is at least one convex polyhedron that is not a convex cone.
+
+            Thus, we have disproved that every convex polyhedron is a convex cone.
+          \end{proof}
+        \item
+          We're asked to prove or disprove that every convex cone is convex.
+
+          A set $S \subseteq \mathbb{R}^n$ is convex
+          if for any $x, y \in S, \lambda \in \left[0, 1\right]$,
+          then $\lambda x + \left(1 - \lambda\right) y \in S$.
+
+          \begin{proof}
+            Let $S \subseteq \mathbb{R}^n$ be some convex cone.
+
+            Then choose $\lambda \in \left[0, 1\right]$.
+
+            Let $\mu = 1 - \lambda$, then $\lambda, \mu \geq 0$.
+
+            Now, since $S$ is a convex cone, we can choose $x, y \in S$.
+            Then $\lambda x + \mu y \in S$.
+
+            But $\lambda x + \mu y = \lambda x + \left(1 - \lambda\right) y \in S$.
+
+            Since our choice of $x, y, \lambda$ was arbitrary,
+            this result holds for all such values.
+
+            So $S$ is convex.
+
+            Now, since our choice of $S$ was arbitrary,
+            this result holds for all such convex cones.
+
+            Thus we have shown that all convex cones are convex.
+          \end{proof}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}

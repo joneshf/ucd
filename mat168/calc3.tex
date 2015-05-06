@@ -1,0 +1,236 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{systeme}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\usetikzlibrary{intersections}
+\usetikzlibrary{patterns}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand*\circled[1]{
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};
+  }
+}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand*\constant[1]{
+  Each product has a different #1,
+  but these are constant values not constrained by anything else in the process.
+}
+
+\newcommand*\genericconstraint[2]{
+  Each product has a #1 constraint on #2.
+}
+
+\newcommand*\maximumconstraint[1]{
+  \genericconstraint{maximum}{#1}
+}
+
+\newcommand*\minimumconstraint[1]{
+  \genericconstraint{minimum}{#1}
+}
+
+\newcommand*\genericobjective[2]{
+  The objective is to #1 #2.
+}
+
+\newcommand*\maximumobjective[1]{
+  \genericobjective{maximum}{#1}
+}
+
+\newcommand*\minimumobjective[1]{
+  \genericobjective{minimum}{#1}
+}
+
+% Simplex commands
+
+\newcommand*\seeconstraints{
+  We look at the constraints and see:
+}
+
+\newcommand*\continueopt[1]{
+  Now, we can continue optimizing since #1 has a positive coefficient.
+}
+
+\newcommand*\enterleave[2]{
+  So we can let #1 enter and #2 leave.
+}
+
+\newcommand*\morerestrictive[2]{
+  The more restrictive constraint is that #1 $\leq$ #2, so set #1 $=$ #2.
+}
+
+\newcommand*\newdict{
+  So we have a new dictionary:
+}
+
+\newcommand*\newvalue[2]{
+  This gives a new value for #1. #1 $ = $ #2
+}
+
+\newcommand*\opt{
+  Since we have no more optimizable variables
+  (all variable coefficients of $\zeta$ are non-positive),
+  we can no longer maximize $\zeta$.
+}
+
+\newcommand*\optsolution[2]{
+  Then we have an optimal solution with #1, and value #2.
+}
+
+\newcommand*\eps{\epsilon}
+
+\lstdefinelanguage{zimpl}{
+  morekeywords={forall,in,maximize,minimize,param,set,subto,sum,var},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+}
+\lstset{basicstyle=\scriptsize, frame=single, language=zimpl}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 168 Calculation 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor K\"{o}ppe\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [3.1]
+      We first start by rewriting as a dictionary,
+      introducing the necessary slack variables,
+      and ensure that it is degenerate.
+
+      \begin{alignat*}{15}
+        \zeta  & {}={} & 0 & {}+{} & 10   & x_1 & {}-{} & 57   & x_2 & {}-{} &  9   & x_3 & {}-{} & 24   & x_4 \\
+        x_5    & {}={} & 0 & {}-{} &  0.5 & x_1 & {}+{} &  5.5 & x_2 & {}+{} &  2.5 & x_3 & {}-{} &  9   & x_4 \\
+        x_6    & {}={} & 0 & {}-{} &  0.5 & x_1 & {}+{} &  1.5 & x_2 & {}+{} &  0.5 & x_3 & {}-{} &  1   & x_4 \\
+        x_7    & {}={} & 1 & {}-{} &  1   & x_1 &       &      &     &       &      &     &       &      &     \\
+      \end{alignat*}
+
+      So, since $\overline{b}_5 = \overline{b}_6 = 0$, the dictionary is degenerate.
+
+      We use lexicographic perturbation to remove the degeneracy.
+
+      \begin{alignat*}{24}
+        \zeta & {}={} & 0 &       & &        &       & &        &       & &        & {}+{} & 10  & x_1 & {}-{} & 57  & x_2 & {}-{} & 9   & x_3 & {}-{} & 24 & x_4 \\
+        x_5   & {}={} & 0 & {}+{} & & \eps_1 &       & &        &       & &        & {}-{} & 0.5 & x_1 & {}+{} & 5.5 & x_2 & {}+{} & 2.5 & x_3 & {}-{} &  9 & x_4 \\
+        x_6   & {}={} & 0 &       & &        & {}+{} & & \eps_2 &       & &        & {}-{} & 0.5 & x_1 & {}+{} & 1.5 & x_2 & {}+{} & 0.5 & x_3 & {}-{} &  1 & x_4 \\
+        x_7   & {}={} & 1 &       & &        &       & &        & {}+{} & & \eps_3 & {}-{} & 1   & x_1 &       &     &     &       &     &     &       &    &     \\
+      \end{alignat*}
+
+      Now, we let can only let $x_1$ enter.
+
+      \seeconstraints
+
+      \begin{itemize}
+        \item $x_5 \implies x_1 \leq 2\eps_1$
+        \item $x_6 \implies x_1 \leq 2\eps_2$
+        \item $x_7 \implies x_1 \leq 1 + \eps_3$
+      \end{itemize}
+
+      \morerestrictive{$x_6$}{$2\eps_2$}
+
+      \enterleave{$x_1$}{$x_6$}
+
+      \[
+        x_1 = 2\eps_2 + 3 x_2 + 1 x_3 - 2 x_4 - 2 x_6
+      \]
+
+      \newvalue{$\zeta$}{$20\eps_2 - 27 x_2 + 1 x_3 - 44 x_4 - 20 x_6$}
+
+      \newvalue{$x_5$}{$\eps_1 - \eps_2 + 4 x_2 + 2 x_3 - 8 x_4 + 1 x_6$}
+
+      \newvalue{$x_7$}{$1 - 2\eps_2 + \eps_3 - 3 x_2 - 1 x_3 + 2 x_4 + 2 x_6$}
+
+      \newdict
+
+      \begin{alignat*}{24}
+        \zeta & {}={} & 0 &       & &        & {}+{} & 20 & \eps_2 &       & &        & {}-{} & 27 & x_2 & {}+{} &   & x_3 & {}-{} & 44 & x_4 & {}-{} & 20 & x_6 \\
+        x_1   & {}={} & 0 &       & &        & {}+{} & 2  & \eps_2 &       & &        & {}+{} & 3  & x_2 & {}+{} &   & x_3 & {}-{} & 2  & x_4 & {}-{} & 2  & x_6 \\
+        x_5   & {}={} & 0 & {}+{} & & \eps_1 & {}-{} &    & \eps_2 &       & &        & {}+{} & 4  & x_2 & {}+{} & 2 & x_3 & {}-{} & 8  & x_4 & {}+{} &    & x_6 \\
+        x_7   & {}={} & 1 &       & &        & {}-{} & 2  & \eps_2 & {}+{} & & \eps_3 & {}-{} & 3  & x_2 & {}-{} &   & x_3 & {}+{} & 2  & x_4 & {}+{} & 2  & x_6 \\
+      \end{alignat*}
+
+      \continueopt{$x_3$}
+
+      \seeconstraints
+
+      \begin{itemize}
+        \item $x_1 \implies x_3 \geq 0$
+        \item $x_5 \implies x_3 \geq 0$
+        \item $x_7 \implies x_3 \leq 1 - 2\eps_2 + \eps_3$
+      \end{itemize}
+
+      \morerestrictive{$x_7$}{$1 - 2\eps_2 + \eps_3$}
+
+      \enterleave{$x_3$}{$x_7$}
+
+      \[
+        x_3 = 1 - 2\eps_2 + \eps_3 - 3 x_2 + 2 x_4 + 2 x_6 - 1 x_7
+      \]
+
+      \newvalue{$\zeta$}{$1 + 18 \eps_2 + 1 \eps_3 - 30 x_2 - 42 x_4 - 18 x_6 - 1 x_7$}
+
+      \newvalue{$x_1$}{$1 + 1 \eps_3 - 1 x_7$}
+
+      \newvalue{$x_5$}{$2 + 1 \eps_1 - 5 \eps_2 + 2 \eps_3 - 2 x_2 - 4 x_4 + 5 x_6 - 2 x_7$}
+
+      \newdict
+
+      \begin{alignat*}{24}
+        \zeta & {}={} & 1 &       & &        & {}+{} & 18 & \eps_2 & {}+{} &   & \eps_3 & {}-{} & 30 & x_2 & {}+{} &   & x_4 & {}-{} & 44 & x_6 & {}-{} & 20 & x_7 \\
+        x_1   & {}={} & 1 &       & &        &       &    &        & {}+{} &   & \eps_3 &       &    &     &       &   &     &       &    &     & {}-{} &    & x_7 \\
+        x_3   & {}={} & 1 &       & &        & {}-{} & 2  & \eps_2 & {}+{} &   & \eps_3 & {}-{} & 3  & x_2 & {}+{} & 2 & x_4 & {}+{} & 2  & x_6 & {}-{} &    & x_7 \\
+        x_5   & {}={} & 2 & {}+{} & & \eps_1 & {}-{} & 5  & \eps_2 & {}+{} & 2 & \eps_3 & {}-{} & 2  & x_2 & {}-{} & 4 & x_4 & {}+{} & 5  & x_6 & {}-{} & 2  & x_7 \\
+      \end{alignat*}
+
+      \opt
+
+      \optsolution{$x_1 = x_3 = 1, x_2 = x_4 = x_6 = x_7 = 0, x_5 = 2$}{$1$}
+  \end{enumerate}
+\end{document}
