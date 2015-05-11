@@ -130,7 +130,71 @@
           \end{enumerate}
         \setcounter{enumii}{16}
         \item
+          We're asked to show that $(a, b) = (x, y)$ iff $a = x$ and $b = y$.
+
+          \begin{proof}
+            \begin{align*}
+              (a, b) = (x, y)
+              &\iff \{\{a\}, \{a, b\}\} = \{\{x\}, \{x, y\}\} \\
+              &\iff \left(\{\{a\}, \{a, b\}\} \subseteq \{\{x\}, \{x, y\}\}\right) \\
+              &\quad\quad \land \left(\{\{x\}, \{x, y\}\} \subseteq \{\{a\}, \{a, b\}\}\right)
+              \\
+              &\iff \left(\{a\} \in \{\{x\}, \{x, y\}\}\right) \\
+              &\quad\quad \land \left(\{a, b\} \in \{\{x\}, \{x, y\}\}\right) \\
+              &\quad\quad \land \left(\{x\} \in \{\{a\}, \{a, b\}\}\right) \\
+              &\quad\quad \land \left(\{x, y\} \in \{\{a\}, \{a, b\}\}\right)
+              \\
+              &\iff \left(\{a\} = \{x\}\right) \land \left(\{a, b\} = \{x, y\}\right)
+              \\
+              &\iff \left(a = x\right) \land \left(b = y\right)
+              \\
+            \end{align*}
+
+            Since we have connected both sides with a series of bi-conditional statements,
+            we have proven that:
+
+            $(a, b) = (x, y)$ iff $a = x$ and $b = y$.
+          \end{proof}
         \item
+          \begin{enumerate}
+            \item
+              \begin{proof}
+                \[
+                  A \Delta B = \left(A - B\right) \cup \left(B - A\right) = \left(B - A\right) \cup \left(A - B\right) = B \Delta A
+                \]
+              \end{proof}
+            \item
+              This proof is a bit longer than the others.
+
+              \begin{proof}
+                \begin{align*}
+                  A \Delta B
+                  &= \left(A - B\right) \cup \left(B - A\right) \\
+                  &= \{x | \left(x \in A \land x \notin B\right) \lor \left(x \in B \land x \notin A\right)\} \\
+                  &= \{x | \left[\left(x \in A \land x \notin B\right) \lor x \in B\right] \land \left[\left(x \in A \land x \notin B\right) \lor x \notin A\right]\} \\
+                  &= \{x | \left(x \in A \lor x \in B\right) \land \left(x \notin B \lor x \in B\right) \\
+                  &\quad \quad \land \left(x \in A \lor x \notin A\right) \land \left(x \notin B \lor x \notin A\right)\} \\
+                  &= \{x | \left(x \in A \lor x \in B\right) \land \left(x \notin B \lor x \notin A\right)\} \\
+                  &= \{x | \left(x \in A \lor x \in B\right) \land \left(x \notin A \lor x \notin B\right)\} \\
+                  &= \{x | \left(x \in A \lor x \in B\right) \land \sim\left(x \in A \land x \in B\right)\} \\
+                  &= \{x | \left(x \in A \cup B\right) \land \sim\left(x \in A \cap B\right)\} \\
+                  &= \{x | \left(x \in A \cup B\right) \land \left(x \notin A \cap B\right)\} \\
+                  &= \left(A \cup B\right) - \left(A \cap B\right) \\
+                \end{align*}
+              \end{proof}
+            \item
+              \begin{proof}
+                \[
+                  A \Delta A = \left(A - A\right) \cup \left(A - A\right) = \varnothing \cup \varnothing = \varnothing
+                \]
+              \end{proof}
+            \item
+              \begin{proof}
+                \[
+                  A \Delta \varnothing = \left(A - \varnothing\right) \cup \left(\varnothing - A\right) = A \cup \varnothing = A
+                \]
+              \end{proof}
+          \end{enumerate}
       \end{enumerate}
     \item
       \begin{enumerate}
