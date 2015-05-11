@@ -275,11 +275,95 @@
               \end{proof}
           \end{enumerate}
         \item
+          \begin{enumerate}
+            \item
+              \begin{proof}
+                We need to show both sides for any $k \in \mathbb{N}$.
+
+                First choose some arbitrary $k \in \mathbb{N}$.
+                \begin{itemize}
+                  \item $(\subseteq)$
+
+                    Choose some $x \in \bigcap\limits_{i = 1}^k A_i$.
+
+                    Then for all $l \in \{1, 2, \dots, k\}, x \in A_l$.
+
+                    This means that $x \in A_k$.
+
+                    Since the choice of $x$ was arbitrary, this works for all $x \in \bigcap\limits_{i = 1}^k A_i$.
+
+                    Then every $x$ contained in $\bigcap\limits_{i = 1}^k A_i$ is also in $A_k$.
+
+                    Thus, $\bigcap\limits_{i = 1}^k A_i \subseteq A_k$.
+
+                  \item $(\supseteq)$
+
+                    Choose some $x \in A_k$.
+
+                    Since $\mathcal{A}$ is a decreasing nested family of sets,
+                    for any $i \in \mathbb{N} \leq k, A_k \subseteq A_i$.
+
+                    Now, since $x$ is an element of $A_k$, $x$ is an element of all supersets of $A_k$.
+
+                    That is to say that $x \in A_{k-1} \land x \in A_{k-2} \land \dots \land x \in A_1$.
+
+                    So $x \in \bigcap\limits_{i = 1}^k A_i$.
+
+                    Since the choice of $x$ was arbitrary, this works for all $x \in A_k$.
+
+                    Then every $x$ contained in $A_k$ is also in $\bigcap\limits_{i = 1}^k A_i$.
+
+                    Thus, $A_k \subseteq \bigcap\limits_{i = 1}^k A_i$.
+                \end{itemize}
+
+                Since we have shown both $\bigcap\limits_{i = 1}^k A_i \subseteq A_k$,
+                and $A_k \subseteq \bigcap\limits_{i = 1}^k A_i$, for any $k \in \mathbb{N}$.
+
+                We have shown that for all $k \in \mathbb{N}, \bigcap\limits_{i = 1}^k A_i = A_k$.
+              \end{proof}
+            \item
+              \begin{proof}
+                We need to show both sides.
+
+                \begin{itemize}
+                  \item $(\subseteq)$
+
+                    Choose some $x \in \bigcup\limits_{i = 1}^{\infty} A_i$.
+
+                    Then there exists some $l \in \mathbb{N}$ such that $x \in A_l$.
+
+                    Now, any $n \in \mathbb{N}$ is greater than or equal to $1$.
+
+                    So $A_l \subseteq A_1$, since $1 \leq l$, and $\mathcal{A}$ is a decreasing nested family of sets.
+
+                    Then $A_l \subseteq A_1, x \in A_1$.
+
+                    Since the choice of $x$ was arbitrary, this works for all $x \in \bigcup\limits_{i = 1}^{\infty} A_i$.
+
+                    Then every $x$ contained in $\bigcup\limits_{i = 1}^{\infty} A_i$ is also in $A_1$.
+
+                    Thus, $\bigcup\limits_{i = 1}^{\infty} A_i \subseteq A_1$.
+                  \item $(\supseteq)$
+
+                    \begin{align*}
+                      A_1 &\subseteq A_1 \\
+                      &\subseteq A_1 \cup A_2 \\
+                      &\subseteq A_1 \cup A_2 \cup A_3 \\
+                      &\ \ \vdots \\
+                      &\subseteq \bigcup\limits_{i = 1}^{\infty} A_i \\
+                    \end{align*}
+                \end{itemize}
+
+                Since we have shown both sides.
+
+                We have $\bigcup\limits_{i = 1}^{\infty} A_i = A_1$
+              \end{proof}
+          \end{enumerate}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{2}
-            \item
-            \item
+            \item Let $A_i = \{0, 1\}$, then $\mathcal{A} = \{\{0, 1\}\}$, and $\bigcap\limits_{i = 1}^{\infty}A_i = \{0, 1\}$
+            \item Let $A_i = \varnothing$, then $\mathcal{A} = \{\varnothing\}$, and $\bigcap\limits_{i = 1}^{\infty}A_i = \varnothing$
           \end{enumerate}
       \end{enumerate}
     \item
@@ -289,25 +373,283 @@
           \begin{enumerate}
             \setcounter{enumiii}{8}
             \item
+              \begin{proof}
+                We show by PMI.
+                $\sum\limits_{i = 1}^n \frac{1}{\left(2i - 1\right)\left(2i + 1\right)} = \frac{n}{2n + 1}$
+                \begin{itemize}
+                  \item Base Case.
+
+                    Let $n = 1$.
+
+                    \begin{align*}
+                      \sum_{i = 1}^1 \frac{1}{\left(2i - 1\right)\left(2i + 1\right)}
+                      &= \frac{1}{\left(2\left(1\right) - 1\right)\left(2\left(1\right) + 1\right)} \\
+                      &= \frac{1}{\left(2 - 1\right)\left(2 + 1\right)} \\
+                      &= \frac{1}{3} \\
+                      &= \frac{1}{2\left(1\right) + 1}\\
+                    \end{align*}
+                  \item Inductive Case.
+
+                    Assume for some $n \in \mathbb{N}, \sum\limits_{i = 1}^n \frac{1}{\left(2i - 1\right)\left(2i + 1\right)} = \frac{n}{2n + 1}$.
+
+                    Then
+
+                    \begin{align*}
+                      \sum_{i = 1}^{n + 1} \frac{1}{\left(2i - 1\right)\left(2i + 1\right)}
+                      &= \sum_{i = 1}^n \frac{1}{\left(2i - 1\right)\left(2i + 1\right)} \\
+                      &\quad + \frac{1}{\left(2\left(n + 1\right) - 1\right)\left(2\left(n + 1\right) + 1\right)}\\
+                      &= \frac{n}{2n + 1} + \frac{1}{\left(2n + 2 - 1\right)\left(2n + 2 + 1\right)}\\
+                      &= \frac{n}{2n + 1} + \frac{1}{\left(2n + 1\right)\left(2n + 3\right)}\\
+                      &= \frac{n(2n + 3) + 1}{\left(2n + 1\right)\left(2n + 3\right)}\\
+                      &= \frac{2n^2 + 3n + 1}{\left(2n + 1\right)\left(2n + 3\right)}\\
+                      &= \frac{\left(2n + 1\right)\left(n + 1\right)}{\left(2n + 1\right)\left(2n + 3\right)}\\
+                      &= \frac{n + 1}{2n + 3}\\
+                      &= \frac{n + 1}{2\left(n + 1\right) + 1} \\
+                    \end{align*}
+
+                  \item
+                    From the Base case and the inductive case,
+                    we use the PMI to state $\sum\limits_{i = 1}^n \frac{1}{\left(2i - 1\right)\left(2i + 1\right)} = \frac{n}{2n + 1}, \forall n \in \mathbb{N}$
+                \end{itemize}
+              \end{proof}
             \setcounter{enumiii}{10}
             \item
+              \begin{proof}
+                We show by PMI.
+                $\prod\limits_{i = 1}^{n}(2i - 1) = \frac{\left(2n\right)!}{n! 2^n}$
+                \begin{itemize}
+                  \item Base Case.
+
+                    Let $n = 1$.
+
+                    \begin{align*}
+                      \prod\limits_{i = 1}^1(2i - 1)
+                      &= 2(1) - 1 \\
+                      &= 2 - 1 \\
+                      &= 1 \\
+                      &= \frac{2}{2} \\
+                      &= \frac{2(1)}{(1)2} \\
+                      &= \frac{\left(2\left(1\right)\right)!}{1! 2^1} \\
+                    \end{align*}
+                  \item Inductive Case.
+
+                    Assume for some $n \in \mathbb{N}, \prod\limits_{i = 1}^{n}(2i - 1) = \frac{\left(2n\right)!}{n! 2^n}$.
+
+                    Then
+
+                    \begin{align*}
+                      \prod\limits_{i = 1}^{n + 1}(2i - 1)
+                      &= \prod\limits_{i = 1}^{n}(2i - 1) \cdot \left(2(n + 1) - 1\right) \\
+                      &= \frac{\left(2n\right)!}{n! 2^n} \cdot \left(2(n + 1) - 1\right) \\
+                      &= \frac{\left(2n\right)!}{n! 2^n} \cdot \left(2n + 2 - 1\right) \\
+                      &= \frac{\left(2n\right)!}{n! 2^n} \cdot \left(2n + 1\right) \\
+                      &= \frac{\left(2n + 1\right)!}{n! 2^n} \\
+                      &= \frac{\left(2n + 1\right)!}{n! 2^n} \cdot \frac{2n + 2}{2n + 2} \\
+                      &= \frac{\left(2n + 2\right)!}{n! 2^n \left(2n + 2\right)} \\
+                      &= \frac{\left(2n + 2\right)!}{n! 2^n \left(2\left(n + 1\right)\right)} \\
+                      &= \frac{\left(2n + 2\right)!}{n! 2^{n + 1} \left(n + 1\right)} \\
+                      &= \frac{\left(2n + 2\right)!}{\left(n + 1\right)! 2^{n + 1}} \\
+                      &= \frac{\left(2\left(n + 1\right)\right)!}{\left(n + 1\right)! 2^{n + 1}} \\
+                    \end{align*}
+
+                  \item
+                    From the Base case and the inductive case,
+                    we use the PMI to state $\prod\limits_{i = 1}^{n}(2i - 1) = \frac{\left(2n\right)!}{n! 2^n}, \forall n \in \mathbb{N}$
+                \end{itemize}
+              \end{proof}
           \end{enumerate}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{11}
             \item
+              \begin{proof}
+                We show by PMI.
+                $\forall x > 0 \in \mathbb{R}, \left(1 + x\right)^n \geq 1 + nx$
+                \begin{itemize}
+                  \item Base Case.
+
+                    Let $n = 1$.
+
+                    \begin{align*}
+                      \left(1 + x\right)^1
+                      &= 1 + x \\
+                      &= 1 + (1)x \\
+                      &\geq 1 + (1)x \\
+                    \end{align*}
+                  \item Inductive Case.
+
+                    Assume for some $n \in \mathbb{N}, \forall x > 0 \in \mathbb{R}, \left(1 + x\right)^n \geq 1 + nx$.
+
+                    Then
+
+                    \begin{align*}
+                      \left(1 + x\right)^{n + 1}
+                      &= \left(1 + x\right)^n\left(1 + x\right) \\
+                      &\geq \left(1 + nx\right)\left(1 + x\right) \\
+                      &= 1 + x + nx + nx^2 \\
+                      &= 1 + nx + x + nx^2 \\
+                      &= 1 + (n + 1)x + nx^2 \\
+                      &\geq 1 + (n + 1)x \\
+                    \end{align*}
+
+                  \item
+                    From the Base case and the inductive case,
+                    we use the PMI to state $\forall x > 0 \in \mathbb{R}, \left(1 + x\right)^n \geq 1 + nx, \forall n \in \mathbb{N}$
+                \end{itemize}
+              \end{proof}
             \item
+              \begin{proof}
+                We show by PMI.
+                $\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15} \in \mathbb{N}$
+                \begin{itemize}
+                  \item Base Case.
+
+                    Let $n = 1$.
+
+                    \begin{align*}
+                      \frac{1^3}{3} + \frac{1^5}{5} + \frac{7\left(1\right)}{15}
+                      &= \frac{1}{3} + \frac{1}{5} + \frac{7}{15} \\
+                      &= \frac{5}{15} + \frac{3}{15} + \frac{7}{15} \\
+                      &= \frac{15}{15} \\
+                      &= 1 \\
+                    \end{align*}
+
+                    And $1 \in \mathbb{N}$
+                  \item Inductive Case.
+
+                    Assume for some $n \in \mathbb{N}, \frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15} \in \mathbb{N}$.
+
+                    Then
+
+                    \begin{align*}
+                      \frac{\left(n + 1\right)^3}{3} + \frac{\left(n + 1\right)^5}{5} + \frac{7\left(n + 1\right)}{15}
+                      &= \frac{n^3 + 3n^2 + 3n + 1}{3} \\
+                      &\quad+ \frac{n^5 + 5n^4 + 10n^3 + 10n^2 + 5n + 1}{5} \\
+                      &\quad+ \frac{7n + 7}{15} \\
+                      &= \frac{n^3}{3} + \frac{3n^2 + 3n}{3} + \frac{1}{3} \\
+                      &\quad+ \frac{n^5}{5} + \frac{5n^4 + 10n^3 + 10n^2 + 5n}{5} + \frac{1}{5} \\
+                      &\quad+ \frac{7n}{15} + \frac{7}{15} \\
+                      &= \left(\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15}\right) + \left(\frac{1}{3} + \frac{1}{5} + \frac{7}{15}\right) \\
+                      &\quad+ \frac{3n^2 + 3n}{3} \\
+                      &\quad+ \frac{5n^4 + 10n^3 + 10n^2 + 5n}{5} \\
+                      &= \left(\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15}\right) + \left(\frac{1}{3} + \frac{1}{5} + \frac{7}{15}\right) \\
+                      &\quad+ n^2 + n + n^4 + 2n^3 + 2n^2 + n \\
+                      &= \left(\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15}\right) + \left(\frac{1}{3} + \frac{1}{5} + \frac{7}{15}\right) \\
+                      &\quad+ n^4 + 2n^3 + 3n^2 + 2n \\
+                      &= \left(\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15}\right) + 1 \\
+                      &\quad+ n^4 + 2n^3 + 3n^2 + 2n \\
+                    \end{align*}
+
+                    Now, since we assumed $\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15} \in \mathbb{N}$,
+                    and $1 \in \mathbb{N}$, and $n^4 + 2n^3 + 3n^2 + 2n \in \mathbb{N}$,
+
+                    we have $\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15} + 1 + n^4 + 2n^3 + 3n^2 + 2n \in \mathbb{N}$.
+
+                    Thus $\frac{\left(n + 1\right)^3}{3} + \frac{\left(n + 1\right)^5}{5} + \frac{7\left(n + 1\right)}{15} \in \mathbb{N}$
+
+                  \item
+                    From the Base case and the inductive case,
+                    we use the PMI to state $\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15} \in \mathbb{N}, \forall n \in \mathbb{N}$
+                \end{itemize}
+              \end{proof}
           \end{enumerate}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{7}
             \item
+              \begin{proof}
+                We show by the Generalized PMI.
+                $\sqrt{n} < \frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}$, for $n \geq 2$
+                \begin{itemize}
+                  \item Base Case.
+
+                    Let $n = 2$.
+
+                    \begin{align*}
+                      1 &< \sqrt{2} \\
+                      2 &< \sqrt{2} + 1 \\
+                      \sqrt{2}\left(\sqrt{2}\right) &< \sqrt{2}\left(1 + \frac{1}{\sqrt{2}}\right) \\
+                      \sqrt{2} &< 1 + \frac{1}{\sqrt{2}} \\
+                      \sqrt{2} &< \frac{1}{1} + \frac{1}{\sqrt{2}} \\
+                      \sqrt{2} &< \frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} \\
+                    \end{align*}
+                  \item Inductive Case.
+
+                    Assume for some $n \geq 2 \in \mathbb{N}, \sqrt{n} < \frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}$.
+
+                    Then
+
+                    \begin{align*}
+                      \sqrt{n} &< \frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}} \\
+                      \sqrt{n}\left(\sqrt{n}\right) &< \sqrt{n}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) \\
+                      n &< \sqrt{n}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) \\
+                      n &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) \\
+                      n + 1 &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) + 1 \\
+                      n + 1 &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) + \frac{\sqrt{n + 1}}{\sqrt{n + 1}} \\
+                      n + 1 &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}} + \frac{1}{\sqrt{n + 1}}\right) \\
+                      \sqrt{n + 1}\left(\sqrt{n + 1}\right) &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}} + \frac{1}{\sqrt{n + 1}}\right) \\
+                      \sqrt{n + 1} &< \frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}} + \frac{1}{\sqrt{n + 1}} \\
+                    \end{align*}
+
+                  \item
+                    From the Base case and the inductive case,
+                    we use the Generalized PMI to state:
+
+                    $\sqrt{n} < \frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}$, for $n \geq 2$.
+                \end{itemize}
+              \end{proof}
           \end{enumerate}
         \setcounter{enumii}{11}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{1}
             \item
+              \begin{proof}
+                We show by PMI.
+                Every $n$-player tournament has a top player.
+                \begin{itemize}
+                  \item Base Case.
+
+                    Let $n = 1$.
+
+                    Then this tournament has a top player vacuously.
+                  \item Inductive Case.
+
+                    Assume for some $n \in \mathbb{N}$,
+                    the $n$-player tournament has a top player $x$.
+
+                    Now if we add a new player, $y$,
+                    then this tournament is now an $n + 1$-player tournament.
+
+                    $y$ will play all other $n$ players,
+                    and three outcomes are possible.
+
+                    \begin{enumerate}
+                      \item
+                        If $y$ beats $x$,
+                        then $y$ also beats a player that beats all other players.
+
+                        So $y$ is also a top player.
+                      \item
+                        If $y$ does not beat $x$, but beats a player $z$ that beats $x$,
+                        then for every other player $w$, $y$ beats a player that beats $w$.
+
+                        So $y$ is also a top player.
+                      \item
+                        If $y$ does not beat $x$, nor does $y$ beat a player $z$ that beats $x$,
+                        then $y$ is not a top player.
+
+                        However, $x$ still remains a top player.
+                    \end{enumerate}
+
+                    In any of the outcomes, there is always a top player.
+
+                  \item
+                    From the Base case and the inductive case,
+                    we use the PMI to state $\forall n \in \mathbb{N}$,
+                    every $n$-player tournament has a top player.
+                \end{itemize}
+              \end{proof}
           \end{enumerate}
       \end{enumerate}
   \end{enumerate}
