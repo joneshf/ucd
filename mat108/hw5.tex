@@ -202,19 +202,77 @@
           \begin{enumerate}
             \setcounter{enumiii}{5}
             \item
+              \[
+                \bigcup_{i = 1}^{10} A_i = \{1, 2, \dots, 19\}
+              ,
+                \bigcap_{i = 1}^{10} A_i = \varnothing
+              \]
             \setcounter{enumiii}{7}
             \item
+              \[
+                \bigcup_{r \in (0, \infty)} A_r = [-\pi, \infty)
+              ,
+                \bigcap_{r \in (0, \infty)} A_r = [-\pi, 0)
+              \]
             \setcounter{enumiii}{9}
             \item
+              \[
+                \bigcup_{i = 1}^{\infty} M_i = \mathbb{Z}
+              ,
+                \bigcap_{i = 1}^{\infty} M_i = \{0\}
+              \]
           \end{enumerate}
         \setcounter{enumii}{11}
         \item
+          Let $A_n = (0, \frac{1}{n})$.
+
+          Then for any $m, n \in \mathbb{N}$
+
+          \[
+            M_m \cap M_n
+            =
+            \begin{cases}
+              \left(0, \frac{1}{m}\right), & \mbox{if } m < n \\
+              \left(0, \frac{1}{n}\right), & \mbox{otherwise} \\
+            \end{cases}
+          \]
+
+          But, $\bigcap_{i = 1}^{\infty} M_i = \varnothing$
         \setcounter{enumii}{14}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{4}
             \item
+              \begin{proof}
+                Choose an arbitrary $x \in \bigcup\limits_{i = 1}^k A_i$.
+
+                Then there exists some $l \in \mathbb{N}$ such that $l \leq k$ and $x \in A_l$.
+
+                Now, since $l \leq k, l \leq m$, so $A_l \subseteq \bigcup\limits_{i = 1}^m A_i$,
+                and $x \in \bigcup\limits_{i = 1}^m A_i$.
+
+                Since the choice of $x$ was arbitrary, this works for all $x \in \bigcup\limits_{i = 1}^k A_i$.
+
+                Then every $x$ contained in $\bigcup\limits_{i = 1}^k A_i$ is also in $\bigcup\limits_{i = 1}^m A_i$.
+
+                Thus $\bigcup\limits_{i = 1}^k A_i \subseteq \bigcup\limits_{i = 1}^m A_i$
+              \end{proof}
             \item
+              \begin{proof}
+                Choose an arbitrary $x \in \bigcap\limits_{i = 1}^m A_i$.
+
+                Then for all $l \in \{1, 2, \dots, k, k + 1, \dots, m\}, x \in A_l$.
+
+                This implies that for all $l \in \{1, 2, \dots, k\}, x \in A_l$.
+
+                Which means that $x \in \bigcap\limits_{i = 1}^k A_i$.
+
+                Since the choice of $x$ was arbitrary, this works for all $x \in \bigcap\limits_{i = 1}^m A_i$.
+
+                Then every $x$ contained in $\bigcap\limits_{i = 1}^m A_i$ is also in $\bigcap\limits_{i = 1}^k A_i$.
+
+                Thus, $\bigcap\limits_{i = 1}^m A_i \subseteq \bigcap\limits_{i = 1}^k A_i$.
+              \end{proof}
           \end{enumerate}
         \item
         \item
