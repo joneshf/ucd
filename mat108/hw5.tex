@@ -381,13 +381,9 @@
 
                     Let $n = 1$.
 
-                    \begin{align*}
-                      \sum_{i = 1}^1 \frac{1}{\left(2i - 1\right)\left(2i + 1\right)}
-                      &= \frac{1}{\left(2\left(1\right) - 1\right)\left(2\left(1\right) + 1\right)} \\
-                      &= \frac{1}{\left(2 - 1\right)\left(2 + 1\right)} \\
-                      &= \frac{1}{3} \\
-                      &= \frac{1}{2\left(1\right) + 1}\\
-                    \end{align*}
+                    \[
+                      \sum_{i = 1}^1 \frac{1}{\left(2i - 1\right)\left(2i + 1\right)} = \frac{1}{\left(2\left(1\right) - 1\right)\left(2\left(1\right) + 1\right)} = \frac{1}{3} = \frac{1}{2\left(1\right) + 1}
+                    \]
                   \item Inductive Case.
 
                     Assume for some $n \in \mathbb{N}, \sum\limits_{i = 1}^n \frac{1}{\left(2i - 1\right)\left(2i + 1\right)} = \frac{n}{2n + 1}$.
@@ -422,15 +418,9 @@
 
                     Let $n = 1$.
 
-                    \begin{align*}
-                      \prod\limits_{i = 1}^1(2i - 1)
-                      &= 2(1) - 1 \\
-                      &= 2 - 1 \\
-                      &= 1 \\
-                      &= \frac{2}{2} \\
-                      &= \frac{2(1)}{(1)2} \\
-                      &= \frac{\left(2\left(1\right)\right)!}{1! 2^1} \\
-                    \end{align*}
+                    \[
+                      \prod\limits_{i = 1}^1(2i - 1) = 2(1) - 1 = 2 - 1 = 1 = \frac{2}{2} = \frac{2(1)}{(1)2} = \frac{\left(2\left(1\right)\right)!}{1! 2^1}
+                    \]
                   \item Inductive Case.
 
                     Assume for some $n \in \mathbb{N}, \prod\limits_{i = 1}^{n}(2i - 1) = \frac{\left(2n\right)!}{n! 2^n}$.
@@ -470,12 +460,9 @@
 
                     Let $n = 1$.
 
-                    \begin{align*}
-                      \left(1 + x\right)^1
-                      &= 1 + x \\
-                      &= 1 + (1)x \\
-                      &\geq 1 + (1)x \\
-                    \end{align*}
+                    \[
+                      \left(1 + x\right)^1 = 1 + x  = 1 + (1)x  \geq 1 + (1)x
+                    \]
                   \item Inductive Case.
 
                     Assume for some $n \in \mathbb{N}, \forall x > 0 \in \mathbb{R}, \left(1 + x\right)^n \geq 1 + nx$.
@@ -506,13 +493,9 @@
 
                     Let $n = 1$.
 
-                    \begin{align*}
-                      \frac{1^3}{3} + \frac{1^5}{5} + \frac{7\left(1\right)}{15}
-                      &= \frac{1}{3} + \frac{1}{5} + \frac{7}{15} \\
-                      &= \frac{5}{15} + \frac{3}{15} + \frac{7}{15} \\
-                      &= \frac{15}{15} \\
-                      &= 1 \\
-                    \end{align*}
+                    \[
+                      \frac{1^3}{3} + \frac{1^5}{5} + \frac{7\left(1\right)}{15} = \frac{1}{3} + \frac{1}{5} + \frac{7}{15}  = \frac{5}{15} + \frac{3}{15} + \frac{7}{15}  = \frac{15}{15}  = 1
+                    \]
 
                     And $1 \in \mathbb{N}$
                   \item Inductive Case.
@@ -530,20 +513,13 @@
                       &\quad+ \frac{n^5}{5} + \frac{5n^4 + 10n^3 + 10n^2 + 5n}{5} + \frac{1}{5} \\
                       &\quad+ \frac{7n}{15} + \frac{7}{15} \\
                       &= \left(\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15}\right) + \left(\frac{1}{3} + \frac{1}{5} + \frac{7}{15}\right) \\
-                      &\quad+ \frac{3n^2 + 3n}{3} \\
-                      &\quad+ \frac{5n^4 + 10n^3 + 10n^2 + 5n}{5} \\
-                      &= \left(\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15}\right) + \left(\frac{1}{3} + \frac{1}{5} + \frac{7}{15}\right) \\
                       &\quad+ n^2 + n + n^4 + 2n^3 + 2n^2 + n \\
-                      &= \left(\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15}\right) + \left(\frac{1}{3} + \frac{1}{5} + \frac{7}{15}\right) \\
-                      &\quad+ n^4 + 2n^3 + 3n^2 + 2n \\
-                      &= \left(\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15}\right) + 1 \\
-                      &\quad+ n^4 + 2n^3 + 3n^2 + 2n \\
                     \end{align*}
 
                     Now, since we assumed $\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15} \in \mathbb{N}$,
-                    and $1 \in \mathbb{N}$, and $n^4 + 2n^3 + 3n^2 + 2n \in \mathbb{N}$,
+                    and $\frac{1}{3} + \frac{1}{5} + \frac{7}{15} = 1 \in \mathbb{N}$, and $n^2 + n + n^4 + 2n^3 + 2n^2 + n \in \mathbb{N}$,
 
-                    we have $\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15} + 1 + n^4 + 2n^3 + 3n^2 + 2n \in \mathbb{N}$.
+                    we have $\frac{n^3}{3} + \frac{n^5}{5} + \frac{7n}{15} + 1 + n^2 + n + n^4 + 2n^3 + 2n^2 + n \in \mathbb{N}$.
 
                     Thus $\frac{\left(n + 1\right)^3}{3} + \frac{\left(n + 1\right)^5}{5} + \frac{7\left(n + 1\right)}{15} \in \mathbb{N}$
 
@@ -584,7 +560,6 @@
                       \sqrt{n}\left(\sqrt{n}\right) &< \sqrt{n}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) \\
                       n &< \sqrt{n}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) \\
                       n &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) \\
-                      n + 1 &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) + 1 \\
                       n + 1 &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}}\right) + \frac{\sqrt{n + 1}}{\sqrt{n + 1}} \\
                       n + 1 &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}} + \frac{1}{\sqrt{n + 1}}\right) \\
                       \sqrt{n + 1}\left(\sqrt{n + 1}\right) &< \sqrt{n + 1}\left(\frac{1}{\sqrt{1}} + \frac{1}{\sqrt{2}} + \dots + \frac{1}{\sqrt{n}} + \frac{1}{\sqrt{n + 1}}\right) \\
@@ -611,7 +586,6 @@
                   \item Base Case.
 
                     Let $n = 1$.
-
                     Then this tournament has a top player vacuously.
                   \item Inductive Case.
 
@@ -620,7 +594,6 @@
 
                     Now if we add a new player, $y$,
                     then this tournament is now an $n + 1$-player tournament.
-
                     $y$ will play all other $n$ players,
                     and three outcomes are possible.
 
@@ -628,17 +601,14 @@
                       \item
                         If $y$ beats $x$,
                         then $y$ also beats a player that beats all other players.
-
                         So $y$ is also a top player.
                       \item
                         If $y$ does not beat $x$, but beats a player $z$ that beats $x$,
                         then for every other player $w$, $y$ beats a player that beats $w$.
-
                         So $y$ is also a top player.
                       \item
                         If $y$ does not beat $x$, nor does $y$ beat a player $z$ that beats $x$,
                         then $y$ is not a top player.
-
                         However, $x$ still remains a top player.
                     \end{enumerate}
 
