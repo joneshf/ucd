@@ -1,0 +1,148 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{systeme}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\usetikzlibrary{intersections}
+\usetikzlibrary{patterns}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand*\circled[1]{
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};
+  }
+}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand*\constant[1]{
+  Each product has a different #1,
+  but these are constant values not constrained by anything else in the process.
+}
+
+\newcommand*\genericconstraint[2]{
+  Each product has a #1 constraint on #2.
+}
+
+\newcommand*\maximumconstraint[1]{
+  \genericconstraint{maximum}{#1}
+}
+
+\newcommand*\minimumconstraint[1]{
+  \genericconstraint{minimum}{#1}
+}
+
+\newcommand*\genericobjective[2]{
+  The objective is to #1 #2.
+}
+
+\newcommand*\maximumobjective[1]{
+  \genericobjective{maximum}{#1}
+}
+
+\newcommand*\minimumobjective[1]{
+  \genericobjective{minimum}{#1}
+}
+
+\lstdefinelanguage{zimpl}{
+  morekeywords={forall,in,maximize,minimize,param,set,subto,sum,var},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+}
+\lstset{basicstyle=\scriptsize, frame=single, language=zimpl}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 168 Modeling 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor K\"{o}ppe\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item [r4-25)]
+
+      Let's try to understand what the problem is saying.
+
+      Calving is the process of a cow giving birth.
+      Cows calve in a certain month, $c$.
+
+      There is a maintenance cost for a cow calving in a certain month, $m_c$.
+
+      The milk production of each cow is based on when it calved, $c$ and the month of the year it is, $d$.
+      This production can be estimated by $p_{dc}$.
+      For example, if a cow calved in month 3, then its milk production will be close to zero in month 1.
+      The production is close to zero because, according to the problem,
+      milk production drops almost to zero by the \nth{10} month of calving.
+
+      Each month, $d$ has a certain demand for milk, $r_d$.
+      So we can compute the excess amount of milk for each month $d$ as
+      $y_d = \left(\sum\limits_{c = 1}^{12} x_c p_{cd}\right) - r_d$.
+      Any excess milk produced must be sold at a loss of $b$ per pound.
+
+      We're asked to minimize cost of a calving schedule,
+      which is the same as maximizing the negative cost.
+      The cost for some month $i$ is $m_i x_i + b y_i$
+
+      We use the decision variables:
+
+      \begin{itemize}
+        \item $x_c$ := Number of cows calving in month $c$. These are non negative integers, since it doesn't make sense to have a fractional cow calving.
+        \item $y_d$ := Lbs. of excess milk produced in month $d$.
+      \end{itemize}
+
+      We can now model this in standard form (after a little algebraic manipulation):
+
+      \begin{alignat*}{5}
+        \text{maximize}   \quad \mathrlap{-\sum_{i = 1}^{12}m_i x_i + b y_i}  \\
+        \text{subject to} \quad &       &\left(\sum_{c = 1}^{12} x_c p_{cd}\right) & {}-{} & y_d & {}\leq{} &       & r_d            && \text{, for } d \in \{1, 2, \dots, 12\} \\
+                                & {}-{} &\left(\sum_{c = 1}^{12} x_c p_{cd}\right) & {}+{} & y_d & {}\leq{} & {}-{} & r_d            && \text{, for } d \in \{1, 2, \dots, 12\} \\
+                                &       &                                          &   &     &          &       & \mathclap{x_c} && \in  \{0, 1, 2, \dots\} \\
+                                &       &                                          &   &     &          &       & \mathclap{y_d} && \in  [0, \infty) \\
+      \end{alignat*}
+
+      We should note that this problem feels incomplete since it doesn't mention the number of cows that are available to calve, among other things.
+  \end{enumerate}
+\end{document}
