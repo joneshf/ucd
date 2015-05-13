@@ -1,0 +1,293 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\epsdelta[5]{
+  We want to prove:
+  \[
+    \lim_{x \to #1} #2 = #3
+  \]
+
+  \begin{proof}
+    Given $\epsilon > 0$,
+    we want to find $\delta > 0$ such that
+
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \].
+
+    #5
+
+    So, choose $\delta = #4$.
+
+    Then we have
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \]
+    as was to be shown.
+  \end{proof}
+}
+\newcommand\epsdeltaconsequent[5]{
+  \epsdelta{#1}{#2}{#3}{#4}{
+    We can simplify the consequent a bit.
+
+    #5
+
+    If we notice, this is exactly the form of the antecedent,
+    assuming $\delta = #4$.
+  }
+}
+\newcommand\e{e}
+\newcommand\uc{uniformly continuous }
+
+\renewcommand{\labelenumi}{6.\arabic*}
+\renewcommand{\labelenumii}{\arabic*}
+\renewcommand{\labelenumiii}{(\alph*)}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 125A HW 3\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Slivken\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \setcounter{enumi}{1}
+    \item
+      \begin{enumerate}
+        \item
+          Given: $f_n(x) = \frac{nx}{1 + nx^2}$
+          \begin{enumerate}
+            \item
+              \begin{align*}
+                \lim_{n \to \infty}\frac{nx}{1 + nx^2}
+                &= \lim_{n \to \infty}\frac{\frac{1}{x}\left(nx^2\right)}{1 + nx^2} \\
+                &= \lim_{n \to \infty}\frac{\frac{1}{x}\left(1 - 1 + nx^2\right)}{1 + nx^2} \\
+                &= \lim_{n \to \infty}\frac{\frac{1}{x}\left(1 + nx^2\right) - \frac{1}{x}}{1 + nx^2} \\
+                &= \lim_{n \to \infty}\left[\frac{\frac{1}{x}\left(1 + nx^2\right)}{1 + nx^2} - \frac{\frac{1}{x}}{1 + nx^2}\right] \\
+                &= \lim_{n \to \infty}\left[\frac{1}{x} - \frac{\frac{1}{x}}{1 + nx^2}\right] \\
+                &= \lim_{n \to \infty}\frac{1}{x} - \lim_{n \to \infty}\frac{\frac{1}{x}}{1 + nx^2} \\
+                &= \lim_{n \to \infty}\frac{1}{x} - 0 \\
+                &= \lim_{n \to \infty}\frac{1}{x} \\
+                &= \frac{1}{x} \\
+              \end{align*}
+
+              So the point-wise limit of $(f_n)$ is $\frac{1}{x}$
+            \item
+              On $\left(0, \infty\right)$ we check:
+
+              \begin{align*}
+                \left|f_n(x) - f(x)\right|
+                &= \left|\frac{nx}{1 + nx^2} - \frac{1}{x}\right| \\
+                &= \left|\frac{nx^2 - (1 + nx^2)}{x + nx^3}\right| \\
+                &= \left|\frac{-1}{x + nx^3}\right| \\
+                &= \frac{1}{x + nx^3} \\
+              \end{align*}
+
+              And we need to find some $N \in \mathbb{N}$ for any $\epsilon$,
+              such that, if $n \geq N$, then $\frac{1}{x + nx^3} < \epsilon$
+
+              We can rewrite a bit:
+
+              \begin{align*}
+                \frac{1}{x + nx^3} &< \epsilon \\
+                \frac{1}{\epsilon} &< x + nx^3 \\
+                \frac{1}{\epsilon} - x &< nx^3 \\
+                \frac{1}{\epsilon x^3} - \frac{1}{x^2} &< n \\
+                \frac{1}{\epsilon x^3} - \frac{1}{x^2} &< N \leq n \\
+              \end{align*}
+
+              But when $x \to 0$, $\frac{1}{\epsilon x^3} - \frac{1}{x^2} \to \infty$.
+
+              So there's no $N$ we can choose for all $\epsilon$ on $(0, \infty)$.
+
+              Thus, the convergence is not uniform on $(0, \infty)$.
+            \item
+              On $(0, 1)$ we run into the same issues as previous.
+
+              So the convergence is not uniform on $(0, 1)$.
+            \item
+              On $(1, \infty)$ we check:
+
+              The computation is the same up to $\frac{1}{\epsilon x^3} - \frac{1}{x^2} < N \leq n$.
+
+              For all $x$ in $(1, \infty)$, $\frac{1}{\epsilon x^3} - \frac{1}{x^2} < \frac{1}{\epsilon} - 1$
+
+              So we can choose $N > \frac{1}{\epsilon} - 1$.
+
+              Then we have $\left|f_n(x) - f(x)\right| < \epsilon$.
+
+              So the convergence is uniform on $(1, \infty)$.
+
+          \end{enumerate}
+        \item
+          \begin{itemize}
+            \item
+              \begin{align*}
+                \lim_{n \to \infty} \frac{nx + \sin(nx)}{2n}
+                &= \lim_{n \to \infty} \left(\frac{nx}{2n} + \frac{\sin(nx)}{2n}\right) \\
+                &= \lim_{n \to \infty} \left(\frac{x}{2} + \frac{\sin(nx)}{2n}\right) \\
+                &= \lim_{n \to \infty} \frac{x}{2} + \lim_{n \to \infty} \frac{\sin(nx)}{2n} \\
+                &= \frac{x}{2} + 0 \\
+                &= \frac{x}{2} \\
+              \end{align*}
+
+              So the pointwise limit of $(g_n)$ is $\frac{x}{2}$
+
+            \item
+              On $[-10, 10]$ we check:
+
+              \begin{align*}
+                \left|g_n(x) - g(x)\right|
+                &= \left|\frac{x}{2} - \frac{nx + \sin(nx)}{2n} \right| \\
+                &= \left|\frac{nx - nx + \sin(nx)}{2n} \right| \\
+                &= \left|\frac{\sin(nx)}{2n} \right| \\
+              \end{align*}
+
+              Since $-1 \leq \sin(nx) \leq 1$, we have:
+
+              \begin{align*}
+                \left|g_n(x) - g(x)\right|
+                &= \left|\frac{\sin(nx)}{2n} \right| \\
+                &\leq \left| \frac{1}{2n} \right| \\
+              \end{align*}
+
+              And we want $\frac{1}{2n} < \epsilon \implies \frac{1}{2\epsilon} < n$.
+
+              So choose $N > \frac{1}{2\epsilon}$, then we have $\left|g_n(x) - g(x)\right| < \epsilon$.
+
+              So the convergence is uniform on $[-10, 10]$.
+            \item
+
+              Since $x$ does not affect our decision of $N$,
+              the same reasoning can be used to choose $N > \frac{1}{2\epsilon}$ on all of $\mathbb{R}$.
+
+              So the convergence is uniform on $\mathbb{R}$.
+          \end{itemize}
+        \item
+          \begin{enumerate}
+            \item
+              We have to consider three cases:
+              \begin{itemize}
+                \item $0 \leq x < 1$
+                \item $x = 1$
+                  \begin{align*}
+                    \lim_{n \to \infty} \frac{1}{1 + 1^n} = \lim_{n \to \infty} \frac{1}{2} = \frac{1}{2}
+                  \end{align*}
+                \item $1 < x$
+                  \begin{align*}
+                    \lim_{n \to \infty} \frac{x}{1 + x^n} = 0
+                  \end{align*}
+              \end{itemize}
+
+            \item
+              Since there is a jump discontinuity on $h_n(x)$ when $x = 1$, and when $x > 1$,
+              $h_n(x)$ is not continuous.
+              And from Theorem 6.2.6, $h_n$ is not continuous.
+
+              Since $h_n$ is not continuous, it cannot have convergence on $[0, \infty)$
+            \item
+              Choose $(1, \infty)$.
+
+              Then we check:
+
+              \begin{align*}
+                \left| h_n(x) - h(x) \right|
+                &= \left| \frac{x}{1 + x^n} - 0 \right| \\
+                &= \left| \frac{x}{1 + x^n} \right| \\
+                &= \frac{x}{1 + x^n} \\
+                &< 1
+              \end{align*}
+
+              Then we can choose $N = 1$.
+
+              And for any $\epsilon$
+          \end{enumerate}
+        \item
+          We take some derivatives to find maxima and minima.
+
+          \begin{align*}
+            f_n'(x)
+            &= \frac{\left(1 + nx^2\right) \cdot 1 - x (2nx)}{\left(1 + nx^2\right)^2}\\
+            &= \frac{1 + nx^2 - 2nx^2}{\left(1 + nx^2\right)^2}\\
+            &= \frac{1 - nx^2}{\left(1 + nx^2\right)^2}\\
+          \end{align*}
+          \begin{align*}
+            f_n''(x)
+            &= \frac{\left(1 + 2nx^2 + n^2x^4\right)\left(-2nx\right) - \left(4nx + 4n^2x^3\right)\left(1 - nx^2\right)}{\left(1 + nx^2\right)^4} \\
+            &= \frac{-6nx - 4n^2x^3 + 2n^3x^5}{\left(1 + nx^2\right)^4} \\
+          \end{align*}
+
+          Setting the first derivative to zero, we can find possible maxima and minima.
+
+          \begin{align*}
+            \frac{1 - nx^2}{\left(1 + nx^2\right)^2} &= 0 \\
+            1 - nx^2 &= 0 \\
+            1 &= nx^2 \\
+            \frac{1}{n} &= x^2 \\
+            \pm\frac{1}{\sqrt{n}} &= x \\
+          \end{align*}
+
+          Now, we can plus into the second derivative.
+
+          \begin{align*}
+            f_n''\left(\frac{1}{\sqrt{n}}\right)
+            &= \frac{-6n\left(\frac{1}{\sqrt{n}}\right) - 4n^2\left(\frac{1}{\sqrt{n}}\right)^3 + 2n^3\left(\frac{1}{\sqrt{n}}\right)^5}{\left(1 + n\left(\frac{1}{\sqrt{n}}\right)^2\right)^4} \\
+            &= \frac{-6\sqrt{n} - 4n^{2 - \frac{3}{2}} + 2n^{3 - \frac{5}{2}}}{\left(1 + 1\right)^4} \\
+            &= \frac{-6\sqrt{n} - 4\sqrt{n} + 2\sqrt{n}}{16} \\
+            &= \frac{-8\sqrt{n}}{16} \\
+            &= \frac{-\sqrt{n}}{2} \\
+            &< 0 \\
+          \end{align*}
+
+          \begin{align*}
+            f_n''\left(\frac{-1}{\sqrt{n}}\right)
+            &= \frac{-6n\left(\frac{-1}{\sqrt{n}}\right) - 4n^2\left(\frac{-1}{\sqrt{n}}\right)^3 + 2n^3\left(\frac{-1}{\sqrt{n}}\right)^5}{\left(1 + n\left(\frac{-1}{\sqrt{n}}\right)^2\right)^4} \\
+            &= \frac{6\sqrt{n} + 4n^{2 - \frac{3}{2}} - 2n^{3 - \frac{5}{2}}}{\left(1 + 1\right)^4} \\
+            &= \frac{6\sqrt{n} + 4\sqrt{n} - 2\sqrt{n}}{16} \\
+            &= \frac{8\sqrt{n}}{16} \\
+            &= \frac{\sqrt{n}}{2} \\
+            &> 0 \\
+          \end{align*}
+          So the maximum occurs at $\frac{-1}{\sqrt{n}}$ and the minimum occurs at $\frac{1}{\sqrt{n}}$
+        \item
+        \item
+        \item
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
