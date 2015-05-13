@@ -111,11 +111,10 @@
       Let's try to understand what the problem is saying.
 
       Calving is the process of a cow giving birth.
-      Cows calve in a certain month, $c$.
+      Cows calve in a certain month, $c$,
+      with a maintenance cost, $m_c$.
 
-      There is a maintenance cost for a cow calving in a certain month, $m_c$.
-
-      The milk production of each cow is based on when it calved, $c$ and the month of the year it is, $d$.
+      The milk production of each cow is based on when it calved, $c$, and the month of the year it is, $d$.
       This production can be estimated by $p_{dc}$.
       For example, if a cow calved in month 3, then its milk production will be close to zero in month 1.
       The production is close to zero because, according to the problem,
@@ -126,19 +125,19 @@
 
       \begin{itemize}
         \item $x_c$ := Number of cows calving in month $c$. These are non negative integers, since it doesn't make sense to have a fractional cow calving.
-        \item $y_d$ := Lbs. of excess milk produced in month $d$.
+        \item $y_d$ := Pounds of excess milk produced in month $d$.
       \end{itemize}
 
-      Each month, $d$ has a certain demand for milk, $r_d$.
-      So we can compute the excess amount of milk for each month $d$ as
-      $y_d = \left(\sum\limits_{c = 1}^{12} x_c p_{cd}\right) - r_d$.
-
-      Or equivalently,
-      $r_d = \left(\sum\limits_{c = 1}^{12} x_c p_{cd}\right) - y_d$.
+      Each month, $d$, has a certain demand for milk, $r_d$.
+      So we can compute the excess amount of milk for each month as
+      $y_d = \left(\sum\limits_{c = 1}^{12} x_c p_{dc}\right) - r_d$
+      $\implies$
+      $r_d = \left(\sum\limits_{c = 1}^{12} x_c p_{dc}\right) - y_d$.
+      And this equation can be modeled as two inequalities.
 
       Any excess milk produced must be sold at a loss of $b$ per pound.
 
-      We're asked to minimize cost of a calving schedule,
+      We're asked to minimize the cost of a calving schedule,
       which is the same as maximizing the negative cost.
       The cost for some month $i$ is $m_i x_i + b y_i$
 
@@ -146,8 +145,8 @@
 
       \begin{alignat*}{9}
         \text{maximize}   \quad \mathrlap{-\sum_{i = 1}^{12}m_i x_i + b y_i}  \\
-        \text{subject to} \quad &       &\left(\sum_{c = 1}^{12} x_c p_{cd}\right) & {}-{} & y_d & {}\leq{} &       & r_d            && \text{, for } d \in \{1, 2, \dots, 12\} \\
-                                & {}-{} &\left(\sum_{c = 1}^{12} x_c p_{cd}\right) & {}+{} & y_d & {}\leq{} & {}-{} & r_d            && \text{, for } d \in \{1, 2, \dots, 12\} \\
+        \text{subject to} \quad &       &\left(\sum_{c = 1}^{12} x_c p_{dc}\right) & {}-{} & y_d & {}\leq{} &       & r_d            && \text{, for } d \in \{1, 2, \dots, 12\} \\
+                                & {}-{} &\left(\sum_{c = 1}^{12} x_c p_{dc}\right) & {}+{} & y_d & {}\leq{} & {}-{} & r_d            && \text{, for } d \in \{1, 2, \dots, 12\} \\
                                 &       &                                          &       &     &          &       & \mathclap{x_c} && \in  \{0, 1, 2, \dots\} \\
                                 &       &                                          &       &     &          &       & \mathclap{y_d} && \in  [0, \infty) \\
       \end{alignat*}
@@ -195,13 +194,12 @@
       \end{itemize}
 
       So, for all plants $i$, warehouses $j$, and regions $k$, we need:
-      $x_{ijk} \leq 30 y_i$, $x_{ijk} \leq 10 w_j$, and $1000 x_{ijk} \geq d_k$.
+      $x_{ijk} \leq 30 y_i$ (since we cannot produce more than \num{30000} cases from plant $i$), $x_{ijk} \leq 10 w_j$ (since we cannot store more than \num{10000} cases at warehouse $j$), and $1000 x_{ijk} \geq d_k$ (since we transport cases in increments of \num{1000} to region $k$, and there is no penalty for exceeding demand).
 
       We're asked to model this network to meet all demands.
-      Since we assume that AFL wants to spend as little as possible,
-      we want to minimize the cost, which is the same as maximizing the negative cost.
-      We compute the shipping cost for all plants $i$, warehouses $j$, and regions $k$ as:
-      $\num{1000}x_{ijk}y_iw_j\left(r_{ij} + t_{jk}\right)$.
+      We assume AFL wants to minimize the cost, or maximize the negative cost.
+      We compute the shipping cost for all plants $i$, warehouses $j$, and regions $k$ as
+      $\num{1000}x_{ijk}y_iw_j\left(r_{ij} + t_{jk}\right)$, since we only transport if both plant $i$ and warehouse $j$ are opened.
 
       We can now model this in standard form (after a little algebraic manipulation):
       \[
