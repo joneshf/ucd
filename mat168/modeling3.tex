@@ -1,7 +1,7 @@
 \documentclass[12pt,letterpaper]{article}
 
 \usepackage[margin=1in]{geometry}
-\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[group-separator={,},round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
 \usepackage[super]{nth}
 \usepackage[title]{appendix}
 \usepackage{amsfonts}
@@ -35,7 +35,7 @@
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
-\newcommand*\circled[1]{
+\newcommand*\circled[1]{%
   \tikz[baseline=(char.base)]{
     \node[shape=circle,draw,inner sep=2pt] (char) {#1};
   }
@@ -48,33 +48,37 @@
   \array{#1}}
 \makeatother
 
-\newcommand*\constant[1]{
+\newcommand*\constant[1]{%
   Each product has a different #1,
   but these are constant values not constrained by anything else in the process.
 }
 
-\newcommand*\genericconstraint[2]{
+\newcommand*\genericconstraint[2]{%
   Each product has a #1 constraint on #2.
 }
 
-\newcommand*\maximumconstraint[1]{
+\newcommand*\maximumconstraint[1]{%
   \genericconstraint{maximum}{#1}
 }
 
-\newcommand*\minimumconstraint[1]{
+\newcommand*\minimumconstraint[1]{%
   \genericconstraint{minimum}{#1}
 }
 
-\newcommand*\genericobjective[2]{
+\newcommand*\genericobjective[2]{%
   The objective is to #1 #2.
 }
 
-\newcommand*\maximumobjective[1]{
+\newcommand*\maximumobjective[1]{%
   \genericobjective{maximum}{#1}
 }
 
-\newcommand*\minimumobjective[1]{
+\newcommand*\minimumobjective[1]{%
   \genericobjective{minimum}{#1}
+}
+
+\newcommand*\buck[1]{%
+  \$\num{#1}%
 }
 
 \lstdefinelanguage{zimpl}{
@@ -116,15 +120,7 @@
       For example, if a cow calved in month 3, then its milk production will be close to zero in month 1.
       The production is close to zero because, according to the problem,
       milk production drops almost to zero by the \nth{10} month of calving.
-
-      Each month, $d$ has a certain demand for milk, $r_d$.
-      So we can compute the excess amount of milk for each month $d$ as
-      $y_d = \left(\sum\limits_{c = 1}^{12} x_c p_{cd}\right) - r_d$.
-      Any excess milk produced must be sold at a loss of $b$ per pound.
-
-      We're asked to minimize cost of a calving schedule,
-      which is the same as maximizing the negative cost.
-      The cost for some month $i$ is $m_i x_i + b y_i$
+      Since there are 12 months in a year, $c, d \in \{1, 2, \dots, 12\}$.
 
       We use the decision variables:
 
@@ -133,16 +129,90 @@
         \item $y_d$ := Lbs. of excess milk produced in month $d$.
       \end{itemize}
 
+      Each month, $d$ has a certain demand for milk, $r_d$.
+      So we can compute the excess amount of milk for each month $d$ as
+      $y_d = \left(\sum\limits_{c = 1}^{12} x_c p_{cd}\right) - r_d$.
+
+      Or equivalently,
+      $r_d = \left(\sum\limits_{c = 1}^{12} x_c p_{cd}\right) - y_d$.
+
+      Any excess milk produced must be sold at a loss of $b$ per pound.
+
+      We're asked to minimize cost of a calving schedule,
+      which is the same as maximizing the negative cost.
+      The cost for some month $i$ is $m_i x_i + b y_i$
+
       We can now model this in standard form (after a little algebraic manipulation):
 
-      \begin{alignat*}{5}
+      \begin{alignat*}{9}
         \text{maximize}   \quad \mathrlap{-\sum_{i = 1}^{12}m_i x_i + b y_i}  \\
         \text{subject to} \quad &       &\left(\sum_{c = 1}^{12} x_c p_{cd}\right) & {}-{} & y_d & {}\leq{} &       & r_d            && \text{, for } d \in \{1, 2, \dots, 12\} \\
                                 & {}-{} &\left(\sum_{c = 1}^{12} x_c p_{cd}\right) & {}+{} & y_d & {}\leq{} & {}-{} & r_d            && \text{, for } d \in \{1, 2, \dots, 12\} \\
-                                &       &                                          &   &     &          &       & \mathclap{x_c} && \in  \{0, 1, 2, \dots\} \\
-                                &       &                                          &   &     &          &       & \mathclap{y_d} && \in  [0, \infty) \\
+                                &       &                                          &       &     &          &       & \mathclap{x_c} && \in  \{0, 1, 2, \dots\} \\
+                                &       &                                          &       &     &          &       & \mathclap{y_d} && \in  [0, \infty) \\
       \end{alignat*}
 
-      We should note that this problem feels incomplete since it doesn't mention the number of cows that are available to calve, among other things.
+    \pagebreak
+
+    \item [r11-35)]
+
+      Let's try to understand what this problem is saying.
+
+      AFL is planning their production and distribution network.
+      They produce cases at plants, $i \in \{1, 2, \dots, 7\}$.
+      The cases are transported to warehouses, $j \in \{1, 2, \dots, 13\}$.
+      From warehouses, the cases are transported to customer regions, $k \in \{1, 2, \dots, 219\}$.
+
+      Each plant has a fixed construction cost \buck{50000000}.
+      Each warehouse has a fixed construction cost \buck{12000000}.
+
+      Each plant can produce up to \num{30000} cases per year.
+      Each warehouse can handle up to \num{10000} cases per year.
+
+      Cases are transported via train from plants to warehouses, the cost per case is $r_{ij}$.
+      Cases are transported via truck from warehouses to regions, the cost per case is $t_{jk}$.
+
+      Each region has a certain demand for the number of cases, $d_k$.
+
+      We use the decision variables:
+
+      \begin{itemize}
+        \item $x_{ijk}$ := Thousands of cases transported from plant $i$ to warehouse $j$ to region $k$.
+        \item $y_i$ :=
+          $
+            \begin{cases*}
+              1 & if plant $i$ is opened \\
+              0 & otherwise \\
+            \end{cases*}
+          $
+        \item $w_i$ :=
+          $
+            \begin{cases*}
+              1 & if warehouse $i$ is opened \\
+              0 & otherwise \\
+            \end{cases*}
+          $
+      \end{itemize}
+
+      So, for all plants $i$, warehouses $j$, and regions $k$, we need:
+      $x_{ijk} \leq 30 y_i$, $x_{ijk} \leq 10 w_j$, and $1000 x_{ijk} \geq d_k$.
+
+      We're asked to model this network to meet all demands.
+      Since we assume that AFL wants to spend as little as possible,
+      we want to minimize the cost, which is the same as maximizing the negative cost.
+      We compute the shipping cost for all plants $i$, warehouses $j$, and regions $k$ as:
+      $\num{1000}x_{ijk}y_iw_j\left(r_{ij} + t_{jk}\right)$.
+
+      We can now model this in standard form (after a little algebraic manipulation):
+      \[
+      \begin{alignedat}{7}
+        \text{maximize}   \quad & {-1000\left[\num{50000} \sum_{i = 1}^{7} y_i + \num{12000} \sum_{j = 1}^{13} w_j + \sum_{i = 1}^{7} \sum_{j = 1}^{13} \sum_{k = 1}^{219} x_{ijk}y_iw_j\left(r_{ij} + t_{jk}\right)\right]} \span \span \span \span \span \span \\
+        \text{subject to} \quad &       & \sum_{j = 1}^{13} \sum_{k = 1}^{219} x_{ijk} & {}\leq{} & 30 & y_i                     && \text{, for } i \in \{1, 2, \dots, 7\} \\
+                                &       & \sum_{i = 1}^{7}  \sum_{k = 1}^{219} x_{ijk} & {}\leq{} & 10 & w_j                     && \text{, for } j \in \{1, 2, \dots, 13\} \\
+                                & -1000 & \sum_{i = 1}^{7}  \sum_{j = 1}^{13}  x_{ijk} & {}\leq{} &  - & d_k                     && \text{, for } k \in \{1, 2, \dots, 219\} \\
+                                &       &                                              &          &    & \mathclap{x_{ijk}, d_k} && \in  \{0, 1, 2, \dots\} \\
+                                &       &                                              &          &    & \mathclap{y_i, w_j}     && \in  \{0, 1\} \\
+      \end{alignedat}
+      \]
   \end{enumerate}
 \end{document}
