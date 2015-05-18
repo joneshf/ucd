@@ -1,0 +1,428 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{calculator}
+\usepackage{cancel}
+\usepackage{caption}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{fp}
+\usepackage{ifthen}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\definecolor{Gray}{gray}{0.8}
+
+\pgfplotsset{compat=1.8}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+
+\newcommand*\biconditional[3]{
+  This statement is #1 since both sides of the bi-conditional have #2 truth values.
+
+  #3
+}
+\newcommand*\biconditionaltrue[2]{
+  \biconditional{true}{the same}{#1 and #2.}
+}
+\newcommand*\biconditionalfalse[2]{
+  \biconditional{false}{different}{#1 yet #2.}
+}
+
+\newcommand*\directproofsimple[6]{
+  With integers $x$ and $y$, we want to show:
+
+  If #1, then #2 is even.
+
+  \begin{proof}
+    Suppose #1.
+
+    Then there exist some integers $p, q$ such that #3 and #4.
+
+    Then we have #5$ = 2($#6$)$.
+
+    Since #6 is an integer, we can rename as $r = $ #6.
+
+    So #2 $ = 2r$, and is even.
+
+    Thus if #1, then #2 is even
+  \end{proof}
+}
+
+\newcommand*\crossproduct[2]{%
+  \{%
+    \foreach \x [count=\i] in {#1} {%
+      \foreach \y [count=\j] in {#2} {%
+        \ifthenelse{\equal{\i}{\j} \AND \equal{\i}{1}}{}{, }%
+        (\x, \y)%
+      }%
+    }%
+  \}%
+}
+
+\newcommand*\st[2]{%
+  \MULTIPLY{4}{#1}{\fours}%
+  \MULTIPLY{5}{#2}{\fivet}%
+  \ADD{\fours}{\fivet}{\foursplusfivet}%
+  \[4\left(#1\right) + 5\left(#2\right) = \fours + \fivet = \foursplusfivet\]%
+}
+
+\newcommand*\PCI{%
+  Principle of Complete Induction%
+}
+
+\renewcommand{\labelenumi}{\S 2.\arabic*}
+\renewcommand{\labelenumii}{\arabic*}
+\renewcommand{\labelenumiii}{(\alph*)}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 108 HW 6\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Bandyopadhyay\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \setcounter{enumi}{4}
+    \item
+      \begin{enumerate}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{1}
+            \item
+              \begin{proof}
+
+                Let $S = \{n \in \mathbb{N} | n > 33 \land n = 4s + 5t \text{ for some } s, t \in \mathbb{N}, \text{ with } s \geq 3, t \geq 2\}$
+
+                Then we have:
+                \begin{itemize}
+                  \item for $s = 6, t = 2$
+                    \st{6}{2}
+                  \item for $s = 5, t = 3$
+                    \st{5}{3}
+                  \item for $s = 4, t = 4$
+                    \st{4}{4}
+                  \item for $s = 3, t = 5$
+                    \st{3}{5}
+                \end{itemize}
+
+                So, $S = \{34, 35, 36, 37, \dots, m - 1\}$ for some $m \in \mathbb{N}$
+
+                If $m > 37$, then $m - 4 \in S$.
+
+                Then we have for some $s, t \in \mathbb{N}$, with $s \geq 3, t \geq 2$
+                \begin{align*}
+                  m - 4 &= 4s + 5t \\
+                  m &= 4s + 5t + 4 \\
+                  m &= 4s + 4 + 5t \\
+                  m &= 4\left(s + 1\right) + 5t \\
+                \end{align*}
+
+                And since $s \geq 3, s + 1 \geq 3$.
+                So $m \in S$.
+
+                Then by the \PCI,
+                every natural number greater than 33 can be written as $4s + 5t$,
+                for some $s, t \in \mathbb{N}$,
+                with $s \geq 3, t \geq 2$.
+              \end{proof}
+          \end{enumerate}
+        \setcounter{enumii}{4}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{3}
+            \item
+              \begin{proof}
+                We need to show the base cases and the inductive case.
+                \begin{itemize}
+                  \item Base
+                    \begin{itemize}
+                      \item n = 1
+                        \[f_1 = 1 = 2 - 1 = f_3 - 1 = f_{1 + 2} - 1\]
+                      \item n = 2
+                        \[f_1 + f_2 = 1 + 1 = 2 = 3 - 1 = f_4 - 1 = f_{2 + 2} - 1\]
+                    \end{itemize}
+                  \item Inductive
+
+                    Assume $f_1 + f_2 + \dots + f_n = f_{n + 2} - 1$
+
+                    Then we have:
+
+                    \begin{align*}
+                      f_1 + f_2 + \dots + f_n + f_{n + 1}
+                      &= \left(f_{n + 2} - 1\right) + f_{n + 1} \\
+                      &= f_{n + 2} + f_{n + 1} - 1 \\
+                      &= f_{n + 3} - 1 \\
+                      &= f_{\left(n + 1\right) + 2} - 1 \\
+                    \end{align*}
+
+                    Thus for any $n + 1, f_1 + f_2 + \dots + f_{n + 1} = f_{\left(n + 1\right) + 2} - 1$
+                \end{itemize}
+
+                Since we have shown both the base case and the inductive case,
+                we have shown that for all natural numbers,
+                $f_1 + f_2 + \dots + f_n = f_{n + 2} - 1$
+              \end{proof}
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{1}
+            \item
+              \begin{proof}
+
+                Let $S = \{n \in \mathbb{N} | f_{n + 6} = 4f_{n + 3} + f_n\}$.
+
+                Then we have:
+
+                \begin{itemize}
+                  \item for $n = 1$
+                    \[f_{1 + 6} = f_7 = 13 = 12 + 1 = 4(3) + 1 = 4f_4 + f_1 = 4f_{1 + 3} + f_1\]
+                  \item for $n = 2$
+                    \[f_{2 + 6} = f_8 = 21 = 20 + 1 = 4(5) + 1 = 4f_5 + f_2 = 4f_{2 + 3} + f_2\]
+                  \item for $n = 3$
+                    \[f_{3 + 6} = f_9 = 34 = 32 + 2 = 4(8) + 2 = 4f_6 + f_3 = 4f_{3 + 3} + f_3\]
+                \end{itemize}
+
+                So $S = \{1, 2, 3, \dots, m - 1\}$ for some $m \in \mathbb{N}$.
+
+                Then we have:
+
+                \begin{align*}
+                  f_{\left(m - 1\right) + 6} &= 4f_{\left(m - 1\right) + 3} + f_{m - 1} \\
+                  f_{m + 5} &= 4f_{m + 2} + f_{m - 1} \\
+                  f_{m + 5} + f_{m - 2} &= 4f_{m + 2} + f_{m - 1} + f_{m - 2} \\
+                  &= 4f_{m + 2} + f_m \\
+                  f_{m + 5} + f_{m - 2} + 4f_{m + 1} &= 4f_{m + 2} + f_m + 4f_{m + 1} \\
+                  &= 4f_{m + 2} + 4f_{m + 1} + f_m \\
+                  &= 4\left(f_{m + 2} + f_{m + 1}\right) + f_m \\
+                  &= 4f_{m + 3} + f_m \\
+                  f_{m + 5} + f_{m - 2} + \left(f_{m + 1} + 3f_{m + 1}\right)       &= \\
+                  f_{m + 5} + f_{m - 2} + \left(f_{m - 1} + f_m\right) + 3f_{m + 1} &= \\
+                  f_{m + 5} + \left(f_{m - 2} + f_{m - 1}\right) + f_m + 3f_{m + 1} &= \\
+                  f_{m + 5} + f_m + f_m + 3f_{m + 1}                                &= \\
+                  f_{m + 5} + f_m + f_m + \left(f_{m + 1} + 2f_{m + 1}\right)       &= \\
+                  f_{m + 5} + f_m + \left(f_m + f_{m + 1}\right) + 2f_{m + 1}       &= \\
+                  f_{m + 5} + f_m + f_{m + 2} + 2f_{m + 1}                          &= \\
+                  f_{m + 5} + f_m + f_{m + 2} + \left(f_{m + 1} + f_{m + 1}\right)  &= \\
+                  f_{m + 5} + f_m + \left(f_{m + 2} + f_{m + 1}\right) + f_{m + 1}  &= \\
+                  f_{m + 5} + f_m + f_{m + 3} + f_{m + 1}                           &= \\
+                  f_{m + 5} + f_{m + 3} + \left(f_m + f_{m + 1}\right)              &= \\
+                  f_{m + 5} + \left(f_{m + 3} + f_{m + 2}\right)                    &= \\
+                  f_{m + 5} + f_{m + 4}                                             &= \\
+                  f_{m + 6}                                                         &= 4f_{m + 3} + f_m \\
+                \end{align*}
+
+                So $m \in S$.
+
+                Then by the \PCI, $S = \mathbb{N}$.
+              \end{proof}
+            \item
+              \begin{proof}
+                Let $S = \{n \in \mathbb{N} | \text{ for any } a \in \mathbb{N}, f_af_n + f_{a + 1}f_{n + 1} = f_{a + n + 1}\}$
+
+                Then we have, for any $a \in \mathbb{N}$:
+                \begin{itemize}
+                  \item for $n = 1$
+                    \[f_af_1 + f_{a + 1}f_{1 + 1} = f_a(1) + f_{a + 1}(1) = f_a + f_{a + 1} = f_{a + 2} = f_{a + 1 + 1}\]
+                  \item for $n = 2$
+                    \begin{align*}
+                      f_af_2 + f_{a + 1}f_{2 + 1} &= f_a(1) + f_{a + 1}(2) = f_a + f_{a + 1} + f_{a + 1} = f_{a + 2} + f_{a + 1} = f_{a + 3} \\
+                      &= f_{a + 2 + 1}
+                    \end{align*}
+                \end{itemize}
+
+                So $S = \{1, 2, \dots, m - 1\}$ for some $m \in \mathbb{N}$.
+
+                Then we have, for any $a \in \mathbb{N}$:
+
+                \begin{align*}
+                  f_a\left(f_{m - 1} + f_{m - 2}\right) + f_{a + 1}\left(f_m + f_{m - 1}\right)
+                  &= \left(f_af_{m - 1} + f_af_{m - 2}\right) + \left(f_{a + 1}f_m + f_{a + 1}f_{m - 1}\right) \\
+                  &= \left(f_af_{m - 1} + f_{a + 1}f_m\right) + \left(f_af_{m - 2} + f_{a + 1}f_{m - 1}\right) \\
+                  &= \left(f_af_{m - 1} + f_{a + 1}f_m\right) + \left(f_af_{m - 2} + f_{a + 1}f_{m - 1}\right) \\
+                  &= \left(f_{a + m}\right) + \left(f_{a + m - 1}\right) \\
+                  &= f_{a + m + 1} \\
+                \end{align*}
+
+                So $m \in \mathbb{N}$.
+
+                Thus, by the \PCI, $S = \mathbb{N}$.
+              \end{proof}
+            \item
+              \begin{proof}
+                Let $S = \left\{n \in \mathbb{N} | f_n = \frac{\alpha^n - \beta^n}{\alpha - \beta}\right\}$.
+
+                Then we have:
+
+                \begin{itemize}
+                  \item for $n = 1$
+                  \[f_1 = 1 = \frac{\alpha - \beta}{\alpha - \beta} = \frac{\alpha^1 - \beta^1}{\alpha - \beta}\]
+                  \item for $n = 2$
+                  \[f_2 = 1 = \frac{1}{2} + \frac{1}{2} = \frac{1 + \sqrt{5}}{2} + \frac{1 - \sqrt{5}}{2} = \alpha + \beta = \frac{\alpha - \beta}{\alpha - \beta}\left(\alpha + \beta\right) = \frac{\alpha^2 - \beta^2}{\alpha - \beta}\]
+                \end{itemize}
+
+                So $S = \{1, 2, \dots, m - 1\}$, for some $m \in \mathbb{N}$.
+
+                We should note that
+                \begin{align*}
+                  \alpha^2 &= \alpha + 1 \\
+                  \alpha^{m - 2}\alpha^2 &= \alpha^{m - 2}\left(\alpha + 1\right) \\
+                  \alpha^m &= \alpha^{m - 1} + \alpha^{m - 2} \\
+                  \alpha^{m - 1} &= \alpha^m - \alpha^{m - 2} \\
+                \end{align*}
+                \begin{align*}
+                  \beta^2 &= \beta + 1 \\
+                  \beta^{m - 2}\beta^2 &= \beta^{m - 2}\left(\beta + 1\right) \\
+                  \beta^m &= \beta^{m - 1} + \beta^{m - 2} \\
+                  \beta^{m - 1} &= \beta^m - \beta^{m - 2} \\
+                \end{align*}
+
+                Then we have:
+                \begin{align*}
+                  f_{m - 1} &= \frac{\alpha^{m - 1} - \beta^{m - 1}}{\alpha - \beta} \\
+                  &= \frac{\left(\alpha^m - \alpha^{m - 2}\right) - \left(\beta^m - \beta^{m - 2}\right)}{\alpha - \beta} \\
+                  &= \frac{\left(\alpha^m - \beta^m\right) - \left(\alpha^{m - 2} - \beta^{m - 2}\right)}{\alpha - \beta} \\
+                  &= \frac{\alpha^m - \beta^m}{\alpha - \beta} - \frac{\alpha^{m - 2} - \beta^{m - 2}}{\alpha - \beta} \\
+                  &= \frac{\alpha^m - \beta^m}{\alpha - \beta} - f_{m - 2} \\
+                  f_{m - 1} + f_{m - 2} &= \frac{\alpha^m - \beta^m}{\alpha - \beta} \\
+                  f_m &= \frac{\alpha^m - \beta^m}{\alpha - \beta} \\
+                \end{align*}
+
+                So $m \in \mathbb{N}$.
+
+                Thus by the \PCI, $S = \mathbb{N}$.
+              \end{proof}
+          \end{enumerate}
+      \end{enumerate}
+    \item [\S 3.1]
+      \begin{enumerate}
+        \setcounter{enumii}{1}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{5}
+            \item Dom($W$) = (-2, 2), Rng($W$) = \{3\}.
+            \item Dom($W$) = $\mathbb{R}$, Rng($W$) = $\mathbb{R}$.
+            \item Dom($W$) = $\mathbb{R}$, Rng($W$) = $\mathbb{R}$.
+          \end{enumerate}
+        \setcounter{enumii}{3}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{1}
+            \item
+              \[x = -5y + 2 \implies 5y = -x + 2 \implies y = \frac{-x + 2}{5}\]
+              \[R_2^{-1} = \left\{(x, y) \in \mathbb{R} \times \mathbb{R} | y = \frac{-x + 2}{5}\right\}\]
+            \setcounter{enumiii}{3}
+            \item
+              \[x = y^2 + 2 \implies y^2 = x - 2 \implies y = \sqrt{x - 2}\]
+              \[R_4^{-1} = \left\{(x, y) \in \mathbb{R} \times \mathbb{R} | y = \sqrt{x - 2}\right\}\]
+            \setcounter{enumiii}{7}
+            \item
+              \[x = \frac{2y}{y - 2} \implies xy - 2x = 2y \implies y(x - 2) = 2x \implies y = \frac{2x}{x - 2}\]
+              \[R_4^{-1} = \left\{(x, y) \in \mathbb{R} \times \mathbb{R} | y = \frac{2x}{x - 2}\right\}\]
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \item $R \circ S = \left\{(3, 5), (5, 2)\right\}$
+            \setcounter{enumiii}{2}
+            \item $T \circ S = \left\{(2, 1), (3, 1), (3, 4)\right\}$
+            \setcounter{enumiii}{4}
+            \item $S \circ R = \left\{(1, 5), (2, 4), (5, 4)\right\}$
+          \end{enumerate}
+        \setcounter{enumii}{8}
+        \item
+          For $R \subseteq (A \times B), S \subseteq (B \times C)$
+          \begin{enumerate}
+            \item
+              \begin{proof}
+                \begin{align*}
+                  \text{Dom}(S \circ R)
+                  &= \{x \in A | \exists z \in A \times C : (x, z) \in S \circ R\} \\
+                  &= \{x \in A | \exists y \in B, z \in C : (x, y) \in R \land (y, z) \in S\} \\
+                  &\subseteq \{x \in A | \exists y \in B : (x, y) \in R\} \\
+                  &= \text{Dom}(R) \\
+                \end{align*}
+
+                So Dom($S \circ R$) $\subseteq$ Dom($R$).
+              \end{proof}
+            \item
+              Let $R = \{(a, b)\}, S = \varnothing$.
+
+              Then $S \circ R = \varnothing$, Dom($R$) = $\{a\}$, Dom($S \circ R$) = $\varnothing$.
+
+              So $\varnothing \subseteq \{a\}$, but $\varnothing \not\supseteq \{a\}$.
+
+              So Dom($S \circ R$) $\neq$ Dom($R$).
+            \item
+              \begin{proof}
+                \begin{align*}
+                  \text{Rng}(S \circ R)
+                  &= \{z \in C | \exists x \in A \times C : (x, z) \in S \circ R\} \\
+                  &= \{z \in C | \exists x \in A, y \in B : (x, y) \in R \land (y, z) \in S\} \\
+                  &\subseteq \{z \in C | \exists y \in B : (y, z) \in S\} \\
+                  &= \text{Rng}(S) \\
+                \end{align*}
+
+                So Rng($S \circ R$) $\subseteq$ Rng($S$).
+              \end{proof}
+
+              A counter example is:
+
+              Let $R = \varnothing, S = \{(a, b)\}$.
+
+              Then $S \circ R = \varnothing$, Rng($S$) = $\{b\}$, Rng($S \circ R$) = $\varnothing$.
+
+              So $\varnothing \subseteq \{b\}$, but $\varnothing \not\supseteq \{b\}$.
+
+              So Rng($S$) $\not\subseteq$ Rng($S \circ R$).
+          \end{enumerate}
+        \setcounter{enumii}{11}
+        \item
+          \begin{proof}
+            Given a set $A$ with $m$ elements and a set $B$ with $n$ elements.
+
+            We can form $A \times B$ as a new set.
+
+            We can count the number of elements in $A \times B$ as:
+
+            \[\left\{\overbrace{\underbrace{(a_1, b_1), \dots, (a_1, b_n)}_{n \text{ pairs}}, \underbrace{(a_2, b_1), \dots, (a_2, b_n)}_{n \text{ pairs}}, \dots, \underbrace{(a_m, b_1), \dots, (a_m, b_n)}_{n \text{ pairs}}}^{m \text{ times}}\right\}\]
+
+            So there are $m \cdot n$ elements in $A \times B$.
+
+            We can enumerate all subsets by taking the power set of $A \times B$.
+
+            And we have proved that for any set $S$ of size $k$ there are $2^k$ subsets in $\mathcal{P}(S)$.
+
+            So we have $2^{mn}$ subsets in $\mathcal{P}(A \times B)$.
+
+            Since each subset in $\mathcal{P}(A \times B)$ is a subset of $A \times B$, every one is a relation from $A$ to $B$.
+
+            So there are $2^{mn}$ relations from $A$ to $B$.
+          \end{proof}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
