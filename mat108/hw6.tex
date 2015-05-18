@@ -200,12 +200,9 @@
                 Then we have:
 
                 \begin{itemize}
-                  \item for $n = 1$
-                    \[f_{1 + 6} = f_7 = 13 = 12 + 1 = 4(3) + 1 = 4f_4 + f_1 = 4f_{1 + 3} + f_1\]
-                  \item for $n = 2$
-                    \[f_{2 + 6} = f_8 = 21 = 20 + 1 = 4(5) + 1 = 4f_5 + f_2 = 4f_{2 + 3} + f_2\]
-                  \item for $n = 3$
-                    \[f_{3 + 6} = f_9 = 34 = 32 + 2 = 4(8) + 2 = 4f_6 + f_3 = 4f_{3 + 3} + f_3\]
+                  \item for $n = 1$ \quad $f_{1 + 6} = f_7 = 13 = 12 + 1 = 4(3) + 1 = 4f_4 + f_1 = 4f_{1 + 3} + f_1$
+                  \item for $n = 2$ \quad $f_{2 + 6} = f_8 = 21 = 20 + 1 = 4(5) + 1 = 4f_5 + f_2 = 4f_{2 + 3} + f_2$
+                  \item for $n = 3$ \quad $f_{3 + 6} = f_9 = 34 = 32 + 2 = 4(8) + 2 = 4f_6 + f_3 = 4f_{3 + 3} + f_3$
                 \end{itemize}
 
                 So $S = \{1, 2, 3, \dots, m - 1\}$ for some $m \in \mathbb{N}$.
@@ -220,7 +217,10 @@
                   f_{m + 5} + f_{m - 2} + 4f_{m + 1} &= 4f_{m + 2} + f_m + 4f_{m + 1} \\
                   &= 4f_{m + 2} + 4f_{m + 1} + f_m \\
                   &= 4\left(f_{m + 2} + f_{m + 1}\right) + f_m \\
-                  &= 4f_{m + 3} + f_m \\
+                  f_{m + 5} + f_{m - 2} + 4f_{m + 1} &= 4f_{m + 3} + f_m \\
+                \end{align*}
+                \begin{align*}
+                  f_{m + 5} + f_{m - 2} + 4f_{m + 1}                                &= 4f_{m + 3} + f_m \\
                   f_{m + 5} + f_{m - 2} + \left(f_{m + 1} + 3f_{m + 1}\right)       &= \\
                   f_{m + 5} + f_{m - 2} + \left(f_{m - 1} + f_m\right) + 3f_{m + 1} &= \\
                   f_{m + 5} + \left(f_{m - 2} + f_{m - 1}\right) + f_m + 3f_{m + 1} &= \\
@@ -363,6 +363,8 @@
                   \text{Dom}(S \circ R)
                   &= \{x \in A | \exists z \in A \times C : (x, z) \in S \circ R\} \\
                   &= \{x \in A | \exists y \in B, z \in C : (x, y) \in R \land (y, z) \in S\} \\
+                  &= \{x \in A | \exists y \in B : (x, y) \in R\} \\
+                  &\quad \cap \{x \in A | \exists y \in B : (x, y) \in R \land \exists z \in C : (y, z) \in S\} \\
                   &\subseteq \{x \in A | \exists y \in B : (x, y) \in R\} \\
                   &= \text{Dom}(R) \\
                 \end{align*}
@@ -383,6 +385,8 @@
                   \text{Rng}(S \circ R)
                   &= \{z \in C | \exists x \in A \times C : (x, z) \in S \circ R\} \\
                   &= \{z \in C | \exists x \in A, y \in B : (x, y) \in R \land (y, z) \in S\} \\
+                  &= \{z \in C | \exists x \in A : (x, y) \in R \land \exists y \in B : (y, z) \in S\} \\
+                  &\quad \cap \{z \in C | \exists y \in B : (y, z) \in S\} \\
                   &\subseteq \{z \in C | \exists y \in B : (y, z) \in S\} \\
                   &= \text{Rng}(S) \\
                 \end{align*}
