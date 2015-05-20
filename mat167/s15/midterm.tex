@@ -1,0 +1,177 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{systeme}
+\usepackage{tikz}
+\usepackage{titling}
+
+\usetikzlibrary{arrows, automata}
+
+\usepgfplotslibrary{statistics}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+
+\newcolumntype{d}{D{.}{.}{-1}}
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand*\circled[1]{
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=2pt] (char) {#1};
+  }
+}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\renewcommand{\labelenumii}{(\arabic*)}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 167 Midterm\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Cheer\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          True.
+
+          \begin{proof}
+            Assume $A = L_1U_1 = L_2U_2$ with $L_1, L_2$ lower triangular and unit diagonal,
+            $U_1, U_2$ upper triangular with nonzero diagonal.
+
+            So we have inverses for $L_1, L_2$ since the diagonal is all 1 with 0's above the diagonal,
+            and we have inverses for $U_1, U_2$ since the diagonal is non-zero with 0's below the diagonal.
+
+            Then we have:
+
+            \begin{align*}
+              L_1U_1 &= L_2U_2 \\
+              L_2^{-1}\left(L_1U_1\right) &= L_2^{-1}\left(L_2U_2\right) \\
+              L_2^{-1}\left(L_1U_1\right) &= \left(L_2^{-1}L_2\right)U_2 \\
+              L_2^{-1}\left(L_1U_1\right) &= IU_2 \\
+              L_2^{-1}\left(L_1U_1\right) &= U_2 \\
+              L_2^{-1}\left(L_1U_1\right)U_1^{-1} &= U_2U_1^{-1} \\
+              L_2^{-1}L_1\left(U_1U_1^{-1}\right) &= U_2U_1^{-1} \\
+              L_2^{-1}L_1I &= U_2U_1^{-1} \\
+              L_2^{-1}L_1 &= U_2U_1^{-1} \\
+            \end{align*}
+
+            Now, $L_2^{-1}L_1$ is a lower triangular matrix and
+            $U_2U_1^{-1}$ is an upper triangular matrix.
+            In order for these two to be equal they have to both be lower triangular and upper triangular at the same time.
+            The only matrices with this property are diagonal matrices.
+
+            So, $L_2^{-1}L_1, U_2U_1^{-1}$ are diagonal matrices.
+            And since $L_2^{-1}L_1 = U_2U_1^{-1}$ we must have the same entries on the diagonal.
+            And since $L_1, L_2$ have all 1 on the diagonal, $L_2^{-1}L_1$ has all 1 on the diagonal.
+
+            So $L_2^{-1}L_1 = I$.
+
+            Then,
+            \begin{align*}
+              L_2^{-1}L_1 &= I \\
+              L_2\left(L_2^{-1}L_1\right) &= L_2I \\
+              \left(L_2L_2^{-1}\right)L_1 &= L_2 \\
+              IL_1 &= L_2 \\
+              L_1 &= L_2
+            \end{align*}
+
+            And since $L_2^{-1}L_1 = I = U_2U_1^{-1}$, we have
+
+            \begin{align*}
+              I &= U_2U_1^{-1} \\
+              IU_1 &= \left(U_2U_1^{-1}\right)U_1 \\
+              U_1 &= U_2\left(U_1^{-1}U_1\right) \\
+              U_1 &= U_2I \\
+              U_1 &= U_2 \\
+            \end{align*}
+
+            So we have shown,
+
+            if $A = L_1U_1 = L_2U_2$ with $L_1, L_2$ lower triangular and unit diagonal,
+            $U_1, U_2$ upper triangular with nonzero diagonal,
+
+            then $L_1 = L_2, U_1 = U_2$.
+          \end{proof}
+        \item
+          True.
+
+          \begin{proof}
+            Assume $A^2 + A = I$
+            \[
+              A\left(A + I\right) = A^2 + A = I = A^2 + A = \left(A + I\right)A
+            \]
+            So $A + I$ is a left and right inverse of $A$,
+            then $A^{-1} = A + I$.
+          \end{proof}
+        \item
+          False.
+
+          Let $A = \begin{bmatrix}0 & 1 \\ 1 & 0 \\\end{bmatrix}$.
+
+          Then all the diagonal entries of $A$ are zero, but $\begin{vmatrix}0 & 1 \\ 1 & 0 \\\end{vmatrix} = -1$,
+          so $A$ is non-singular.
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+        \item
+        \item
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+        \item
+        \item
+        \item
+        \item
+        \item
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+        \item
+        \item
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+        \item
+        \item
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
