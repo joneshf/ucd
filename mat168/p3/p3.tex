@@ -237,4 +237,42 @@
         \label{fig:ulysses16eliminationk}
       \end{figure}
   \end{enumerate}
+
+  \pagebreak
+
+  \begin{appendices}
+    \section{ZIMPL}
+      For each of the modeling files,
+      we use a simple shell script to run them.
+
+      This allows a decent interface that allows injecting a filename without manually manipulating the files.
+      Each is a slight modification of the following format.
+
+      \lstinputlisting[language=sh]{distances/subtours_0_1.sh}
+
+      For problem 3a we use the following model:
+
+      \lstinputlisting{distances/subtours_0_1.tmpl.zpl}
+
+      For problem 3c we use the following model:
+
+      \lstinputlisting{distances/subtours_fractional.tmpl.zpl}
+
+      For problem 4a we use the following model:
+
+      \lstinputlisting{distances/subtours_elimination_0_1.tmpl.zpl}
+
+      For problem 4b we use the following model:
+
+      \lstinputlisting{distances/subtours_elimination_fractional.tmpl.zpl}
+
+      \pagebreak
+
+      For problem 5 we use the following model:
+
+      \lstinputlisting{distances/subtours_elimination_fractional_3.tmpl.zpl}
+
+      For sake of brevity, we just show one model for $k = 3$.
+      The other models are similar with the value of $k$ changed.
+  \end{appendices}
 \end{document}
