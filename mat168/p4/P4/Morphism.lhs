@@ -4,11 +4,14 @@ We implement the different algorithms here.
 
 > module P4.Morphism where
 >
+> import Control.Lens
+>
 > import Data.Bits (xor)
-> import Data.Foldable (find, foldl')
+> import Data.Foldable (find, fold, foldl')
 > import Data.Function ((&), on)
 > import Data.List (groupBy, maximumBy, minimumBy, sort)
 > import Data.Maybe (fromMaybe, isJust, maybeToList)
+> import Data.Monoid (First(..))
 > import Data.Ord (comparing)
 > import Data.Traversable (for)
 > import Data.Tuple (swap)
@@ -16,6 +19,9 @@ We implement the different algorithms here.
 > import P4.Distance
 >
 > import qualified Data.Set as S
+
+We need some way to express tours,
+a [Int] might work, but let's give it a newtype just to make things easier.
 
 We can compute the `tourLength` of any list of distances.
 
@@ -111,33 +117,47 @@ We codify the "Farthest Insertion" algorithm
 > twoOptDistance :: [Distance] -> [Int] -> Maybe [Distance]
 > twoOptDistance xs ys = for (pair ys) $ \(i', j') ->
 >     find (\d -> _i d == min i' j' && _j d == max i' j') xs
+> pair :: [a] -> [(a, a)]
 > pair = zip <*> (uncurry (++) . swap . splitAt 1)
 > twoOptSwap :: [a] -> Int -> Int -> [a]
 > twoOptSwap xs i k = front ++ reverse middle ++ back
 >     where
 >     (front, (middle, back)) = splitAt (k - i) <$> splitAt (i - 1) xs
 
-> lin'Kernighan :: [Distance] -> [Distance]
-> lin'Kernighan = undefined
+> lin'Kernighan :: [Distance] -> [Int] -> [Int]
+> lin'Kernighan xs path =
+>     fromMaybe path $ getFirst $ improvePath xs path 1 S.empty
 
-> α = 3
-> improvePath :: [Distance] -> [Int] -> Int -> S.Set Int -> [Int]
+> α = 5
+> improvePath :: [Distance] -> [Int] -> Int -> S.Set Int -> First [Int]
 > improvePath xs path depth restricted
->     | depth < α = do
->         (x, y) <- filter (flip S.notMember restricted . fst) $ pair path
->         if (weight xs) x y > (weight xs) (last path) x then (go xs path depth restricted) x y else []
->     | otherwise = uncurry (go xs path depth restricted) . maximumBy (comparing (\(x, y) -> (weight xs) x y - (weight xs) (last path) x)) . init . pair $ path
->         where
->         e = last path
-> go xs path depth restricted x y =
->     let swapped = replace path y (last path)
->         swappedDistance = tourLength <$> twoOptDistance xs swapped
->         pathDistance = tourLength <$> twoOptDistance xs path
->         bothJusts = ((&&) `on` isJust) swappedDistance pathDistance
->     in  if bothJusts && swappedDistance < pathDistance then
->             swapped ++ take 1 swapped
->         else
->             improvePath xs swapped (depth + 1) (S.insert x restricted)
+>     | depth < α =
+>         let filtered = filter (flip S.notMember restricted . fst) $ pair path
+>             gs = fmap g filtered
+>             g (x, y) = (x, y, weight xs x y - weight xs (last path) x)
+>             goodGs = filter ((> 0) . view _3) gs
+>             choices = fmap choose goodGs
+>             choose (x, y, _) =
+>                 let swapped = replace path y (last path)
+>                     swappedLength = tourLength <$> twoOptDistance xs swapped
+>                     pathLength = tourLength <$> twoOptDistance xs path
+>                 in  if swappedLength < pathLength
+>                       then pure swapped
+>                       else improvePath xs swapped (depth + 1) (S.insert x restricted)
+>         in  fold choices
+>     | otherwise =
+>         let (x, y, d) = maximumBy (comparing $ view _3) $ fmap g $ pair path
+>             g (x, y) = (x, y, weight xs x y - weight xs (last path) x)
+>             swapped = replace path y (last path)
+>             swappedLength = tourLength <$> twoOptDistance xs swapped
+>             pathLength = tourLength <$> twoOptDistance xs path
+>         in  if d > 0
+>               then if swappedLength < pathLength
+>                       then pure swapped
+>                       else improvePath xs swapped (depth + 1) (S.insert x restricted)
+>               else mempty
+>     where
+>     e = last path
 > replace path y e =
 >     let (front,  back) = span ((/=) y) path
 >         (middle, rest) = span ((/=) e) $ drop 1 back
