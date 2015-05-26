@@ -58,13 +58,28 @@ We can compute the `tourLength` of any list of distances.
 >     front = fmap head . groupBy ((==) `on` _i) . sort $ xs
 >     loop = _j $ last front
 
-> nearestNeighbors :: [Distance] -> [Distance]
+> nearestNeighbors :: [Distance] -> Tour Int
 > nearestNeighbors [] = []
-> nearestNeighbors xs = go (_i $ head xs) xs
+> nearestNeighbors xs = fromList $ constructTour $ go xs (_i $ head xs)
 >     where
->     go _ [] = []
->     go m xs = let d = shortest m xs
->               in  d:go (next m d) (filter (not . neighbor m) xs)
+>     go :: [Distance] -> Int -> [Distance]
+>     go [] _ = []
+>     go xs m = let d = shortest m xs
+>               in  d:go (filter (not . neighbor m) xs) (next m d)
+>     constructTour = reorder Nothing . fmap ((,) <$> _i <*> _j)
+>     reorder _ [] = []
+>     reorder Nothing [(x, y)] = [x,y]
+>     reorder (Just x') [(x, y)] = if x' == x then [x,y] else [y,x]
+>     reorder Nothing ((x, y):zs) = x:reorder (Just y) zs
+>     reorder (Just x') ((x, y):zs) = if x' == x then x:reorder (Just y) zs else y:reorder (Just x) zs
+> shortest :: Int -> [Distance] -> Distance
+> shortest n = minimumBy (comparing _distance) . filter (neighbor n)
+> longest :: Int -> [Distance] -> Distance
+> longest n = maximumBy (comparing _distance) . filter (neighbor n)
+> next :: Int -> Distance -> Int
+> next n (Distance i j _) = if i == n then j else i
+> neighbor :: Int -> Distance -> Bool
+> neighbor n (Distance i j _) = i == n || j == n
 
 We codify the "Farthest Insertion" algorithm
 
@@ -109,14 +124,6 @@ We codify the "Farthest Insertion" algorithm
 
 > nodes :: [a] -> Int
 > nodes xs = floor $ (1 + sqrt (fromIntegral (1 + 8 * length xs))) / 2
-> shortest :: Int -> [Distance] -> Distance
-> shortest n = minimumBy (comparing _distance) . filter (neighbor n)
-> longest :: Int -> [Distance] -> Distance
-> longest n = maximumBy (comparing _distance) . filter (neighbor n)
-> next :: Int -> Distance -> Int
-> next n (Distance i j _) = if i == n then j else i
-> neighbor :: Int -> Distance -> Bool
-> neighbor n (Distance i j _) = i == n || j == n
 
 > twoOpt :: [Distance] -> Tour Int -> Tour Int
 > twoOpt xs = go

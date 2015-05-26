@@ -47,7 +47,7 @@ And off we go.
 >     -- First we compute the canonical tour.
 >     for_ (take 1 $ drop 3 tsps') (\xs -> print . tourLength xs . canonical $ xs)
 >     -- Next we compute the Nearest Neighbor tour.
->     --for_ (take 1 $ drop 3 tsps') (\xs -> print . tourLength xs . nearestNeighbors)
+>     for_ (take 1 $ drop 3 tsps') (\xs -> print . tourLength xs . nearestNeighbors $ xs)
 >     -- Next we compute the Nearest Neighbor followed by twoOpt.
 >     --for_ (take 1 $ drop 3 tsps') (\xs -> print . tourLength xs . twoOpt . nearestNeighbors)
 >     -- Next we compute the Farthest Insertion tour.
