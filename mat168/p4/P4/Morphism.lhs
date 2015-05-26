@@ -2,19 +2,27 @@ Here's the brunt of the program.
 
 We implement the different algorithms here.
 
+> {-# LANGUAGE DeriveTraversable #-}
+> {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+> {-# LANGUAGE OverloadedLists #-}
+> {-# LANGUAGE TypeFamilies #-}
 > module P4.Morphism where
 >
 > import Control.Lens
+> import Control.Applicative (Alternative, empty)
+> import Control.Monad (MonadPlus, guard)
 >
 > import Data.Bits (xor)
 > import Data.Foldable (find, fold, foldl')
 > import Data.Function ((&), on)
 > import Data.List (groupBy, maximumBy, minimumBy, sort)
 > import Data.Maybe (fromMaybe, isJust, maybeToList)
-> import Data.Monoid (First(..))
+> import Data.Monoid (First(..), (<>))
 > import Data.Ord (comparing)
 > import Data.Traversable (for)
 > import Data.Tuple (swap)
+>
+> import GHC.Exts (IsList(..))
 >
 > import P4.Distance
 >
@@ -23,16 +31,32 @@ We implement the different algorithms here.
 We need some way to express tours,
 a [Int] might work, but let's give it a newtype just to make things easier.
 
+> newtype Tour a = Tour { unTour :: [a] }
+>     deriving ( Alternative, Applicative, Eq, Functor, Foldable, Monad
+>              , MonadPlus, Monoid, Ord, Show, Traversable
+>              )
+> instance IsList (Tour a) where
+>     type Item (Tour a) = a
+>     fromList = Tour
+>     toList = unTour
+
 We can compute the `tourLength` of any list of distances.
 
-> tourLength :: [Distance] -> Int
-> tourLength = sum . map _distance
+> tourLength :: [Distance] -> Tour Int -> Int
+> tourLength xs = sum . maybe [] (fmap _distance) . tourDistance xs
 
-> canonical :: [Distance] -> [Distance]
-> canonical xs = front ++ loop
+> tourDistance :: [Distance] -> Tour Int -> Maybe [Distance]
+> tourDistance xs ys = for (pair $ toList ys) $ \(i', j') ->
+>     find (\d -> _i d == min i' j' && _j d == max i' j') xs
+
+> pair :: [a] -> [(a, a)]
+> pair = zip <*> (uncurry (++) . swap . splitAt 1)
+
+> canonical :: [Distance] -> Tour Int
+> canonical xs = fmap _i (fromList front) <> [loop]
 >     where
->     front = map head . groupBy ((==) `on` _i) . sort $ xs
->     loop = take 1 . map last . groupBy ((==) `on` _i) . sort $ xs
+>     front = fmap head . groupBy ((==) `on` _i) . sort $ xs
+>     loop = _j $ last front
 
 > nearestNeighbors :: [Distance] -> [Distance]
 > nearestNeighbors [] = []
@@ -94,70 +118,63 @@ We codify the "Farthest Insertion" algorithm
 > neighbor :: Int -> Distance -> Bool
 > neighbor n (Distance i j _) = i == n || j == n
 
-> twoOpt :: [Distance] -> [Distance]
-> twoOpt xs = go (canonical xs)
+> twoOpt :: [Distance] -> Tour Int -> Tour Int
+> twoOpt xs = go
 >     where
->     go :: [Distance] -> [Distance]
->     go ys = case improvement xs nodeNums ys of
+>     go :: Tour Int -> Tour Int
+>     go ys = case improvement xs ys of
 >         []  -> ys
->         ys' -> go (minimumBy (comparing tourLength) ys')
->     nodeNums = [1..nodes xs]
+>         ys' -> go (minimumBy (comparing (tourLength xs)) ys')
 
-> improvement :: [Distance] -> [Int] -> [Distance] -> [[Distance]]
-> improvement xs ys dist = do
+> improvement :: [Distance] -> Tour Int -> [Tour Int]
+> improvement xs ys = do
+>     let bestDistance = tourLength xs ys
+>     guard (0 < bestDistance)
 >     i <- [0..length ys - 1]
 >     k <- [i + 1..length ys]
->     let ys' = take 1 ys ++ twoOptSwap (drop 1 ys) i k
->     case twoOptDistance xs ys' of
->         Just dist' -> if tourLength dist' < tourLength dist then
->                           [dist']
->                       else
->                           []
->         Nothing    -> []
-> twoOptDistance :: [Distance] -> [Int] -> Maybe [Distance]
-> twoOptDistance xs ys = for (pair ys) $ \(i', j') ->
->     find (\d -> _i d == min i' j' && _j d == max i' j') xs
-> pair :: [a] -> [(a, a)]
-> pair = zip <*> (uncurry (++) . swap . splitAt 1)
+>     let ys' = fromList (take 1 (toList ys) <> twoOptSwap (drop 1 (toList ys)) i k)
+>     let newDistance = tourLength xs ys'
+>     guard (0 < newDistance)
+>     if newDistance < bestDistance then pure ys' else empty
 > twoOptSwap :: [a] -> Int -> Int -> [a]
 > twoOptSwap xs i k = front ++ reverse middle ++ back
 >     where
 >     (front, (middle, back)) = splitAt (k - i) <$> splitAt (i - 1) xs
 
-> lin'Kernighan :: [Distance] -> [Int] -> [Int]
+> lin'Kernighan :: [Distance] -> Tour Int -> Tour Int
 > lin'Kernighan xs path =
 >     fromMaybe path $ getFirst $ improvePath xs path 1 S.empty
 
 > α = 5
-> improvePath :: [Distance] -> [Int] -> Int -> S.Set Int -> First [Int]
+> improvePath :: [Distance] -> Tour Int -> Int -> S.Set Int -> First (Tour Int)
 > improvePath xs path depth restricted
 >     | depth < α =
->         let filtered = filter (flip S.notMember restricted . fst) $ pair path
+>         let pathList = toList path
+>             filtered = filter (flip S.notMember restricted . fst) $ pair pathList
 >             gs = fmap g filtered
->             g (x, y) = (x, y, weight xs x y - weight xs (last path) x)
+>             g (x, y) = (x, y, weight xs x y - weight xs (last pathList) x)
 >             goodGs = filter ((> 0) . view _3) gs
 >             choices = fmap choose goodGs
 >             choose (x, y, _) =
->                 let swapped = replace path y (last path)
->                     swappedLength = tourLength <$> twoOptDistance xs swapped
->                     pathLength = tourLength <$> twoOptDistance xs path
+>                 let swapped = fromList $ replace pathList y (last pathList)
+>                     swappedLength = tourLength xs swapped
+>                     pathLength = tourLength xs path
 >                 in  if swappedLength < pathLength
 >                       then pure swapped
 >                       else improvePath xs swapped (depth + 1) (S.insert x restricted)
 >         in  fold choices
 >     | otherwise =
->         let (x, y, d) = maximumBy (comparing $ view _3) $ fmap g $ pair path
->             g (x, y) = (x, y, weight xs x y - weight xs (last path) x)
->             swapped = replace path y (last path)
->             swappedLength = tourLength <$> twoOptDistance xs swapped
->             pathLength = tourLength <$> twoOptDistance xs path
+>         let pathList = toList path
+>             (x, y, d) = maximumBy (comparing $ view _3) $ fmap g $ pair pathList
+>             g (x, y) = (x, y, weight xs x y - weight xs (last pathList) x)
+>             swapped = fromList $ replace pathList y (last pathList)
+>             swappedLength = tourLength xs swapped
+>             pathLength = tourLength xs path
 >         in  if d > 0
 >               then if swappedLength < pathLength
 >                       then pure swapped
 >                       else improvePath xs swapped (depth + 1) (S.insert x restricted)
 >               else mempty
->     where
->     e = last path
 > replace path y e =
 >     let (front,  back) = span ((/=) y) path
 >         (middle, rest) = span ((/=) e) $ drop 1 back

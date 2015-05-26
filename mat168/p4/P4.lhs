@@ -27,7 +27,7 @@ We import a whole mess of helper things
 > import Data.Foldable (for_)
 > import Data.List (sort)
 >
-> import P4.Morphism (canonical, farthestInsertion, nearestNeighbors, tourLength, twoOpt)
+> import P4.Morphism -- (canonical, farthestInsertion, nearestNeighbors, tourLength, tourDistance)--, twoOpt)
 > import P4.Parser (parseData)
 >
 > import System.FilePath.Glob (glob)
@@ -45,13 +45,13 @@ And off we go.
 >     let tsps' = rights tsps
 >
 >     -- First we compute the canonical tour.
->     for_ (take 1 $ drop 3 tsps') (print . tourLength . canonical)
+>     for_ (take 1 $ drop 3 tsps') (\xs -> print . tourLength xs . canonical $ xs)
 >     -- Next we compute the Nearest Neighbor tour.
->     for_ (take 1 $ drop 3 tsps') (print . tourLength . nearestNeighbors)
+>     --for_ (take 1 $ drop 3 tsps') (\xs -> print . tourLength xs . nearestNeighbors)
 >     -- Next we compute the Nearest Neighbor followed by twoOpt.
->     for_ (take 1 $ drop 3 tsps') (print . tourLength . twoOpt . nearestNeighbors)
+>     --for_ (take 1 $ drop 3 tsps') (\xs -> print . tourLength xs . twoOpt . nearestNeighbors)
 >     -- Next we compute the Farthest Insertion tour.
->     for_ (take 1 $ drop 3 tsps') (print . tourLength . farthestInsertion)
+>     --for_ (take 1 $ drop 3 tsps') (\xs -> print . tourLength xs . farthestInsertion)
 
 We can see the result of running this program.
 
