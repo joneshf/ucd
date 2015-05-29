@@ -14,6 +14,7 @@
 \usepackage{color, colortbl}
 \usepackage{dcolumn}
 \usepackage{enumitem}
+\usepackage[mathscr]{euscript}
 \usepackage{float}
 \usepackage{fp}
 \usepackage{ifthen}
@@ -373,12 +374,27 @@
               \]
           \end{enumerate}
         \item
+          Let's first enumerate all of the relations.
+
+          \[
+            \{(i, i), (i, -i), (-i, i), (-i, -i), (1, 1), (1, -1), (-1, 1), (-1, -1)\}
+          \]
+
+          From this, we can see the equivalence classes:
+
+          $i / C = -i / C = \{i, -i\}$,
+
+          $1 / C = -1 / C = \{1, -1\}$
+
+          So the partition $\mathscr{P} = \{\{i, -i\}, \{1, -1\}\}$
         \setcounter{enumii}{5}
         \item
           \begin{enumerate}
             \item
+              For $m, n \in \mathbb{N}$, $m R n$ iff $10^p < m \leq n < 10^{p + 1}$ for $p \in \{0, 1, 2, \dots\}$.
             \setcounter{enumiii}{4}
             \item
+              For $m, n \in \mathbb{Z}$, $m R n$ iff either both $m, n < 3$ or both $m, n \geq 3$.
           \end{enumerate}
       \end{enumerate}
     \item [\S 4.1]
@@ -387,16 +403,55 @@
           \begin{enumerate}
             \setcounter{enumiii}{4}
             \item
+              If we look at some of the elements of the relation we see:
+
+              \[\{(1, 1), (1, 2), (1, 3), \dots\}\]
+
+              Since 1 is mapped to many values, this relation is not a function.
             \item
+              If we look at some of the elements of the relation we see:
+
+              \[\{(0, 0), (1, 1), (4, 2), (4, -2), (9, 3), (9, -3), \dots\}\]
+
+              Since 4 is mapped to many values, this relation is not a function.
           \end{enumerate}
         \setcounter{enumii}{2}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{1}
             \item
+              The domain of the mapping is $\mathbb{R}$.
+
+              The range of the mapping is $\{x \in \mathbb{R} : x \geq 5\}$.
+
+              Another possible codomain is $\mathbb{R}$.
             \setcounter{enumiii}{4}
             \item
+              Let's expand the definition of $\mathcal{X}_\mathbb{N}(x)$.
+
+              \[
+                \mathcal{X}_\mathbb{N}(x)
+                =
+                \begin{cases}
+                  1 & \text{ if } x \in \mathbb{N} \\
+                  0 & \text{ if } x \notin \mathbb{N} \\
+                \end{cases}
+              \]
+
+              So we see,
+              the domain of the mapping is $\mathbb{N}$.
+
+              The range of the mapping is $\{0, 1\}$.
+
+              Another possible codomain is $\mathbb{R}$.
             \item
+              This mapping is the $\cosh(x)$.
+
+              The domain of the mapping is $\mathbb{R}$.
+
+              The range of the mapping is $[0, \infty)$.
+
+              Another possible codomain is $\mathbb{R}$.
           \end{enumerate}
         \item
           \begin{enumerate}
