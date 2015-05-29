@@ -92,16 +92,50 @@
 }
 
 \newcommand*\reflexive[4]{%
-  Choose any $#3 \in \mathbb{#1}$.
+  Choose any $#3 \in #1$.
 
   #4
 
   So $#2$ is reflexive on $#3$
 
   Since the choice of $#3$ was arbitrary,
-  this result holds for all $#3 \in \mathbb{#1}$.
+  this result holds for all $#3 \in #1$.
 
-  Thus, $#2$ is reflexive on $\mathbb{#1}$
+  Thus, $#2$ is reflexive on $#1$
+}
+
+\newcommand*\symmetric[5]{%
+  Choose any $#3, #4 \in #1$ with $#3 #1 #4$.
+
+  #5
+
+  So $#1$ is symmetric on $#3, #4$.
+
+  Since the choice of $#3, #4$ was arbitrary,
+  this result holds for all $#3, #4 \in #1$.
+
+  Thus, $#1$ is symmetric on $#1$
+}
+
+\newcommand*\transitive[6]{%
+  Choose any $#3, #4, #5 \in #1$ with $#3 #2 #4$ and $#4 #2 #5$.
+
+  #6
+
+  So $#2$ is transitive on $#3, #4, #5$.
+
+  Since the choice of $#3, #4, #5$ was arbitrary, \\
+  this result holds for all $#3, #4, #5 \in #1$.
+
+  Thus, $#2$ is transitive on $#1$
+}
+
+\newcommand*\equivrel[8]{%
+  \begin{itemize}
+    \item \reflexive{#1}{#2}{#3}{#6}
+    \item \symmetric{#1}{#2}{#3}{#4}{#7}
+    \item \transitive{#1}{#2}{#3}{#4}{#5}{#8}
+  \end{itemize}
 }
 
 \newcommand*\congruentboth[3]{%
@@ -203,45 +237,24 @@
               \begin{proof}
                 We need to show reflexivity, symmetry, and transitivity.
 
-                \begin{itemize}
-                  \item
-                    \reflexive{N}{R}{m}{
-                      Then $m$ has a digit $p \in \{0, 1, \dots, 9\}$ in its tens place.
-                      Since $m$ has the same digit $p$ in its tens place as $m$,
-                      we have $m R m$.
-                    }
-                  \item
-                    Choose any $m, n \in \mathbb{N}$ with $m R n$.
-
-                    Then $m$ has the same digit in the tens place as $n$.
-                    Then $n$ has the same digit in the tens place as $m$.
-                    Then $n R m$.
-                    So $R$ is symmetric on $m, n$.
-
-                    Since the choice of $m, n$ was arbitrary,
-                    this result holds for all $m, n \in \mathbb{N}$.
-
-                    Thus, $R$ is symmetric on $\mathbb{N}$
-                  \item
-                    Choose any $m, n, p \in \mathbb{N}$ with $m R n$ and $n R p$.
-
-                    Then $m$ has the same digit in the tens place as $n$.
-                    Call this digit $q$.
-                    Then $n$ has the same digit in the tens place as $p$.
-                    Call this digit $r$.
-
-                    Since $q$ and $r$ are the tens digit of $n$, we have $q = r$
-                    So we know that the tens place of $p$ is $q$.
-
-                    This means that $m$ has the same digit in the tens place as $p$.
-                    So $m R p$.
-                    And $R$ is transitive on $m, n, p$.
-
-                    Since the choice of $m, n, p$ was arbitrary,
-                    this result holds for all $m, n, p \in \mathbb{N}$.
-
-                    Thus, $R$ is transitive on $\mathbb{N}$
-                \end{itemize}
+                \equivrel{\mathbb{N}}{R}{m}{n}{p}{
+                  Then $m$ has a digit $p \in \{0, 1, \dots, 9\}$ in its tens place.
+                  Since $m$ has the same digit $p$ in its tens place as $m$,
+                  we have $m R m$.
+                }{
+                  Then $m$ has the same digit in the tens place as $n$.
+                  Then $n$ has the same digit in the tens place as $m$.
+                  Then $n R m$.
+                }{
+                  Then $m$ has the same digit in the tens place as $n$.
+                  Call this digit $q$.
+                  Then $n$ has the same digit in the tens place as $p$.
+                  Call this digit $r$.\\
+                  Since $q$ and $r$ are the tens digit of $n$, we have $q = r$
+                  So we know that the tens place of $p$ is $q$. \\
+                  This means that $m$ has the same digit in the tens place as $p$.
+                  So $m R p$.
+                }
               \end{proof}
 
               An element of $106 / R$ less than $50$ is $3$,
@@ -259,69 +272,154 @@
               \begin{proof}
                 We need to show reflexivity, symmetry, and transitivity.
 
-                \begin{itemize}
-                  \item
-                    Choose any $m \in \mathbb{R}$.
-
-                    Then
-
-                    So $V$ is reflexive on $m$
-
-                    Since the choice of $m$ was arbitrary,
-                    this result holds for all $m \in \mathbb{R}$.
-
-                    Thus, $V$ is reflexive on $\mathbb{R}$
-                  \item
-                    Choose any $m, n \in \mathbb{R}$ with $m V n$.
-
-                    Then $m$ has the same digit in the tens place as $n$.
-                    Then $n$ has the same digit in the tens place as $m$.
-                    Then $n V m$.
-                    So $V$ is symmetric on $m, n$.
-
-                    Since the choice of $m, n$ was arbitrary,
-                    this result holds for all $m, n \in \mathbb{R}$.
-
-                    Thus, $V$ is symmetric on $\mathbb{R}$
-                  \item
-                    Choose any $m, n, p \in \mathbb{R}$ with $m V n$ and $n V p$.
-
-                    Then $m$ has the same digit in the tens place as $n$.
-                    Call this digit $q$.
-                    Then $n$ has the same digit in the tens place as $p$.
-                    Call this digit $r$.
-
-                    Since $q$ and $r$ are the tens digit of $n$, we have $q = r$
-                    So we know that the tens place of $p$ is $q$.
-
-                    This means that $m$ has the same digit in the tens place as $p$.
-                    So $m V p$.
-                    And $V$ is transitive on $m, n, p$.
-
-                    Since the choice of $m, n, p$ was arbitrary,
-                    this result holds for all $m, n, p \in \mathbb{R}$.
-
-                    Thus, $V$ is transitive on $\mathbb{R}$
-                \end{itemize}
+                \equivrel{\mathbb{R}}{V}{x}{y}{z}{
+                  Then $x = x$, so $x V x$.
+                }{
+                  Then either $x = y$ or $x y = 1$. \\
+                  This also means $y = x$ or $y x = 1$.
+                  So we have $y V x$.
+                }{
+                  Then either $x = y$ or $xy = 1$ and either $y = z$ or $yz = 1$.
+                  \begin{itemize}
+                    \item If $x = y$ and $y = z$, then $x = z$ so $x V z$.
+                    \item If $x = y$ and $yz = 1$, then $xz = yz = 1$ so $x V z$.
+                    \item If $xy = 1$ and $y = z$, then $xz = xy = 1$ so $x V z$.
+                    \item If $xy = 1$ and $yz = 1$, then $\frac{1}{z} = y = \frac{1}{x} \implies \frac{1}{z} = \frac{1}{x} \implies x = z$ so $x V z$.
+                  \end{itemize}
+                }
               \end{proof}
 
-              An element of $106 / R$ less than $50$ is $3$,
-              since the tens place of 106 is 0, the tens place of 3 is 0, and $3 < 50$.
+              The equivalence class of $3 = \{3, \frac{1}{3}\}$.
 
-              An element of $106 / R$ between $150$ and $300$ is $203$,
-              since the tens place of 106 is 0, the tens place of 203 is 0, and $150 < 203 < 300$.
+              The equivalence class of $-\frac{2}{3} = \{-\frac{2}{3}, -\frac{3}{2}\}$.
 
-              An element of $106 / R$ greater than $1000$ is $2003$,
-              since the tens place of 106 is 0, the tens place of 2003 is 0, and $1000 < 2003$.
-
-              Three elements of $635 / R$ are $30, 31$, and $32$,
-              since the tens place of 635 is 3, the tens place of 30 is 3, the tens place of 31 is 3, and the tens place of 32 is 3.
+              The equivalence class of $0 = \{0\}$.
             \item
+              \begin{proof}
+                \equivrel{\mathbb{N}}{R}{a}{b}{c}{
+                  Then the prime factorization of $a$ has exactly as many 2s as the prime factorization of $a$. \\
+                  So $a R a$.
+                }{
+                  Then the prime factorization of $a$ has exactly as many 2s as the prime factorization of $b$. \\
+                  This means the prime factorization of $b$ has exactly as many 2s as the prime factorization of $a$. \\
+                  So $b R a$.
+                }{
+                  Then the prime factorization of $a$ has exactly as many 2s as the prime factorization of $b$.
+                  Call this number of 2s $p$. \\
+                  And the prime factorization of $b$ has exactly as many 2s as the prime factorization of $c$.
+                  Call this number of 2s $q$. \\
+                  Then $p = q$.
+                  This means the prime factorization of $a$ has exactly as many 2s as the prime factorization of $c$. \\
+                  So $a R c$.
+                }
+              \end{proof}
+
+              Three elements in $1 / R$ are $2 = 2^{1}, 6 = 2^{1}(3), 10 = 2^{1}(5)$.
+
+              Three elements in $4 / R$ are $16 = 2^{4}, 48 = 2^{4}(3), 80 = 2^{4}(5)$.
+
+              Three elements in $72 / R$ are
+
+              $4722366482869645213696 = 2^{72}$,
+
+              $14167099448608935641088 = 2^{72}(3)$,
+
+              $23611832414348226068480 = 2^{72}(5)$.
             \item
+              \begin{proof}
+                \equivrel{\mathbb{R} \times \mathbb{R}}{T}{(a,b)}{(c,d)}{(e,f)}{
+                  Then $a^2 + b^2 = a^2 + b^2$. So $(a, b) T (a, b)$.
+                }{
+                  Then $a^2 + b^2 = c^2 + d^2 \implies c^2 + d^2 = a^2 + b^2$.
+                  So $(c, d) T (a, b)$.
+                }{
+                  Then $a^2 + b^2 = c^2 + d^2$ and $c^2 + d^2 = e^2 + f^2$. \\
+                  But this means $a^2 + b^2 = c^2 + d^2 = e^2 + f^2$. \\
+                  So $a^2 + b^2 = e^2 + f^2$. \\
+                  And $(a, b) T (e, f)$.
+                }
+              \end{proof}
+
+              \begin{figure}
+                \centering
+                \begin{minipage}{.5\textwidth}
+                  \centering
+                  \begin{tikzpicture}
+                    \draw [->] (-3,0) -- (3,0) node [above left]  {$x$};
+                    \draw [->] (0,-3) -- (0,3) node [below right] {$y$};
+                    \draw (0,0) circle[radius=2] ;
+                    \draw (2,-3pt) -- (2,3pt)   node [above] {$\sqrt{5}$};
+                    \draw (-2,-3pt) -- (-2,3pt) node [above] {$-\sqrt{5}$};
+                    \draw (-3pt,2) -- (3pt,2)   node [right] {$\sqrt{5}$};
+                    \draw (-3pt,-2) -- (3pt,-2) node [right] {$-\sqrt{5}$};
+                  \end{tikzpicture}
+                  \captionof{figure}{$(1, 2) / \left(\mathbb{R} \times \mathbb{R}\right)$}
+                  \label{fig:rra}
+                \end{minipage}%
+                \begin{minipage}{.5\textwidth}
+                  \centering
+                  \begin{tikzpicture}
+                    \draw [->] (-3,0) -- (3,0) node [above left]  {$x$};
+                    \draw [->] (0,-3) -- (0,3) node [below right] {$y$};
+                    \draw (0,0) circle[radius=2] ;
+                    \draw (2,-3pt) -- (2,3pt)   node [above] {$4$};
+                    \draw (-2,-3pt) -- (-2,3pt) node [above] {$-4$};
+                    \draw (-3pt,2) -- (3pt,2)   node [right] {$4$};
+                    \draw (-3pt,-2) -- (3pt,-2) node [right] {$-4$};
+                  \end{tikzpicture}
+                  \captionof{figure}{$(4, 0) / \left(\mathbb{R} \times \mathbb{R}\right)$}
+                  \label{fig:rrb}
+                \end{minipage}
+              \end{figure}
+
+              See Figures \ref{fig:rra}, \ref{fig:rrb}.
+
             \setcounter{enumiii}{7}
             \item
+              \begin{proof}
+                Call the set of all differentiable functions $D$.
+                \equivrel{D}{R}{f}{g}{h}{
+                  Then $f$ has the same first derivative as $f$. \\
+                  So $f R f$.
+                }{
+                  Then $f$ has the same first derivative as $g$.
+                  This means that $g$ has the same first derivative as $f$. \\
+                  So $g R f$.
+                }{
+                  Then $f$ has the same first derivative as $g$.
+                  Call this derivative $p$.
+                  Then $g$ has the same first derivative as $h$.
+                  Call this derivative $q$. \\
+                  Then $f' = g' = p = q = g' = h'$. \\
+                  So $f' = h'$ and $f R h$.
+                }
+              \end{proof}
+
+              Three elements in $x^2 / R$ are: $x^2, x^2 + 1, x^2 + 2$.
+
+              Three elements in $(4x^2 + 10x) / R$ are: $4x^2 + 10x, 4x^2 + 10x + 1, 4x^2 + 10x + 2$.
+
+              $x^3 / R$ is the set of all functions whose first derivative is $3x^2$.
+
+              $7 / R$ is the set of all functions whose first derivative is $0$.
           \end{enumerate}
         \item
+          \begin{proof}
+            \equivrel{\mathbb{Q}}{R}{\frac{a}{b}}{\frac{c}{d}}{\frac{e}{f}}{
+              Then $ab = ba$ so $\frac{a}{b} R \frac{a}{b}$.
+            }{
+              Then $ad = bc$.
+              But also $bc = ad \implies cb = ad \implies cb = da$. \\
+              So $\frac{c}{d} R \frac{a}{b}$.
+            }{
+              Then $ad = bc$.
+              Then $cf = de$. \\
+              So $c = \frac{de}{f}$ and $ad = b\frac{de}{f} \implies a = \frac{be}{f} \implies af = be$. \\
+              So $\frac{a}{b} R \frac{e}{f}$
+            }
+          \end{proof}
+
+          The ordered pairs in $\frac{2}{3} / R$ are pairs $(p, q) \in \mathbb{Z} \times \mathbb{Z}$ such that $2q = 3p$.
         \setcounter{enumii}{7}
         \item
           \begin{enumerate}
