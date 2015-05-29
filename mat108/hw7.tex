@@ -147,6 +147,30 @@
   And a negative integer that is congruent to #1 (mod #2) and congruent to #1 (mod #3) is $\congruentbothneg$.
 }
 
+\newcommand*\threexy[4]{%
+  $x = #1, y = #2$
+
+  $3x + y = 3(#1) + #2 = #3 + #2 = #4$
+}
+
+\newcommand*\threexyprime[2]{%
+  \MULTIPLY{3}{#1}{\threexythreex}
+  \ADD{\threexythreex}{#2}{\threexythreexy}
+
+  \threexy{#1}{#2}{\threexythreex}{\threexythreexy}
+
+  $\threexythreexy$ is prime, so $(#1, #2) \in R$.
+}
+
+\newcommand*\threexynotprime[2]{%
+  \MULTIPLY{3}{#1}{\threexythreex}
+  \ADD{\threexythreex}{#2}{\threexythreexy}
+
+  \threexy{#1}{#2}{\threexythreex}{\threexythreexy}
+
+  $\threexythreexy$ is not prime, so $(#1, #2) \notin R$.
+}
+
 \renewcommand{\labelenumi}{\S 3.\arabic*}
 \renewcommand{\labelenumii}{\arabic*}
 \renewcommand{\labelenumiii}{(\alph*)}
@@ -455,48 +479,158 @@
           \end{enumerate}
         \item
           \begin{enumerate}
+            \begin{figure}
+              \centering
+              \begin{minipage}{.5\textwidth}
+                \begin{tikzpicture}
+                  \begin{axis}[xlabel=$x$, ylabel=$y$, xmax=6, ymax=6, xmin=0, ymin=0, grid=major]
+                    \addplot[domain=3:5]{sqrt(5 - x) + sqrt(x - 3)}
+                    ;
+                  \end{axis}
+                \end{tikzpicture}
+                \captionof{figure}{$f(x) = \sqrt{5 - x} + \sqrt{x - 3}$}
+                \label{fig:a}
+              \end{minipage}%
+            \end{figure}
+
             \setcounter{enumiii}{4}
             \item
+              $f(x)$ is only defined when $x \leq 5$ and $x \geq 3$.
+
+              So the domain of $f$ is $[3, 5]$.
+
+              Looking at Figure \ref{fig:a},
+              the range of $f$ is $[\sqrt{2}, 2]$
             \item
+              $f(x)$ is only defined when $x \geq -2$ and $x \leq -2$.
+
+              So the domain of $f$ is $\{-2\}$.
+
+              The range of $f$ is $\{0\}$
           \end{enumerate}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{1}
             \item
+              \begin{proof}
+                We enumerate all possibilities:
+
+                \begin{itemize}
+                  \item \threexynotprime{1}{1}
+                  \item \threexyprime{1}{2}
+                  \item \threexynotprime{1}{3}
+                  \item \threexyprime{2}{1}
+                  \item \threexynotprime{2}{2}
+                  \item \threexynotprime{2}{3}
+                  \item \threexynotprime{3}{1}
+                  \item \threexyprime{3}{2}
+                  \item \threexynotprime{3}{3}
+                \end{itemize}
+
+                So we have:
+                \[
+                  R = \{(1, 2), (2, 1), (3, 2)\}
+                \]
+
+                Now, dom($R$) = $A$.
+
+                If we choose $(1, y), (1, z) \in R$, then $y = z = 2$.
+                If we choose $(2, y), (2, z) \in R$, then $y = z = 1$.
+                If we choose $(3, y), (3, z) \in R$, then $y = z = 2$.
+
+                From this we have shown that $R$ is a function with domain $A$.
+              \end{proof}
             \item
+              \begin{proof}
+                Choose any $x \in \mathbb{Z}$.
+
+                Then $x \cdot x - 2 = - y \implies x^2 + y = 2$,
+                so for any $x \in \mathbb{Z}$, we have $(x, 2 - x^2) \in R$.
+                Then the domain of $R$ is $\mathbb{Z}$.
+
+                Now, choose $(x, y), (x, z) \in R$.
+
+                We have $x^2 + y = 2 \implies y = 2 - x^2 = z$,
+                so $y = z$.
+
+                Thus we have shown that $R$ is a function on $\mathbb{Z}$.
+              \end{proof}
           \end{enumerate}
         \setcounter{enumii}{7}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{1}
-            \item
-            \item
+            \item $\{x \in U : \mathcal{X}_A(x) = 0\} = A^C$
+            \item $\{x \in U : \mathcal{X}_A(x) = 2\} = \varnothing$,
+              since Rng($\mathcal{X}_A(x)$) = $\{0, 1\}$
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \setcounter{enumiii}{1}
+            \item $x_n = \frac{(-1)^n}{n}$
+            \setcounter{enumiii}{3}
+            \item $x_n = n (\text{mod } 3)$
           \end{enumerate}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{1}
             \item
+              $f(6) = \overline{6} = \overline{0} = \{\dots, -12, -6, 0, 6, 12, \dots\}$
             \setcounter{enumiii}{3}
             \item
-          \end{enumerate}
-        \item
-          \begin{enumerate}
-            \setcounter{enumiii}{1}
-            \item
-            \setcounter{enumiii}{3}
-            \item
+              All pre-images of $\overline{1} = \{\dots, -11, -5, 1, 5, 11, \dots\}$
           \end{enumerate}
         \item
           \begin{enumerate}
             \setcounter{enumiii}{2}
+            \item $f$ is a function.
             \item
-            \item
+              We have $f : \mathbb{Z}_4 \to \mathbb{Z}_6$ with $f\left(\overline{x}\right) = [2x + 1]$.
+
+              The equivalence classes of $\mathbb{Z}_4$ are $\overline{0}, \overline{1}, \overline{2}, \overline{3}$.
+
+              The equivalence classes of $\mathbb{Z}_6$ are $[0], [1], [2], [3], [4], [5]$.
+
+              So $f\left(\overline{0}\right) = [1], f\left(\overline{1}\right) = [3], f\left(\overline{2}\right) = [5], f\left(\overline{3}\right) = [7] = [1]$
+
+              Then we have $f\left(\overline{4}\right) = f\left(\overline{0}\right) = [1]$,
+              but $f\left(\overline{4}\right) = [9] = [3]$, and $[1] \neq [3]$.
+
+              So $f$ is not a function because it is not well defined.
           \end{enumerate}
         \setcounter{enumii}{16}
         \item
           \begin{enumerate}
             \item
+              In order for the relation from $A$ to $B$ to be a function we need a few things.
+
+              We need the relation to have the domain $A$.
+
+              So we need that the relation must have exactly $m$ relations.
+              We also need that the relation must have each $a \in A$ in the relation exactly once.
+              I.e. $\{(a_1, b_1), (a_1, b_2), \dots\}$ is not a function.
+
+              We can enumerate all possibilities:
+
+              \begin{align*}
+                \{
+                  &\{ (a_1, b_1), (a_2, b_1), \dots, (a_m, b_1) \}, \\
+                  &\{ (a_1, b_2), (a_2, b_1), \dots, (a_m, b_1) \}, \\
+                  & \quad \quad \quad \quad \quad \quad \vdots \\
+                  &\{ (a_1, b_n), (a_2, b_1), \dots, (a_m, b_1) \}, \\
+                  &\{ (a_1, b_1), (a_2, b_2), \dots, (a_m, b_1) \}, \\
+                  &\{ (a_1, b_2), (a_2, b_2), \dots, (a_m, b_1) \}, \\
+                  & \quad \quad \quad \quad \quad \quad \vdots \\
+                  &\{ (a_1, b_1), (a_2, b_n), \dots, (a_m, b_n) \}, \\
+                  &\{ (a_1, b_2), (a_2, b_n), \dots, (a_m, b_n) \}, \\
+                  & \quad \quad \quad \quad \quad \quad \vdots \\
+                  &\{ (a_1, b_n), (a_2, b_n), \dots, (a_m, b_n) \}, \\
+                \}
+              \end{align*}
+
+              After careful counting, we see that there are exactly $mn$ relations that are functions.
             \item
+              For each $a_i \in A$, there are exactly $n$ mappings to some $b_j \in B$. Since there are $m$ possible $a_i$, there are exactly $mn$ relations that are functions.
           \end{enumerate}
       \end{enumerate}
   \end{enumerate}
