@@ -17,6 +17,8 @@ Here we talk about all the algorithms we need.
 > treeShortcut' :: Ord v => (Graph v w -> MST v w) -> Graph v w -> [v]
 > treeShortcut' f graph = walk $ f graph
 
+We don't convert this to an actual tree, so the walk is a bit odd.
+
 > walk :: Ord v => MST v w -> [v]
 > walk mst = go S.empty (S.toAscList . unweightedEdges $ mst)
 >     where
@@ -28,11 +30,16 @@ Here we talk about all the algorithms we need.
 >             | S.member i vs = (vs, [])
 >             | otherwise     = (S.insert i vs, [i])
 >         go' vs i ((j, k):es')
->             | not (S.member i vs)           = (i:) <$> go' (S.insert i vs) i ((j, k):es')
->             | i == j && not (S.member k vs) = let (vs', xs) = go' (S.insert k vs) k es in (\xs' -> k:xs ++ xs') <$> go' vs' i es'
->             | i == k && not (S.member j vs) = let (vs', xs) = go' (S.insert j vs) j es in (\xs' -> j:xs ++ xs') <$> go' vs' i es'
->             | i == j || i == k              = let (vs', xs) = go' vs i es' in (xs ++) <$> go' vs' i es'
->             | otherwise                     = go' vs i es'
+>             | not (S.member i vs)           =
+>                 (i:) <$> go' (S.insert i vs) i ((j, k):es')
+>             | i == k && not (S.member j vs) =
+>                 let (vs', xs) = (j:) <$> go' (S.insert j vs) j es
+>                 in  (xs ++) <$> go' vs' i es'
+>             | i == j && not (S.member k vs) =
+>                 let (vs', xs) = (k:) <$> go' (S.insert k vs) k es
+>                 in  (xs ++) <$> go' vs' i es'
+>             | otherwise                     =
+>                 go' vs i es'
 
 > type Family v = S.Set (S.Set v)
 > kruskal :: (Ord v, Ord w) => Graph v w -> MST v w
