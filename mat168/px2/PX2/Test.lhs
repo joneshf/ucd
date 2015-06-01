@@ -1,6 +1,7 @@
 We want to verify some facts using tests
 that are a bit more complex to verify with the type system.
 
+> {-# LANGUAGE OverloadedLists #-}
 > module PX2.Test where
 
 > import Control.Lens
@@ -70,6 +71,9 @@ Given a graph G = (V, E), a walk of the MST of G should give exactly V.
 >     vs = vertices g
 >     vs' = S.fromList $ walk $ f g
 
+> quickAssert :: Testable prop => prop -> IO ()
+> quickAssert = quickCheckWith stdArgs { maxSuccess = 1 }
+
 > main :: IO ()
 > main = do
 >     quickCheck prop_ArbitraryEdgeNumbers
@@ -79,3 +83,11 @@ Given a graph G = (V, E), a walk of the MST of G should give exactly V.
 >     quickCheck $ prop_MSTVertices kruskal
 >     quickCheck $ prop_walkVertices kruskal
 >     quickCheck prop_treeShortcut
+
+Use some TDD to figure out the walk.
+
+>     quickAssert (walk (S.empty :: MST Natural Natural) == [])
+>     quickAssert (walk [(1, 2, 10)] == [1, 2])
+>     quickAssert (walk [(1, 2, 10), (2, 3, 2)] == [1, 2, 3])
+>     quickAssert (walk [(2, 3, 0), (2, 5, 0), (5, 6, 0)] == [2, 3, 5, 6])
+>     quickAssert (walk [(2, 10, 1), (10, 11, 2), (8, 11, 0)] == [2, 10, 11, 8])

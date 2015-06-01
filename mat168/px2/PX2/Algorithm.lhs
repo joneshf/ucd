@@ -2,7 +2,7 @@ Here we talk about all the algorithms we need.
 
 > module PX2.Algorithm where
 
-> import Control.Lens (_1, _2, _3, view)
+> import Control.Lens ((|>), _1, _2, _3, view)
 >
 > import Data.List (sortOn)
 > import Data.Tree
@@ -18,9 +18,21 @@ Here we talk about all the algorithms we need.
 > treeShortcut' f graph = walk $ f graph
 
 > walk :: Ord v => MST v w -> [v]
-> walk mst = flatten $ head $ unfoldForest go (S.toList $ S.map (view _1) mst)
+> walk mst = go S.empty (S.toAscList . unweightedEdges $ mst)
 >     where
->     go x = (x, S.toList $ S.map (view _2) $ S.filter ((== x) . (view _1)) mst)
+>     go :: Ord v => S.Set v -> [(v, v)] -> [v]
+>     go vs []              = []
+>     go vs es@((i, j):_) = snd (go' vs i es)
+>         where
+>         go' vs i []
+>             | S.member i vs = (vs, [])
+>             | otherwise     = (S.insert i vs, [i])
+>         go' vs i ((j, k):es')
+>             | not (S.member i vs)           = (i:) <$> go' (S.insert i vs) i ((j, k):es')
+>             | i == j && not (S.member k vs) = let (vs', xs) = go' (S.insert k vs) k es in (\xs' -> k:xs ++ xs') <$> go' vs' i es'
+>             | i == k && not (S.member j vs) = let (vs', xs) = go' (S.insert j vs) j es in (\xs' -> j:xs ++ xs') <$> go' vs' i es'
+>             | i == j || i == k              = let (vs', xs) = go' vs i es' in (xs ++) <$> go' vs' i es'
+>             | otherwise                     = go' vs i es'
 
 > type Family v = S.Set (S.Set v)
 > kruskal :: (Ord v, Ord w) => Graph v w -> MST v w
