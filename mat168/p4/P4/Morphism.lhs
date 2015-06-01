@@ -87,15 +87,10 @@ We codify the "Farthest Insertion" algorithm
 > data Mini3Tour a = Mini3Tour a a a (S.Set a)
 > data MiniTour  a = MiniTour [a]    (S.Set a)
 
-> farthestInsertion :: [Distance] -> [Distance]
+> farthestInsertion :: [Distance] -> Tour Int
 > farthestInsertion [] = []
-> farthestInsertion xs = runMini $ go $ miniTour $ mini3Tour
+> farthestInsertion xs = fromList $ init $ go $ miniTour $ mini3Tour
 >     where
->     runMini :: [Int] -> [Distance]
->     runMini []       = []
->     runMini [_]      = []
->     runMini (x:y:zs) =
->         maybeToList (find ((&&) <$> neighbor x <*> neighbor y) xs) ++ runMini (y:zs)
 >     mini2Tour ::Mini2Tour Int
 >     mini2Tour = Mini2Tour x y (S.fromList [1..nodes xs] S.\\ S.fromList [x, y])
 >     mini3Tour :: Mini3Tour Int
@@ -152,10 +147,11 @@ We codify the "Farthest Insertion" algorithm
 > lin'Kernighan xs path =
 >     fromMaybe path $ getFirst $ improvePath xs path 1 S.empty
 
-> α = 5
+> alpha :: Int
+> alpha = 5
 > improvePath :: [Distance] -> Tour Int -> Int -> S.Set Int -> First (Tour Int)
 > improvePath xs path depth restricted
->     | depth < α =
+>     | depth < alpha =
 >         let pathList = toList path
 >             filtered = filter (flip S.notMember restricted . fst) $ pair pathList
 >             gs = fmap g filtered
@@ -188,24 +184,3 @@ We codify the "Farthest Insertion" algorithm
 >     in  front ++ [e] ++ middle ++ [y] ++ drop 1 rest
 > weight :: [Distance] -> Int -> Int -> Int
 > weight xs x y = maybe 0 _distance $ find ((&&) <$> neighbor x <*> neighbor y) xs
-
-
-Algorithm 1 ImprovePath(P, depth, R) recursive algorithm (LKtsp version). The function
-either terminates after an improved tour is found or finishes normally with no profit.
-Require: The path P = b → . . . → e, recursion depth depth and a set of restricted
-vertices R.
-if depth < α then
-  for every edge x → y ∈ P such that x /∈ R do
-    Calculate g = w(x → y) − w(e → x) (see Figure 1b).
-    if g > 0 then
-      if the tour b → . . . → x → e → . . . → y → b is an improvement over the original one then
-        Accept the produced tour and terminate.
-      else
-        ImprovePath(b → . . . → x → e → . . . → y, depth + 1, R ∪ {x}).
-else
-  Find the edge x → y which maximizes g = w(x → y) − w(e → x).
-    if g > 0 then
-      if the tour b → . . . → x → e → . . . → y → b is an improvement over the original one then
-        Accept the produced tour and terminate.
-      else
-        return ImprovePath(b → . . . → x → e → . . . → y, depth + 1, R ∪ {x}).
