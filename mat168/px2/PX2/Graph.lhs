@@ -27,10 +27,10 @@ we roll our own graph.
 >
 > instance (Arbitrary v, Arbitrary w, Ord v, Ord w) => Arbitrary (Graph v w) where
 >     arbitrary = do
->         vs <- arbitrary
->         let es = [(i, j) | i <- vs, j <- vs, i < j]
+>         vs <- S.fromList <$> arbitrary
+>         let es = [(i, j) | i <- S.toList vs, j <- S.toList vs, i < j]
 >         es' <- for es $ \(i, j) -> (i, j, ) <$> arbitrary
->         pure $ Graph (S.fromList vs) (S.fromList es')
+>         pure $ Graph vs (S.fromList es')
 
 > unweightedEdges :: Ord v => S.Set (v, v, w) -> S.Set (v, v)
 > unweightedEdges =

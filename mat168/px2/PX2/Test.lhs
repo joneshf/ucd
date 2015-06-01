@@ -14,6 +14,14 @@ that are a bit more complex to verify with the type system.
 >
 > import qualified Data.Set as S
 
+Generated graphs should have the right number of edges.
+
+> prop_ArbitraryEdgeNumbers :: Graph Natural Natural -> Bool
+> prop_ArbitraryEdgeNumbers g = (vSize * (vSize - 1) `div` 2) == eSize
+>     where
+>     vSize = S.size (vertices g)
+>     eSize = S.size (edges g)
+
 Given a graph G = (V, E), E should be a subset of V x V.
 
 > prop_EdgesAreSubset :: Graph Natural Natural -> Bool
@@ -44,9 +52,30 @@ Given a graph G = (V, E), an MST of G should be exactly V.
 >     vs = vertices g
 >     vs' = S.fromList $ (^..traverse.each) $ S.toList $ unweightedEdges $ f g
 
+Given a graph G = (V, E), a tree shortcut should be exactly V.
+
+> prop_treeShortcut :: Graph Natural Natural -> Property
+> prop_treeShortcut g = S.size vs > 1 ==> vs == vs'
+>     where
+>     vs = vertices g
+>     vs' = S.fromList $ treeShortcut g
+
+Given a graph G = (V, E), a walk of the MST of G should give exactly V.
+
+> prop_walkVertices :: (Graph Natural Natural -> MST Natural Natural)
+>                   -> Graph Natural Natural
+>                   -> Property
+> prop_walkVertices f g = S.size vs > 1 ==> vs == vs'
+>     where
+>     vs = vertices g
+>     vs' = S.fromList $ walk $ f g
+
 > main :: IO ()
 > main = do
+>     quickCheck prop_ArbitraryEdgeNumbers
 >     quickCheck prop_EdgesAreSubset
 >     --quickCheckWith stdArgs {maxDiscardRatio = 100} prop_SmallGraphNoCycles
 >     quickCheck $ prop_MSTEdges kruskal
 >     quickCheck $ prop_MSTVertices kruskal
+>     quickCheck $ prop_walkVertices kruskal
+>     quickCheck prop_treeShortcut
