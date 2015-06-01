@@ -1,23 +1,29 @@
 Here we talk about all the algorithms we need.
 
+> {-# LANGUAGE OverloadedLists #-}
+> {-# LANGUAGE ViewPatterns #-}
 > module PX2.Algorithm where
 
 > import Control.Lens ((|>), (^..), _1, _2, _3, each, view)
 >
 > import Data.List (group, sort, sortOn)
+> import Data.List.Split (chunksOf)
 > import Data.Tree
 >
+> import GHC.Exts
 > import GHC.Natural
 >
 > import PX2.Graph
+> import PX2.Orphan
 >
-> import qualified Data.Set as S
 > import qualified Data.Map as M
+> import qualified Data.MultiSet as MS
+> import qualified Data.Set as S
 
 > treeShortcut :: (Ord v, Ord w) => Graph v w -> [v]
 > treeShortcut = treeShortcut' kruskal
 
-> treeShortcut' :: Ord v => (Graph v w -> MST v w) -> Graph v w -> [v]
+> treeShortcut' :: Ord v => MSTFunc v w -> Graph v w -> [v]
 > treeShortcut' f graph = walk $ f graph
 
 We don't convert this to an actual tree, so the walk is a bit odd.
@@ -46,7 +52,7 @@ but it seems to do the job.
 >             | otherwise                     =
 >                 go' vs i es'
 
-> kruskal :: (Ord v, Ord w) => Graph v w -> MST v w
+> kruskal :: (Ord v, Ord w) => MSTFunc v w
 > kruskal = go S.empty S.empty . sorted . edges
 >     where
 >     go :: (Ord v, Ord w) => Family v -> MST v w -> [(v, v, w)] -> MST v w
@@ -107,3 +113,43 @@ but it seems to do the job.
 >         if cycles g {edges = ps'} || tooIncident ps'
 >           then go ps es
 >           else go ps' es
+
+> christofides :: Graph v w -> [v]
+> christofides = undefined
+
+> christofides' :: MSTFunc v w -> Graph v w -> [v]
+> christofides' = undefined
+
+We can eschew creating an Eulerian Tour,
+and just shortcut the multigraph.
+
+> type Missed v = [(v, v)]
+> type Edges v = [(v, v)]
+> shortcut :: Ord v => MS.MultiSet (v, v) -> [v]
+> shortcut []                    = []
+> shortcut (toList -> (i, j):es) = i:go (MS.fromList es) [] j es
+>     where
+>     go :: Ord v => MS.MultiSet (v, v) -> Missed v -> v -> Edges v -> [v]
+>     go _  []         i []           = [i]
+>     go es ((j,k):ms) i []
+>         | i == j    = i:go (MS.delete (j, k) es) [] k ms
+>         | i == k    = i:go (MS.delete (j, k) es) [] j ms
+>         | otherwise = i:go es [] k ms
+>     go es ms         i ((j, k):es')
+>         | i == j    = i:go (MS.delete (j, k) es) ms k es'
+>         | i == k    = i:go (MS.delete (j, k) es) ms j es'
+>         | otherwise =   go es ((j, k):ms) i es'
+
+> perfectMatching :: (Ord v, Ord w) => Graph v w -> [v] -> S.Set (v, v, w)
+> perfectMatching g vs = foldl go S.empty
+>                      . filter ((== 2) . length)
+>                      . chunksOf 2
+>                      . sort
+>                      $ vs
+>     where
+>     es = edges g
+>     go acc [x, y] = S.union acc $ S.filter (equivalent x y) es
+>     equivalent x y (i, j, _) = i == x && j == y
+
+> oddIncidents :: Ord v => S.Set (v, v, w) -> [v]
+> oddIncidents = M.keys . M.filter odd . incidents

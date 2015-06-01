@@ -13,8 +13,9 @@ that are a bit too time consuming to verify with the type system.
 >
 > import Test.QuickCheck
 >
-> import qualified Data.Set as S
 > import qualified Data.Map as M
+> import qualified Data.MultiSet as MS
+> import qualified Data.Set as S
 
 Generated graphs should have the right number of edges.
 
@@ -36,14 +37,14 @@ A graph with less than three vertices cannot have cycles.
 
 Given a graph G = (V, E), an MST of G should have exactly max(0, |V| - 1) edges.
 
-> prop_MSTEdges :: (Graph Natural Natural -> MST Natural Natural)
+> prop_MSTEdges :: MSTFunc Natural Natural
 >               -> Graph Natural Natural
 >               -> Bool
 > prop_MSTEdges f g = max 0 (vSize g - 1) == S.size (f g)
 
 Given a graph G = (V, E), an MST of G should be exactly V.
 
-> prop_MSTVertices :: (Graph Natural Natural -> MST Natural Natural)
+> prop_MSTVertices :: MSTFunc Natural Natural
 >                  -> Graph Natural Natural
 >                  -> Property
 > prop_MSTVertices f g = vSize g > 1 ==> vertices g == vs
@@ -59,7 +60,7 @@ Given a graph G = (V, E), a tree shortcut should be exactly V.
 
 Given a graph G = (V, E), a walk of the MST of G should give exactly V.
 
-> prop_walkVertices :: (Graph Natural Natural -> MST Natural Natural)
+> prop_walkVertices :: MSTFunc Natural Natural
 >                   -> Graph Natural Natural
 >                   -> Property
 > prop_walkVertices f g = vSize g > 1 ==> vertices g == vs
@@ -90,16 +91,17 @@ Helper for unit tests/TDD.
 
 > main :: IO ()
 > main = do
->     quickCheck prop_ArbitraryEdgeNumbers
->     quickCheck prop_EdgesAreSubset
->     quickCheckWith stdArgs {maxDiscardRatio = 100} prop_SmallGraphNoCycles
->     quickCheck $ prop_MSTEdges kruskal
->     quickCheck $ prop_MSTVertices kruskal
->     quickCheck $ prop_walkVertices kruskal
->     quickCheck prop_treeShortcut
->     quickCheck prop_IncidentsMaximum
->     quickCheck prop_IncidentsKeys
->     quickCheck prop_GreedyVertices
+
+-- >     quickCheck prop_ArbitraryEdgeNumbers
+-- >     quickCheck prop_EdgesAreSubset
+-- >     quickCheckWith stdArgs {maxDiscardRatio = 100} prop_SmallGraphNoCycles
+-- >     quickCheck $ prop_MSTEdges kruskal
+-- >     quickCheck $ prop_MSTVertices kruskal
+-- >     quickCheck $ prop_walkVertices kruskal
+-- >     quickCheck prop_treeShortcut
+-- >     quickCheck prop_IncidentsMaximum
+-- >     quickCheck prop_IncidentsKeys
+-- >     quickCheck prop_GreedyVertices
 
 Use some TDD to figure out the walk.
 
@@ -116,3 +118,11 @@ Use some TDD to figure out cycles.
 >     quickAssert (not $ cycles $ Graph [1..7] [(1,3,0),(2,4,0),(3,6,0),(4,5,0),(5,7,0)])
 >     quickAssert (not $ cycles $ Graph [1..7] [(1,2,0),(1,3,0),(2,4,0),(3,6,0),(4,5,0),(5,7,0)])
 >     quickAssert (cycles $ Graph [1..7] [(1,2,0),(1,3,0),(2,4,0),(3,6,0),(4,5,0),(5,7,0),(6,7,0)])
+
+Use some TDD to figure out the shortcut.
+
+>     quickAssert (shortcut ([] :: MS.MultiSet (Natural, Natural)) == [])
+>     quickAssert (shortcut [(1,2)] == [1,2])
+>     quickAssert (shortcut [(1,2),(2,3)] == [1,2,3])
+>     quickAssert (shortcut [(2,3),(2,5),(5,6)] == [2,3,5,6])
+>     quickAssert (shortcut [(2,10),(10,11),(8,11)] == [2,10,11,8])

@@ -35,13 +35,22 @@ With a proof and more information given in [1].
     1.  Add the edge of minimum distance that does not create a short cycle or
         increase any vertex degree to larger than 2.
     1.  Repeat until a full tour is formed.
-That's pretty much the entirety of the algorithm.
-1. Christofides' algorithm:
+
+    That's pretty much the entirety of the algorithm.
+1. Christofides' algorithm.
+
     1. Find a minimum spanning tree T.
     1. Find a perfect matching M among vertices with odd degree.
     1. Combine the edges of M and T to make a multigraph G.
     1. Find an Euler cycle in G by skipping vertices already seen.
-More information is provided in [2].
+    1. Convert the Euler cycle to a Hamilton cycle.
+
+    More information is provided in [2].
+
+    However, we take a slightly different approach.
+    We skip creation of an Euler cycle, and go straight to the Hamilton cycle by shortcutting.
+    A proof that this is still a valid implementation of Christofides' algorithm
+is provided in [3].
 
 Again, we first require some pragmas to let us know if something slipped by.
 

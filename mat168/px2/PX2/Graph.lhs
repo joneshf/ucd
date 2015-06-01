@@ -24,6 +24,7 @@ we roll our own graph.
 >     , edges    :: S.Set (v, v, w)
 >     } deriving (Data, Eq, Foldable, Generic, Ord, Show, Typeable)
 > type MST v w = S.Set (v, v, w)
+> type MSTFunc v w = Graph v w -> MST v w
 > type Family v = S.Set (S.Set v)
 >
 > instance (Arbitrary v, Arbitrary w, Ord v, Ord w) => Arbitrary (Graph v w) where
