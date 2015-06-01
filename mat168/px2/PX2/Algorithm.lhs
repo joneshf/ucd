@@ -18,6 +18,8 @@ Here we talk about all the algorithms we need.
 > treeShortcut' f graph = walk $ f graph
 
 We don't convert this to an actual tree, so the walk is a bit odd.
+It's possible that it's not even correct,
+but it seems to do the job.
 
 > walk :: Ord v => MST v w -> [v]
 > walk mst = go S.empty (S.toAscList . unweightedEdges $ mst)
@@ -41,7 +43,6 @@ We don't convert this to an actual tree, so the walk is a bit odd.
 >             | otherwise                     =
 >                 go' vs i es'
 
-> type Family v = S.Set (S.Set v)
 > kruskal :: (Ord v, Ord w) => Graph v w -> MST v w
 > kruskal = go S.empty S.empty . sorted . edges
 >     where
@@ -56,19 +57,26 @@ We don't convert this to an actual tree, so the walk is a bit odd.
 >         (Nothing, Nothing) -> go (reunion'' us i j) (S.insert e a) es
 >     sorted :: Ord w => S.Set (v, v, w) -> [(v, v, w)]
 >     sorted = sortOn (view _3) . S.toList
->     unioned :: Ord v => Family v -> v -> v -> (Maybe (S.Set v), Maybe (S.Set v))
->     unioned us i j = (lookupFamily us i, lookupFamily us j)
->     lookupFamily :: Ord v => Family v -> v -> Maybe (S.Set v)
->     lookupFamily us u = fst <$> S.minView (S.filter (S.member u) us)
->     reunion :: Ord v => Family v -> S.Set v -> S.Set v -> Family v
->     reunion us vs ws = S.insert (S.union vs ws) $ S.delete ws $ S.delete vs us
->     reunion' :: Ord v => Family v -> S.Set v -> v -> Family v
->     reunion' us vs w = reunion us vs (S.singleton w)
->     reunion'' :: Ord v => Family v -> v -> v -> Family v
->     reunion'' us v w = reunion' us (S.singleton v) w
 
-> cycles :: Graph v w -> [S.Set (v, v, w)]
-> cycles = undefined
+> unioned :: Ord v => Family v -> v -> v -> (Maybe (S.Set v), Maybe (S.Set v))
+> unioned us i j = (lookupFamily us i, lookupFamily us j)
+> lookupFamily :: Ord v => Family v -> v -> Maybe (S.Set v)
+> lookupFamily us u = fst <$> S.minView (S.filter (S.member u) us)
+> reunion :: Ord v => Family v -> S.Set v -> S.Set v -> Family v
+> reunion us vs ws = S.insert (S.union vs ws) $ S.delete ws $ S.delete vs us
+> reunion' :: Ord v => Family v -> S.Set v -> v -> Family v
+> reunion' us vs w = reunion us vs (S.singleton w)
+> reunion'' :: Ord v => Family v -> v -> v -> Family v
+> reunion'' us v w = reunion' us (S.singleton v) w
 
-> hasCycles :: Graph v w -> Bool
-> hasCycles = not . null . cycles
+> cycles :: Ord v => Graph v w -> Bool
+> cycles g = vSize g > 2 && go S.empty (S.toList $ unweightedEdges $ edges g)
+>     where
+>     go :: Ord v => Family v -> [(v, v)] -> Bool
+>     go us [] = False
+>     go us ((i, j):es) = case unioned us i j of
+>         (Just vs, Just ws) | vs == ws     -> True
+>         (Just vs, Just ws)                -> go (reunion us vs ws) es
+>         (Just vs, Nothing)                -> go (reunion' us vs j) es
+>         (Nothing, Just ws)                -> go (reunion' us ws i) es
+>         (Nothing, Nothing)                -> go (reunion'' us i j) es
