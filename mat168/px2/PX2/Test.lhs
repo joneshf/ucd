@@ -84,6 +84,12 @@ Given a graph G = (V, E), a greedy G should be exactly V.
 > prop_GreedyVertices :: Graph Natural Natural -> Property
 > prop_GreedyVertices g = vSize g > 1 ==> S.fromList (greedy g) == vertices g
 
+Given a graph G = (V, E), a christofides G should be exactly V.
+
+> prop_ChristofidesVertices :: Graph Natural Natural -> Property
+> prop_ChristofidesVertices g = vSize g > 1 ==>
+>     S.fromList (christofides g) == vertices g
+
 Helper for unit tests/TDD.
 
 > quickAssert :: Testable prop => prop -> IO ()
@@ -92,16 +98,17 @@ Helper for unit tests/TDD.
 > main :: IO ()
 > main = do
 
--- >     quickCheck prop_ArbitraryEdgeNumbers
--- >     quickCheck prop_EdgesAreSubset
--- >     quickCheckWith stdArgs {maxDiscardRatio = 100} prop_SmallGraphNoCycles
--- >     quickCheck $ prop_MSTEdges kruskal
--- >     quickCheck $ prop_MSTVertices kruskal
--- >     quickCheck $ prop_walkVertices kruskal
--- >     quickCheck prop_treeShortcut
--- >     quickCheck prop_IncidentsMaximum
--- >     quickCheck prop_IncidentsKeys
--- >     quickCheck prop_GreedyVertices
+>     quickCheck prop_ArbitraryEdgeNumbers
+>     quickCheck prop_EdgesAreSubset
+>     quickCheckWith stdArgs {maxDiscardRatio = 100} prop_SmallGraphNoCycles
+>     quickCheck $ prop_MSTEdges kruskal
+>     quickCheck $ prop_MSTVertices kruskal
+>     quickCheck $ prop_walkVertices kruskal
+>     quickCheck prop_treeShortcut
+>     quickCheck prop_IncidentsMaximum
+>     quickCheck prop_IncidentsKeys
+>     quickCheck prop_GreedyVertices
+>     quickCheck prop_ChristofidesVertices
 
 Use some TDD to figure out the walk.
 
@@ -126,3 +133,4 @@ Use some TDD to figure out the shortcut.
 >     quickAssert (shortcut [(1,2),(2,3)] == [1,2,3])
 >     quickAssert (shortcut [(2,3),(2,5),(5,6)] == [2,3,5,6])
 >     quickAssert (shortcut [(2,10),(10,11),(8,11)] == [2,10,11,8])
+>     quickAssert (shortcut [(2,10),(8,11),(10,11)] == [2,10,11,8])

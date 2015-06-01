@@ -1,1 +1,1 @@
-Table: Comparison of distances
+Table: Comparison of algorithms

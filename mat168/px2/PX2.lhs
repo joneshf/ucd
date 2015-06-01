@@ -62,8 +62,56 @@ Now on to our actual program:
 
 > module PX2 where
 
-> import PX2.Algorithm ()
+> import Data.Either (rights)
+> import Data.List (sort)
+>
+> import PX2.Algorithm (christofides, greedy, treeShortcut)
+> import PX2.Distance (Distance(..), distancesVertices, distancesEdges)
+> import PX2.Graph (Graph(..))
+> import PX2.Printing (optimalTours, prettyTable)
+> import PX2.Parser (parseData)
+> import PX2.Tour (Tour(..), tourLength)
+>
+> import System.FilePath (takeBaseName)
+> import System.FilePath.Glob (glob)
+>
+> import Text.Parsec.String (parseFromFile)
+
+We're only going to run on a few distance files,
+since I don't have all day to run these algorithms.
 
 > main :: IO ()
 > main = do
->     writeFile "comparison.md" ""
+>     -- First glob all the distance file names.
+>     tspFiles <- sort <$> glob "distances/*.txt"
+>     -- Parse them all to lists of distances.
+>     tsps <- mapM (parseFromFile parseData) tspFiles
+>     let tsps' = rights tsps
+>     let algo1 = runAlgorithm treeShortcut <$> tsps'
+>     let algo2 = runAlgorithm greedy <$> tsps'
+>     let algo3 = runAlgorithm christofides <$> tsps'
+>     let files = takeBaseName <$> tspFiles
+>     let table = prettyTable [ files
+>                             , optimalTours
+>                             , fmap show algo1
+>                             , fmap show algo2
+>                             , fmap show algo3
+>                             ]
+>     writeFile "comparison.md" table
+
+> distances2Graph :: [Distance] -> Graph Int Int
+> distances2Graph = Graph <$> distancesVertices <*> distancesEdges
+
+> runAlgorithm :: (Graph Int Int -> [Int]) -> [Distance] -> Int
+> runAlgorithm f ds = tourLength ds $ Tour $ f $ distances2Graph ds
+
+Looking at the comparison between the algorithms.
+Neither the tree shortcut nor Christofides' algorithm seem to give enough
+of an increase over the greedy version to warrant the amount of effort that goes into them.
+Christofides' actually seems to give pretty bad tours.
+
+If we look at the implementation of `treeShortcut` and `christofides`,
+they're both pretty complex.
+`greedy` on the other hand is pretty understandable,
+and makes for a decent tour.
+

@@ -6,6 +6,7 @@ Here we talk about all the algorithms we need.
 
 > import Control.Lens ((|>), (^..), _1, _2, _3, each, view)
 >
+> import Data.Function (on)
 > import Data.List (group, sort, sortOn)
 > import Data.List.Split (chunksOf)
 > import Data.Tree
@@ -37,6 +38,7 @@ but it seems to do the job.
 >     go vs []              = []
 >     go vs es@((i, j):_) = snd (go' vs i es)
 >         where
+>         -- This is pretty terrible...
 >         go' vs i []
 >             | S.member i vs = (vs, [])
 >             | otherwise     = (S.insert i vs, [i])
@@ -114,11 +116,16 @@ but it seems to do the job.
 >           then go ps es
 >           else go ps' es
 
-> christofides :: Graph v w -> [v]
-> christofides = undefined
+> christofides :: (Ord v, Ord w) => Graph v w -> [v]
+> christofides = christofides' kruskal
 
-> christofides' :: MSTFunc v w -> Graph v w -> [v]
-> christofides' = undefined
+> christofides' :: (Ord v, Ord w) => MSTFunc v w -> Graph v w -> [v]
+> christofides' f g = shortcut $ multigraph mst perfects
+>     where
+>     mst = f g
+>     odds = oddIncidents mst
+>     perfects = perfectMatching g odds
+>     multigraph = MS.union `on` MS.fromSet . unweightedEdges
 
 We can eschew creating an Eulerian Tour,
 and just shortcut the multigraph.
@@ -127,18 +134,20 @@ and just shortcut the multigraph.
 > type Edges v = [(v, v)]
 > shortcut :: Ord v => MS.MultiSet (v, v) -> [v]
 > shortcut []                    = []
-> shortcut (toList -> (i, j):es) = i:go (MS.fromList es) [] j es
+> shortcut (toList -> (i, j):es) = go [i, j] [i, j] es
 >     where
->     go :: Ord v => MS.MultiSet (v, v) -> Missed v -> v -> Edges v -> [v]
->     go _  []         i []           = [i]
->     go es ((j,k):ms) i []
->         | i == j    = i:go (MS.delete (j, k) es) [] k ms
->         | i == k    = i:go (MS.delete (j, k) es) [] j ms
->         | otherwise = i:go es [] k ms
->     go es ms         i ((j, k):es')
->         | i == j    = i:go (MS.delete (j, k) es) ms k es'
->         | i == k    = i:go (MS.delete (j, k) es) ms j es'
->         | otherwise =   go es ((j, k):ms) i es'
+>     -- This is pretty terrible...
+>     go :: Ord v => S.Set v -> [v] -> [(v, v)] -> [v]
+>     go ws vs [] = vs
+>     go ws vs ((i,j):es)
+>         | S.member i ws && S.member j ws
+>             = go                 ws   vs            es
+>         | S.member i ws
+>             = go (S.union [j]    ws) (vs |> j)      es
+>         | S.member j ws
+>             = go (S.union [i]    ws) (vs |> i)      es
+>         | otherwise
+>             = go (S.union [i, j] ws) (vs |> j |> i) es
 
 > perfectMatching :: (Ord v, Ord w) => Graph v w -> [v] -> S.Set (v, v, w)
 > perfectMatching g vs = foldl go S.empty
