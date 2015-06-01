@@ -2,14 +2,17 @@ Here we talk about all the algorithms we need.
 
 > module PX2.Algorithm where
 
-> import Control.Lens ((|>), _1, _2, _3, view)
+> import Control.Lens ((|>), (^..), _1, _2, _3, each, view)
 >
-> import Data.List (sortOn)
+> import Data.List (group, sort, sortOn)
 > import Data.Tree
+>
+> import GHC.Natural
 >
 > import PX2.Graph
 >
 > import qualified Data.Set as S
+> import qualified Data.Map as M
 
 > treeShortcut :: (Ord v, Ord w) => Graph v w -> [v]
 > treeShortcut = treeShortcut' kruskal
@@ -80,3 +83,27 @@ but it seems to do the job.
 >         (Just vs, Nothing)                -> go (reunion' us vs j) es
 >         (Nothing, Just ws)                -> go (reunion' us ws i) es
 >         (Nothing, Nothing)                -> go (reunion'' us i j) es
+
+> incidents :: Ord v => S.Set (v, v, w) -> M.Map v Natural
+> incidents = foldMap (M.singleton <$> head <*> fromIntegral . length)
+>           . group
+>           . sort
+>           . (^..traverse.each)
+>           . S.toList
+>           . unweightedEdges
+
+> tooIncident :: Ord v => S.Set (v, v, w) -> Bool
+> tooIncident = tooIncident' 2
+
+> tooIncident' :: Ord v => Natural -> S.Set (v, v, w) -> Bool
+> tooIncident' n es = n < maximum (incidents es)
+
+> greedy :: (Ord v, Ord w) => Graph v w -> [v]
+> greedy g = go S.empty . sortOn (view _3) . S.toList . edges $ g
+>     where
+>     go ps _ | vSize g - 1 == S.size ps = walk ps
+>     go ps []                           = walk ps
+>     go ps (e:es)                       = let ps' = S.insert e ps in
+>         if cycles g {edges = ps'} || tooIncident ps'
+>           then go ps es
+>           else go ps' es

@@ -14,6 +14,7 @@ that are a bit more complex to verify with the type system.
 > import Test.QuickCheck
 >
 > import qualified Data.Set as S
+> import qualified Data.Map as M
 
 Generated graphs should have the right number of edges.
 
@@ -65,6 +66,25 @@ Given a graph G = (V, E), a walk of the MST of G should give exactly V.
 >     where
 >     vs = S.fromList $ walk $ f g
 
+Given a complete graph G = (V, E), the incidents of E should have a maximum of |V| - 1.
+
+> prop_IncidentsMaximum :: Graph Natural Natural -> Property
+> prop_IncidentsMaximum g = vSize g > 1 ==>
+>     maximum (incidents $ edges g) == fromIntegral (vSize g - 1)
+
+Given a complete graph G = (V, E), the incidents of E should be exactly V.
+
+> prop_IncidentsKeys :: Graph Natural Natural -> Property
+> prop_IncidentsKeys g = vSize g > 1 ==>
+>     M.keysSet (incidents $ edges g) == vertices g
+
+Given a graph G = (V, E), a greedy G should be exactly V.
+
+> prop_GreedyVertices :: Graph Natural Natural -> Property
+> prop_GreedyVertices g = vSize g > 1 ==> S.fromList (greedy g) == vertices g
+
+Helper for unit tests/TDD.
+
 > quickAssert :: Testable prop => prop -> IO ()
 > quickAssert = quickCheckWith stdArgs { maxSuccess = 1 }
 
@@ -77,6 +97,9 @@ Given a graph G = (V, E), a walk of the MST of G should give exactly V.
 >     quickCheck $ prop_MSTVertices kruskal
 >     quickCheck $ prop_walkVertices kruskal
 >     quickCheck prop_treeShortcut
+>     quickCheck prop_IncidentsMaximum
+>     quickCheck prop_IncidentsKeys
+>     quickCheck prop_GreedyVertices
 
 Use some TDD to figure out the walk.
 
