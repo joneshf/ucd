@@ -1,0 +1,184 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{color, colortbl}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\epsdelta[5]{
+  We want to prove:
+  \[
+    \lim_{x \to #1} #2 = #3
+  \]
+
+  \begin{proof}
+    Given $\epsilon > 0$,
+    we want to find $\delta > 0$ such that
+
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \].
+
+    #5
+
+    So, choose $\delta = #4$.
+
+    Then we have
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \]
+    as was to be shown.
+  \end{proof}
+}
+\newcommand\epsdeltaconsequent[5]{
+  \epsdelta{#1}{#2}{#3}{#4}{
+    We can simplify the consequent a bit.
+
+    #5
+
+    If we notice, this is exactly the form of the antecedent,
+    assuming $\delta = #4$.
+  }
+}
+\newcommand\e{e}
+\newcommand\uc{uniformly continuous }
+
+\renewcommand{\labelenumi}{6.\arabic*}
+\renewcommand{\labelenumii}{\arabic*}
+\renewcommand{\labelenumiii}{(\alph*)}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 125A HW 6\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Slivken\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \setcounter{enumi}{1}
+    \item
+      \begin{enumerate}
+        \setcounter{enumii}{10}
+        \item
+          \begin{enumerate}
+            \item
+              Let $h_n = f_n + g_n$
+              \begin{proof}
+                For any $\epsilon > 0$,
+                since $f_n, g_n$ are uniformly convergent,
+                we know that there exists some $M, N \in \mathbb{N}$ such that
+                for all $m, n \in \mathbb{N}$, with $m \geq M, n \geq N$,
+                we have $\left|f_m(x) - f(x)\right| < \frac{\epsilon}{2}, \left|g_n(x) - g(x)\right| < \frac{\epsilon}{2}$
+
+                Choose $P = max(M, N)$.
+
+                Then we have for all $p \geq P \in \mathbb{N}$.
+
+                \begin{align*}
+                  \left|h_p(x) - h(x)\right|
+                  &= \left|\left(f_p + g_p\right)(x) - \left(f + g\right)(x)\right| \\
+                  &= \left|f_p(x) + g_p(x) - f(x) - g(x)\right| \\
+                  &= \left|f_p(x) - f(x) + g_p(x) - g(x)\right| \\
+                  &\leq \left|f_p(x) - f(x)\right| + \left|g_p(x) - g(x)\right| \\
+                  &< \frac{\epsilon}{2} + \frac{\epsilon}{2} \\
+                  &= \epsilon \\
+                \end{align*}
+
+                So $h_n$ is uniformly convergent.
+              \end{proof}
+            \item
+              \begin{proof}
+                Let $f_n(x) = x, g_n(x) = \frac{1}{n}$.
+
+                So $\lim\limits_{n \to \infty}f_n(x) = \lim\limits_{n \to \infty}x = x$,
+                and $\lim\limits_{n \to \infty}g_n(x) = \lim\limits_{n \to \infty}\frac{1}{n} = 0$.
+
+                Then, for any $\epsilon > 0$, choose $M = 1$, then for all $m > 1 \in \mathbb{N}$
+                \[\left|f_m(x) - f(x)\right| = \left|x - x\right| = 0 < \epsilon\]
+
+                Also, for any $\epsilon > 0$, choose $N = 1$, then for all $n > 1 \in \mathbb{N}$
+                \[\left|g_n(x) - f(x)\right| = \left|x - x\right| = 0 < \epsilon\]
+              \end{proof}
+            \item
+          \end{enumerate}
+        \setcounter{enumii}{14}
+        \item
+          \begin{enumerate}
+            \item
+            \item
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \item
+            \item
+            \item
+          \end{enumerate}
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \setcounter{enumii}{1}
+        \item
+          \begin{enumerate}
+            \item
+            \item
+          \end{enumerate}
+        \setcounter{enumii}{4}
+        \item
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          \begin{enumerate}
+            \item
+            \item
+          \end{enumerate}
+        \item
+          \begin{enumerate}
+            \item
+            \item
+            \item
+            \item
+          \end{enumerate}
+        \setcounter{enumii}{4}
+        \item
+        \item
+        \item
+          \begin{enumerate}
+            \item
+            \item
+          \end{enumerate}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
