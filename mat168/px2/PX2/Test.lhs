@@ -1,5 +1,5 @@
 We want to verify some facts using tests
-that are a bit more complex to verify with the type system.
+that are a bit too time consuming to verify with the type system.
 
 > {-# LANGUAGE OverloadedLists #-}
 > module PX2.Test where
