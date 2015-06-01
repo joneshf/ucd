@@ -20,8 +20,8 @@ Given a graph G = (V, E), E should be a subset of V x V.
 
 A graph with less than three vertices cannot have cycles.
 
--- > prop_SmallGraphNoCycles :: Graph Natural Natural -> Property
--- > prop_SmallGraphNoCycles g = S.size (vertices g) < 3 ==> not (hasCycles g)
+> prop_SmallGraphNoCycles :: Graph Natural Natural -> Property
+> prop_SmallGraphNoCycles g = S.size (vertices g) < 3 ==> not (hasCycles g)
 
 Given a graph G = (V, E), an MST of G should have exactly max(0, |V| - 1) edges.
 
