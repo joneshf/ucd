@@ -24,6 +24,7 @@ we roll our own graph.
 >     , edges    :: S.Set (v, v, w)
 >     } deriving (Data, Eq, Foldable, Generic, Ord, Show, Typeable)
 > type MST v w = S.Set (v, v, w)
+> type Family v = S.Set (S.Set v)
 >
 > instance (Arbitrary v, Arbitrary w, Ord v, Ord w) => Arbitrary (Graph v w) where
 >     arbitrary = do
@@ -38,3 +39,8 @@ we roll our own graph.
 
 > cartesian :: (Ord a, Ord b) => S.Set a -> S.Set b -> S.Set (a, b)
 > cartesian xs ys = S.fromList $ (,) <$> S.toList xs <*> S.toList ys
+
+> vSize :: Graph v w -> Int
+> vSize = S.size . vertices
+> eSize :: Graph v w -> Int
+> eSize = S.size . edges

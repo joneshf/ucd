@@ -18,10 +18,7 @@ that are a bit more complex to verify with the type system.
 Generated graphs should have the right number of edges.
 
 > prop_ArbitraryEdgeNumbers :: Graph Natural Natural -> Bool
-> prop_ArbitraryEdgeNumbers g = (vSize * (vSize - 1) `div` 2) == eSize
->     where
->     vSize = S.size (vertices g)
->     eSize = S.size (edges g)
+> prop_ArbitraryEdgeNumbers g = (vSize g * (vSize g - 1) `div` 2) == eSize g
 
 Given a graph G = (V, E), E should be a subset of V x V.
 
@@ -34,42 +31,39 @@ Given a graph G = (V, E), E should be a subset of V x V.
 A graph with less than three vertices cannot have cycles.
 
 > prop_SmallGraphNoCycles :: Graph Natural Natural -> Property
-> prop_SmallGraphNoCycles g = S.size (vertices g) < 3 ==> not (hasCycles g)
+> prop_SmallGraphNoCycles g = vSize g < 3 ==> not (cycles g)
 
 Given a graph G = (V, E), an MST of G should have exactly max(0, |V| - 1) edges.
 
 > prop_MSTEdges :: (Graph Natural Natural -> MST Natural Natural)
 >               -> Graph Natural Natural
 >               -> Bool
-> prop_MSTEdges f g = max 0 (S.size (vertices g) - 1) == S.size (f g)
+> prop_MSTEdges f g = max 0 (vSize g - 1) == S.size (f g)
 
 Given a graph G = (V, E), an MST of G should be exactly V.
 
 > prop_MSTVertices :: (Graph Natural Natural -> MST Natural Natural)
 >                  -> Graph Natural Natural
 >                  -> Property
-> prop_MSTVertices f g = S.size vs > 1 ==> vs == vs'
+> prop_MSTVertices f g = vSize g > 1 ==> vertices g == vs
 >     where
->     vs = vertices g
->     vs' = S.fromList $ (^..traverse.each) $ S.toList $ unweightedEdges $ f g
+>     vs = S.fromList $ (^..traverse.each) $ S.toList $ unweightedEdges $ f g
 
 Given a graph G = (V, E), a tree shortcut should be exactly V.
 
 > prop_treeShortcut :: Graph Natural Natural -> Property
-> prop_treeShortcut g = S.size vs > 1 ==> vs == vs'
+> prop_treeShortcut g = vSize g > 1 ==> vertices g == vs
 >     where
->     vs = vertices g
->     vs' = S.fromList $ treeShortcut g
+>     vs = S.fromList $ treeShortcut g
 
 Given a graph G = (V, E), a walk of the MST of G should give exactly V.
 
 > prop_walkVertices :: (Graph Natural Natural -> MST Natural Natural)
 >                   -> Graph Natural Natural
 >                   -> Property
-> prop_walkVertices f g = S.size vs > 1 ==> vs == vs'
+> prop_walkVertices f g = vSize g > 1 ==> vertices g == vs
 >     where
->     vs = vertices g
->     vs' = S.fromList $ walk $ f g
+>     vs = S.fromList $ walk $ f g
 
 > quickAssert :: Testable prop => prop -> IO ()
 > quickAssert = quickCheckWith stdArgs { maxSuccess = 1 }
@@ -78,7 +72,7 @@ Given a graph G = (V, E), a walk of the MST of G should give exactly V.
 > main = do
 >     quickCheck prop_ArbitraryEdgeNumbers
 >     quickCheck prop_EdgesAreSubset
->     --quickCheckWith stdArgs {maxDiscardRatio = 100} prop_SmallGraphNoCycles
+>     quickCheckWith stdArgs {maxDiscardRatio = 100} prop_SmallGraphNoCycles
 >     quickCheck $ prop_MSTEdges kruskal
 >     quickCheck $ prop_MSTVertices kruskal
 >     quickCheck $ prop_walkVertices kruskal
@@ -87,7 +81,15 @@ Given a graph G = (V, E), a walk of the MST of G should give exactly V.
 Use some TDD to figure out the walk.
 
 >     quickAssert (walk (S.empty :: MST Natural Natural) == [])
->     quickAssert (walk [(1, 2, 10)] == [1, 2])
->     quickAssert (walk [(1, 2, 10), (2, 3, 2)] == [1, 2, 3])
->     quickAssert (walk [(2, 3, 0), (2, 5, 0), (5, 6, 0)] == [2, 3, 5, 6])
->     quickAssert (walk [(2, 10, 1), (10, 11, 2), (8, 11, 0)] == [2, 10, 11, 8])
+>     quickAssert (walk [(1,2,10)] == [1,2])
+>     quickAssert (walk [(1,2,10),(2,3,2)] == [1,2,3])
+>     quickAssert (walk [(2,3,0),(2,5,0),(5,6,0)] == [2,3,5,6])
+>     quickAssert (walk [(2,10,1),(10,11,2),(8,11,0)] == [2,10,11,8])
+
+Use some TDD to figure out cycles.
+
+>     quickAssert (cycles $ Graph [1,2,3] [(1,2,0),(1,3,0),(2,3,0)])
+>     quickAssert (not $ cycles $ Graph [1,2,3] [(1,3,0),(2,3,0)])
+>     quickAssert (not $ cycles $ Graph [1..7] [(1,3,0),(2,4,0),(3,6,0),(4,5,0),(5,7,0)])
+>     quickAssert (not $ cycles $ Graph [1..7] [(1,2,0),(1,3,0),(2,4,0),(3,6,0),(4,5,0),(5,7,0)])
+>     quickAssert (cycles $ Graph [1..7] [(1,2,0),(1,3,0),(2,4,0),(3,6,0),(4,5,0),(5,7,0),(6,7,0)])
