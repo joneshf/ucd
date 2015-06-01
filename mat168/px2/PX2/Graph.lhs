@@ -32,9 +32,9 @@ we roll our own graph.
 >         es' <- for es $ \(i, j) -> (i, j, ) <$> arbitrary
 >         pure $ Graph (S.fromList vs) (S.fromList es')
 
-> unweightedEdges :: Ord v => Graph v w -> S.Set (v, v)
+> unweightedEdges :: Ord v => S.Set (v, v, w) -> S.Set (v, v)
 > unweightedEdges =
->     S.fromList . (map $ (,) <$> view _1 <*> view _2) . S.toList . edges
+>     S.fromList . (map $ (,) <$> view _1 <*> view _2) . S.toList
 
 > cartesian :: (Ord a, Ord b) => S.Set a -> S.Set b -> S.Set (a, b)
 > cartesian xs ys = S.fromList $ (,) <$> S.toList xs <*> S.toList ys

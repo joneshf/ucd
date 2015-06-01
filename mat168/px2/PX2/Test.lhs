@@ -3,6 +3,8 @@ that are a bit more complex to verify with the type system.
 
 > module PX2.Test where
 
+> import Control.Lens
+>
 > import GHC.Natural
 >
 > import PX2.Algorithm
@@ -15,8 +17,10 @@ that are a bit more complex to verify with the type system.
 Given a graph G = (V, E), E should be a subset of V x V.
 
 > prop_EdgesAreSubset :: Graph Natural Natural -> Bool
-> prop_EdgesAreSubset g = unweightedEdges g `S.isSubsetOf` cartesian vs vs
->     where vs = vertices g
+> prop_EdgesAreSubset g = unweightedEdges es `S.isSubsetOf` cartesian vs vs
+>     where
+>     vs = vertices g
+>     es = edges g
 
 A graph with less than three vertices cannot have cycles.
 
@@ -30,8 +34,19 @@ Given a graph G = (V, E), an MST of G should have exactly max(0, |V| - 1) edges.
 >               -> Bool
 > prop_MSTEdges f g = max 0 (S.size (vertices g) - 1) == S.size (f g)
 
+Given a graph G = (V, E), an MST of G should be exactly V.
+
+> prop_MSTVertices :: (Graph Natural Natural -> MST Natural Natural)
+>                  -> Graph Natural Natural
+>                  -> Property
+> prop_MSTVertices f g = S.size vs > 1 ==> vs == vs'
+>     where
+>     vs = vertices g
+>     vs' = S.fromList $ (^..traverse.each) $ S.toList $ unweightedEdges $ f g
+
 > main :: IO ()
 > main = do
 >     quickCheck prop_EdgesAreSubset
 >     --quickCheckWith stdArgs {maxDiscardRatio = 100} prop_SmallGraphNoCycles
 >     quickCheck $ prop_MSTEdges kruskal
+>     quickCheck $ prop_MSTVertices kruskal
