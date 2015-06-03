@@ -1,0 +1,350 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[round-mode=figures,round-precision=3,scientific-notation=false]{siunitx}
+\usepackage[super]{nth}
+\usepackage[title]{appendix}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{color, colortbl}
+\usepackage{commath}
+\usepackage{dcolumn}
+\usepackage{enumitem}
+\usepackage{fp}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{titling}
+
+\usepgfplotslibrary{statistics}
+
+\pgfplotsset{compat=1.8}
+
+\definecolor{Gray}{gray}{0.8}
+
+\newcolumntype{g}{>{\columncolor{Gray}}c}
+\newcolumntype{d}{D{.}{.}{-1}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\epsdelta[5]{
+  We want to prove:
+  \[
+    \lim_{x \to #1} #2 = #3
+  \]
+
+  \begin{proof}
+    Given $\epsilon > 0$,
+    we want to find $\delta > 0$ such that
+
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \].
+
+    #5
+
+    So, choose $\delta = #4$.
+
+    Then we have
+    \[
+      0 < \left|x - #1\right| < \delta \implies \left|#2 - #3\right| < \epsilon
+    \]
+    as was to be shown.
+  \end{proof}
+}
+\newcommand\epsdeltaconsequent[5]{
+  \epsdelta{#1}{#2}{#3}{#4}{
+    We can simplify the consequent a bit.
+
+    #5
+
+    If we notice, this is exactly the form of the antecedent,
+    assuming $\delta = #4$.
+  }
+}
+\newcommand\e{e}
+\newcommand\uc{uniformly continuous }
+
+\renewcommand{\labelenumi}{6.\arabic*}
+\renewcommand{\labelenumii}{\arabic*}
+\renewcommand{\labelenumiii}{(\alph*)}
+
+\setlength{\droptitle}{-10ex}
+
+\preauthor{\begin{flushright}\large \lineskip 0.5em}
+\postauthor{\par\end{flushright}}
+\predate{\begin{flushright}\large}
+\postdate{\par\end{flushright}}
+
+\title{MAT 125A HW 7\vspace{-2ex}}
+\author{Hardy Jones\\
+        999397426\\
+        Professor Slivken\vspace{-2ex}}
+\date{Spring 2015}
+
+\begin{document}
+  \maketitle
+
+  \begin{enumerate}
+    \setcounter{enumi}{4}
+    \item
+      \begin{enumerate}
+        \setcounter{enumii}{1}
+        \item
+          \begin{enumerate}
+            \item
+            \item
+            \item
+            \item
+              No, this is not possible.
+              If the series converged absolutely at $x = 1$,
+              then it the series would converge for all $x_0$ where $|x_0| \leq 1$.
+              This includes $x_0 = -1$.
+
+              So the series would have to converge absolutely at $x_0 = -1$ as well.
+          \end{enumerate}
+        \item
+          From Theorem 6.5.1, we get the set of points a power series converges to must be one of $\{0\}, \mathbb{R}$, or a bounded interval about 0 (really the first two are specific cases of the last one).
+          \begin{itemize}
+            \item
+              If the set of convergence is $\{0\}$, then the series converges only at one point, which is less than 2 points.
+            \item
+              If the set of convergence is $\mathbb{R}$, then the series converges absolutely at every point.
+            \item
+              If the set of convergence is some interval $(-x, x), (-x, x], [-x, x)$, or $[-x, x]$, then the series converges absolutely at every point $x_0$ where $|x_0| < |x|$, and only at the end points is it possible to converge conditionally.
+          \end{itemize}
+
+          From these three cases, we see that at most two points can have conditional convergence.
+        \item
+          \begin{enumerate}
+            \item
+            \item
+          \end{enumerate}
+        \setcounter{enumii}{8}
+        \item
+          \begin{proof}
+            First let's look at some derivatives.
+
+            Since we know
+
+            \[
+              f(x) = \sum_{n = 0}^{\infty} a_n x^n = \sum_{n = 0}^{\infty} b_n x^n = g(x)
+            \]
+
+            We can find the first few derivatives.
+
+            \begin{enumerate}
+              \item
+                \nth{0} derivative:
+                \[
+                  f(x) = \sum_{n = 0}^{\infty} a_n x^n = \sum_{n = 0}^{\infty} b_n x^n = g(x)
+                \]
+              \item
+                \nth{1} derivative:
+                \[
+                  f'(x) = \sum_{n = 1}^{\infty} n a_n x^{n - 1} = \sum_{n = 1}^{\infty} n b_n x^{n - 1} = g'(x)
+                \]
+              \item
+                \nth{2} derivative:
+                \[
+                  f''(x) = \sum_{n = 2}^{\infty} n(n - 1) a_n x^{n - 2} = \sum_{n = 2}^{\infty} n(n - 1) b_n x^{n - 2} = g''(x)
+                \]
+              \item
+                \nth{3} derivative:
+                \[
+                  f'''(x) = \sum_{n = 3}^{\infty} n(n - 1)(n - 2) a_n x^{n - 3} = \sum_{n = 3}^{\infty} n(n - 1)(n - 2) b_n x^{n - 3} = g'''(x)
+                \]
+            \end{enumerate}
+
+            Looks like there's a pattern.
+
+            The $k$-th derivative of $f, g$ is
+
+            \[
+              f^{(k)}(x) = \sum_{n = k}^{\infty} \left(\prod_{m = 0}^{k - 1} n - m\right) a_n x^{n - k} = \sum_{n = k}^{\infty} \left(\prod_{m = 0}^{k - 1} n - m\right) b_n x^{n - k} = g^{(k)}(x)
+            \]
+
+            We can prove this by induction:
+
+            \begin{itemize}
+              \item Base Case: $k = 0$
+
+                \begin{align*}
+                  f^{(0)}(x) = f(x) &= \sum_{n = 0}^{\infty} a_n x_n \\
+                  &= \sum_{n = 0}^{\infty} (1) a_n x_n \\
+                  &= \sum_{n = 0}^{\infty} \left(\prod_{m = 0}^{0 - 1}n - m\right) a_n x_n \\
+                  &= \sum_{n = 0}^{\infty} \left(\prod_{m = 0}^{0 - 1}n - m\right) b_n x_n \\
+                  &= \sum_{n = 0}^{\infty} (1) b_n x_n \\
+                  g^{(0)}(x) = g(x) &= \sum_{n = 0}^{\infty} b_n x_n \\
+                \end{align*}
+              \item Inductive Case:
+
+                Assume
+                \[
+                  f^{(k)}(x) = \sum_{n = k}^{\infty} \left(\prod_{m = 0}^{k - 1} n - m\right) a_n x^{n - k} = \sum_{n = k}^{\infty} \left(\prod_{m = 0}^{k - 1} n - m\right) b_n x^{n - k} = g^{(k)}(x)
+                \]
+
+                \begin{align*}
+                  f^{(k + 1)}(x) &= \od{}{x}\left(f^{(k)}(x)\right) \\
+                  &= \od{}{x}\left(\sum_{n = k}^{\infty} \left(\prod_{m = 0}^{k - 1} n - m\right) a_n x^{n - k}\right) \\
+                  &= \sum_{n = k + 1}^{\infty} (n - k)\left(\prod_{m = 0}^{k - 1} n - m\right) a_n x^{n - k - 1} \\
+                  &= \sum_{n = k + 1}^{\infty} \left(\prod_{m = 0}^{k} n - m\right) a_n x^{n - (k + 1)} \\
+                  &= \sum_{n = k + 1}^{\infty} \left(\prod_{m = 0}^{k} n - m\right) b_n x^{n - (k + 1)} \\
+                  &= \sum_{n = k + 1}^{\infty} (n - k)\left(\prod_{m = 0}^{k - 1} n - m\right) b_n x^{n - k - 1} \\
+                  &= \od{}{x}\left(\sum_{n = k}^{\infty} \left(\prod_{m = 0}^{k - 1} n - m\right) b_n x^{n - k}\right) \\
+                  g^{(k + 1)}(x) &= \od{}{x}\left(g^{(k)}(x)\right) \\
+                \end{align*}
+            \end{itemize}
+
+            By induction we have proved our conjecture.
+
+            Now we can move on to the actual proof.
+
+            Since we know
+
+            \[
+              f(x) = \sum_{n = 0}^{\infty} a_n x^n = \sum_{n = 0}^{\infty} b_n x^n = g(x)
+            \]
+
+            for all $x \in (-R, R)$, choose $x = 0$.
+
+            Then we have:
+
+            \begin{align*}
+              f(0) &= \sum_{n = 0}^{\infty} a_n 0^n \\
+              &= a_0 0^0 + a_1 0^1 + a_2 0^2 + \dots \\
+              &= a_0 \\
+              &= b_0 \\
+              &= b_0 0^0 + b_1 0^1 + b_2 0^2 + \dots \\
+              g(0) &= \sum_{n = 0}^{\infty} b_n 0^n \\
+            \end{align*}
+
+            So $a_0 = b_0$.
+
+            Now, assuming $a_k = b_k$:
+
+            \begin{align*}
+              f^{(k + 1)}(0) &= \sum_{n = k + 1}^{\infty} \left(\prod_{m = 0}^{k} n - m\right) a_n 0^{n - (k + 1)} \\
+              &= \left(\prod_{m = 0}^{k} (k + 1) - m \right) a_{k + 1} 0^0 + \left(\prod_{m = 0}^{k} (k + 2) - m \right) a_{k + 2} 0^1 + \dots \\
+              &= \left(\prod_{m = 0}^{k} (k + 1) - m \right) a_{k + 1} \\
+              &= \left(\prod_{m = 0}^{k} (k + 1) - m \right) b_{k + 1} \\
+              &= \left(\prod_{m = 0}^{k} (k + 1) - m \right) b_{k + 1} 0^0 + \left(\prod_{m = 0}^{k} (k + 2) - m \right) b_{k + 2} 0^1 + \dots \\
+              g^{(k + 1)}(0) &= \sum_{n = k + 1}^{\infty} \left(\prod_{m = 0}^{k} n - m\right) b_n 0^{n - (k + 1)} \\
+            \end{align*}
+
+            So we have shown by induction that $a_n = b_n, \forall n \in \{0, 1, 2, \dots\}$.
+          \end{proof}
+      \end{enumerate}
+    \item
+      \begin{enumerate}
+        \item
+          At the point $x = 1$, the series is:
+          \[
+            1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dots
+          \]
+          and this series converges by the alternating series test.
+
+          By Abel's Theorem, the series converges uniformly on $[0, 1]$.
+
+          Since we assume $\arctan(x)$ is continuous on $[0, 1]$,
+          we must necessarily have $\arctan(1) = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dots$.
+
+          After trying and failing miserably to find a nice identity, I plugged $\arctan(1)$ into a calculator and found $\frac{\pi}{4}$.
+        \item
+          Following the example (in reverse), we want
+          \begin{align*}
+            \od{\ln(1 + x)}{x} &= \frac{1}{1 + x}\\
+            \ln(1 + x) &= \int_{0}^{x} \frac{1}{1 + t} \dif t\\
+          \end{align*}
+
+          So we need to substitute $-t$ for $t$:
+
+          \[
+            \frac{1}{1 + t} = 1 - t + t^2 - t^3 + t^4 - \dots
+          \]
+
+          So if we integrate this, we get
+
+          \[
+            \ln(1 + x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \frac{x^5}{5} - \dots
+          \]
+
+          So this expression if valid for all $x \in \intoo{-1, \infty}$.
+          Though it only converges for $x \in \intoc{-1, 1}$.
+        \setcounter{enumii}{4}
+        \item
+          \begin{proof}
+            To prove that $S_N(x)$ converges uniformly to $\sin(x)$ on $\intcc{-2, 2}$,
+            we need to show:
+
+            $\forall \epsilon > 0, \exists M \in \mathbb{N}$,
+            such that $\forall m \geq M, x \in \intcc{-2, 2}, \envert{S_m(x) - \sin(x)} < \epsilon$.
+
+            It suffices to show that $E_N(x) \to 0$ as $N \to \infty$,
+            so what we really want is:
+
+            $\forall \epsilon > 0, \exists M \in \mathbb{N}$,
+            such that $\forall m \geq M, x \in \intcc{-2, 2}, \envert{E_m(x)} < \epsilon$.
+
+            From Lagrange's Remainder Theorem, and recalling that derivatives of $\sin, \cos$ cycle between each other, we have:
+            \begin{align*}
+              \envert{E_N(x)} &= \envert{\frac{\sin^{(N + 1)}(c)}{(N + 1)!}x^{N + 1}} \\
+              &\leq \envert{\frac{1}{(N + 1)!}x^{N + 1}} && \text{since } \envert{\sin(x)}, \envert{\cos(x)} \leq 1, \forall x \\
+              &= \frac{1}{(N + 1)!}\envert{x^{N + 1}} \\
+              &\leq \frac{1}{(N + 1)!}\envert{2^{N + 1}} && \text{since } x \in \intcc{-2, 2} \\
+              &\leq \frac{1}{(N + 1)!}2^{N + 1} && \text{since } x \in \intcc{-2, 2} \\
+            \end{align*}
+
+            So for any $\epsilon > 0$, choose $M \in \mathbb{N}$ such that $\frac{1}{M + 1}2^{M + 1} < \epsilon$.
+
+            Then we have, for any $m \geq M$ and for all $x \in \intcc{-2, 2}$,
+
+            $\envert{E_m(x)} \leq \frac{1}{M + 1}2^{M + 1} < \epsilon$.
+
+            So $S_N(x)$ converges uniformly to $\sin(x)$ on $\intcc{-2, 2}$.
+          \end{proof}
+
+          We can generalize this proof to any interval $\intcc{-R, R}$ by substituting $R$ for $2$.
+
+          \begin{proof}
+
+            For any $\epsilon > 0$,
+
+            choose $M \in \mathbb{N}$ such that $\frac{1}{M + 1}R^{M + 1} < \epsilon$.
+
+            Then we have, for any $m \geq M$ and for all $x \in \intcc{-R, R}$,
+
+            $\envert{E_m(x)} \leq \frac{1}{M + 1}R^{M + 1} < \epsilon$.
+
+            So $S_N(x)$ converges uniformly to $\sin(x)$ on $\intcc{-R, R}$.
+          \end{proof}
+        \setcounter{enumii}{9}
+        \item
+          Let's rewrite this first.
+
+          \[g(x) = e^{-x^{-2}}\]
+
+          Now we have:
+
+          \[g'(x) = e^{-x^{-2}}\left(2x^{-3}\right)\]
+
+          \begin{align*}
+            g''(x) &= e^{-x^{-2}}\left(2x^{-3}\right)\left(2x^{-3}\right) + e^{-x^{-2}}\left(-6x^{-4}\right) \\
+            &= e^{-x^{-2}}\left(4x^{-6}-6x^{-4}\right) \\
+          \end{align*}
+
+          \begin{align*}
+            g'''(x) &= e^{-x^{-2}}\left(2x^{-3}\right)\left(4x^{-6}-6x^{-4}\right) + e^{-x^{-2}}\left(-24x^{-7}+24x^{-5}\right) \\
+            &= e^{-x^{-2}}\left(8x^{-9}-36x^{-7}+24x^{-5}\right) \\
+          \end{align*}
+        \item
+          \begin{align*}
+            g''(0) &= \lim_{x \to 0} \frac{g'(x)}{x} \\
+            &= \lim_{x \to 0} \frac{e^{-x^{-2}}\left(2x^{-3}\right)}{x} \\
+            &= \lim_{x \to 0} e^{-x^{-2}}\left(2x^{-4}\right) \\
+          \end{align*}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}
